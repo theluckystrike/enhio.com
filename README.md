@@ -20,9 +20,7 @@ Paste your text into the editor or type directly. The analyzer runs multiple rea
 
 - Vanilla JavaScript (no frameworks, no dependencies)
 - Client-side only — your data never leaves your browser
-- Part of the [Zovo Tools](https://zovo.one) open network
 
-## Related Tools
 
 - [Color Palette Generator](https://gen8x.com) — design readable color schemes for your text
 - [Developer Toolkit](https://kappakit.com) — encode, hash, and transform text strings
