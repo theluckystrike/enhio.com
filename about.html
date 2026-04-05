@@ -1,111 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Enhio</title>
-    <meta name="description" content="Enhio is dedicated to AI-powered enhancement tools and techniques for images, audio, video, and text. Learn about our mission to make AI enhancement accessible.">
-    <meta name="keywords" content="about Enhio, AI enhancement hub, media improvement, AI tools resource">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:title" content="About Enhio">
-    <meta property="og:description" content="Enhio covers AI-powered enhancement for every media type. Learn about our mission and network.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://enhio.com/about.html">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "About Enhio",
-        "url": "https://enhio.com/about.html",
-        "description": "Enhio is dedicated to AI-powered enhancement tools and techniques.",
-        "isPartOf": { "@type": "WebSite", "name": "Enhio", "url": "https://enhio.com" }
-    }
-    </script>
-
-    <style>
-        * { font-family: 'Inter', sans-serif; }
-        html { scroll-behavior: smooth; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | enhio.com</title>
+  <meta name="description" content="About enhio.com — a free, client-side text analysis and readability scoring tool.">
+  <link rel="canonical" href="https://enhio.com/about.html">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
-<body class="bg-gray-950 text-gray-100">
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="logo">enhio</a>
+      <nav>
+        <a href="/">Tool</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
 
-    <nav class="fixed top-0 w-full bg-gray-950/90 backdrop-blur-md z-50 border-b border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="/" class="text-2xl font-800 tracking-tight" style="color: #14b8a6;">Enhio</a>
-            <div class="hidden md:flex gap-8 text-sm text-gray-400">
-                <a href="/" class="hover:text-white transition">Home</a>
-                <a href="/guides.html" class="hover:text-white transition">Guides</a>
-                <a href="/tools.html" class="hover:text-white transition">Tools</a>
-                <a href="/blog/getting-started.html" class="hover:text-white transition">Blog</a>
-                <a href="/about.html" class="text-white transition">About</a>
-            </div>
-        </div>
-    </nav>
+  <main class="about-content">
+    <h1>About <span>enhio</span></h1>
+    <p>enhio.com is a free text analysis tool that runs entirely in your browser. Paste any text and instantly see word count, readability scores, word frequency analysis, sentence structure, tone detection, and actionable writing suggestions.</p>
+    <p>No data is sent to any server. Your text stays in your browser. The analysis runs in real time as you type.</p>
 
-    <header class="relative pt-32 pb-16 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-teal-950 via-gray-950 to-emerald-950"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-500/20 via-transparent to-transparent"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-800 tracking-tight mb-6">
-                About <span style="color: #14b8a6;">Enhio</span>
-            </h1>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                Making AI-powered media enhancement accessible to everyone.
-            </p>
-        </div>
-    </header>
+    <h2>What It Analyzes</h2>
+    <ul>
+      <li>Word, character, sentence, and paragraph counts</li>
+      <li>Reading time estimate (200 words per minute)</li>
+      <li>Flesch-Kincaid Grade Level (how many years of education needed)</li>
+      <li>Flesch Reading Ease (0-100 scale, higher is easier)</li>
+      <li>Top 20 most frequent words (excluding stop words)</li>
+      <li>Sentence length distribution (short, medium, long)</li>
+      <li>Tone detection (formal vs casual based on contractions, vocabulary complexity, sentence length)</li>
+      <li>Writing suggestions: flags long sentences, passive voice, overused words</li>
+    </ul>
 
-    <section class="py-20">
-        <div class="max-w-3xl mx-auto px-4">
-            <h2 class="text-2xl font-700 mb-6">Our Mission</h2>
-            <p class="text-gray-300 leading-relaxed mb-4">
-                Enhio exists because AI enhancement technology has reached a point where genuinely useful tools are available to everyone, but navigating the landscape of options remains confusing. Dozens of models claim state-of-the-art results for image upscaling alone, and the differences between them matter enormously depending on your content type, quality requirements, and processing constraints. We test, compare, and explain these tools so you can make informed choices.
-            </p>
-            <p class="text-gray-300 leading-relaxed mb-4">
-                Our coverage spans four domains of AI enhancement: image quality improvement (super-resolution, denoising, face restoration, colorization), audio enhancement (noise reduction, source separation, speech clarity improvement), video processing (upscaling, frame interpolation, stabilization, restoration), and text refinement (grammar correction, style improvement, readability optimization). For each domain, we provide practical guides, tool comparisons with real test samples, and workflow recommendations that help you achieve professional results regardless of your technical background.
-            </p>
-            <p class="text-gray-300 leading-relaxed mb-4">
-                We are particularly focused on open-source tools that anyone can use without subscription fees or cloud dependencies. Real-ESRGAN, GFPGAN, Demucs, RIFE, and dozens of other open-source projects deliver remarkable enhancement quality at zero cost. We believe access to these tools should not require a machine learning background, and our guides are written accordingly — practical, step-by-step, and focused on getting results.
-            </p>
-            <p class="text-gray-300 leading-relaxed mb-8">
-                Enhio is part of a network of specialized AI and ML resources. Our flagship resource, <a href="https://zovo.one" class="text-teal-400 hover:text-teal-300 underline">zovo.one</a>, provides a comprehensive directory of AI tools and comparisons across the entire ecosystem. Together with our partner sites, we cover every aspect of modern AI technology from foundational research to practical applications.
-            </p>
+    <h2>Part of the zovo.one Network</h2>
+    <p>enhio.com is built by <a href="https://zovo.one">zovo.one</a>. More tools:</p>
+    <ul>
+      <li><a href="https://gpt0x.com">gpt0x.com</a> — searchable AI model database</li>
+      <li><a href="https://krzen.com">krzen.com</a> — client-side image compression</li>
+      <li><a href="https://abwex.com">abwex.com</a> — A/B test significance calculator</li>
+    </ul>
+  </main>
 
-            <h2 class="text-2xl font-700 mb-6">Related Sites</h2>
-            <div class="grid sm:grid-cols-2 gap-4">
-                <a href="https://gen8x.com" class="block bg-gray-800/50 rounded-xl p-5 border border-gray-700/50 hover:border-teal-500/30 transition">
-                    <h3 class="text-lg font-600 mb-1">Gen8X</h3>
-                    <p class="text-gray-400 text-sm">Generative AI tutorials, diffusion models, and creative AI tools.</p>
-                </a>
-                <a href="https://ml0x.com" class="block bg-gray-800/50 rounded-xl p-5 border border-gray-700/50 hover:border-teal-500/30 transition">
-                    <h3 class="text-lg font-600 mb-1">ML0X</h3>
-                    <p class="text-gray-400 text-sm">Foundational machine learning from first principles.</p>
-                </a>
-                <a href="https://krzen.com" class="block bg-gray-800/50 rounded-xl p-5 border border-gray-700/50 hover:border-teal-500/30 transition">
-                    <h3 class="text-lg font-600 mb-1">Krzen</h3>
-                    <p class="text-gray-400 text-sm">Model compression and optimization for efficient deployment.</p>
-                </a>
-                <a href="https://lochbot.com" class="block bg-gray-800/50 rounded-xl p-5 border border-gray-700/50 hover:border-teal-500/30 transition">
-                    <h3 class="text-lg font-600 mb-1">LochBot</h3>
-                    <p class="text-gray-400 text-sm">AI bot development and automation resources.</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 border-t border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <a href="/" class="text-xl font-700 mb-4 inline-block" style="color: #14b8a6;">Enhio</a>
-            <p class="text-gray-500 text-sm">&copy; 2025 Enhio. All rights reserved.</p>
-        </div>
-    </footer>
-
+  <footer>
+    <div class="container">
+      <span>Built by <a href="https://zovo.one">zovo.one</a> &middot; More tools: <a href="https://kappakit.com">kappakit.com</a>, <a href="https://gen8x.com">gen8x.com</a></span>
+      <span>&copy; 2025 enhio.com</span>
+    </div>
+  </footer>
 </body>
 </html>

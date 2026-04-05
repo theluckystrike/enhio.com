@@ -1,203 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhio — Enhance Everything with AI</title>
-    <meta name="description" content="Enhio covers AI-powered enhancement tools for images, audio, video, and text. Discover techniques, reviews, and guides for AI-driven upscaling, restoration, and quality improvement.">
-    <meta name="keywords" content="AI enhancement, image upscaling, audio enhancement, video restoration, text improvement, AI tools, super resolution, noise reduction, denoising, AI upscaler">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:title" content="Enhio — Enhance Everything with AI">
-    <meta property="og:description" content="AI-powered enhancement techniques and tool reviews for images, audio, video, and text quality improvement.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://enhio.com">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Enhio",
-        "url": "https://enhio.com",
-        "description": "Enhance Everything with AI — AI-powered enhancement techniques, tool reviews, and guides.",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://enhio.com/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
-
-    <style>
-        * { font-family: 'Inter', sans-serif; }
-        html { scroll-behavior: smooth; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Enhancement Tool — Readability Analysis | enhio.com</title>
+  <meta name="description" content="Free client-side text analysis tool. Get word count, readability scores, word frequency, sentence analysis, tone detection, and writing suggestions.">
+  <meta name="keywords" content="text analysis, readability score, Flesch-Kincaid, word count, writing tool, text enhancement">
+  <link rel="canonical" href="https://enhio.com/">
+  <meta property="og:title" content="Text Enhancement Tool | enhio.com">
+  <meta property="og:description" content="Instant text analysis with readability scores, word frequency, tone detection, and writing suggestions.">
+  <meta property="og:url" content="https://enhio.com/">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
-<body class="bg-gray-950 text-gray-100">
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="logo">enhio</a>
+      <nav>
+        <a href="/">Tool</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-gray-950/90 backdrop-blur-md z-50 border-b border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="/" class="text-2xl font-800 tracking-tight" style="color: #14b8a6;">Enhio</a>
-            <div class="hidden md:flex gap-8 text-sm text-gray-400">
-                <a href="/" class="text-white transition">Home</a>
-                <a href="/guides.html" class="hover:text-white transition">Guides</a>
-                <a href="/tools.html" class="hover:text-white transition">Tools</a>
-                <a href="/blog/getting-started.html" class="hover:text-white transition">Blog</a>
-                <a href="/about.html" class="hover:text-white transition">About</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-teal-950 via-gray-950 to-emerald-950"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-500/20 via-transparent to-transparent"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center py-32">
-            <div class="inline-block px-4 py-1.5 rounded-full border border-teal-500/30 bg-teal-500/10 text-teal-300 text-sm font-medium mb-8">
-                AI Enhancement Hub
-            </div>
-            <h1 class="text-5xl md:text-7xl font-800 tracking-tight mb-6">
-                Enhance Everything<br><span style="color: #14b8a6;">with AI</span>
-            </h1>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                From blurry photos to noisy audio, AI enhancement tools are transforming low-quality media into professional-grade content. Discover the techniques, tools, and workflows that make it possible.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#categories" class="px-8 py-3.5 rounded-lg font-semibold text-white transition" style="background-color: #14b8a6;">Explore Tools</a>
-                <a href="#guides" class="px-8 py-3.5 rounded-lg font-semibold text-gray-300 border border-gray-700 hover:border-gray-500 transition">Read Guides</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- The Enhancement Revolution Section -->
-    <section class="py-24 bg-gray-900/50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-700 text-center mb-6">The AI Enhancement Revolution</h2>
-            <p class="text-gray-400 text-center max-w-3xl mx-auto mb-16 text-lg leading-relaxed">
-                Artificial intelligence has fundamentally changed what is possible in media enhancement. Traditional signal processing techniques like bicubic interpolation and Wiener filtering have been replaced by deep learning models that understand the semantic content of images, audio, and video. A neural network trained on millions of high-resolution photographs can intelligently reconstruct detail that was never captured by the original sensor. Audio models can isolate a speaking voice from a noisy recording with precision that manual editing could never achieve. At Enhio, we cover these technologies comprehensively, helping you choose the right tool for every enhancement task and understand the science behind the results.
-            </p>
-            <div id="categories" class="grid md:grid-cols-4 gap-6">
-                <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700/50">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(20,184,166,0.15);">
-                        <svg class="w-6 h-6" style="color: #14b8a6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-600 mb-3">Image Enhancement</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Super-resolution, denoising, deblurring, colorization, and face restoration. Modern models like Real-ESRGAN, SwinIR, and GFPGAN achieve remarkable results on everything from old family photos to low-light smartphone captures.</p>
-                </div>
-                <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700/50">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(20,184,166,0.15);">
-                        <svg class="w-6 h-6" style="color: #14b8a6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-600 mb-3">Audio Enhancement</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Noise reduction, speech separation, bandwidth extension, and audio restoration. AI models like Demucs and RNNoise can isolate vocals, remove background noise, and enhance clarity to studio-quality levels from poor recordings.</p>
-                </div>
-                <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700/50">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(20,184,166,0.15);">
-                        <svg class="w-6 h-6" style="color: #14b8a6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-600 mb-3">Video Enhancement</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Frame interpolation, upscaling, stabilization, and temporal consistency. Tools like Topaz Video AI and RIFE bring old footage to life with higher resolution, smoother motion, and reduced compression artifacts.</p>
-                </div>
-                <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700/50">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(20,184,166,0.15);">
-                        <svg class="w-6 h-6" style="color: #14b8a6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-600 mb-3">Text Enhancement</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Grammar correction, style improvement, readability optimization, and content refinement. LLM-powered tools can transform rough drafts into polished prose while preserving the author's voice and intent.</p>
-                </div>
-            </div>
-        </div>
+  <main class="container">
+    <section class="hero">
+      <h1>Text <span>Enhancement</span> Tool</h1>
+      <p>Paste your text below for instant analysis. Word count, readability, frequency, tone, and suggestions — all client-side.</p>
     </section>
 
-    <!-- Guides Section -->
-    <section id="guides" class="py-24">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-700 text-center mb-6">Enhancement Guides</h2>
-            <p class="text-gray-400 text-center max-w-2xl mx-auto mb-16 text-lg">
-                Practical walkthroughs for getting the best results from AI enhancement tools.
-            </p>
-            <div class="grid md:grid-cols-3 gap-8">
-                <article class="bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-teal-500/30 transition">
-                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #14b8a6, #0d9488);">
-                        <span class="text-5xl font-800 text-white/20">01</span>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs font-500 text-teal-400">Image</span>
-                        <h3 class="text-lg font-600 mt-2 mb-3">Upscaling Old Photos to 4K: A Comparison of Real-ESRGAN, SwinIR, and SUPIR</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">We run the same set of degraded photographs through three leading super-resolution models and compare output quality, processing speed, artifact patterns, and PSNR scores. Learn which model works best for faces, landscapes, and text-heavy images.</p>
-                    </div>
-                </article>
-                <article class="bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-teal-500/30 transition">
-                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #0d9488, #14b8a6);">
-                        <span class="text-5xl font-800 text-white/20">02</span>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs font-500 text-teal-400">Audio</span>
-                        <h3 class="text-lg font-600 mt-2 mb-3">Removing Background Noise from Podcast Recordings with AI</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Compare Adobe Podcast Enhance, Descript Studio Sound, and open-source solutions like Demucs for cleaning up podcast audio. Includes before-and-after samples, processing benchmarks, and a recommended workflow for common recording scenarios.</p>
-                    </div>
-                </article>
-                <article class="bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-teal-500/30 transition">
-                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #14b8a6, #2dd4bf);">
-                        <span class="text-5xl font-800 text-white/20">03</span>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs font-500 text-teal-400">Video</span>
-                        <h3 class="text-lg font-600 mt-2 mb-3">Frame Interpolation Explained: Turning 24fps Footage into Smooth 60fps</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Understand how optical flow estimation and neural frame synthesis create intermediate frames that never existed. We compare RIFE, FILM, and commercial tools, and discuss when interpolation improves footage versus when it introduces unwanted artifacts.</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
+    <div class="input-area">
+      <textarea id="text-input" placeholder="Paste or type your text here..."></textarea>
+    </div>
 
-    <!-- Resources Section -->
-    <section id="resources" class="py-24 bg-gray-900/50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-700 text-center mb-6">Tools & Resources</h2>
-            <p class="text-gray-400 text-center max-w-3xl mx-auto mb-16 text-lg leading-relaxed">
-                The AI enhancement space moves quickly, with new models and tools launching regularly. Whether you need a quick one-click solution for enhancing a single photo or a batch processing pipeline for thousands of video frames, the right tool depends on your specific quality requirements, hardware constraints, and budget. We test and review tools across all enhancement categories so you can make informed choices.
-            </p>
-            <div class="grid md:grid-cols-2 gap-6">
-                <a href="https://zovo.one" rel="dofollow" class="bg-gradient-to-br from-teal-500/10 to-emerald-500/10 rounded-2xl p-8 border border-teal-500/20 hover:border-teal-500/40 transition block">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: rgba(20,184,166,0.2);">
-                            <svg class="w-5 h-5" style="color: #14b8a6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                        </div>
-                        <span class="text-xs font-600 uppercase tracking-wider text-teal-400">Recommended</span>
-                    </div>
-                    <h3 class="text-xl font-600 mb-3">Zovo.one — Comprehensive AI Tools & Resources</h3>
-                    <p class="text-gray-400 leading-relaxed">Looking for the right AI enhancement tool? Visit <strong class="text-teal-300">zovo.one</strong> for a curated directory of AI-powered tools across image upscaling, audio processing, video enhancement, and more. Their comprehensive comparisons help you find the perfect tool for your specific enhancement needs, saving hours of research.</p>
-                </a>
-                <div class="bg-gray-800/30 rounded-2xl p-8 border border-gray-700/50">
-                    <h3 class="text-xl font-600 mb-3">Replicate API</h3>
-                    <p class="text-gray-400 leading-relaxed">Run enhancement models in the cloud without managing infrastructure. Replicate hosts Real-ESRGAN, GFPGAN, Demucs, and dozens of other enhancement models accessible via simple API calls. Pay per prediction with no setup overhead, ideal for integrating AI enhancement into your applications or processing occasional batches.</p>
-                </div>
-                <div class="bg-gray-800/30 rounded-2xl p-8 border border-gray-700/50">
-                    <h3 class="text-xl font-600 mb-3">ComfyUI Workflows</h3>
-                    <p class="text-gray-400 leading-relaxed">Build custom enhancement pipelines using ComfyUI's node-based interface. Chain together upscaling, face restoration, color correction, and sharpening into repeatable workflows. The visual approach makes it easy to experiment with different model combinations and processing orders to find the optimal enhancement chain for your content.</p>
-                </div>
-                <div class="bg-gray-800/30 rounded-2xl p-8 border border-gray-700/50">
-                    <h3 class="text-xl font-600 mb-3">IQA Metrics Reference</h3>
-                    <p class="text-gray-400 leading-relaxed">Measure enhancement quality objectively using Image Quality Assessment metrics. PSNR and SSIM remain standard baselines, while LPIPS and FID capture perceptual quality more accurately. We maintain a reference guide explaining when to use each metric and how to interpret results, essential for comparing enhancement tools meaningfully.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="value" id="word-count">0</div><div class="label">Words</div></div>
+      <div class="stat-card"><div class="value" id="char-count">0</div><div class="label">Characters</div></div>
+      <div class="stat-card"><div class="value" id="sentence-count">0</div><div class="label">Sentences</div></div>
+      <div class="stat-card"><div class="value" id="paragraph-count">0</div><div class="label">Paragraphs</div></div>
+      <div class="stat-card"><div class="value" id="reading-time">0</div><div class="label">Reading Time</div></div>
+      <div class="stat-card"><div class="value" id="syllable-count">0</div><div class="label">Syllables</div></div>
+    </div>
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <a href="/" class="text-xl font-700 mb-4 inline-block" style="color: #14b8a6;">Enhio</a>
-            <p class="text-gray-500 text-sm">&copy; 2025 Enhio. All rights reserved.</p>
-        </div>
-    </footer>
+    <div class="analysis-section">
+      <h3>Readability Scores</h3>
+      <div id="readability-section"></div>
+    </div>
 
+    <div class="analysis-section">
+      <h3>Word Frequency (Top 20, excluding stop words)</h3>
+      <div id="frequency-section"></div>
+    </div>
+
+    <div class="analysis-section">
+      <h3>Sentence Length Distribution</h3>
+      <div id="distribution-section"></div>
+    </div>
+
+    <div class="analysis-section">
+      <h3>Tone Analysis</h3>
+      <div id="tone-section"></div>
+    </div>
+
+    <div class="analysis-section">
+      <h3>Suggestions</h3>
+      <div id="suggestions-section"></div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>Built by <a href="https://zovo.one">zovo.one</a> &middot; More tools: <a href="https://kappakit.com">kappakit.com</a>, <a href="https://gen8x.com">gen8x.com</a></span>
+      <span>&copy; 2025 enhio.com</span>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
 </body>
 </html>
