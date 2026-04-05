@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with AI Enhancement — Enhio</title>
+    <meta name="description" content="A practical beginner's guide to AI-powered media enhancement. Learn to upscale images, clean audio, and improve video quality using free and open-source AI tools.">
+    <meta name="keywords" content="AI enhancement beginner, image upscaling guide, audio cleanup AI, video enhancement tutorial, getting started AI tools">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Getting Started with AI Enhancement — Enhio">
+    <meta property="og:description" content="A practical guide to enhancing images, audio, and video with AI tools. From setup to your first enhanced output.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://enhio.com/blog/getting-started.html">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Getting Started with AI Enhancement",
+        "url": "https://enhio.com/blog/getting-started.html",
+        "description": "A practical beginner's guide to AI-powered media enhancement.",
+        "isPartOf": { "@type": "WebSite", "name": "Enhio", "url": "https://enhio.com" }
+    }
+    </script>
+
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <nav class="fixed top-0 w-full bg-gray-950/90 backdrop-blur-md z-50 border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/" class="text-2xl font-800 tracking-tight" style="color: #14b8a6;">Enhio</a>
+            <div class="hidden md:flex gap-8 text-sm text-gray-400">
+                <a href="/" class="hover:text-white transition">Home</a>
+                <a href="/guides.html" class="hover:text-white transition">Guides</a>
+                <a href="/tools.html" class="hover:text-white transition">Tools</a>
+                <a href="/blog/getting-started.html" class="text-white transition">Blog</a>
+                <a href="/about.html" class="hover:text-white transition">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <article class="pt-32 pb-20">
+        <div class="max-w-3xl mx-auto px-4">
+
+            <header class="mb-12">
+                <span class="text-xs font-600 uppercase tracking-wider" style="color: #14b8a6;">Blog</span>
+                <h1 class="text-3xl md:text-5xl font-800 tracking-tight mt-3 mb-4">Getting Started with AI Enhancement</h1>
+                <p class="text-gray-400 text-lg leading-relaxed">Transform your low-quality photos, audio recordings, and video footage into professional-grade media using freely available AI tools.</p>
+            </header>
+
+            <div class="prose prose-invert max-w-none">
+
+                <h2 class="text-2xl font-700 mt-12 mb-4">What AI Enhancement Can Do</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    AI enhancement tools use neural networks trained on millions of examples to intelligently improve media quality in ways that traditional processing cannot. An image upscaler does not simply stretch pixels — it understands what a sharp eye, a detailed leaf, or a textured fabric should look like and generates those details plausibly. An audio denoiser does not just apply a frequency filter — it has learned the difference between human speech and background noise at a level that preserves vocal nuance while removing unwanted sounds. These tools are now accessible to anyone with a computer, many of them completely free.
+                </p>
+
+                <h2 class="text-2xl font-700 mt-12 mb-4">Enhancing Your First Image</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    The fastest way to upscale an image is through Real-ESRGAN's portable executable. Download the pre-built binary from the <a href="https://github.com/xinntao/Real-ESRGAN/releases" target="_blank" rel="noopener" class="text-teal-400 hover:text-teal-300 underline">GitHub releases page</a>, and run it from the command line:
+                </p>
+
+                <div class="bg-gray-900 rounded-xl p-6 my-6 overflow-x-auto">
+                    <pre class="text-sm text-gray-300"><code># Basic 4x upscale
+./realesrgan-ncnn-vulkan -i input.jpg -o output.png -n realesrgan-x4plus
+
+# For anime/illustration content
+./realesrgan-ncnn-vulkan -i input.jpg -o output.png -n realesrgan-x4plus-anime
+
+# For face enhancement, use GFPGAN afterwards
+# Or use the Python package for more control:
+pip install realesrgan
+from realesrgan import RealESRGANer
+# ... (see documentation for full API)</code></pre>
+                </div>
+
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    The ncnn-vulkan version works on any GPU (NVIDIA, AMD, Intel) and even on CPU, making it the most universally accessible option. Processing a single image takes 1-10 seconds depending on input size and hardware. For batch processing hundreds of images, use the Python package which provides more control over model selection and output parameters.
+                </p>
+
+                <h2 class="text-2xl font-700 mt-12 mb-4">Cleaning Up Audio</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    For a quick audio cleanup without any installation, upload your file to <a href="https://podcast.adobe.com/enhance" target="_blank" rel="noopener" class="text-teal-400 hover:text-teal-300 underline">Adobe Podcast Enhance</a>. It processes audio in the cloud and returns a cleaned version with reduced noise, removed reverb, and improved vocal clarity. The free tier handles files up to one hour.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    For local processing with more control, install Demucs:
+                </p>
+
+                <div class="bg-gray-900 rounded-xl p-6 my-6 overflow-x-auto">
+                    <pre class="text-sm text-gray-300"><code># Install Demucs
+pip install demucs
+
+# Separate audio into stems (vocals, drums, bass, other)
+demucs --two-stems vocals input.mp3
+
+# Output appears in separated/htdemucs/input/
+# vocals.wav contains the isolated voice
+# no_vocals.wav contains everything else</code></pre>
+                </div>
+
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    The <code class="text-teal-300 bg-gray-800 px-1 rounded">--two-stems vocals</code> flag simplifies the output to just vocals and everything else, which is ideal for podcast cleanup. The separated vocal track will have significantly less background noise, as the model has learned to distinguish speech from environmental sounds.
+                </p>
+
+                <h2 class="text-2xl font-700 mt-12 mb-4">Video Enhancement Basics</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    Video enhancement is more computationally intensive because each frame must be processed individually. For beginners, Topaz Video AI provides the most user-friendly experience — import your video, select an AI model appropriate for your content type, choose output resolution and frame rate, and export. The application handles frame extraction, processing, and reassembly automatically.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    For a free open-source approach, you can process videos frame-by-frame with Real-ESRGAN and reassemble them with FFmpeg:
+                </p>
+
+                <div class="bg-gray-900 rounded-xl p-6 my-6 overflow-x-auto">
+                    <pre class="text-sm text-gray-300"><code># Extract frames from video
+ffmpeg -i input.mp4 -qscale:v 2 frames/frame_%06d.png
+
+# Upscale all frames (this takes a while)
+./realesrgan-ncnn-vulkan -i frames/ -o upscaled/ -n realesrgan-x4plus
+
+# Reassemble into video
+ffmpeg -framerate 24 -i upscaled/frame_%06d.png \
+  -c:v libx264 -crf 18 -pix_fmt yuv420p output_upscaled.mp4
+
+# Add back original audio
+ffmpeg -i output_upscaled.mp4 -i input.mp4 \
+  -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 final.mp4</code></pre>
+                </div>
+
+                <h2 class="text-2xl font-700 mt-12 mb-4">Quality Expectations</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    AI enhancement is not magic. It works best when there is some information to work with — a slightly blurry photo can be sharpened dramatically, but a completely out-of-focus image cannot be fully recovered. Similarly, audio with moderate background noise can be cleaned effectively, but a recording where the speaker is drowned out by construction noise will have limitations. Set realistic expectations: AI enhancement turns "bad" into "good" and "good" into "great," but it cannot reliably turn "unusable" into "perfect."
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    The best results come from combining multiple tools in sequence. For a degraded old photograph: first denoise with a dedicated denoising model, then upscale with Real-ESRGAN, then apply GFPGAN specifically to face regions. For additional perspectives on model optimization and inference workflows that can speed up your enhancement pipeline, check out the resources at <a href="https://heytensor.com" class="text-teal-400 hover:text-teal-300 underline">HeyTensor</a>.
+                </p>
+
+                <h2 class="text-2xl font-700 mt-12 mb-4">Next Steps</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    Once you are comfortable with basic enhancement workflows, explore batch processing for large collections, custom model training for specialized content types, and pipeline automation that chains multiple enhancement steps together. The AI enhancement ecosystem is evolving rapidly, with new models releasing monthly that push quality boundaries further. Staying current with the latest tools and techniques ensures you always have access to the best available enhancement quality.
+                </p>
+            </div>
+
+        </div>
+    </article>
+
+    <footer class="py-12 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <a href="/" class="text-xl font-700 mb-4 inline-block" style="color: #14b8a6;">Enhio</a>
+            <p class="text-gray-500 text-sm">&copy; 2025 Enhio. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhio — Guides</title>
+    <meta name="description" content="In-depth guides on AI enhancement techniques. Learn image upscaling, audio denoising, video frame interpolation, and AI-powered text improvement workflows.">
+    <meta name="keywords" content="AI enhancement guides, image upscaling tutorial, audio denoising guide, video enhancement, Real-ESRGAN guide, AI restoration">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Enhio — Guides">
+    <meta property="og:description" content="In-depth guides on AI-powered enhancement for images, audio, video, and text.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enhio.com/guides.html">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Enhio — Guides",
+        "url": "https://enhio.com/guides.html",
+        "description": "In-depth guides on AI-powered enhancement for images, audio, video, and text.",
+        "isPartOf": { "@type": "WebSite", "name": "Enhio", "url": "https://enhio.com" }
+    }
+    </script>
+
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+    <nav class="fixed top-0 w-full bg-gray-950/90 backdrop-blur-md z-50 border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/" class="text-2xl font-800 tracking-tight" style="color: #14b8a6;">Enhio</a>
+            <div class="hidden md:flex gap-8 text-sm text-gray-400">
+                <a href="/" class="hover:text-white transition">Home</a>
+                <a href="/guides.html" class="text-white transition">Guides</a>
+                <a href="/tools.html" class="hover:text-white transition">Tools</a>
+                <a href="/blog/getting-started.html" class="hover:text-white transition">Blog</a>
+                <a href="/about.html" class="hover:text-white transition">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-16 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-teal-950 via-gray-950 to-emerald-950"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-500/20 via-transparent to-transparent"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-800 tracking-tight mb-6">
+                Enhancement <span style="color: #14b8a6;">Guides</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                Practical walkthroughs for getting professional-grade results from AI enhancement tools across images, audio, and video.
+            </p>
+        </div>
+    </header>
+
+    <!-- Guide 1 -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs font-600 uppercase tracking-wider" style="color: #14b8a6;">Guide 01 — Image</span>
+            <h2 class="text-3xl font-700 mt-3 mb-6">Image Super-Resolution: Choosing and Using the Right AI Upscaler</h2>
+
+            <p class="text-gray-300 leading-relaxed mb-4">
+                AI image upscaling has progressed from simple bicubic interpolation to neural networks that genuinely hallucinate plausible detail, transforming a 480p image into something that looks convincingly 4K. The leading models — Real-ESRGAN, SwinIR, SUPIR, and BSRGAN — each take a different approach to the super-resolution problem and produce noticeably different results on different types of input. Understanding these differences is essential for choosing the right tool for each task.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Real-ESRGAN remains the most versatile general-purpose upscaler. Trained on a degradation model that simulates real-world image degradation (compression, blur, noise, resizing), it handles the messy, inconsistent inputs you encounter in practice far better than models trained only on synthetic downscaling. The x4plus model provides excellent 4x upscaling for photographs, while the anime-specific variant handles illustrated content with cleaner lines. For faces specifically, combining Real-ESRGAN with GFPGAN or CodeFormer produces dramatically better facial detail restoration, as these face-specific models use generative priors trained on high-quality face datasets.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-6">
+                SwinIR uses the Swin Transformer architecture and achieves the highest PSNR scores on academic benchmarks, making it the choice when metric-level fidelity matters more than perceived quality. SUPIR, based on diffusion model priors, produces the most visually impressive results on severely degraded images but can introduce hallucinated details that were not in the original. The choice between these models depends on whether you prioritize fidelity (is the output faithful to the original?) or perceptual quality (does the output look good regardless of accuracy?). For comprehensive comparisons of AI enhancement tools, <a href="https://zovo.one" class="text-teal-400 hover:text-teal-300 underline">zovo.one</a> maintains an up-to-date directory that helps you navigate the rapidly evolving landscape.
+            </p>
+
+            <div class="bg-teal-500/10 border border-teal-500/20 rounded-xl p-6 mb-6">
+                <h4 class="text-sm font-600 uppercase tracking-wider text-teal-400 mb-2">Key Takeaway</h4>
+                <p class="text-gray-300">Use Real-ESRGAN x4plus for general photos, pair it with GFPGAN for faces, use the anime variant for illustrations, and reserve SUPIR for severely degraded images where hallucinated detail is acceptable. Always compare outputs on your specific content type before committing to a workflow.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide 2 -->
+    <section class="py-20 bg-gray-900/50">
+        <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs font-600 uppercase tracking-wider" style="color: #14b8a6;">Guide 02 — Audio</span>
+            <h2 class="text-3xl font-700 mt-3 mb-6">AI Audio Enhancement: From Noisy Recordings to Studio Quality</h2>
+
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Audio enhancement with AI has transformed post-production workflows for podcasters, filmmakers, and content creators. Modern neural network models can isolate a speaking voice from background noise with precision that traditional spectral subtraction could never achieve. They can separate overlapping speakers, remove room reverb, and even enhance the tonal quality of a voice — all in real time on consumer hardware.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                The leading tools span commercial and open-source options with different tradeoffs. Adobe Podcast Enhance (free online tool) applies a single-click enhancement that reduces noise, removes reverb, and improves clarity. Descript Studio Sound provides similar functionality integrated into their editing platform. For programmatic access and batch processing, open-source models like Demucs (developed by Meta) provide source separation that can isolate vocals from any audio mix, while RNNoise offers lightweight real-time noise suppression suitable for embedding in applications.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-6">
+                The workflow for podcast enhancement typically involves three stages: first, separate the audio tracks if multiple speakers were recorded on a single microphone using Demucs or a similar separation model. Second, apply noise reduction to each isolated track using a model appropriate for the noise type — steady-state noise (air conditioning, fan) is easier to remove than intermittent noise (traffic, construction). Third, apply dynamic range compression and EQ to bring the enhanced audio to broadcast quality. Resources like <a href="https://claudhq.com" class="text-teal-400 hover:text-teal-300 underline">ClaudHQ</a> cover additional AI-powered creative workflows that complement these audio enhancement techniques.
+            </p>
+
+            <div class="bg-teal-500/10 border border-teal-500/20 rounded-xl p-6 mb-6">
+                <h4 class="text-sm font-600 uppercase tracking-wider text-teal-400 mb-2">Key Takeaway</h4>
+                <p class="text-gray-300">For quick one-off podcast cleanup, Adobe Podcast Enhance is hard to beat. For batch processing and integration into production pipelines, Demucs plus a noise reduction model gives you full control. Always record the best audio you can — AI enhancement improves poor recordings but cannot match properly captured audio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide 3 -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs font-600 uppercase tracking-wider" style="color: #14b8a6;">Guide 03 — Video</span>
+            <h2 class="text-3xl font-700 mt-3 mb-6">Video Enhancement Pipelines: Upscaling, Interpolation, and Restoration</h2>
+
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Video enhancement combines multiple AI techniques in sequence to transform low-quality footage into something that looks modern and professional. A typical enhancement pipeline for old footage might include frame denoising, resolution upscaling, frame interpolation for smoother motion, color correction, and stabilization. Each step uses a specialized model, and the order of operations matters significantly for final quality.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Frame interpolation deserves special attention because it creates entirely new frames that never existed in the original footage. Models like RIFE (Real-Time Intermediate Flow Estimation) and FILM estimate optical flow between consecutive frames and synthesize intermediate frames along the predicted motion paths. Converting 24fps footage to 60fps produces noticeably smoother motion, particularly for panning shots and action sequences. However, interpolation can introduce artifacts in scenes with complex motion, occlusion, or rapid scene changes, so it is not always appropriate for every piece of footage.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-6">
+                Topaz Video AI remains the most accessible commercial solution, bundling upscaling, interpolation, and stabilization into a single application with GPU-accelerated processing. For open-source workflows, combining BasicSR or Real-ESRGAN (applied frame-by-frame) with RIFE for interpolation provides comparable results with more flexibility. Processing time is the main constraint — a 10-minute 1080p video upscaled to 4K at 60fps can take hours even on high-end GPUs. Batch processing workflows and cloud GPU services can help manage this, as can checking the enhancement pipeline tooling available at <a href="https://claudflow.com" class="text-teal-400 hover:text-teal-300 underline">ClaudFlow</a> for workflow optimization tips.
+            </p>
+
+            <div class="bg-teal-500/10 border border-teal-500/20 rounded-xl p-6 mb-6">
+                <h4 class="text-sm font-600 uppercase tracking-wider text-teal-400 mb-2">Key Takeaway</h4>
+                <p class="text-gray-300">Process videos in the correct order: denoise first, then upscale, then interpolate. Running upscaling before denoising amplifies noise, and interpolating noisy footage creates artifacts. Plan for long processing times and test your pipeline on a short clip before processing full-length content.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide 4 -->
+    <section class="py-20 bg-gray-900/50">
+        <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs font-600 uppercase tracking-wider" style="color: #14b8a6;">Guide 04 — Text</span>
+            <h2 class="text-3xl font-700 mt-3 mb-6">AI-Powered Text Enhancement: Beyond Grammar Checking</h2>
+
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Text enhancement with AI has evolved far beyond simple grammar and spell checking. Modern LLM-powered tools can restructure awkward sentences, adjust the tone and formality level, improve readability without changing meaning, and even adapt writing to match a specific style guide. These capabilities transform rough drafts into polished prose while preserving the author's voice — a task that previously required a skilled human editor.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                The key to effective AI text enhancement is specificity in your instructions. Rather than asking a model to "improve" your text (which produces generic, homogenized output), give it specific criteria: "reduce sentence length to improve readability while maintaining a technical tone" or "restructure this paragraph to lead with the conclusion and follow with supporting evidence." Different tools excel at different aspects: Grammarly remains strong for grammatical correctness, Hemingway Editor focuses on readability metrics, and LLM-based tools like Claude and GPT-4 handle nuanced style adjustments and restructuring.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-6">
+                For developers and technical writers, AI enhancement extends to code documentation, API descriptions, and error messages. A well-prompted LLM can take terse, jargon-heavy internal documentation and transform it into clear, accessible external documentation without losing technical accuracy. The workflow involves providing the original text, specifying the target audience and reading level, and iteratively refining until the output meets your quality bar. Batch processing through API calls allows enhancement of entire documentation sets efficiently.
+            </p>
+
+            <div class="bg-teal-500/10 border border-teal-500/20 rounded-xl p-6 mb-6">
+                <h4 class="text-sm font-600 uppercase tracking-wider text-teal-400 mb-2">Key Takeaway</h4>
+                <p class="text-gray-300">Effective AI text enhancement requires specific instructions about what to change, not vague requests to "make it better." Preserve the author's voice by constraining the changes to specific dimensions — readability, tone, structure — rather than allowing wholesale rewriting.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <a href="/" class="text-xl font-700 mb-4 inline-block" style="color: #14b8a6;">Enhio</a>
+            <p class="text-gray-500 text-sm">&copy; 2025 Enhio. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
