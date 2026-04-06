@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Text Enhancement Tool — Readability Analysis Blog</title>
+  <title>Text Enhancement Tool Blog</title>
   <link href="https://enhio.com/blog/" rel="alternate"/>
   <link href="https://enhio.com/blog/feed.xml" rel="self"/>
   <id>https://enhio.com/blog/</id>
   <updated>2026-04-06T00:00:00Z</updated>
-  <author><name>Text Enhancement Tool — Readability Analysis</name></author>
+  <author><name>Text Enhancement Tool</name></author>
   <entry>
     <title>How to Improve Your Writing: Data-Driven Tips | enhio.com</title>
     <link href="https://enhio.com/blog/post-1.html" rel="alternate"/>
