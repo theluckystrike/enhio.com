@@ -1,34 +1,36 @@
-# Text Enhancement Tool — Readability Scores, Tone Analysis & Writing Suggestions
+# Enhio -- Text Enhancement Tool & Readability Analyzer
 
-**[Enhance Your Text →](https://enhio.com)** | [About](https://enhio.com/about.html) | [Blog](https://enhio.com/blog/)
+**[-> Use Enhio (live tool)](https://enhio.com/)**
 
-Text Enhancement Tool analyzes your writing and gives you actionable feedback to make it clearer, more engaging, and more readable. Get Flesch-Kincaid and Gunning Fog readability scores, word frequency analysis, tone detection, and specific rewriting suggestions. Paste any text — blog posts, documentation, emails, marketing copy — and get instant insights to improve it.
+Enhio is a free text analysis tool that evaluates your writing across multiple dimensions. Get Flesch-Kincaid readability scores, word frequency analysis, sentence length distribution, tone detection, SEO keyword analysis, and side-by-side content comparison -- all processed client-side in your browser.
 
 ## Features
 
-- **Readability scores** — Flesch-Kincaid, Gunning Fog, Coleman-Liau, and more
-- **Word frequency analysis** — spot overused words and repetitive patterns
-- **Tone analysis** — detect whether your text reads as formal, casual, persuasive, or neutral
-- **Writing suggestions** — actionable tips for sentence length, passive voice, and clarity
-- **Real-time analysis** — scores update as you type for iterative improvement
+- Flesch-Kincaid Grade Level and Reading Ease readability scores
+- Word frequency analysis with stop word filtering
+- Sentence length distribution chart for engagement optimization
+- Tone detection for formal vs. informal register
+- SEO keyword density and readability scoring (0-100)
+- Side-by-side content comparison for A/B copy testing
+- 100% client-side -- your data never leaves your browser
+- Open source -- inspect the code yourself
 
-## How It Works
+## Tech Stack
 
-Paste your text into the editor or type directly. The analyzer runs multiple readability algorithms simultaneously, computing grade-level scores, average sentence length, syllable complexity, and vocabulary diversity. The tone detector classifies your writing style. The suggestion engine flags passive voice, overly long sentences, overused words, and jargon. All processing happens in your browser — your text is never sent to any server.
+- Vanilla JavaScript (no frameworks, no build step)
+- Static HTML hosted on GitHub Pages
+- Cloudflare DNS + SSL
+- Zero dependencies, zero tracking, zero cookies
 
-## Built With
+## Part of Zovo Tools
 
-- Vanilla JavaScript (no frameworks, no dependencies)
-- Client-side only — your data never leaves your browser
+Enhio is part of [Zovo Tools](https://zovo.one/tools) -- a collection of free developer tools.
 
-
-- [Color Palette Generator](https://gen8x.com) — design readable color schemes for your text
-- [Developer Toolkit](https://kappakit.com) — encode, hash, and transform text strings
-- [A/B Test Calculator](https://abwex.com) — test which version of your copy converts better
-
-## Contributing
-
-Found a bug or have a feature request? [Open an issue](https://github.com/theluckystrike/enhio.com/issues).
+**Other tools in the network:**
+- [EpochPilot](https://epochpilot.com) -- 30+ timestamp and timezone tools
+- [HeyTensor](https://heytensor.com) -- PyTorch tensor shape calculator
+- [LochBot](https://lochbot.com) -- Prompt injection vulnerability checker
+- [KappaKit](https://kappakit.com) -- Developer toolkit (Base64, JWT, hash, UUID)
 
 ## License
 
