@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is the Flesch-Kincaid Readability Score? | enhio</title>
+  <meta name="description" content="Flesch-Kincaid Grade Level = 0.39 * (words/sentences) + 11.8 * (syllables/words) - 15.59. Score of 8 = 8th grader can understand it. Target grade 8-10 for tech docs.">
+  <link rel="canonical" href="https://enhio.com/answers/flesch-kincaid-readability-score.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Is the Flesch-Kincaid Readability Score?">
+  <meta property="og:description" content="FK Grade Level = 0.39*(words/sentences) + 11.8*(syllables/words) - 15.59. Formula and targets explained.">
+  <meta property="og:url" content="https://enhio.com/answers/flesch-kincaid-readability-score.html">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Is the Flesch-Kincaid Readability Score?">
+  <meta name="twitter:description" content="FK Grade Level = 0.39*(words/sentences) + 11.8*(syllables/words) - 15.59. Formula and targets.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Flesch-Kincaid readability score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flesch-Kincaid Grade Level = 0.39 * (total words / total sentences) + 11.8 * (total syllables / total words) - 15.59. A score of 8 means an 8th grader can understand it. Most tech docs should target grade 8-10. The formula was developed by Rudolf Flesch and J. Peter Kincaid for the U.S. Navy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between Flesch-Kincaid Grade Level and Flesch Reading Ease?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flesch-Kincaid Grade Level maps to a U.S. school grade (e.g., 8 = 8th grade). Flesch Reading Ease gives a 0-100 score where higher = easier (60-70 is plain English). They use the same inputs (sentence length and syllable count) but different coefficients. Grade Level is more intuitive for setting targets."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What Flesch-Kincaid score should I target?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Blog posts: grade 6-8. Technical documentation: grade 8-10. Academic papers: grade 12+. Marketing copy: grade 5-7. The lower the grade, the wider your audience. Hemingway wrote at grade 5. Most newspapers target grade 6-8."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are syllables counted in the Flesch-Kincaid formula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Syllables are counted using vowel groups: each group of consecutive vowels (a, e, i, o, u, y) counts as one syllable, with adjustments for silent e at the end of words. Every word has at least one syllable. For example: 'beautiful' = beau-ti-ful = 3 syllables."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="logo">enhio</a>
+      <nav>
+        <a href="/">Tool</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <div class="nav-right">
+          <a href="https://zovo.one/pricing?utm_source=enhio.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+          <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="max-width:780px;margin:0 auto;padding:2rem 1.5rem;">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:1.5rem;font-size:0.9rem;">
+      <a href="/">Home</a> &rsaquo; <a href="/answers/">Answers</a> &rsaquo; <span>Flesch-Kincaid Score</span>
+    </nav>
+
+    <article>
+      <h1>What Is the Flesch-Kincaid Readability Score?</h1>
+
+      <p><strong>Flesch-Kincaid Grade Level = 0.39 &times; (total words / total sentences) + 11.8 &times; (total syllables / total words) - 15.59. A score of 8 means an 8th grader can understand it. Most tech docs should target grade 8-10.</strong></p>
+
+      <h2>The Two Formulas</h2>
+      <p>There are two Flesch-Kincaid metrics that use the same inputs but produce different scales:</p>
+
+      <h3>Flesch-Kincaid Grade Level</h3>
+      <pre style="background:var(--bg-secondary,#1a1a2e);padding:1rem;border-radius:8px;overflow-x:auto;"><code>FK Grade = 0.39 * (words / sentences) + 11.8 * (syllables / words) - 15.59</code></pre>
+      <p>Maps directly to a U.S. school grade. A score of 8.2 means an 8th grader can understand the text.</p>
+
+      <h3>Flesch Reading Ease</h3>
+      <pre style="background:var(--bg-secondary,#1a1a2e);padding:1rem;border-radius:8px;overflow-x:auto;"><code>Reading Ease = 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words)</code></pre>
+      <p>Produces a score from 0-100 where higher = easier. 60-70 is considered plain English.</p>
+
+      <h2>Worked Example</h2>
+      <p>Consider this passage: "The cat sat on the mat. It was a good day."</p>
+      <ul>
+        <li>Words: 11</li>
+        <li>Sentences: 2</li>
+        <li>Syllables: 11 (the=1, cat=1, sat=1, on=1, the=1, mat=1, it=1, was=1, a=1, good=1, day=1)</li>
+      </ul>
+      <p>FK Grade = 0.39 &times; (11/2) + 11.8 &times; (11/11) - 15.59 = 0.39 &times; 5.5 + 11.8 &times; 1.0 - 15.59 = 2.145 + 11.8 - 15.59 = <strong>-1.6</strong></p>
+      <p>A negative score means the text is extremely simple -- suitable for very early readers.</p>
+
+      <h2>Target Scores by Content Type</h2>
+      <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border,#333);">
+            <th style="text-align:left;padding:8px;">Content Type</th>
+            <th style="text-align:left;padding:8px;">FK Grade</th>
+            <th style="text-align:left;padding:8px;">Reading Ease</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border,#333);">
+            <td style="padding:8px;">Marketing copy</td>
+            <td style="padding:8px;">5-7</td>
+            <td style="padding:8px;">70-80</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border,#333);">
+            <td style="padding:8px;">Blog posts</td>
+            <td style="padding:8px;">6-8</td>
+            <td style="padding:8px;">60-70</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border,#333);">
+            <td style="padding:8px;">Technical documentation</td>
+            <td style="padding:8px;">8-10</td>
+            <td style="padding:8px;">50-60</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border,#333);">
+            <td style="padding:8px;">Academic papers</td>
+            <td style="padding:8px;">12-16</td>
+            <td style="padding:8px;">30-50</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border,#333);">
+            <td style="padding:8px;">Legal documents</td>
+            <td style="padding:8px;">16+</td>
+            <td style="padding:8px;">10-30</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>How to Improve Your Score</h2>
+      <ul>
+        <li><strong>Shorter sentences</strong>: Break sentences over 20 words into two.</li>
+        <li><strong>Simpler words</strong>: Use "use" instead of "utilize," "help" instead of "facilitate."</li>
+        <li><strong>Fewer syllables per word</strong>: Prefer one-syllable words where possible.</li>
+        <li><strong>Active voice</strong>: "The team shipped the feature" not "The feature was shipped by the team."</li>
+      </ul>
+
+      <p>Use the <a href="/">enhio text analysis tool</a> to check your Flesch-Kincaid score instantly with sentence-by-sentence breakdown and improvement suggestions.</p>
+
+      <h2>Related Questions</h2>
+      <ul>
+        <li><a href="/research/readability-score-benchmarks.html">Readability score benchmarks across industries</a></li>
+        <li><a href="/research/writing-style-comparison.html">Writing style comparison analysis</a></li>
+        <li><a href="/">Text enhancement tool</a></li>
+      </ul>
+
+      <div class="last-updated"><time datetime="2026-04-11">Last updated: April 11, 2026</time></div>
+    </article>
+  </main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kappakit.com">KappaKit — Dev Toolkit</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
