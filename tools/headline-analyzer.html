@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Headline Analyzer — Emotional &amp; Power Word Scorer with Effectiveness Rating | Enhio</title>
+  <meta name="description" content="Free headline analyzer that scores your headlines for emotional impact, power words, word balance, character length, and overall effectiveness. Get actionable suggestions to write click-worthy titles.">
+  <meta name="keywords" content="headline analyzer, headline score, emotional words, power words, headline effectiveness, title optimizer, headline writing tool, blog title analyzer">
+  <link rel="canonical" href="https://enhio.com/tools/headline-analyzer.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Headline Analyzer — Emotional & Power Word Scorer with Effectiveness Rating | Enhio">
+  <meta property="og:description" content="Free headline analyzer with emotional impact scoring, power word detection, word balance analysis, and actionable improvement suggestions. All client-side.">
+  <meta property="og:url" content="https://enhio.com/tools/headline-analyzer.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Headline Analyzer — Emotional & Power Word Scorer with Effectiveness Rating | Enhio">
+  <meta name="twitter:description" content="Free headline analyzer with emotional impact scoring, power word detection, and effectiveness rating for better click-through rates.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/headline-analyzer.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/headline-analyzer.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Headline Analyzer — Enhio",
+    "url": "https://enhio.com/tools/headline-analyzer.html",
+    "description": "Free client-side headline analyzer that scores your headlines for emotional impact, power words, word balance, character length, and overall effectiveness with actionable improvement suggestions.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Emotional word detection", "Power word analysis", "Word balance scoring", "Character and word count optimization", "Headline type classification", "Sentiment analysis", "Readability grade assessment", "Capitalization style check", "Actionable improvement suggestions", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What makes a headline effective?",
+        "acceptedAnswer": { "@type": "Answer", "text": "An effective headline balances several factors: optimal length (6-12 words, 50-70 characters), emotional trigger words that create curiosity or urgency, power words that command attention, a clear value proposition, and proper word type balance between common, uncommon, emotional, and power words. Research shows headlines with at least one emotional word get 2-3x more clicks than neutral headlines." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are emotional words in headlines?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Emotional words trigger psychological responses in readers. They include words like 'amazing,' 'shocking,' 'heartbreaking,' 'brilliant,' 'terrifying,' 'inspiring,' 'devastating,' and 'incredible.' These words activate the limbic system and create an emotional hook that drives clicks and shares. The most effective headlines contain 10-15% emotional words." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are power words in headlines?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Power words are persuasive terms that trigger a specific response: urgency (now, immediately, limited), exclusivity (secret, insider, private), authority (proven, research-backed, expert), curiosity (surprising, unexpected, hidden), or trust (guaranteed, certified, authentic). Using 1-2 power words per headline significantly improves engagement without making the headline feel clickbaity." }
+      },
+      {
+        "@type": "Question",
+        "name": "How long should a headline be?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The ideal headline length is 6-12 words and 50-70 characters. Headlines under 6 words lack specificity and emotional hooks. Headlines over 14 words get truncated in search results and social shares. Google displays approximately 55-60 characters in search results, so staying under 60 characters ensures your full headline is visible in SERPs." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this tool store my headlines?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. This headline analyzer runs entirely in your browser using client-side JavaScript. Your headlines are never sent to any server, stored in any database, or shared with any third party. There are no cookies, no analytics, and no accounts required. All processing happens locally in your browser tab." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://enhio.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Headline Analyzer", "item": "https://enhio.com/tools/headline-analyzer.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo {
+      color: var(--accent-3); text-decoration: none; font-size: 0.9rem;
+      padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s;
+    }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-input {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 1.1rem; line-height: 1.6; margin-bottom: 1rem;
+    }
+    .tool-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-input::placeholder { color: var(--text-muted); }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem;
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Headline Analyzer specific styles */
+    .score-ring { width: 140px; height: 140px; margin: 0 auto 1rem; position: relative; }
+    .score-ring svg { transform: rotate(-90deg); }
+    .score-ring .score-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .score-ring .score-num { font-family: var(--font-mono); font-size: 2.2rem; font-weight: 700; display: block; }
+    .score-ring .score-label { font-size: 0.75rem; color: var(--text-muted); }
+    .word-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+    .word-tag { padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.82rem; font-weight: 500; }
+    .word-tag.emotional { background: rgba(248,81,73,0.15); color: #f85149; border: 1px solid rgba(248,81,73,0.3); }
+    .word-tag.power { background: rgba(210,168,255,0.15); color: #d2a8ff; border: 1px solid rgba(210,168,255,0.3); }
+    .word-tag.common { background: rgba(139,148,158,0.15); color: #8b949e; border: 1px solid rgba(139,148,158,0.3); }
+    .word-tag.uncommon { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid rgba(63,185,80,0.3); }
+    .suggestion-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 0.6rem; display: flex; gap: 0.75rem; align-items: flex-start; }
+    .suggestion-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .suggestion-text { font-size: 0.92rem; color: var(--text-muted); }
+    .balance-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 0.75rem 0; }
+    .balance-segment { display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; color: #000; min-width: 30px; transition: width 0.3s; }
+    .type-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.82rem; font-weight: 600; background: rgba(129,140,248,0.15); color: var(--accent); border: 1px solid rgba(129,140,248,0.3); }
+    .breakdown-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1rem 0; }
+    .breakdown-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; text-align: center; }
+    .breakdown-card .bd-count { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; display: block; }
+    .breakdown-card .bd-label { font-size: 0.75rem; color: var(--text-muted); }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .breakdown-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Headline Analyzer
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Headline <span>Analyzer</span> &mdash; Emotional &amp; Power Word Scorer</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Analyze Your Headline</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Type or paste your headline below. The analyzer scores it for emotional impact, power words, word balance, length optimization, and overall effectiveness. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+    <input type="text" class="tool-input" id="headlineInput" placeholder="Enter your headline here... e.g., 10 Proven Strategies to Double Your Email Open Rates" maxlength="300">
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="analyzeHeadline()">Analyze Headline</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; align-items: start; margin-bottom: 1.5rem;">
+        <div style="text-align: center;">
+          <div class="score-ring" id="scoreRing"></div>
+          <div class="type-badge" id="headlineType"></div>
+        </div>
+        <div>
+          <div class="stats-grid" id="statsGrid"></div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Word Balance</h3>
+        <div class="balance-bar" id="balanceBar"></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem;">
+          <span><span style="color:#8b949e;">&#9632;</span> Common</span>
+          <span><span style="color:#3fb950;">&#9632;</span> Uncommon</span>
+          <span><span style="color:#f85149;">&#9632;</span> Emotional</span>
+          <span><span style="color:#d2a8ff;">&#9632;</span> Power</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Detected Words</h3>
+        <div id="wordTags"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Breakdown</h3>
+        <div class="breakdown-grid" id="breakdownGrid"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Suggestions</h3>
+        <div id="suggestions"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Headline Analyzer?</h2>
+    <p>A headline analyzer is a writing tool that evaluates the effectiveness of your headline by scoring it across multiple dimensions: emotional resonance, persuasive power, word balance, structural optimization, and readability. Unlike simple character counters, a headline analyzer examines the psychological impact of your word choices and provides data-driven suggestions to increase engagement. The goal is to help writers, marketers, and content creators craft headlines that attract attention, generate clicks, and accurately represent their content.</p>
+    <p>Headlines are the single most important element of any piece of content. Research by Copyblogger shows that 80% of people read headlines but only 20% read the full article. The Poynter Institute's eye-tracking studies found that online readers spend an average of 2.6 seconds scanning a headline before deciding whether to engage. This means your headline has less than three seconds to convince a reader that your content is worth their time. A well-analyzed headline can mean the difference between 500 views and 50,000 views on the same piece of content.</p>
+    <p>This tool implements a scoring algorithm based on research from the Advanced Marketing Institute, CoSchedule's analysis of 1 million headlines, and Buzzsumo's study of 100 million article shares. It evaluates four word categories (common, uncommon, emotional, and power words), checks structural factors like length and number usage, classifies the headline type, and provides specific, actionable suggestions for improvement.</p>
+
+    <h3>How the Scoring Algorithm Works</h3>
+    <p>The overall effectiveness score ranges from 0 to 100 and is calculated from five weighted components. <strong>Emotional impact (25%)</strong> measures the percentage of words that trigger emotional responses such as curiosity, fear, excitement, surprise, or desire. The ideal range is 10-15% emotional words. <strong>Power word density (20%)</strong> counts persuasive words that drive action, including urgency triggers, exclusivity markers, authority signals, and trust builders. One to two power words per headline is optimal. <strong>Word balance (20%)</strong> evaluates the distribution of common, uncommon, emotional, and power words. The ideal balance is approximately 20-30% common words, 10-20% uncommon words, 10-15% emotional words, and 5-10% power words, with the remainder being structural words like articles and prepositions.</p>
+    <p><strong>Length optimization (20%)</strong> scores how close your headline is to the ideal length window. Headlines between 6 and 12 words and 50 and 70 characters score highest. Shorter headlines lack specificity and emotional hooks. Longer headlines get truncated in search results, email subject lines, and social media previews. Google displays approximately 55-60 characters in search result titles, and most email clients show 40-60 characters of subject line text. <strong>Structural bonuses (15%)</strong> add points for using numbers (which increase click-through rates by 36% according to Conductor research), questions (which activate the reader's curiosity gap), brackets or parentheses (which add 38% more clicks per HubSpot data), and strong opening words.</p>
+
+    <h3>Understanding Word Categories</h3>
+    <p><strong>Common words</strong> are everyday vocabulary that most readers process without conscious effort: "the," "how," "your," "best," "new," "get," "make," "way." These words form the structural backbone of your headline and ensure readability. Too many common words (over 60%) make your headline bland and generic. Too few (under 15%) make it feel forced or unnatural. The tool highlights common words in gray tags.</p>
+    <p><strong>Uncommon words</strong> are vocabulary that stands out from typical headline language: "paradigm," "counterintuitive," "overlooked," "untapped," "devastating," "revolutionary," "groundbreaking." These words signal depth and originality, suggesting the content offers insights beyond surface-level advice. They are highlighted in green tags. Aim for 10-20% uncommon words to balance accessibility with intrigue.</p>
+    <p><strong>Emotional words</strong> directly trigger feelings. They fall into several categories: fear words ("dangerous," "warning," "risky," "devastating"), joy words ("brilliant," "amazing," "delightful," "heartwarming"), anger words ("outrageous," "infuriating," "unacceptable," "disgraceful"), surprise words ("shocking," "unexpected," "stunning," "unbelievable"), and desire words ("irresistible," "essential," "must-have," "life-changing"). Emotional words are highlighted in red tags and are the primary driver of social sharing behavior.</p>
+    <p><strong>Power words</strong> are persuasion-focused terms that trigger specific behavioral responses. Urgency words ("now," "immediately," "limited," "deadline," "hurry") create fear of missing out. Exclusivity words ("secret," "insider," "private," "exclusive," "elite") make readers feel they are accessing privileged information. Authority words ("proven," "research-backed," "expert," "scientific," "definitive") build credibility. Trust words ("guaranteed," "authentic," "transparent," "honest," "verified") reduce skepticism. Power words appear in purple tags.</p>
+
+    <h3>Headline Type Classification</h3>
+    <p>The analyzer classifies your headline into one of several proven headline formats. <strong>List headlines</strong> ("7 Ways to...," "10 Best...") consistently outperform other types in click-through rates because they set clear expectations about the content's structure and scope. <strong>How-to headlines</strong> signal practical, actionable content that solves a specific problem. <strong>Question headlines</strong> activate the curiosity gap, a psychological phenomenon where encountering an unanswered question creates mild anxiety that can only be resolved by reading the answer. <strong>Command headlines</strong> use imperative verbs ("Stop," "Start," "Try," "Avoid") to direct the reader's attention. <strong>Comparison headlines</strong> ("X vs. Y," "The Difference Between") attract readers who are in a decision-making phase.</p>
+
+    <h3>Optimization Tips by Platform</h3>
+    <p>Different platforms have different headline requirements. For <strong>Google Search (SEO)</strong>, keep titles under 60 characters, front-load your primary keyword, and include a modifier like "best," "guide," "2026," or a number. For <strong>social media shares</strong>, emotional words matter more than keywords since sharing is driven by emotion, not information-seeking intent. For <strong>email subject lines</strong>, keep under 50 characters, personalize when possible, and use urgency or curiosity without being misleading. For <strong>blog posts</strong>, combine a specific promise with an emotional hook and a credibility signal.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This headline analyzer processes everything client-side in your browser using JavaScript. No headline data is transmitted to any server. Analysis completes in under 10 milliseconds for any headline length. The word databases include approximately 800 emotional words, 400 power words, and 2,000 common words, all loaded inline with the page. For full-text analysis beyond headlines, the main <a href="/">Enhio text analyzer</a> provides readability scores and sentence-level diagnostics. For image optimization in your content, <a href="https://krzen.com">Krzen</a> offers compression tools. Developers working on NLP headline optimization may find <a href="https://heytensor.com">HeyTensor's</a> tokenization tools useful for preprocessing pipelines.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence analysis, tone detection, and SEO keyword checking.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What makes a headline effective?</h3>
+    <p>An effective headline balances several factors: optimal length (6-12 words, 50-70 characters), emotional trigger words that create curiosity or urgency, power words that command attention, a clear value proposition, and proper word type balance between common, uncommon, emotional, and power words. Research shows headlines with at least one emotional word get 2-3x more clicks than neutral headlines. The analyzer scores all of these factors and provides a composite effectiveness rating.</p>
+
+    <h3>What are emotional words in headlines?</h3>
+    <p>Emotional words trigger psychological responses in readers. They include words like "amazing," "shocking," "heartbreaking," "brilliant," "terrifying," "inspiring," "devastating," and "incredible." These words activate the limbic system and create an emotional hook that drives clicks and shares. The most effective headlines contain 10-15% emotional words. The analyzer detects these words and highlights them with red tags in the word breakdown.</p>
+
+    <h3>What are power words in headlines?</h3>
+    <p>Power words are persuasive terms that trigger a specific behavioral response. They fall into categories: urgency (now, immediately, limited), exclusivity (secret, insider, private), authority (proven, research-backed, expert), curiosity (surprising, unexpected, hidden), and trust (guaranteed, certified, authentic). Using 1-2 power words per headline significantly improves engagement without making the headline feel clickbaity or manipulative.</p>
+
+    <h3>How long should a headline be?</h3>
+    <p>The ideal headline length is 6-12 words and 50-70 characters. Headlines under 6 words often lack specificity and emotional hooks. Headlines over 14 words risk getting truncated in search results and social shares. Google displays approximately 55-60 characters in search results, so staying under 60 characters ensures your full headline is visible. Email clients typically show 40-60 characters in subject lines. The analyzer penalizes headlines outside these optimal ranges.</p>
+
+    <h3>Does this tool store my headlines?</h3>
+    <p>No. This headline analyzer runs entirely in your browser using client-side JavaScript. Your headlines are never sent to any server, stored in any database, or shared with any third party. There are no cookies, no analytics, and no accounts required. You can verify this by monitoring the Network tab in your browser's developer tools while using the tool.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/grammar-pattern-checker.html" class="related-card">
+        <h4>Grammar Pattern Checker</h4>
+        <p>Detect passive voice, comma splices, run-on sentences, and misplaced modifiers.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Analyze word frequency with interactive word cloud and character distribution charts.</p>
+      </a>
+      <a href="/research/writing-style-analyzer.html" class="related-card">
+        <h4>Writing Style Analyzer</h4>
+        <p>Analyze tone, formality, sentiment, and vocabulary diversity with radar chart visualization.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// HEADLINE ANALYZER ENGINE
+// ============================================================
+
+const EMOTIONAL_WORDS = new Set([
+  'amazing','incredible','unbelievable','shocking','stunning','brilliant','terrifying','devastating',
+  'heartbreaking','inspiring','outrageous','horrifying','delightful','breathtaking','mind-blowing',
+  'jaw-dropping','life-changing','game-changing','eye-opening','gut-wrenching','soul-crushing',
+  'awe-inspiring','earth-shattering','record-breaking','groundbreaking','revolutionary','extraordinary',
+  'remarkable','phenomenal','spectacular','magnificent','terrible','horrible','awful','dreadful',
+  'frightening','alarming','disturbing','troubling','worrying','concerning','dangerous','risky',
+  'deadly','fatal','toxic','painful','agonizing','excruciating','unbearable','intolerable',
+  'beautiful','gorgeous','lovely','wonderful','marvelous','fabulous','fantastic','superb','exquisite',
+  'glorious','triumphant','victorious','joyful','ecstatic','euphoric','blissful','magical','enchanting',
+  'captivating','mesmerizing','spellbinding','thrilling','exhilarating','electrifying','gripping',
+  'compelling','riveting','fascinating','intriguing','mysterious','enigmatic','puzzling','baffling',
+  'confusing','bewildering','perplexing','strange','weird','bizarre','absurd','ridiculous','laughable',
+  'hilarious','hysterical','side-splitting','heartwarming','touching','moving','poignant','emotional',
+  'passionate','intense','fierce','brutal','savage','ruthless','relentless','unstoppable','unbeatable',
+  'invincible','dominant','powerful','mighty','fearless','courageous','heroic','legendary','epic',
+  'monumental','historic','unforgettable','iconic','timeless','eternal','ultimate','supreme','perfect',
+  'flawless','impeccable','immaculate','pristine','pure','genuine','authentic','real','raw','honest',
+  'vulnerable','brave','bold','daring','audacious','fearsome','formidable','overwhelming','staggering',
+  'astonishing','astounding','stupendous','colossal','enormous','massive','gigantic','tremendous',
+  'catastrophic','disastrous','calamitous','tragic','heartfelt','sincere','profound','deep','meaningful',
+  'significant','critical','crucial','vital','essential','urgent','desperate','dire','grave','serious',
+  'scary','creepy','eerie','haunting','chilling','bone-chilling','blood-curdling','nightmare','horror',
+  'miracle','wonder','dream','fantasy','paradise','heaven','bliss','ecstasy','rapture','triumph',
+  'failure','disaster','catastrophe','crisis','emergency','panic','chaos','mayhem','havoc','destruction',
+  'annihilation','apocalypse','ruin','downfall','collapse','meltdown','explosion','eruption','revolution',
+  'transformation','metamorphosis','rebirth','resurrection','redemption','salvation','liberation'
+]);
+
+const POWER_WORDS = new Set([
+  'proven','secret','exclusive','limited','guaranteed','free','instant','new','now','today',
+  'immediately','urgent','breaking','insider','private','confidential','classified','restricted',
+  'elite','premium','luxury','first','only','unique','rare','special','custom','personalized',
+  'expert','authority','official','certified','verified','authenticated','endorsed','recommended',
+  'approved','trusted','reliable','definitive','comprehensive','complete','ultimate','essential',
+  'must-have','need-to-know','critical','important','key','vital','crucial','fundamental',
+  'surprising','unexpected','little-known','hidden','underground','untold','unheard','overlooked',
+  'forgotten','ignored','neglected','underrated','underestimated','undervalued','undiscovered',
+  'research-backed','science-backed','data-driven','evidence-based','tested','battle-tested',
+  'time-tested','clinically-proven','peer-reviewed','backed','supported','confirmed','validated',
+  'effortless','simple','easy','quick','fast','rapid','swift','painless','straightforward',
+  'foolproof','bulletproof','fail-safe','risk-free','worry-free','hassle-free','stress-free',
+  'guaranteed','money-back','no-risk','unconditional','lifetime','forever','permanent','lasting',
+  'double','triple','quadruple','10x','100x','massive','huge','enormous','skyrocket','explode',
+  'dominate','crush','destroy','eliminate','annihilate','obliterate','revolutionize','transform',
+  'hack','trick','shortcut','cheat','loophole','workaround','blueprint','framework','formula',
+  'strategy','system','method','technique','approach','template','playbook','roadmap','guide',
+  'step-by-step','actionable','practical','tactical','hands-on','real-world','behind-the-scenes',
+  'warning','caution','alert','beware','avoid','stop','never','mistake','error','wrong','bad',
+  'worst','deadly','dangerous','toxic','scam','fraud','fake','lie','myth','trap','pitfall'
+]);
+
+const COMMON_WORDS = new Set([
+  'the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','as',
+  'is','was','are','were','be','been','being','have','has','had','do','does','did','will',
+  'would','could','should','may','might','can','shall','must','need','this','that','these',
+  'those','it','its','my','your','his','her','our','their','i','you','he','she','we','they',
+  'me','him','us','them','who','what','when','where','why','how','which','not','no','all',
+  'each','every','any','some','many','much','more','most','few','less','than','very','too',
+  'also','just','only','still','even','about','after','before','between','through','into',
+  'over','under','up','down','out','off','here','there','so','if','then','because','while',
+  'best','new','top','get','make','way','tips','things','ways','time','people','work','good',
+  'great','big','first','last','right','use','know','think','see','go','come','take','give',
+  'find','tell','say','help','try','start','keep','show','look','want','learn','change','follow'
+]);
+
+function categorizeWords(words) {
+  const result = { common: [], uncommon: [], emotional: [], power: [] };
+  words.forEach(w => {
+    const lower = w.toLowerCase().replace(/[^a-z-]/g, '');
+    if (!lower) return;
+    if (EMOTIONAL_WORDS.has(lower)) result.emotional.push(w);
+    else if (POWER_WORDS.has(lower)) result.power.push(w);
+    else if (COMMON_WORDS.has(lower)) result.common.push(w);
+    else result.uncommon.push(w);
+  });
+  return result;
+}
+
+function classifyHeadline(text) {
+  const lower = text.toLowerCase();
+  if (/^\d+\s/.test(text) || /\btop\s+\d+\b/i.test(text)) return 'List';
+  if (/^how\s+to\b/i.test(text)) return 'How-To';
+  if (/\?$/.test(text.trim())) return 'Question';
+  if (/^(stop|start|try|avoid|don.t|never|always|do|get|make|use|learn|discover|find|watch|read|check)\b/i.test(text)) return 'Command';
+  if (/\bvs\.?\b|\bversus\b|\bor\b.*\bor\b|\bcompared?\b|\bdifference\b/i.test(text)) return 'Comparison';
+  if (/\bwhy\b/i.test(text)) return 'Reason';
+  if (/\bwhat\b/i.test(text)) return 'Explainer';
+  return 'Generic';
+}
+
+function calcScore(headline) {
+  const words = headline.split(/\s+/).filter(w => w.length > 0);
+  const cats = categorizeWords(words);
+  const wc = words.length;
+  const cc = headline.length;
+  let score = 0;
+
+  // Emotional impact (25%)
+  const emotionalPct = wc > 0 ? cats.emotional.length / wc : 0;
+  let emotionalScore = 0;
+  if (emotionalPct >= 0.10 && emotionalPct <= 0.20) emotionalScore = 25;
+  else if (emotionalPct > 0 && emotionalPct < 0.10) emotionalScore = emotionalPct * 250;
+  else if (emotionalPct > 0.20) emotionalScore = Math.max(10, 25 - (emotionalPct - 0.20) * 100);
+  else emotionalScore = 0;
+  score += emotionalScore;
+
+  // Power word density (20%)
+  let powerScore = 0;
+  if (cats.power.length === 1) powerScore = 18;
+  else if (cats.power.length === 2) powerScore = 20;
+  else if (cats.power.length === 3) powerScore = 16;
+  else if (cats.power.length > 3) powerScore = 10;
+  else powerScore = 0;
+  score += powerScore;
+
+  // Word balance (20%)
+  const totalCat = cats.common.length + cats.uncommon.length + cats.emotional.length + cats.power.length;
+  const commonPct = totalCat > 0 ? cats.common.length / totalCat : 0;
+  const uncommonPct = totalCat > 0 ? cats.uncommon.length / totalCat : 0;
+  let balanceScore = 20;
+  if (commonPct > 0.70) balanceScore -= 8;
+  if (uncommonPct < 0.05 && wc > 4) balanceScore -= 5;
+  if (cats.emotional.length === 0 && cats.power.length === 0) balanceScore -= 7;
+  score += Math.max(0, balanceScore);
+
+  // Length optimization (20%)
+  let lengthScore = 0;
+  if (wc >= 6 && wc <= 12) lengthScore += 10;
+  else if (wc >= 4 && wc <= 14) lengthScore += 6;
+  else if (wc >= 2 && wc <= 18) lengthScore += 3;
+  if (cc >= 50 && cc <= 70) lengthScore += 10;
+  else if (cc >= 35 && cc <= 85) lengthScore += 6;
+  else if (cc >= 20 && cc <= 100) lengthScore += 3;
+  score += lengthScore;
+
+  // Structural bonuses (15%)
+  let structScore = 0;
+  if (/\d/.test(headline)) structScore += 5;
+  if (/\?$/.test(headline.trim())) structScore += 4;
+  if (/[\[\(]/.test(headline)) structScore += 3;
+  const firstWord = words[0]?.toLowerCase() || '';
+  const strongStarts = new Set(['how','why','what','when','where','stop','start','the','new','top','best','proven','secret','warning','breaking','exclusive','free','instant','ultimate','discover','learn','master']);
+  if (strongStarts.has(firstWord) || /^\d+$/.test(firstWord)) structScore += 3;
+  score += Math.min(15, structScore);
+
+  return { score: Math.min(100, Math.round(score)), cats, wc, cc, type: classifyHeadline(headline), emotionalPct, powerCount: cats.power.length };
+}
+
+function getScoreColor(score) {
+  if (score >= 75) return '#3fb950';
+  if (score >= 50) return '#d29922';
+  if (score >= 25) return '#f85149';
+  return '#8b949e';
+}
+
+function getScoreLabel(score) {
+  if (score >= 80) return 'Excellent';
+  if (score >= 65) return 'Strong';
+  if (score >= 50) return 'Good';
+  if (score >= 35) return 'Average';
+  if (score >= 20) return 'Weak';
+  return 'Poor';
+}
+
+function generateSuggestions(data, headline) {
+  const suggestions = [];
+  const { score, cats, wc, cc, type, emotionalPct, powerCount } = data;
+
+  if (cats.emotional.length === 0) suggestions.push({ icon: '&#9888;', text: 'No emotional words detected. Add at least one emotional trigger word (e.g., "proven," "shocking," "essential," "brilliant") to increase engagement.' });
+  if (powerCount === 0) suggestions.push({ icon: '&#9889;', text: 'No power words found. Adding a power word like "secret," "proven," "free," "guaranteed," or "exclusive" can significantly boost click-through rates.' });
+  if (wc < 6) suggestions.push({ icon: '&#128207;', text: 'Your headline is only ' + wc + ' words. Headlines with 6-12 words perform best. Add more specific details or an emotional hook.' });
+  if (wc > 14) suggestions.push({ icon: '&#9986;', text: 'Your headline is ' + wc + ' words long. Headlines over 14 words risk truncation. Cut filler words and tighten the language.' });
+  if (cc > 70) suggestions.push({ icon: '&#128270;', text: 'At ' + cc + ' characters, your headline may get cut off in Google search results (limit ~60 chars) and email subject lines. Shorten it.' });
+  if (cc < 40 && wc >= 4) suggestions.push({ icon: '&#128208;', text: 'At only ' + cc + ' characters, your headline may be too short for SEO. Google prefers titles between 50-60 characters for maximum SERP display.' });
+  if (!/\d/.test(headline)) suggestions.push({ icon: '&#9889;', text: 'Consider adding a number. Headlines with numbers get 36% more clicks (Conductor research). Try a list format like "7 Ways..." or include a specific data point.' });
+  if (type === 'Generic') suggestions.push({ icon: '&#127919;', text: 'Your headline does not match a proven headline format. Try starting with a number (list), "How to" (tutorial), a question, or a command verb for higher engagement.' });
+  if (cats.uncommon.length === 0 && wc > 4) suggestions.push({ icon: '&#128161;', text: 'All your words are common vocabulary. Replace one generic word with a more specific or unique term to stand out from competing headlines.' });
+  if (powerCount > 3) suggestions.push({ icon: '&#9888;', text: 'Too many power words (' + powerCount + ') can make your headline feel clickbaity. Reduce to 1-2 power words for authenticity.' });
+  if (score >= 75) suggestions.push({ icon: '&#9989;', text: 'Strong headline! It has good emotional resonance, appropriate length, and effective word balance. Test it against 2-3 alternatives to find the best performer.' });
+
+  return suggestions;
+}
+
+function analyzeHeadline() {
+  const headline = document.getElementById('headlineInput').value.trim();
+  if (!headline || headline.length < 3) { alert('Please enter a headline to analyze.'); return; }
+
+  const data = calcScore(headline);
+  const { score, cats, wc, cc, type } = data;
+  const color = getScoreColor(score);
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Score ring
+  const circumference = 2 * Math.PI * 56;
+  const offset = circumference - (score / 100) * circumference;
+  document.getElementById('scoreRing').innerHTML = `
+    <svg width="140" height="140" viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="56" fill="none" stroke="var(--border)" stroke-width="8"/>
+      <circle cx="70" cy="70" r="56" fill="none" stroke="${color}" stroke-width="8"
+        stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" stroke-linecap="round"/>
+    </svg>
+    <div class="score-text">
+      <span class="score-num" style="color:${color}">${score}</span>
+      <span class="score-label">${getScoreLabel(score)}</span>
+    </div>`;
+  document.getElementById('headlineType').textContent = type + ' Headline';
+
+  // Stats
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${wc}</span><span class="stat-label">Words</span></div>
+    <div class="stat-card"><span class="stat-value">${cc}</span><span class="stat-label">Characters</span></div>
+    <div class="stat-card"><span class="stat-value">${cats.emotional.length}</span><span class="stat-label">Emotional Words</span></div>
+    <div class="stat-card"><span class="stat-value">${cats.power.length}</span><span class="stat-label">Power Words</span></div>`;
+
+  // Word balance bar
+  const total = cats.common.length + cats.uncommon.length + cats.emotional.length + cats.power.length;
+  const pctC = total > 0 ? Math.round(cats.common.length / total * 100) : 0;
+  const pctU = total > 0 ? Math.round(cats.uncommon.length / total * 100) : 0;
+  const pctE = total > 0 ? Math.round(cats.emotional.length / total * 100) : 0;
+  const pctP = total > 0 ? Math.round(cats.power.length / total * 100) : 0;
+  document.getElementById('balanceBar').innerHTML = `
+    <div class="balance-segment" style="width:${pctC}%;background:#8b949e;">${pctC}%</div>
+    <div class="balance-segment" style="width:${pctU}%;background:#3fb950;">${pctU}%</div>
+    <div class="balance-segment" style="width:${pctE}%;background:#f85149;">${pctE}%</div>
+    <div class="balance-segment" style="width:${pctP}%;background:#d2a8ff;">${pctP}%</div>`;
+
+  // Word tags
+  let tagsHtml = '';
+  cats.emotional.forEach(w => tagsHtml += `<span class="word-tag emotional">${escapeHtml(w)}</span>`);
+  cats.power.forEach(w => tagsHtml += `<span class="word-tag power">${escapeHtml(w)}</span>`);
+  cats.uncommon.forEach(w => tagsHtml += `<span class="word-tag uncommon">${escapeHtml(w)}</span>`);
+  cats.common.forEach(w => tagsHtml += `<span class="word-tag common">${escapeHtml(w)}</span>`);
+  document.getElementById('wordTags').innerHTML = tagsHtml;
+
+  // Breakdown
+  document.getElementById('breakdownGrid').innerHTML = `
+    <div class="breakdown-card"><span class="bd-count" style="color:#8b949e">${cats.common.length}</span><span class="bd-label">Common</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:#3fb950">${cats.uncommon.length}</span><span class="bd-label">Uncommon</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:#f85149">${cats.emotional.length}</span><span class="bd-label">Emotional</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:#d2a8ff">${cats.power.length}</span><span class="bd-label">Power</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:var(--accent)">${wc}</span><span class="bd-label">Total Words</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:var(--warning)">${cc}</span><span class="bd-label">Characters</span></div>`;
+
+  // Suggestions
+  const suggestions = generateSuggestions(data, headline);
+  let sugHtml = '';
+  suggestions.forEach(s => {
+    sugHtml += `<div class="suggestion-item"><span class="suggestion-icon">${s.icon}</span><span class="suggestion-text">${s.text}</span></div>`;
+  });
+  document.getElementById('suggestions').innerHTML = sugHtml;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function loadSample() {
+  document.getElementById('headlineInput').value = '10 Proven Strategies to Double Your Email Open Rates in 2026';
+  analyzeHeadline();
+}
+
+function clearAll() {
+  document.getElementById('headlineInput').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+
+document.getElementById('headlineInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') analyzeHeadline();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Frequency Counter — Word Cloud & Distribution Analysis | Enhio</title>
+  <meta name="description" content="Free word frequency counter with interactive word cloud visualization and character frequency distribution. Analyze word counts, unique words, stop word filtering, and sortable frequency tables.">
+  <meta name="keywords" content="word frequency counter, word cloud generator, text frequency analysis, word count tool, character frequency, stop words filter, text analysis">
+  <link rel="canonical" href="https://enhio.com/tools/word-frequency-counter.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Word Frequency Counter — Word Cloud & Distribution Analysis | Enhio">
+  <meta property="og:description" content="Free word frequency counter with word cloud visualization, character distribution charts, and sortable frequency tables. All client-side, no data sent to servers.">
+  <meta property="og:url" content="https://enhio.com/tools/word-frequency-counter.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Word Frequency Counter — Word Cloud & Distribution Analysis | Enhio">
+  <meta name="twitter:description" content="Free word frequency counter with word cloud, character distribution, and sortable frequency tables.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/word-frequency-counter.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/word-frequency-counter.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Word Frequency Counter — Enhio",
+    "url": "https://enhio.com/tools/word-frequency-counter.html",
+    "description": "Free client-side word frequency counter with word cloud visualization, character frequency distribution, sortable frequency tables, and stop word filtering.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Word frequency analysis", "Interactive word cloud", "Character frequency distribution", "Stop word filtering", "Sortable frequency table", "Reading time estimation", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Word Frequency Counter — Word Cloud & Distribution Analysis",
+    "description": "Analyze any text with a free word frequency counter featuring interactive word cloud visualization, character frequency charts, and sortable frequency tables.",
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "mainEntityOfPage": "https://enhio.com/tools/word-frequency-counter.html",
+    "image": "https://enhio.com/assets/og-image.png",
+    "articleSection": "Tools",
+    "wordCount": 1200
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is word frequency analysis?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Word frequency analysis counts how many times each word appears in a text. It reveals vocabulary patterns, keyword density, and repetitive word usage. Writers use it to identify overused words, and SEO specialists use it to verify keyword distribution across content." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are stop words and why should I exclude them?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Stop words are common function words like 'the', 'and', 'is', 'in', 'to', and 'a' that appear frequently in all English text. Excluding them from frequency analysis reveals your actual content words — the nouns, verbs, and adjectives that carry meaning and determine your text's topic." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the word cloud visualization work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The word cloud displays your top 20 most frequent words with font size proportional to frequency. More frequent words appear larger. The cloud is rendered on an HTML5 canvas element using a placement algorithm that avoids overlapping text while maximizing space usage." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good average word length for readable text?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The average word length in general English text is 4.5-5 characters. Text aimed at a general audience should average 4-5 characters per word. Technical or academic writing may average 5-6 characters. If your average exceeds 6 characters, consider simplifying your vocabulary for better readability." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text data private when using this tool?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This word frequency counter runs entirely in your browser using client-side JavaScript. Your text is never sent to any server, never stored, and never shared. You can verify this by checking the source code or monitoring network requests in your browser's developer tools." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo {
+      color: var(--accent-3); text-decoration: none; font-size: 0.9rem;
+      padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s;
+    }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea {
+      width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem;
+    }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem;
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .toggle-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; margin-left: 1rem; }
+    .toggle-label input { accent-color: var(--accent); width: 16px; height: 16px; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .freq-table-wrap { max-height: 450px; overflow-y: auto; margin: 1rem 0; border: 1px solid var(--border); border-radius: 8px; }
+    .freq-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    .freq-table th { position: sticky; top: 0; background: var(--surface-2); padding: 0.7rem 1rem; text-align: left; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 600; cursor: pointer; user-select: none; border-bottom: 1px solid var(--border); }
+    .freq-table th:hover { color: var(--accent); }
+    .freq-table th .sort-arrow { margin-left: 0.3rem; font-size: 0.7rem; }
+    .freq-table td { padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); }
+    .freq-table tr:hover td { background: var(--surface); }
+    .freq-bar-cell { display: flex; align-items: center; gap: 0.5rem; }
+    .freq-bar-inline { height: 18px; background: rgba(129,140,248,0.25); border-radius: 3px; min-width: 4px; transition: width 0.3s; }
+    .cloud-canvas-wrap { margin: 1.5rem 0; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .cloud-canvas-wrap canvas { max-width: 100%; border-radius: 6px; }
+    .char-chart-wrap { margin: 1.5rem 0; }
+    .char-bars { display: flex; align-items: flex-end; gap: 3px; height: 160px; padding: 0 0.5rem; }
+    .char-bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0; }
+    .char-bar { width: 100%; background: rgba(129,140,248,0.4); border-radius: 3px 3px 0 0; transition: height 0.4s; min-height: 2px; }
+    .char-bar:hover { background: var(--accent); }
+    .char-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; }
+    .char-count-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); margin-bottom: 2px; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+      .char-bars { height: 120px; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Word Frequency Counter
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Word <span>Frequency Counter</span> &mdash; Cloud &amp; Distribution</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Analyze Word Frequency</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste or type your text below. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste your text here to analyze word frequency, generate a word cloud, and view character distribution..."></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="analyzeFrequency()">Analyze</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+      <label class="toggle-label"><input type="checkbox" id="stopToggle" checked> Exclude stop words</label>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="section-card">
+        <h3 style="margin-top:0;">Word Cloud (Top 20)</h3>
+        <div class="cloud-canvas-wrap"><canvas id="cloudCanvas" width="760" height="340"></canvas></div>
+      </div>
+      <div class="section-card">
+        <h3 style="margin-top:0;">Word Frequency Table</h3>
+        <div class="freq-table-wrap"><table class="freq-table" id="freqTable"><thead><tr><th onclick="sortTable(0)">Rank <span class="sort-arrow"></span></th><th onclick="sortTable(1)">Word <span class="sort-arrow"></span></th><th onclick="sortTable(2)">Count <span class="sort-arrow"></span></th><th>Bar</th></tr></thead><tbody id="freqBody"></tbody></table></div>
+      </div>
+      <div class="section-card">
+        <h3 style="margin-top:0;">Character Frequency Distribution</h3>
+        <div class="char-chart-wrap"><div class="char-bars" id="charBars"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Word Frequency Counter?</h2>
+    <p>A word frequency counter is a text analysis tool that scans your writing and tallies how many times each word appears. The output is a ranked list showing which words dominate your text, how many unique words you used, and how your vocabulary distributes across the document. This data is fundamental to understanding text composition, whether you are editing a blog post, auditing SEO content, conducting linguistic research, or checking academic writing for repetition.</p>
+    <p>Unlike basic word counters that only give you a total number, a frequency counter breaks the text apart word by word. It separates content words (nouns, verbs, adjectives) from function words (articles, prepositions, conjunctions) and can optionally filter out stop words to reveal only the meaningful vocabulary. The result is a clear picture of what your text is actually about, measured by the words you used most often.</p>
+    <p>This tool goes beyond a simple frequency list by adding three additional layers of analysis: a canvas-based word cloud that gives you visual intuition about your text's vocabulary at a glance, a sortable frequency table that lets you explore every word in detail, and a character frequency distribution chart that shows the relative usage of each letter in the alphabet. Together, these views provide a comprehensive understanding of your text's vocabulary profile.</p>
+
+    <h3>How Word Frequency Analysis Works</h3>
+    <p>The analysis pipeline follows four stages. First, the text is normalized: converted to lowercase, stripped of punctuation, and split into individual tokens on whitespace boundaries. Second, if stop word filtering is enabled, approximately 175 common English function words are removed from the token list. These include articles (the, a, an), prepositions (in, on, at, by), conjunctions (and, but, or), pronouns (he, she, it, they), and auxiliary verbs (is, was, were, have, had). Third, the remaining words are counted using a hash map, and the result is sorted by frequency in descending order. Fourth, the statistics are computed: total word count, unique word count, average word length, and estimated reading time at 238 words per minute.</p>
+    <p>The word cloud rendering uses an HTML5 Canvas element. Font size for each word is scaled linearly between a minimum and maximum size based on that word's frequency relative to the most frequent word. Words are placed using a spiral layout algorithm that starts from the center and radiates outward, testing each position for overlap against previously placed words. Colors cycle through a palette derived from the site's accent color to create visual variety while maintaining design consistency.</p>
+    <p>The character frequency chart counts every alphabetic character in the original text (before stop word removal) and displays the result as a bar chart with one bar per letter. This reveals interesting patterns: in typical English text, the letter "e" appears most frequently at roughly 13% of all characters, followed by "t" at 9.1%, "a" at 8.2%, and "o" at 7.5%. Deviations from these expected frequencies can indicate specialized vocabulary, non-English loanwords, or constrained writing (like lipograms that intentionally omit certain letters).</p>
+
+    <h3>Use Cases for Word Frequency Analysis</h3>
+    <p>Content writers use word frequency analysis to catch unconscious repetition. If the word "important" appears 14 times in a 500-word article, the writing will feel monotonous even if the reader cannot consciously identify why. The frequency table makes this immediately visible. Writers can then use a thesaurus to introduce synonyms and improve lexical diversity.</p>
+    <p>SEO professionals rely on word frequency to verify keyword density. Search engines use term frequency as one signal among many to understand what a page is about. If your target keyword appears zero times or 50 times in a 1,000-word article, both are problems. The ideal range is typically 1-3% of total words. This tool lets you check that instantly without manual counting.</p>
+    <p>Academic researchers use frequency analysis to study authorship, genre, and linguistic change over time. The relative frequency of function words (which are used unconsciously) can distinguish between authors with high accuracy. Corpus linguists compile word frequency lists from millions of words to establish baseline frequencies for different text types, time periods, and registers.</p>
+    <p>Language learners benefit from knowing which words appear most frequently in authentic texts. The most common 2,000 English words cover approximately 80% of everyday text. By analyzing texts in their target language, learners can prioritize vocabulary study for maximum coverage. A frequency list from a news article, for example, reveals which words are essential for reading comprehension in that domain.</p>
+    <p>Technical writers use frequency analysis to ensure consistency in terminology. If a product manual uses both "click" and "press" and "tap" to describe the same action, the frequency table will show all three terms. Standardizing on one term improves clarity and reduces translation costs for localized documentation.</p>
+
+    <h3>Understanding the Statistics</h3>
+    <p><strong>Total Words</strong> counts every word token in the input, including stop words. This is the raw word count equivalent to what a basic word counter provides. A typical blog post contains 1,000-2,000 words, a long-form article 2,000-5,000 words, and a novel 60,000-100,000 words.</p>
+    <p><strong>Unique Words</strong> counts the number of distinct word forms (types) after lowercasing. The ratio of unique words to total words is called the type-token ratio (TTR) and measures lexical diversity. A TTR above 0.5 for a 500-word text suggests rich vocabulary; below 0.3 suggests significant repetition. Note that TTR naturally decreases as text length increases, since common words must be repeated.</p>
+    <p><strong>Average Word Length</strong> is the mean number of characters per word. In general English, this averages 4.5-5.0 characters. Academic and technical writing tends toward 5.5-6.5 characters due to longer specialized terminology. Children's literature averages 3.5-4.0 characters. This metric correlates with readability: shorter average word length generally means easier text.</p>
+    <p><strong>Reading Time</strong> estimates how long it takes an average adult to read the text at 238 words per minute, the commonly cited average silent reading speed for English. Technical or dense material may reduce effective speed to 150-200 WPM, while light fiction may allow 250-300 WPM.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This word frequency counter processes everything client-side in your browser using JavaScript. No text data is transmitted to any server. The analysis runs in a single pass through the text, making it efficient even for very long documents. For texts under 100,000 words, analysis completes in under 100 milliseconds on modern hardware. The word cloud rendering adds a small amount of time due to the placement algorithm, but typically finishes within 200 milliseconds for 20 words. If you need related analysis capabilities, the main <a href="/">Enhio text analyzer</a> provides readability scores, sentence analysis, and tone detection alongside word frequency. For image-related optimization tasks to accompany your content, <a href="https://krzen.com">Krzen</a> offers compression and format conversion tools. Developers working on natural language processing pipelines may find <a href="https://heytensor.com">HeyTensor's</a> tensor utilities useful for tokenization and embedding workflows.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence analysis, tone detection, and SEO keyword checking.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is word frequency analysis?</h3>
+    <p>Word frequency analysis counts how many times each word appears in a text. It reveals vocabulary patterns, keyword density, and repetitive word usage. Writers use it to identify overused words, SEO specialists use it to verify keyword distribution, and researchers use it to study authorship and linguistic patterns. The output is typically a ranked list of words sorted by how often they appear.</p>
+
+    <h3>What are stop words and why should I exclude them?</h3>
+    <p>Stop words are common function words like "the," "and," "is," "in," "to," and "a" that appear frequently in all English text regardless of topic. They serve grammatical purposes but carry little topical meaning. Excluding them from frequency analysis reveals your actual content words: the nouns, verbs, and adjectives that determine what your text is about. This tool includes a toggle to enable or disable stop word filtering.</p>
+
+    <h3>How does the word cloud visualization work?</h3>
+    <p>The word cloud displays your top 20 most frequent content words with font size proportional to their frequency. The most common word gets the largest text, and sizes scale down linearly from there. The cloud is rendered on an HTML5 canvas element using a spiral placement algorithm that avoids overlapping text. Colors rotate through a palette to improve visual distinction between adjacent words.</p>
+
+    <h3>What is a good average word length for readable text?</h3>
+    <p>The average word length in general English text is 4.5 to 5.0 characters. For content aimed at a general web audience, aim for 4 to 5 characters per word. Technical or academic writing typically averages 5.5 to 6.5 characters. If your average exceeds 6 characters, your vocabulary may be too complex for a general audience. This correlates directly with readability scores: the Flesch formulas penalize longer (more syllabic) words.</p>
+
+    <h3>Is my text data private when using this tool?</h3>
+    <p>Yes. This word frequency counter runs entirely in your browser using client-side JavaScript. No text data is transmitted to any server, never stored, and never shared. There are no cookies, no analytics trackers, and no accounts. You can verify this by monitoring the Network tab in your browser's developer tools while using the tool.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/sentence-complexity-checker.html" class="related-card">
+        <h4>Sentence Complexity Checker</h4>
+        <p>Calculate 6 readability scores with grade-level mapping and complex sentence highlighting.</p>
+      </a>
+      <a href="/guides/plain-language-rewriter.html" class="related-card">
+        <h4>Plain Language Rewriter</h4>
+        <p>Side-by-side text simplification with before/after readability comparison.</p>
+      </a>
+      <a href="/guides/improve-text-readability.html" class="related-card">
+        <h4>Readability Guide</h4>
+        <p>10 proven tips to improve readability scores with formulas explained.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// WORD FREQUENCY COUNTER ENGINE
+// ============================================================
+
+const STOP_WORDS = new Set([
+  'the','be','to','of','and','a','in','that','have','i','it','for','not','on','with','he','as','you',
+  'do','at','this','but','his','by','from','they','we','say','her','she','or','an','will','my','one',
+  'all','would','there','their','what','so','up','out','if','about','who','get','which','go','me',
+  'when','make','can','like','time','no','just','him','know','take','people','into','year','your',
+  'good','some','could','them','see','other','than','then','now','look','only','come','its','over',
+  'think','also','back','after','use','two','how','our','work','first','well','way','even','new',
+  'want','because','any','these','give','day','most','us','is','are','was','were','been','being',
+  'has','had','did','does','doing','am','more','very','much','many','such','own','same','each',
+  'every','both','few','between','through','while','before','during','without','again','still',
+  'may','should','must','too','here','where','why','let','thing','things','said','says','put',
+  'never','always','really','those','got','been','being','did','done','going','went','made',
+  'right','long','down','off','old','big','high','small','large','next','last','great',
+  'little','just','around','another','came','three','since','number','part','find','found',
+  'however','upon','shall','might','against','though','already','yet','until','often','once',
+  'under','above','below','per','via','also','been','else','having','may','nor','whether'
+]);
+
+let currentData = [];
+let sortCol = 2;
+let sortAsc = false;
+
+function analyzeFrequency() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text || text.length < 5) { alert('Please enter some text to analyze.'); return; }
+
+  const excludeStop = document.getElementById('stopToggle').checked;
+  const allWords = text.toLowerCase().match(/[a-z'-]+/g) || [];
+  const totalWords = allWords.length;
+  if (totalWords < 1) { alert('No words found in the input.'); return; }
+
+  // Word frequency
+  const freq = {};
+  const filtered = [];
+  allWords.forEach(w => {
+    if (w.length < 2) return;
+    const clean = w.replace(/^['-]+|['-]+$/g, '');
+    if (!clean) return;
+    if (excludeStop && STOP_WORDS.has(clean)) return;
+    freq[clean] = (freq[clean] || 0) + 1;
+    filtered.push(clean);
+  });
+
+  const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+  currentData = sorted;
+
+  // Stats
+  const uniqueWords = sorted.length;
+  const totalChars = allWords.join('').length;
+  const avgWordLen = totalWords > 0 ? (totalChars / totalWords).toFixed(1) : 0;
+  const readingMin = Math.ceil(totalWords / 238);
+
+  document.getElementById('results').classList.remove('results-hidden');
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${totalWords.toLocaleString()}</span><span class="stat-label">Total Words</span></div>
+    <div class="stat-card"><span class="stat-value">${uniqueWords.toLocaleString()}</span><span class="stat-label">Unique Words</span></div>
+    <div class="stat-card"><span class="stat-value">${avgWordLen}</span><span class="stat-label">Avg Word Length</span></div>
+    <div class="stat-card"><span class="stat-value">${readingMin} min</span><span class="stat-label">Reading Time</span></div>
+  `;
+
+  // Render table
+  renderTable(sorted);
+
+  // Render word cloud
+  renderWordCloud(sorted.slice(0, 20));
+
+  // Render character distribution
+  renderCharDist(text);
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderTable(data) {
+  const maxCount = data.length > 0 ? data[0][1] : 1;
+  const tbody = document.getElementById('freqBody');
+  tbody.innerHTML = data.slice(0, 100).map((d, i) => {
+    const pct = (d[1] / maxCount * 100).toFixed(0);
+    return `<tr><td>${i + 1}</td><td><code>${d[0]}</code></td><td>${d[1]}</td><td><div class="freq-bar-cell"><div class="freq-bar-inline" style="width:${pct}%"></div></div></td></tr>`;
+  }).join('');
+}
+
+function sortTable(col) {
+  if (col === sortCol) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = col === 1; }
+  const sorted = [...currentData].sort((a, b) => {
+    let va, vb;
+    if (col === 0) { va = currentData.indexOf(a); vb = currentData.indexOf(b); }
+    else if (col === 1) { va = a[0]; vb = b[0]; }
+    else { va = a[1]; vb = b[1]; }
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return sortAsc ? va - vb : vb - va;
+  });
+  renderTable(sorted);
+}
+
+function renderWordCloud(words) {
+  const canvas = document.getElementById('cloudCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, W, H);
+
+  if (words.length === 0) return;
+
+  const maxFreq = words[0][1];
+  const minSize = 14, maxSize = 52;
+  const colors = ['#818CF8', '#a78bfa', '#c4b5fd', '#6366f1', '#4f46e5', '#8b5cf6', '#7c3aed', '#d2a8ff', '#3fb950', '#d29922'];
+  const placed = [];
+
+  words.forEach((entry, idx) => {
+    const [word, count] = entry;
+    const size = Math.max(minSize, Math.round((count / maxFreq) * maxSize));
+    ctx.font = `bold ${size}px 'Space Mono', monospace`;
+    const metrics = ctx.measureText(word);
+    const tw = metrics.width + 8;
+    const th = size + 4;
+
+    let px, py, found = false;
+    // Spiral placement
+    for (let r = 0; r < 300 && !found; r += 2) {
+      for (let angle = 0; angle < Math.PI * 2 && !found; angle += 0.3) {
+        px = Math.round(W / 2 + r * Math.cos(angle + idx) - tw / 2);
+        py = Math.round(H / 2 + r * Math.sin(angle + idx) + th / 4);
+        if (px < 4 || py < th || px + tw > W - 4 || py > H - 4) continue;
+        let overlap = false;
+        for (const p of placed) {
+          if (px < p.x + p.w && px + tw > p.x && py - th < p.y && py > p.y - p.h) { overlap = true; break; }
+        }
+        if (!overlap) found = true;
+      }
+    }
+    if (found) {
+      ctx.fillStyle = colors[idx % colors.length];
+      ctx.fillText(word, px, py);
+      placed.push({ x: px, y: py, w: tw, h: th });
+    }
+  });
+}
+
+function renderCharDist(text) {
+  const chars = text.toLowerCase().replace(/[^a-z]/g, '');
+  const freq = {};
+  for (const c of chars) freq[c] = (freq[c] || 0) + 1;
+  const total = chars.length || 1;
+  const maxVal = Math.max(...Object.values(freq), 1);
+  const container = document.getElementById('charBars');
+
+  let html = '';
+  for (let i = 0; i < 26; i++) {
+    const ch = String.fromCharCode(97 + i);
+    const count = freq[ch] || 0;
+    const pct = (count / total * 100).toFixed(1);
+    const h = Math.max(2, (count / maxVal) * 140);
+    html += `<div class="char-bar-col"><span class="char-count-lbl">${pct}%</span><div class="char-bar" style="height:${h}px" title="${ch}: ${count} (${pct}%)"></div><span class="char-label">${ch}</span></div>`;
+  }
+  container.innerHTML = html;
+}
+
+function loadSample() {
+  document.getElementById('inputText').value = `The quick brown fox jumps over the lazy dog. This sentence contains every letter of the English alphabet and has been used by typographers since the late nineteenth century to test fonts and keyboard layouts.
+
+Word frequency analysis reveals patterns in text that are invisible to casual reading. The most common word in English is "the" which typically accounts for about seven percent of all words in a document. Other high-frequency words include "of" "and" "to" "a" and "in" which together with "the" make up roughly twenty-five percent of all English text.
+
+Content writers use frequency analysis to catch unconscious repetition in their articles. If the word "important" appears fourteen times in a five hundred word article the writing will feel monotonous even if the reader cannot consciously identify why. The frequency table makes this immediately visible and writers can then use a thesaurus to introduce synonyms and improve lexical diversity.
+
+SEO professionals rely on word frequency to verify keyword density. Search engines use term frequency as one signal among many to understand what a page is about. The ideal keyword density range is typically one to three percent of total words for the primary keyword.`;
+  analyzeFrequency();
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+  currentData = [];
+}
+</script>
+
+</body>
+</html>

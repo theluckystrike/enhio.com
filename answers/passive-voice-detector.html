@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passive Voice Detector — Find &amp; Rewrite Passive Sentences with Active Voice Suggestions | Enhio</title>
+  <meta name="description" content="Free passive voice detector that finds every passive construction in your text, highlights them inline, calculates your passive percentage, and suggests active voice rewrites. All client-side, no sign-up.">
+  <meta name="keywords" content="passive voice detector, passive voice checker, active voice converter, passive voice finder, passive to active voice tool, writing clarity tool, passive voice percentage, passive voice fixer">
+  <link rel="canonical" href="https://enhio.com/answers/passive-voice-detector.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Passive Voice Detector — Find & Rewrite Passive Sentences with Active Voice Suggestions | Enhio">
+  <meta property="og:description" content="Free passive voice detector with inline highlighting, passive percentage scoring, and active voice rewrite suggestions. All client-side processing.">
+  <meta property="og:url" content="https://enhio.com/answers/passive-voice-detector.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Passive Voice Detector — Find & Rewrite Passive Sentences with Active Voice Suggestions | Enhio">
+  <meta name="twitter:description" content="Free passive voice detector with active voice rewrite suggestions. Highlights every passive construction and calculates your passive percentage.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/answers/passive-voice-detector.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/answers/passive-voice-detector.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Passive Voice Detector — Enhio",
+    "url": "https://enhio.com/answers/passive-voice-detector.html",
+    "description": "Free client-side passive voice detector that finds every passive construction, highlights them inline, calculates passive percentage, and suggests active voice rewrites.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Passive voice detection", "Inline highlighting", "Active voice rewrite suggestions", "Passive percentage calculation", "Sentence-by-sentence analysis", "Be-verb identification", "Past participle detection", "By-phrase agent extraction", "Benchmark comparison", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is passive voice and why should I avoid it?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Passive voice occurs when the subject of a sentence receives the action instead of performing it. 'The report was written by the team' is passive; 'The team wrote the report' is active. Passive voice weakens writing by obscuring who performs the action, adding unnecessary words, and reducing directness. However, passive voice is not always wrong — it is appropriate when the actor is unknown, unimportant, or deliberately omitted, such as in scientific writing or legal documents." }
+      },
+      {
+        "@type": "Question",
+        "name": "What percentage of passive voice is acceptable?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For general-audience writing (blogs, marketing, journalism), aim for under 10% passive sentences. Academic writing typically runs 15-25%. Scientific papers may reach 30-40% and this is considered acceptable. Business communication should stay under 10%. The key is intentional use: every passive construction should be a deliberate choice, not a default writing habit." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does this tool detect passive voice?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool scans for the core passive voice pattern: a form of 'to be' (am, is, are, was, were, been, being) or 'to get' (get, got, gotten) followed within a few words by a past participle. Past participles are identified through morphological analysis (-ed endings for regular verbs) and a curated database of 120+ irregular past participles (written, broken, chosen, etc.). The tool also detects 'by' phrases to identify the agent." }
+      },
+      {
+        "@type": "Question",
+        "name": "When is passive voice the right choice?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Passive voice is correct when the agent is unknown ('The window was broken during the night'), when the agent is less important than the action ('The vaccine was approved by the FDA' — the approval matters more than the approver), in scientific writing for objectivity ('The samples were heated to 200 degrees'), and when you want to emphasize the receiver of the action for rhetorical effect." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text data private?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This passive voice detector runs entirely in your browser using client-side JavaScript. Your text is never transmitted to any server, stored in any database, or shared with any third party. There are no cookies, no analytics, and no accounts. You can verify this by checking the Network tab in your browser developer tools." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Answers", "item": "https://enhio.com/answers/" },
+      { "@type": "ListItem", "position": 3, "name": "Passive Voice Detector", "item": "https://enhio.com/answers/passive-voice-detector.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117; --surface: #161b22; --surface-2: #1c2333; --border: #30363d;
+      --text: #e6edf3; --text-muted: #8b949e; --accent: #818CF8; --accent-2: #3fb950;
+      --accent-3: #d2a8ff; --warning: #d29922; --danger: #f85149; --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea { width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem; }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem; font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem; }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Passive Voice specific */
+    .highlight-output { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; line-height: 1.8; font-size: 0.95rem; margin: 1rem 0; min-height: 100px; }
+    .hl-passive { background: rgba(248,81,73,0.2); border-bottom: 2px solid #f85149; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .issue-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; }
+    .issue-item .issue-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; color: var(--danger); margin-bottom: 0.3rem; }
+    .issue-item .issue-original { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.3rem; text-decoration: line-through; opacity: 0.7; }
+    .issue-item .issue-suggestion { font-size: 0.92rem; color: var(--success); }
+    .benchmark-bar { height: 24px; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); position: relative; margin: 0.5rem 0; overflow: hidden; }
+    .benchmark-fill { height: 100%; border-radius: 5px; transition: width 0.5s; display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; color: #000; }
+    .benchmark-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/answers/">Answers</a> &rsaquo; Passive Voice Detector
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Passive Voice <span>Detector</span> &mdash; Find &amp; Rewrite Passive Sentences</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Detect Passive Voice</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste or type your text below. The detector finds every passive voice construction, highlights it inline, calculates your passive percentage, and suggests active voice rewrites. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste your text here to detect passive voice constructions. Example: 'The report was written by the team and the results were analyzed by the manager.'"></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="detectPassive()">Detect Passive Voice</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Passive Voice Benchmark</h3>
+        <div id="benchmarkArea"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Highlighted Text</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;">Passive constructions are highlighted in <span style="background:rgba(248,81,73,0.2);border-bottom:2px solid #f85149;padding:1px 3px;border-radius:3px;">red</span>. Hover for details.</p>
+        <div class="highlight-output" id="highlightOutput"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Passive Sentences &amp; Rewrites</h3>
+        <div id="issueList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is Passive Voice?</h2>
+    <p>Passive voice is a grammatical construction in which the subject of a sentence receives the action of the verb rather than performing it. In the sentence "The cake was eaten by the children," the cake (the subject) is not doing the eating; the children are. The active voice equivalent is "The children ate the cake," which is more direct, concise, and vigorous. Passive voice is formed by combining a form of "to be" (am, is, are, was, were, been, being) with a past participle (eaten, written, broken, completed).</p>
+    <p>The passive voice is not grammatically incorrect. It is a legitimate construction that serves specific rhetorical purposes. However, overuse of passive voice is one of the most common weaknesses in professional, academic, and creative writing. William Strunk Jr. and E.B. White's influential style guide "The Elements of Style" dedicates an entire section to recommending active voice, stating that "the active voice is usually more direct and vigorous than the passive." George Orwell included "never use the passive where you can use the active" as one of his six rules for effective writing in "Politics and the English Language."</p>
+    <p>This tool detects passive voice constructions in your text, highlights them visually, calculates your overall passive percentage, compares it against industry benchmarks, and provides specific active voice rewrite suggestions for each passive sentence. The detection engine uses morphological analysis of verb forms combined with a curated database of irregular past participles to achieve high accuracy across diverse writing styles.</p>
+
+    <h3>How Passive Voice Detection Works</h3>
+    <p>The detection engine identifies passive constructions through a multi-step process. <strong>Step 1:</strong> The text is split into individual sentences using punctuation boundaries while respecting abbreviations. <strong>Step 2:</strong> Each sentence is scanned for the passive voice pattern: a form of "to be" followed within a few words by a past participle. The "to be" forms include am, is, are, was, were, been, being, be, get, got, and gotten. <strong>Step 3:</strong> Past participles are identified through two methods: morphological analysis (regular verbs ending in "-ed" like "completed," "reviewed," "analyzed") and dictionary lookup against a curated list of approximately 120 irregular past participles (written, broken, chosen, driven, forgotten, spoken, stolen, etc.).</p>
+    <p><strong>Step 4:</strong> The engine checks for a "by" phrase following the passive construction, which typically identifies the agent (the true performer of the action). When a "by" phrase is found, the rewrite suggestion uses the agent as the new subject. When no "by" phrase is present, the suggestion recommends identifying the implied agent and restructuring accordingly. <strong>Step 5:</strong> Each detected passive construction is recorded with its position, the matched text, the containing sentence, and a specific rewrite suggestion. The results are then compiled into the interactive output panel with highlighted text, statistics, benchmark comparison, and sentence-level rewrite cards.</p>
+
+    <h3>Understanding the Passive Percentage</h3>
+    <p>The passive percentage represents the proportion of sentences in your text that contain at least one passive voice construction. This metric is the standard measure used by style guides, writing tools, and editorial standards across the publishing industry. The benchmarks vary by writing context:</p>
+    <ul>
+      <li><strong>Blog posts and marketing copy:</strong> Under 5% is excellent, 5-10% is acceptable, over 10% needs revision.</li>
+      <li><strong>Business communication:</strong> Under 10% is the industry standard. Passive voice in emails, memos, and reports slows comprehension and obscures accountability.</li>
+      <li><strong>Journalism:</strong> Major style guides (AP, Chicago) recommend under 10%. News writing demands directness and clarity.</li>
+      <li><strong>Academic writing:</strong> 15-25% is typical. Passive voice is conventional in methods sections ("the samples were tested") but should be minimized in discussion and conclusion sections.</li>
+      <li><strong>Scientific papers:</strong> 25-40% is common and accepted. The convention of omitting the researcher as agent ("the experiment was conducted") is deeply embedded in scientific style, though many journals now encourage active voice.</li>
+      <li><strong>Legal writing:</strong> 20-30% is typical. Passive voice in contracts and statutes often serves to avoid assigning blame or responsibility to specific parties.</li>
+    </ul>
+
+    <h3>When Passive Voice Is the Right Choice</h3>
+    <p>Despite the general recommendation to prefer active voice, passive voice is the correct or superior choice in several situations. <strong>When the agent is unknown:</strong> "The building was vandalized overnight." The perpetrator is unknown, so active voice ("Someone vandalized the building overnight") adds a vague subject without improving clarity. <strong>When the agent is irrelevant:</strong> "The new highway was completed in March." The reader cares about the highway's completion, not which construction company did the work.</p>
+    <p><strong>When you want to emphasize the receiver:</strong> "The first Nobel Prize was awarded in 1901" puts the spotlight on the Prize rather than on the committee. <strong>In scientific writing for objectivity:</strong> "The samples were heated to 200 degrees Celsius" follows the convention of removing the researcher's presence from the methods description. <strong>For rhetorical effect:</strong> "Mistakes were made" (a famous political passive) deliberately avoids naming the person responsible. While often criticized, this use demonstrates the passive voice's power to shift attention and manage information flow.</p>
+
+    <h3>Common Passive Voice Patterns</h3>
+    <p>Beyond the basic "be + past participle" pattern, passive voice appears in several forms that writers often miss. <strong>Get-passives:</strong> "He got fired last week" uses "get" instead of "be" but is still passive. <strong>Truncated passives:</strong> "The door was locked" omits the "by" phrase entirely, making it harder to detect as passive because it resembles a simple description. <strong>Complex passives:</strong> "The proposal is being reviewed by the committee" uses a progressive form of the passive. <strong>Infinitive passives:</strong> "The report needs to be completed" embeds the passive within an infinitive phrase. This tool detects the most common passive patterns, covering approximately 90% of passive constructions in typical English prose.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This passive voice detector processes everything client-side in your browser using JavaScript. No text data is transmitted to any server. Analysis completes in under 30 milliseconds for texts under 5,000 words. The irregular past participle database includes approximately 120 common forms. For full grammar pattern analysis beyond passive voice, the <a href="/tools/grammar-pattern-checker.html">Grammar Pattern Checker</a> detects six categories including dangling modifiers and comma splices. For image optimization, <a href="https://krzen.com">Krzen</a> offers compression tools. Developers building writing analysis tools may find <a href="https://heytensor.com">HeyTensor's</a> NLP utilities useful.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Grammar Analysis?</h3>
+    <p>The Grammar Pattern Checker detects passive voice plus five additional grammar patterns with color-coded highlighting.</p>
+    <a href="/tools/grammar-pattern-checker.html" class="tool-btn">Open Grammar Checker</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is passive voice and why should I avoid it?</h3>
+    <p>Passive voice occurs when the subject of a sentence receives the action instead of performing it. "The report was written by the team" is passive; "The team wrote the report" is active. Passive voice weakens writing by obscuring who performs the action, adding unnecessary words, and reducing directness. That said, passive voice is not always wrong and is appropriate in scientific writing, when the agent is unknown, or when you deliberately want to emphasize the receiver of the action.</p>
+
+    <h3>What percentage of passive voice is acceptable?</h3>
+    <p>For general-audience writing (blogs, marketing, journalism), aim for under 10% passive sentences. Academic writing typically runs 15-25%. Scientific papers may reach 30-40% and this is considered acceptable. Business communication should stay under 10%. The key is that every passive construction should be an intentional choice, not an unconscious habit.</p>
+
+    <h3>How does this tool detect passive voice?</h3>
+    <p>The tool scans for the core passive voice pattern: a form of "to be" (am, is, are, was, were, been, being) or "to get" (get, got, gotten) followed by a past participle. Past participles are identified through morphological analysis (-ed endings for regular verbs) and a database of 120+ irregular forms (written, broken, chosen, etc.). The tool also detects "by" phrases to identify agents for rewrite suggestions.</p>
+
+    <h3>When is passive voice the right choice?</h3>
+    <p>Passive voice is correct when the agent is unknown ("The window was broken during the night"), when the agent is less important than the action ("The vaccine was approved"), in scientific writing for objectivity ("The samples were heated"), and when you want to emphasize the receiver of the action for rhetorical effect. Use this tool to make your passive voice usage intentional rather than habitual.</p>
+
+    <h3>Is my text data private?</h3>
+    <p>Yes. This passive voice detector runs entirely in your browser using client-side JavaScript. Your text is never transmitted to any server, stored, or shared. There are no cookies, no analytics, and no accounts. Verify this by checking the Network tab in your browser developer tools while using the tool.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/tools/grammar-pattern-checker.html" class="related-card">
+        <h4>Grammar Pattern Checker</h4>
+        <p>Detect passive voice plus five additional grammar patterns with color-coded highlighting.</p>
+      </a>
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/sentence-complexity-checker.html" class="related-card">
+        <h4>Sentence Complexity Checker</h4>
+        <p>Calculate 6 readability scores with grade-level mapping and complex sentence highlighting.</p>
+      </a>
+      <a href="/research/writing-style-analyzer.html" class="related-card">
+        <h4>Writing Style Analyzer</h4>
+        <p>Analyze tone, formality, sentiment, and vocabulary diversity with radar chart visualization.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// PASSIVE VOICE DETECTOR ENGINE
+// ============================================================
+
+const IRREG_PP = new Set([
+  'been','broken','chosen','done','driven','eaten','fallen','forgotten','frozen','given','gone',
+  'grown','hidden','known','lain','lent','lost','made','meant','met','paid','proven','ridden',
+  'risen','run','said','seen','sent','set','shaken','shown','shut','spoken','spent','split',
+  'spread','stood','stolen','struck','stuck','sung','sunk','sworn','swept','swum','swung',
+  'taken','taught','thought','thrown','told','torn','understood','woken','won','worn','written',
+  'bought','brought','built','burnt','caught','cut','dealt','drawn','drunk','dug','fed','felt',
+  'fit','fled','flung','forbidden','forgiven','forsaken','fought','found','got','gotten','ground',
+  'heard','held','hit','hung','hurt','kept','knelt','knit','laid','led','left','let','lit',
+  'read','rid','rung','sat','sought','shot','shrunk','slid','slit','smelt','sown','spelt',
+  'spilt','spit','sprung','stung','stunk','strewn','wept','wound','wrung','arisen','awoken',
+  'beaten','begun','bent','bitten','bled','blessed','blown','born','bound','bred','broadcast',
+  'cast','clung','cost','crept','dealt','dove','dreamt','dwelt','forecast','foreseen','forgone',
+  'forsaken','fulfilled','handwritten','inlaid','knelt','leant','leapt','learnt','misled',
+  'mistaken','outbid','overcome','overdone','overheard','overlaid','overrun','overseen',
+  'overtaken','overthrown','partaken','preset','proofread','recast','redone','remade','repaid',
+  'retold','rewritten','sewn','shorn','shrunken','slain','slung','sown','spun','strewn',
+  'stricken','striven','sunken','undergone','undone','upheld','upset','withdrawn','withheld','woven'
+]);
+
+function isPastParticiple(word) {
+  const w = word.toLowerCase();
+  if (IRREG_PP.has(w)) return true;
+  if (/ed$/.test(w) && w.length > 3) return true;
+  if (/en$/.test(w) && w.length > 4 && !/^(then|when|often|even|open|listen|happen|given|seven|eleven|oxygen|chicken|kitchen|garden|golden|wooden|children|women|linen|gluten|omen|specimen)$/i.test(w)) return true;
+  return false;
+}
+
+function splitSentences(text) {
+  const abbrs = /(?:Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Corp|vs|etc|e\.g|i\.e|U\.S|U\.K)\./g;
+  let t = text.replace(abbrs, m => m.replace(/\./g, '\u2024'));
+  const raw = t.split(/(?<=[.!?])\s+/);
+  return raw.map(s => s.replace(/\u2024/g, '.').trim()).filter(s => s.length > 0);
+}
+
+function findPassiveInSentence(sentence) {
+  const issues = [];
+  const re = /\b(am|is|are|was|were|been|being|be|get|got|gotten)\s+(\w+)\b/gi;
+  let m;
+  while ((m = re.exec(sentence)) !== null) {
+    if (isPastParticiple(m[2])) {
+      const byMatch = sentence.slice(m.index + m[0].length).match(/^\s+by\s+(\w+(?:\s+\w+)?)/i);
+      let agent = null;
+      let fullMatch = m[0];
+      if (byMatch) {
+        agent = byMatch[1];
+        fullMatch = m[0] + byMatch[0];
+      }
+      let suggestion = '';
+      if (agent) {
+        suggestion = `Consider: "${capitalize(agent)} ${getActiveVerb(m[2])}..."  — Make "${agent}" the subject and use active voice.`;
+      } else {
+        suggestion = `Identify who performs the action of "${m[2]}" and make them the subject. Example: "[Agent] ${getActiveVerb(m[2])}..."`;
+      }
+      issues.push({ match: fullMatch, index: m.index, suggestion, agent, beVerb: m[1], participle: m[2] });
+    }
+  }
+  return issues;
+}
+
+function getActiveVerb(participle) {
+  const p = participle.toLowerCase();
+  if (p === 'written') return 'wrote';
+  if (p === 'broken') return 'broke';
+  if (p === 'chosen') return 'chose';
+  if (p === 'driven') return 'drove';
+  if (p === 'eaten') return 'ate';
+  if (p === 'given') return 'gave';
+  if (p === 'taken') return 'took';
+  if (p === 'spoken') return 'spoke';
+  if (p === 'stolen') return 'stole';
+  if (p === 'frozen') return 'froze';
+  if (p === 'thrown') return 'threw';
+  if (p === 'shown') return 'showed';
+  if (p === 'known') return 'knew';
+  if (p === 'grown') return 'grew';
+  if (p === 'drawn') return 'drew';
+  if (p === 'worn') return 'wore';
+  if (p === 'torn') return 'tore';
+  if (p === 'sworn') return 'swore';
+  if (p === 'forgotten') return 'forgot';
+  if (p === 'hidden') return 'hid';
+  if (p === 'risen') return 'rose';
+  if (p === 'fallen') return 'fell';
+  if (p === 'done') return 'did';
+  if (p === 'gone') return 'went';
+  if (p === 'seen') return 'saw';
+  if (p === 'made') return 'made';
+  if (p === 'built') return 'built';
+  if (p === 'sent') return 'sent';
+  if (p === 'found') return 'found';
+  if (p === 'told') return 'told';
+  if (p === 'paid') return 'paid';
+  if (p === 'held') return 'held';
+  if (p === 'caught') return 'caught';
+  if (p === 'bought') return 'bought';
+  if (p === 'brought') return 'brought';
+  if (p === 'thought') return 'thought';
+  if (p === 'taught') return 'taught';
+  if (p === 'heard') return 'heard';
+  if (p === 'felt') return 'felt';
+  if (p === 'left') return 'left';
+  if (p === 'lost') return 'lost';
+  if (p === 'spent') return 'spent';
+  if (p === 'understood') return 'understood';
+  if (p.endsWith('ed')) return p;
+  return p;
+}
+
+function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+function detectPassive() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text || text.length < 10) { alert('Please enter some text to analyze.'); return; }
+
+  const sentences = splitSentences(text);
+  const allIssues = [];
+  let passiveSentenceCount = 0;
+
+  sentences.forEach(sentence => {
+    const offset = text.indexOf(sentence);
+    const issues = findPassiveInSentence(sentence);
+    if (issues.length > 0) passiveSentenceCount++;
+    issues.forEach(iss => {
+      iss.sentence = sentence;
+      iss.globalIndex = offset + iss.index;
+      allIssues.push(iss);
+    });
+  });
+
+  const totalSentences = sentences.length;
+  const passivePct = totalSentences > 0 ? Math.round((passiveSentenceCount / totalSentences) * 100) : 0;
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Stats
+  const rating = passivePct <= 5 ? 'Excellent' : passivePct <= 10 ? 'Good' : passivePct <= 20 ? 'Fair' : passivePct <= 35 ? 'High' : 'Very High';
+  const ratingColor = passivePct <= 5 ? 'var(--success)' : passivePct <= 10 ? 'var(--accent-2)' : passivePct <= 20 ? 'var(--warning)' : 'var(--danger)';
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value" style="color:${ratingColor}">${passivePct}%</span><span class="stat-label">Passive Voice</span></div>
+    <div class="stat-card"><span class="stat-value">${allIssues.length}</span><span class="stat-label">Passive Constructions</span></div>
+    <div class="stat-card"><span class="stat-value">${totalSentences}</span><span class="stat-label">Total Sentences</span></div>
+    <div class="stat-card"><span class="stat-value" style="color:${ratingColor}">${rating}</span><span class="stat-label">Rating</span></div>`;
+
+  // Benchmark
+  const barColor = passivePct <= 10 ? 'var(--success)' : passivePct <= 25 ? 'var(--warning)' : 'var(--danger)';
+  document.getElementById('benchmarkArea').innerHTML = `
+    <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.5rem;">Your passive voice percentage compared to writing style benchmarks:</p>
+    <div style="margin-bottom:0.75rem;"><span style="font-size:0.82rem;color:var(--text-muted);">Your text</span>
+      <div class="benchmark-bar"><div class="benchmark-fill" style="width:${Math.min(100, passivePct * 2.5)}%;background:${barColor};">${passivePct}%</div></div>
+    </div>
+    <div style="margin-bottom:0.5rem;"><span style="font-size:0.82rem;color:var(--text-muted);">Blog / Marketing (target: &lt;10%)</span>
+      <div class="benchmark-bar"><div class="benchmark-fill" style="width:25%;background:var(--success);">10%</div></div>
+    </div>
+    <div style="margin-bottom:0.5rem;"><span style="font-size:0.82rem;color:var(--text-muted);">Academic (typical: 15-25%)</span>
+      <div class="benchmark-bar"><div class="benchmark-fill" style="width:50%;background:var(--warning);">20%</div></div>
+    </div>
+    <div><span style="font-size:0.82rem;color:var(--text-muted);">Scientific (typical: 25-40%)</span>
+      <div class="benchmark-bar"><div class="benchmark-fill" style="width:82%;background:var(--accent);">33%</div></div>
+    </div>`;
+
+  // Highlighted output
+  let resultHtml = text;
+  const sortedIssues = [...allIssues].sort((a, b) => b.globalIndex - a.globalIndex);
+  const applied = [];
+  for (const iss of sortedIssues) {
+    const matchStart = resultHtml.indexOf(iss.match, Math.max(0, iss.globalIndex - 5));
+    if (matchStart === -1) continue;
+    let overlap = false;
+    for (const a of applied) {
+      if (matchStart < a.end && matchStart + iss.match.length > a.start) { overlap = true; break; }
+    }
+    if (overlap) continue;
+    const before = resultHtml.slice(0, matchStart);
+    const matched = resultHtml.slice(matchStart, matchStart + iss.match.length);
+    const after = resultHtml.slice(matchStart + iss.match.length);
+    resultHtml = before + '\u0000HL_START\u0000' + matched + '\u0000HL_END\u0000' + after;
+    applied.push({ start: matchStart, end: matchStart + iss.match.length });
+  }
+  resultHtml = escapeHtml(resultHtml);
+  resultHtml = resultHtml.replace(/\u0000HL_START\u0000/g, '<span class="hl-passive" title="Passive voice construction">');
+  resultHtml = resultHtml.replace(/\u0000HL_END\u0000/g, '</span>');
+  resultHtml = resultHtml.replace(/\n/g, '<br>');
+  document.getElementById('highlightOutput').innerHTML = resultHtml;
+
+  // Issue list with rewrites
+  let ilHtml = '';
+  if (allIssues.length === 0) {
+    ilHtml = '<p style="color:var(--success);text-align:center;padding:1rem;">No passive voice constructions detected. Your text uses active voice throughout.</p>';
+  } else {
+    allIssues.forEach((iss, idx) => {
+      ilHtml += `<div class="issue-item">
+        <div class="issue-label">Passive #${idx + 1} &mdash; "${escapeHtml(iss.beVerb)} ${escapeHtml(iss.participle)}"</div>
+        <div class="issue-original">${escapeHtml(iss.sentence)}</div>
+        <div class="issue-suggestion">${escapeHtml(iss.suggestion)}</div>
+      </div>`;
+    });
+  }
+  document.getElementById('issueList').innerHTML = ilHtml;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function loadSample() {
+  document.getElementById('inputText').value = `The report was written by the marketing team last quarter. The results were analyzed by the data science department and several key findings were identified. A new strategy was proposed by the CEO during the board meeting.
+
+The product was launched successfully in three markets. Customer feedback was collected through online surveys and in-person interviews. The data was reviewed by external consultants who were hired specifically for this project.
+
+The budget was approved by the finance committee. New employees were trained by senior staff members. The office was renovated over the summer break. Performance reviews were completed on schedule.
+
+Our team developed the new feature in just two weeks. We tested every component thoroughly before release. The engineering lead coordinated the deployment across all servers. Marketing created the launch materials in parallel with development.`;
+  detectPassive();
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

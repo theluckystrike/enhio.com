@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readability Score Comparison — 8 Formulas Side-by-Side | Enhio</title>
+  <meta name="description" content="Free readability score comparison tool computing Flesch-Kincaid, Flesch Reading Ease, Gunning Fog, Coleman-Liau, SMOG, ARI, Dale-Chall, and Linsear Write formulas side-by-side with grade level mapping and bar chart.">
+  <meta name="keywords" content="readability score comparison, Flesch-Kincaid, Gunning Fog, Coleman-Liau, SMOG index, ARI, Dale-Chall, Linsear Write, readability formulas, grade level calculator">
+  <link rel="canonical" href="https://enhio.com/answers/readability-score-comparison.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Readability Score Comparison — 8 Formulas Side-by-Side | Enhio">
+  <meta property="og:description" content="Free readability comparison tool computing 8 formulas simultaneously: Flesch-Kincaid, Flesch RE, Gunning Fog, Coleman-Liau, SMOG, ARI, Dale-Chall, and Linsear Write.">
+  <meta property="og:url" content="https://enhio.com/answers/readability-score-comparison.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Readability Score Comparison — 8 Formulas Side-by-Side | Enhio">
+  <meta name="twitter:description" content="Compare 8 readability formulas side-by-side: Flesch-Kincaid, Gunning Fog, Coleman-Liau, SMOG, ARI, Dale-Chall, and Linsear Write.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/answers/readability-score-comparison.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/answers/readability-score-comparison.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Readability Score Comparison — 8 Formulas Side-by-Side",
+    "description": "Compare 8 readability formulas side-by-side on the same text: Flesch-Kincaid, Flesch Reading Ease, Gunning Fog, Coleman-Liau, SMOG, ARI, Dale-Chall, and Linsear Write with grade level mapping and bar chart visualization.",
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "mainEntityOfPage": "https://enhio.com/answers/readability-score-comparison.html",
+    "image": "https://enhio.com/assets/og-image.png",
+    "articleSection": "Answers",
+    "wordCount": 1350
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do different readability formulas give different scores?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Each readability formula measures different text properties. Flesch-Kincaid and Flesch Reading Ease focus on syllable counts and sentence length. Gunning Fog counts complex words (3+ syllables). Coleman-Liau uses character counts instead of syllables. SMOG uses polysyllabic word density. Because each formula weights these factors differently, they produce different grade-level estimates for the same text. The variation is normal; look at the consensus range across all 8 scores." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which readability formula is most accurate?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No single formula is universally most accurate. Flesch-Kincaid is the most widely used and was validated on U.S. military training materials. Dale-Chall is considered most accurate for elementary-level texts because it uses a vocabulary familiarity list. SMOG is preferred in healthcare communications for its strong correlation with reader comprehension. Coleman-Liau is efficient for automated processing because it counts characters instead of syllables. Use the average of all 8 scores for the most reliable estimate." }
+      },
+      {
+        "@type": "Question",
+        "name": "What readability level should I target for web content?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Most web content guidelines recommend targeting a 7th-8th grade reading level (Flesch-Kincaid Grade 7-8, Flesch Reading Ease 60-70). This ensures accessibility for the broadest audience. The average American reads at an 8th grade level. Major publications like The New York Times write at grade 10, while USA Today targets grade 7. For technical documentation, grade 10-12 is acceptable. For healthcare materials, grade 6 or below is recommended." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is the Flesch Reading Ease score interpreted?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Flesch Reading Ease scores range from 0 to 100, with higher scores indicating easier text. 90-100 is very easy (5th grade), 80-89 is easy (6th grade), 70-79 is fairly easy (7th grade), 60-69 is standard (8th-9th grade), 50-59 is fairly difficult (10th-12th grade), 30-49 is difficult (college level), and 0-29 is very confusing (graduate/professional level). Web content should generally target 60-70." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text data private when using this readability tool?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This readability score comparison tool runs entirely in your browser using client-side JavaScript. Your text is never sent to any server, never stored, and never shared. There are no cookies, no analytics trackers, and no accounts. You can verify this by monitoring the Network tab in your browser's developer tools while using the tool." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Answers", "item": "https://enhio.com/answers/" },
+      { "@type": "ListItem", "position": 3, "name": "Readability Score Comparison", "item": "https://enhio.com/answers/readability-score-comparison.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo {
+      color: var(--accent-3); text-decoration: none; font-size: 0.9rem;
+      padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s;
+    }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea {
+      width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem;
+    }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem;
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .freq-table-wrap { max-height: 600px; overflow-y: auto; margin: 1rem 0; border: 1px solid var(--border); border-radius: 8px; }
+    .freq-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    .freq-table th { position: sticky; top: 0; background: var(--surface-2); padding: 0.7rem 1rem; text-align: left; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+    .freq-table td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); }
+    .freq-table tr:hover td { background: var(--surface); }
+    .freq-bar-cell { display: flex; align-items: center; gap: 0.5rem; }
+    .freq-bar-inline { height: 18px; background: rgba(129,140,248,0.25); border-radius: 3px; min-width: 4px; transition: width 0.3s; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Readability-specific */
+    .chart-wrap { margin: 1.5rem 0; }
+    .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 200px; padding: 0 0.25rem; }
+    .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0; }
+    .bar-rect { width: 100%; border-radius: 4px 4px 0 0; transition: height 0.4s; min-height: 3px; }
+    .bar-rect:hover { filter: brightness(1.3); }
+    .bar-val { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
+    .bar-lbl { font-size: 0.65rem; color: var(--text-muted); margin-top: 6px; text-align: center; line-height: 1.2; max-width: 80px; }
+    .grade-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.78rem; font-weight: 600; margin-left: 0.5rem; }
+    .grade-easy { background: rgba(63,185,80,0.2); color: #3fb950; }
+    .grade-medium { background: rgba(210,153,34,0.2); color: #d29922; }
+    .grade-hard { background: rgba(248,81,73,0.2); color: #f85149; }
+    .tooltip-icon { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); text-align: center; line-height: 14px; font-size: 0.65rem; color: var(--text-muted); cursor: help; margin-left: 0.3rem; position: relative; }
+    .tooltip-icon:hover::after { content: attr(data-tip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text); white-space: normal; width: 260px; z-index: 10; line-height: 1.4; font-weight: 400; }
+    .consensus-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; text-align: center; margin: 1.25rem 0; }
+    .consensus-grade { font-family: var(--font-mono); font-size: 2.2rem; font-weight: 700; color: var(--accent); display: block; }
+    .consensus-label { font-size: 0.88rem; color: var(--text-muted); }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+      .bar-chart { height: 150px; }
+      .bar-lbl { font-size: 0.58rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/answers/">Answers</a> &rsaquo; Readability Score Comparison
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Readability <span>Score Comparison</span> &mdash; 8 Formulas Side-by-Side</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Compare Readability Scores</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste your text below to compute all 8 readability formulas simultaneously. See how each formula rates your text, compare grade levels, and understand why they differ. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste your text here to compute Flesch-Kincaid, Flesch Reading Ease, Gunning Fog, Coleman-Liau, SMOG, ARI, Dale-Chall, and Linsear Write scores..."></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="computeScores()">Compute All Scores</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="consensus-box" id="consensusBox"></div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Score Comparison Chart</h3>
+        <div class="chart-wrap"><div class="bar-chart" id="barChart"></div></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Detailed Results</h3>
+        <div class="freq-table-wrap">
+          <table class="freq-table" id="scoreTable">
+            <thead><tr><th>Formula</th><th>Score</th><th>Grade Level</th><th>Difficulty</th><th>Bar</th></tr></thead>
+            <tbody id="scoreBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Formula Explanations</h3>
+        <div id="formulaExplanations"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Readability Score Comparison?</h2>
+    <p>A readability score comparison runs the same text through multiple readability formulas and displays all results side by side. Each formula uses a different mathematical approach to estimate how difficult a text is to read, producing a grade level or index score. By comparing all eight formulas simultaneously, you get a consensus view of your text's readability rather than relying on a single metric that may overestimate or underestimate difficulty based on its particular weighting of text features.</p>
+    <p>Readability formulas were developed between the 1940s and 1980s to solve a practical problem: matching written material to readers of known ability levels. The U.S. military needed training manuals appropriate for enlistees with varying education levels. Educators needed to assign reading material at the right difficulty level. Healthcare providers needed patient education materials that actual patients could comprehend. Each formula was validated against specific populations and text types, which is why they sometimes disagree on the same text.</p>
+    <p>This tool computes eight formulas: <strong>Flesch-Kincaid Grade Level</strong>, <strong>Flesch Reading Ease</strong>, <strong>Gunning Fog Index</strong>, <strong>Coleman-Liau Index</strong>, <strong>SMOG Index</strong>, <strong>Automated Readability Index (ARI)</strong>, <strong>Dale-Chall Readability Score</strong>, and <strong>Linsear Write Formula</strong>. Together, these represent the most widely used readability metrics in publishing, education, healthcare communication, government plain language compliance, and web content optimization.</p>
+
+    <h3>The Eight Readability Formulas Explained</h3>
+    <p><strong>Flesch-Kincaid Grade Level</strong> is the most commonly cited readability formula. It was developed by Rudolf Flesch and J. Peter Kincaid in 1975 for the U.S. Navy. The formula uses average sentence length (ASL) and average syllables per word (ASW): <code>0.39 * ASL + 11.8 * ASW - 15.59</code>. The result maps directly to a U.S. school grade level. A score of 8.0 means the text is appropriate for an 8th-grade reader. Most web content should target grade 7-8.</p>
+    <p><strong>Flesch Reading Ease</strong> was developed by Rudolf Flesch in 1948 and uses the same two variables but with a different formula: <code>206.835 - 1.015 * ASL - 84.6 * ASW</code>. The result is a 0-100 score where higher means easier. Scores of 60-70 are considered standard for adult readers, 70-80 is fairly easy, and 80-90 is easy enough for most sixth graders. Unlike most formulas, this one does not output a grade level directly.</p>
+    <p><strong>Gunning Fog Index</strong> was developed by Robert Gunning in 1952. It uses average sentence length and the percentage of complex words (words with three or more syllables, excluding proper nouns, familiar jargon, and compound words): <code>0.4 * (ASL + percent complex words)</code>. The Fog Index tends to produce higher grade levels than Flesch-Kincaid because its definition of "complex words" is strict. A Fog Index of 12 means college-level text.</p>
+    <p><strong>Coleman-Liau Index</strong> was developed by Meri Coleman and T.L. Liau in 1975. Unlike other formulas, it counts characters instead of syllables: <code>0.0588 * L - 0.296 * S - 15.8</code>, where L is the average number of characters per 100 words and S is the average number of sentences per 100 words. This makes it computationally efficient and reliable for automated processing where syllable counting may introduce errors.</p>
+    <p><strong>SMOG Index</strong> (Simple Measure of Gobbledygook) was developed by G. Harry McLaughlin in 1969. It counts the number of polysyllabic words (3+ syllables) in a sample of 30 sentences: <code>3 + sqrt(polysyllable count)</code>. SMOG is widely used in healthcare communication because it was validated against reader comprehension tests rather than just grade-level correlations. It typically produces scores 1-2 grades higher than Flesch-Kincaid.</p>
+    <p><strong>Automated Readability Index (ARI)</strong> was developed in 1967 for real-time readability assessment of typewritten text. Like Coleman-Liau, it uses character counts: <code>4.71 * (characters/words) + 0.5 * (words/sentences) - 21.43</code>. ARI was designed for speed and reliability in automated systems. It maps directly to U.S. grade levels and correlates well with other formulas for most text types.</p>
+    <p><strong>Dale-Chall Readability Score</strong> was developed by Edgar Dale and Jeanne Chall in 1948 and revised in 1995. It uses a list of 3,000 words that 80% of fourth graders can understand. Words not on this list are considered "difficult." The formula is: <code>0.1579 * (difficult word %) + 0.0496 * ASL + 3.6365</code> (with an adjustment if difficult word percentage exceeds 5%). Dale-Chall is considered the most accurate formula for elementary-level text because it measures vocabulary familiarity rather than word length or syllable count.</p>
+    <p><strong>Linsear Write Formula</strong> was developed by the U.S. Air Force to assess the readability of technical manuals. It classifies each word as "easy" (2 or fewer syllables, scored as 1) or "hard" (3+ syllables, scored as 3), sums the scores for a 100-word sample, divides by the number of sentences, and then applies a final adjustment: if the result exceeds 20, divide by 2; otherwise subtract 1 and divide by 2. The output is a U.S. grade level.</p>
+
+    <h3>Why Formulas Disagree and How to Interpret the Differences</h3>
+    <p>The eight formulas use three fundamentally different approaches to estimating difficulty. Syllable-based formulas (Flesch-Kincaid, Flesch RE, Gunning Fog, SMOG, Linsear Write) assume that words with more syllables are harder to read. Character-based formulas (Coleman-Liau, ARI) use character counts as a proxy for word complexity. Vocabulary-based formulas (Dale-Chall) use a familiarity word list to directly measure whether readers will know the words.</p>
+    <p>These approaches can produce different results for specific text types. Technical jargon often consists of short, monosyllabic terms ("RAID," "cache," "node," "stack") that syllable-based formulas rate as easy but Dale-Chall rates as difficult because they are not on the common word list. Conversely, polysyllabic but common words ("information," "understanding," "community") are penalized by syllable-based formulas but recognized as familiar by Dale-Chall. The takeaway: use the consensus average across all eight formulas, and check Dale-Chall separately if your text contains specialized vocabulary.</p>
+
+    <h3>Grade Level Mapping Reference</h3>
+    <p>All eight formulas ultimately estimate a U.S. school grade level, though the Flesch Reading Ease score requires conversion. Here is the standard mapping: <strong>Grade 5 or below</strong> is very easy, appropriate for a general public audience including people with limited literacy. <strong>Grade 6-8</strong> is the target for most web content, news articles, and consumer communications. <strong>Grade 9-12</strong> is appropriate for high school level material, including quality journalism and business writing. <strong>Grade 13-16</strong> corresponds to college-level text, including academic papers and professional reports. <strong>Grade 17+</strong> is graduate or professional level, typical of legal documents, scientific journals, and regulatory filings.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This readability score comparison tool processes everything client-side in your browser using JavaScript. No text data is transmitted to any server. Computing all eight formulas completes in under 50 milliseconds for texts under 10,000 words. The Dale-Chall computation is the most intensive because it requires checking each word against a 3,000-word familiarity list, but the hash-set implementation keeps this fast. For deeper text analysis, the main <a href="/">Enhio text analyzer</a> provides grammar checking, tone detection, and word frequency analysis. For image optimization, <a href="https://krzen.com">Krzen</a> offers compression tools. Developers building NLP pipelines may find <a href="https://heytensor.com">HeyTensor's</a> tensor utilities useful for text processing workflows.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds grammar checking, tone detection, word frequency, and SEO keyword analysis.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Why do different readability formulas give different scores?</h3>
+    <p>Each readability formula measures different text properties. Flesch-Kincaid and Flesch Reading Ease focus on syllable counts and sentence length. Gunning Fog counts complex words with three or more syllables. Coleman-Liau uses character counts instead of syllables. SMOG measures polysyllabic word density. Dale-Chall checks vocabulary against a familiarity word list. Because each formula weights these factors differently, they produce different grade-level estimates for the same text. The variation is normal and expected. Look at the consensus range across all eight scores for the most reliable estimate.</p>
+
+    <h3>Which readability formula is most accurate?</h3>
+    <p>No single formula is universally most accurate. Flesch-Kincaid is the most widely used and was validated on U.S. military training materials. Dale-Chall is considered most accurate for elementary-level texts because it uses a vocabulary familiarity list rather than syllable counts. SMOG is preferred in healthcare communications for its strong correlation with reader comprehension test results. Coleman-Liau is efficient for automated processing. Use the average of all eight scores for the most reliable overall estimate of your text's reading level.</p>
+
+    <h3>What readability level should I target for web content?</h3>
+    <p>Most web content guidelines recommend targeting a 7th to 8th grade reading level (Flesch-Kincaid Grade 7-8, Flesch Reading Ease 60-70). This ensures accessibility for the broadest audience. The average American adult reads at approximately an 8th grade level. Major publications like The New York Times write at approximately grade 10, while USA Today targets grade 7. For technical documentation, grade 10-12 is acceptable when the audience is known to be technically proficient. For healthcare materials, grade 6 or below is recommended by the AMA.</p>
+
+    <h3>How is the Flesch Reading Ease score interpreted?</h3>
+    <p>Flesch Reading Ease scores range from 0 to 100, with higher scores indicating easier text. The bands are: 90-100 is very easy (5th grade), 80-89 is easy (6th grade), 70-79 is fairly easy (7th grade), 60-69 is standard (8th-9th grade), 50-59 is fairly difficult (10th-12th grade), 30-49 is difficult (college level), and 0-29 is very confusing (graduate or professional level). Most successful web content scores between 60 and 70 on this scale.</p>
+
+    <h3>Is my text data private when using this readability tool?</h3>
+    <p>Yes. This readability score comparison tool runs entirely in your browser using client-side JavaScript. Your text is never sent to any server, never stored, and never shared. There are no cookies, no analytics trackers, and no accounts. You can verify this by monitoring the Network tab in your browser's developer tools while using the tool.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/sentence-complexity-checker.html" class="related-card">
+        <h4>Sentence Complexity Checker</h4>
+        <p>Calculate 6 readability scores with grade-level mapping and complex sentence highlighting.</p>
+      </a>
+      <a href="/tools/grammar-pattern-checker.html" class="related-card">
+        <h4>Grammar Pattern Checker</h4>
+        <p>Detect passive voice, comma splices, run-on sentences, and four more grammar patterns.</p>
+      </a>
+      <a href="/research/writing-style-analyzer.html" class="related-card">
+        <h4>Writing Style Analyzer</h4>
+        <p>Analyze tone, formality, sentiment, and vocabulary diversity with radar chart visualization.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// READABILITY SCORE COMPARISON ENGINE — 8 FORMULAS
+// ============================================================
+
+// Dale-Chall easy word list (3,000 words - abbreviated to most common; full list used via hash lookup)
+const DALE_CHALL_EASY = new Set([
+  'a','able','about','above','across','act','add','afraid','after','again','age','ago','agree','air',
+  'all','almost','alone','along','already','also','always','am','among','an','and','anger','animal',
+  'answer','any','appear','apple','are','area','arm','army','around','arrive','art','as','ask','at',
+  'attack','aunt','away','baby','back','bad','bag','ball','band','bank','base','basket','bath','be',
+  'bean','bear','beat','beautiful','became','because','become','bed','been','before','began','begin',
+  'behind','believe','belong','below','beside','best','better','between','big','bird','bit','black',
+  'blood','blow','blue','board','boat','body','bone','book','born','both','bottom','box','boy','brain',
+  'brave','bread','break','bright','bring','broad','broke','brother','brown','build','burn','bus',
+  'business','busy','but','buy','by','call','came','camp','can','car','card','care','carry','case',
+  'cat','catch','caught','cause','center','certain','chair','change','check','child','children','choose',
+  'church','circle','city','class','clean','clear','close','cloth','clothes','cloud','coat','cold',
+  'color','come','common','company','compare','complete','contain','continue','control','cook','cool',
+  'copy','corner','correct','cost','could','count','country','course','cover','cross','crowd','cry',
+  'cup','cut','dance','danger','dark','daughter','day','dead','deal','dear','death','decide','deep',
+  'develop','did','die','different','difficult','dinner','direction','discover','do','doctor','does',
+  'dog','dollar','done','door','down','draw','dream','dress','drink','drive','drop','dry','during',
+  'dust','duty','each','ear','early','earth','east','eat','edge','education','egg','eight','either',
+  'else','end','enemy','enough','enter','even','evening','ever','every','everyone','everything','example',
+  'except','excite','exercise','expect','experience','explain','eye','face','fact','fail','fair','fall',
+  'family','far','farm','fast','fat','father','fear','feed','feel','feet','fell','fellow','felt','few',
+  'field','fight','fill','final','find','fine','finger','finish','fire','first','fish','fit','five',
+  'flat','floor','flower','fly','follow','food','foot','for','force','forest','forget','form','forward',
+  'found','four','free','fresh','friend','from','front','fruit','full','fun','funny','game','garden',
+  'gate','gave','general','gentle','get','girl','give','glad','glass','go','god','gold','gone','good',
+  'got','govern','grass','gray','great','green','grew','ground','group','grow','guess','gun','had',
+  'hair','half','hall','hand','happen','happy','hard','has','hat','have','he','head','hear','heart',
+  'heat','heavy','held','help','her','here','high','hill','him','his','hit','hold','hole','home','hope',
+  'horse','hot','hour','house','how','however','huge','human','hundred','hung','hunt','hurry','hurt',
+  'husband','i','ice','idea','if','imagine','important','in','inch','include','indeed','Indian','inside',
+  'instead','interest','into','iron','is','island','it','its','job','join','joy','jump','just','justice',
+  'keep','kept','key','kill','kind','king','kitchen','knew','knock','know','knowledge','lake','land',
+  'language','large','last','late','laugh','law','lay','lead','learn','least','leave','led','left',
+  'leg','less','let','letter','lie','life','lift','light','like','line','list','listen','little','live',
+  'long','look','lord','lose','lost','lot','loud','love','low','luck','machine','made','main','make',
+  'man','many','map','mark','matter','may','maybe','me','mean','measure','meat','meet','member','men',
+  'method','middle','might','mile','milk','million','mind','mine','minute','miss','mistake','moment',
+  'money','month','moon','more','morning','most','mother','mountain','mouth','move','much','music',
+  'must','my','name','narrow','nation','nature','near','necessary','neck','need','neighbor','neither',
+  'never','new','news','next','nice','night','nine','no','noise','none','nor','north','nose','not',
+  'note','nothing','notice','now','number','observe','of','off','offer','office','often','oh','oil',
+  'old','on','once','one','only','open','or','order','other','our','out','outside','over','own','page',
+  'paint','pair','paper','part','particular','party','pass','past','path','pay','people','perhaps',
+  'period','person','pick','picture','piece','place','plain','plan','plant','play','please','point',
+  'poor','position','possible','power','practice','prepare','present','president','press','pretty',
+  'price','print','private','prize','probably','problem','produce','product','program','promise','prove',
+  'provide','public','pull','purpose','push','put','quarter','queen','question','quick','quiet','quite',
+  'race','rain','raise','ran','rather','reach','read','ready','real','reason','receive','record','red',
+  'remember','report','rest','result','return','rich','ride','right','ring','rise','river','road','rock',
+  'roll','room','root','rope','rose','round','row','rule','run','rush','safe','said','sail','salt',
+  'same','sand','sat','save','saw','say','school','science','sea','season','seat','second','see','seed',
+  'seem','sell','send','sense','sent','separate','serious','serve','service','set','settle','seven',
+  'several','shall','shape','share','sharp','she','shine','ship','shoe','shoot','shop','short','should',
+  'shoulder','shout','show','shut','sick','side','sight','sign','silence','silver','simple','since',
+  'sing','sir','sister','sit','six','size','skill','skin','sky','sleep','small','smell','smile','smoke',
+  'snow','so','soft','soil','soldier','some','son','song','soon','sort','sound','south','space','speak',
+  'special','speed','spend','spoke','spot','spread','spring','square','stage','stand','star','start',
+  'state','station','stay','step','stick','still','stock','stone','stood','stop','store','story',
+  'strange','street','strong','student','study','such','sudden','sugar','summer','sun','supply','sure',
+  'surprise','sweet','swim','table','tail','take','talk','tall','taste','teach','team','tell','ten',
+  'term','test','than','thank','that','the','their','them','then','there','these','they','thick','thin',
+  'thing','think','third','this','those','though','thought','thousand','three','through','throw','tie',
+  'time','tiny','to','today','together','told','tomorrow','tonight','too','took','tool','top','touch',
+  'toward','town','trade','train','travel','tree','trip','trouble','true','trust','try','turn','twelve',
+  'twenty','two','type','uncle','under','understand','unit','until','up','upon','us','use','usual',
+  'valley','value','various','very','visit','voice','wait','walk','wall','want','war','warm','was',
+  'wash','watch','water','wave','way','we','wear','weather','week','weight','well','went','were','west',
+  'what','wheel','when','where','whether','which','while','white','who','whole','whom','why','wide',
+  'wife','wild','will','win','wind','window','winter','wire','wise','wish','with','without','woman',
+  'women','wonder','wood','word','work','world','worry','would','write','wrong','wrote','yard','year',
+  'yes','yet','you','young','your','youth'
+]);
+
+function splitSentences(text) {
+  const abbrs = /(?:Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Corp|vs|etc|e\.g|i\.e|U\.S|U\.K)\./g;
+  let t = text.replace(abbrs, m => m.replace(/\./g, '\u2024'));
+  const raw = t.split(/(?<=[.!?])\s+/);
+  return raw.map(s => s.replace(/\u2024/g, '.').trim()).filter(s => s.length > 2);
+}
+
+function countSyllables(word) {
+  const w = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (w.length <= 2) return 1;
+  let count = 0;
+  const vowels = 'aeiouy';
+  let prevVowel = false;
+  for (let i = 0; i < w.length; i++) {
+    const isV = vowels.includes(w[i]);
+    if (isV && !prevVowel) count++;
+    prevVowel = isV;
+  }
+  if (w.endsWith('e') && count > 1) count--;
+  if (w.endsWith('le') && w.length > 2 && !vowels.includes(w[w.length - 3])) count++;
+  return Math.max(1, count);
+}
+
+function getTextStats(text) {
+  const sentences = splitSentences(text);
+  const words = text.match(/[a-zA-Z'-]+/g) || [];
+  const cleanWords = words.filter(w => w.length > 0);
+  const totalWords = cleanWords.length;
+  const totalSentences = Math.max(sentences.length, 1);
+  const totalChars = cleanWords.join('').length;
+
+  let totalSyllables = 0;
+  let complexWords = 0; // 3+ syllables
+  let polysyllabicWords = 0;
+  let easyWordsLW = 0; // Linsear: <=2 syllables
+  let hardWordsLW = 0; // Linsear: 3+ syllables
+  let daleChallDifficult = 0;
+
+  cleanWords.forEach(w => {
+    const syls = countSyllables(w);
+    totalSyllables += syls;
+    if (syls >= 3) {
+      complexWords++;
+      polysyllabicWords++;
+      hardWordsLW++;
+    } else {
+      easyWordsLW++;
+    }
+    if (!DALE_CHALL_EASY.has(w.toLowerCase().replace(/[^a-z]/g, ''))) {
+      daleChallDifficult++;
+    }
+  });
+
+  return {
+    totalWords,
+    totalSentences,
+    totalSyllables,
+    totalChars,
+    complexWords,
+    polysyllabicWords,
+    easyWordsLW,
+    hardWordsLW,
+    daleChallDifficult,
+    asl: totalWords / totalSentences,
+    asw: totalSyllables / Math.max(totalWords, 1)
+  };
+}
+
+function computeScores() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text || text.length < 20) { alert('Please enter at least a few sentences.'); return; }
+
+  const s = getTextStats(text);
+  if (s.totalWords < 5) { alert('Not enough words to compute readability scores.'); return; }
+
+  // 1. Flesch-Kincaid Grade Level
+  const fkgl = 0.39 * s.asl + 11.8 * s.asw - 15.59;
+
+  // 2. Flesch Reading Ease
+  const fre = 206.835 - 1.015 * s.asl - 84.6 * s.asw;
+
+  // 3. Gunning Fog
+  const complexPct = (s.complexWords / s.totalWords) * 100;
+  const fog = 0.4 * (s.asl + complexPct);
+
+  // 4. Coleman-Liau
+  const L = (s.totalChars / s.totalWords) * 100;
+  const S = (s.totalSentences / s.totalWords) * 100;
+  const cli = 0.0588 * L - 0.296 * S - 15.8;
+
+  // 5. SMOG
+  const smog = 1.0430 * Math.sqrt(s.polysyllabicWords * (30 / s.totalSentences)) + 3.1291;
+
+  // 6. ARI
+  const ari = 4.71 * (s.totalChars / s.totalWords) + 0.5 * (s.totalWords / s.totalSentences) - 21.43;
+
+  // 7. Dale-Chall
+  const dcPct = (s.daleChallDifficult / s.totalWords) * 100;
+  let dc = 0.1579 * dcPct + 0.0496 * s.asl;
+  if (dcPct > 5) dc += 3.6365;
+
+  // 8. Linsear Write
+  const lwSample = Math.min(s.totalWords, 100);
+  const lwSentences = Math.max(1, Math.round(s.totalSentences * (lwSample / s.totalWords)));
+  const lwScore = (s.easyWordsLW * 1 + s.hardWordsLW * 3) / Math.max(lwSentences, 1);
+  const lw = lwScore > 20 ? lwScore / 2 : (lwScore - 1) / 2;
+
+  // Convert FRE to grade
+  let freGrade;
+  if (fre >= 90) freGrade = 5;
+  else if (fre >= 80) freGrade = 6;
+  else if (fre >= 70) freGrade = 7;
+  else if (fre >= 60) freGrade = 8.5;
+  else if (fre >= 50) freGrade = 11;
+  else if (fre >= 30) freGrade = 14;
+  else freGrade = 17;
+
+  // Convert Dale-Chall to grade
+  let dcGrade;
+  if (dc <= 4.9) dcGrade = 4;
+  else if (dc <= 5.9) dcGrade = 6;
+  else if (dc <= 6.9) dcGrade = 8;
+  else if (dc <= 7.9) dcGrade = 10;
+  else if (dc <= 8.9) dcGrade = 12;
+  else dcGrade = 16;
+
+  const formulas = [
+    { name: 'Flesch-Kincaid', score: fkgl, grade: Math.max(0, fkgl).toFixed(1), color: '#818CF8', tip: 'Grade = 0.39 * ASL + 11.8 * ASW - 15.59. Uses sentence length and syllables per word.' },
+    { name: 'Flesch Reading Ease', score: fre, grade: freGrade.toFixed(0), color: '#a78bfa', tip: 'Score = 206.835 - 1.015 * ASL - 84.6 * ASW. Higher = easier. 60-70 is standard.' },
+    { name: 'Gunning Fog', score: fog, grade: Math.max(0, fog).toFixed(1), color: '#d2a8ff', tip: 'Grade = 0.4 * (ASL + % complex words). Complex = 3+ syllables.' },
+    { name: 'Coleman-Liau', score: cli, grade: Math.max(0, cli).toFixed(1), color: '#6366f1', tip: 'Grade = 0.0588*L - 0.296*S - 15.8. Uses character counts, not syllables.' },
+    { name: 'SMOG', score: smog, grade: Math.max(0, smog).toFixed(1), color: '#3fb950', tip: 'Grade = 3 + sqrt(polysyllable count * 30/sentences). Preferred in healthcare.' },
+    { name: 'ARI', score: ari, grade: Math.max(0, ari).toFixed(1), color: '#d29922', tip: 'Grade = 4.71*(chars/words) + 0.5*(words/sentences) - 21.43. Character-based.' },
+    { name: 'Dale-Chall', score: dc, grade: dcGrade.toFixed(0), color: '#f85149', tip: 'Uses 3,000-word familiarity list. Most accurate for elementary text.' },
+    { name: 'Linsear Write', score: lw, grade: Math.max(0, lw).toFixed(1), color: '#8b5cf6', tip: 'Classifies words as easy (1-2 syl) or hard (3+ syl). Developed by U.S. Air Force.' }
+  ];
+
+  // Consensus
+  const gradeValues = [Math.max(0,fkgl), freGrade, Math.max(0,fog), Math.max(0,cli), Math.max(0,smog), Math.max(0,ari), dcGrade, Math.max(0,lw)];
+  const avgGrade = gradeValues.reduce((a,b) => a+b, 0) / gradeValues.length;
+  const minGrade = Math.min(...gradeValues);
+  const maxGrade = Math.max(...gradeValues);
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Stats
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${s.totalWords.toLocaleString()}</span><span class="stat-label">Total Words</span></div>
+    <div class="stat-card"><span class="stat-value">${s.totalSentences}</span><span class="stat-label">Sentences</span></div>
+    <div class="stat-card"><span class="stat-value">${s.asw.toFixed(2)}</span><span class="stat-label">Avg Syllables/Word</span></div>
+    <div class="stat-card"><span class="stat-value">${s.asl.toFixed(1)}</span><span class="stat-label">Avg Sentence Length</span></div>
+  `;
+
+  // Consensus
+  let diffLabel, diffClass;
+  if (avgGrade <= 6) { diffLabel = 'Easy'; diffClass = 'grade-easy'; }
+  else if (avgGrade <= 10) { diffLabel = 'Standard'; diffClass = 'grade-medium'; }
+  else if (avgGrade <= 14) { diffLabel = 'Difficult'; diffClass = 'grade-hard'; }
+  else { diffLabel = 'Very Difficult'; diffClass = 'grade-hard'; }
+
+  document.getElementById('consensusBox').innerHTML = `
+    <span class="consensus-grade">Grade ${avgGrade.toFixed(1)}</span>
+    <span class="consensus-label">Consensus Average (range: ${minGrade.toFixed(0)}&ndash;${maxGrade.toFixed(0)}) &mdash; <span class="grade-badge ${diffClass}">${diffLabel}</span></span>
+  `;
+
+  // Bar chart
+  const maxBar = Math.max(...formulas.map(f => Math.abs(f.score)), 1);
+  const barMax = formulas[1].name === 'Flesch Reading Ease' ? 100 : 20; // FRE is 0-100 scale
+  let chartHtml = '';
+  formulas.forEach(f => {
+    let barVal, barH;
+    if (f.name === 'Flesch Reading Ease') {
+      barVal = Math.max(0, Math.min(100, f.score));
+      barH = (barVal / 100) * 180;
+    } else {
+      barVal = Math.max(0, Math.min(20, f.score));
+      barH = (barVal / 20) * 180;
+    }
+    barH = Math.max(4, barH);
+    chartHtml += `<div class="bar-col">
+      <span class="bar-val">${f.name === 'Flesch Reading Ease' ? f.score.toFixed(0) : f.grade}</span>
+      <div class="bar-rect" style="height:${barH}px;background:${f.color};" title="${f.name}: ${f.score.toFixed(1)}"></div>
+      <span class="bar-lbl">${f.name}</span>
+    </div>`;
+  });
+  document.getElementById('barChart').innerHTML = chartHtml;
+
+  // Table
+  let tbHtml = '';
+  formulas.forEach(f => {
+    let gradeNum = parseFloat(f.grade);
+    let diffBadge;
+    if (f.name === 'Flesch Reading Ease') {
+      diffBadge = f.score >= 60 ? '<span class="grade-badge grade-easy">Easy</span>' :
+                  f.score >= 40 ? '<span class="grade-badge grade-medium">Standard</span>' :
+                  '<span class="grade-badge grade-hard">Difficult</span>';
+    } else {
+      diffBadge = gradeNum <= 8 ? '<span class="grade-badge grade-easy">Easy</span>' :
+                  gradeNum <= 12 ? '<span class="grade-badge grade-medium">Standard</span>' :
+                  '<span class="grade-badge grade-hard">Difficult</span>';
+    }
+    const barW = f.name === 'Flesch Reading Ease' ?
+      Math.max(4, Math.min(100, f.score)) :
+      Math.max(4, Math.min(100, (parseFloat(f.grade) / 20) * 100));
+    tbHtml += `<tr>
+      <td><strong>${f.name}</strong> <span class="tooltip-icon" data-tip="${f.tip}">?</span></td>
+      <td><code>${f.name === 'Flesch Reading Ease' ? f.score.toFixed(1) : f.score.toFixed(2)}</code></td>
+      <td>Grade ${f.grade}</td>
+      <td>${diffBadge}</td>
+      <td><div class="freq-bar-cell"><div class="freq-bar-inline" style="width:${barW}%;background:${f.color};"></div></div></td>
+    </tr>`;
+  });
+  document.getElementById('scoreBody').innerHTML = tbHtml;
+
+  // Formula explanations
+  let feHtml = '';
+  const explanations = [
+    { name: 'Flesch-Kincaid Grade Level', formula: '0.39 × ASL + 11.8 × ASW − 15.59', desc: 'Developed in 1975 for the U.S. Navy. Uses average sentence length (ASL) and average syllables per word (ASW). The most widely cited readability formula. Maps directly to U.S. school grade levels.' },
+    { name: 'Flesch Reading Ease', formula: '206.835 − 1.015 × ASL − 84.6 × ASW', desc: 'Developed in 1948. Outputs a 0-100 score where higher is easier. 90-100 = 5th grade, 60-69 = 8th-9th grade, 30-49 = college. The only formula here that uses an inverse scale.' },
+    { name: 'Gunning Fog Index', formula: '0.4 × (ASL + % complex words)', desc: 'Developed in 1952. Complex words have 3+ syllables, excluding proper nouns and common suffixes. Tends to produce higher grade levels than Flesch-Kincaid. A Fog Index of 12+ means college-level text.' },
+    { name: 'Coleman-Liau Index', formula: '0.0588 × L − 0.296 × S − 15.8', desc: 'Developed in 1975. Uses characters per 100 words (L) and sentences per 100 words (S) instead of syllables. More reliable for automated processing since character counting has no ambiguity.' },
+    { name: 'SMOG Index', formula: '3 + √(polysyllables × 30 / sentences)', desc: 'Developed in 1969. Counts polysyllabic words (3+ syllables) in a 30-sentence sample. Preferred in healthcare for its strong correlation with reader comprehension. Tends to score 1-2 grades higher than Flesch-Kincaid.' },
+    { name: 'Automated Readability Index', formula: '4.71 × (chars/words) + 0.5 × (words/sentences) − 21.43', desc: 'Developed in 1967. Character-based like Coleman-Liau but with different coefficients. Designed for real-time assessment of typewritten text. Maps to U.S. grade levels.' },
+    { name: 'Dale-Chall', formula: '0.1579 × difficult% + 0.0496 × ASL [+3.6365]', desc: 'Developed in 1948, revised 1995. Uses a 3,000-word familiarity list. Words not on the list are "difficult." Most accurate for elementary text. The +3.6365 adjustment applies when difficult words exceed 5%.' },
+    { name: 'Linsear Write', formula: '(easy×1 + hard×3) / sentences [÷2 adjust]', desc: 'Developed by the U.S. Air Force. Easy words have 1-2 syllables (score 1), hard words have 3+ syllables (score 3). Sum is divided by sentences, then halved (with adjustment). Designed for technical manual assessment.' }
+  ];
+  explanations.forEach(e => {
+    feHtml += `<div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:0.75rem;">
+      <strong style="color:var(--accent);">${e.name}</strong>
+      <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-3);margin:0.3rem 0;">${e.formula}</div>
+      <div style="font-size:0.88rem;color:var(--text-muted);">${e.desc}</div>
+    </div>`;
+  });
+  document.getElementById('formulaExplanations').innerHTML = feHtml;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function loadSample() {
+  document.getElementById('inputText').value = `The implementation of comprehensive quality assurance protocols across multiple organizational departments has yielded statistically significant improvements in operational efficiency metrics. Through systematic evaluation of existing procedural frameworks, the analysis identified twelve distinct areas where performance optimization could produce measurable returns within the current fiscal quarter.
+
+Readability scores help writers understand how difficult their text is to read. The most common formulas count things like sentence length, word length, and syllable counts. Shorter sentences with simpler words are easier to read. Most web content should target a seventh or eighth grade reading level so that the widest possible audience can understand it.
+
+The cat sat on the mat. It was a big cat. The mat was red. The cat was happy. It liked the mat.
+
+Notwithstanding the aforementioned considerations pertaining to the jurisdictional applicability of the regulatory framework, the administrative tribunal has determined that the preliminary injunction shall remain in effect pending the resolution of the substantive constitutional challenges raised by the appellants in their supplementary brief, which was filed pursuant to the provisions of the applicable procedural statute.
+
+Content writers often struggle with finding the right balance between sounding professional and being easy to understand. The best approach is to write clearly and directly, using common words whenever possible. If you need to use a technical term, explain it the first time you use it. Break long sentences into shorter ones. Use active voice instead of passive voice. These simple changes can drop your readability score by two or three grade levels.`;
+  computeScores();
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

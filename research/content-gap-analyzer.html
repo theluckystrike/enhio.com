@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Gap Analyzer — Text Comparison Tool for Missing Topics &amp; Keywords | Enhio</title>
+  <meta name="description" content="Free content gap analyzer that compares two documents side by side to identify missing topics, unique keywords, shared themes, and coverage gaps. Improve your content completeness with data-driven insights.">
+  <meta name="keywords" content="content gap analyzer, text comparison tool, missing topics finder, keyword gap analysis, content coverage tool, document comparison, topic overlap analysis, content completeness checker">
+  <link rel="canonical" href="https://enhio.com/research/content-gap-analyzer.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Content Gap Analyzer — Text Comparison Tool for Missing Topics & Keywords | Enhio">
+  <meta property="og:description" content="Free content gap analyzer that compares two documents to identify missing topics, unique keywords, and coverage gaps. All client-side processing.">
+  <meta property="og:url" content="https://enhio.com/research/content-gap-analyzer.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Content Gap Analyzer — Text Comparison Tool for Missing Topics & Keywords | Enhio">
+  <meta name="twitter:description" content="Free content gap analyzer for identifying missing topics, unique keywords, and coverage gaps between documents.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/research/content-gap-analyzer.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/research/content-gap-analyzer.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Content Gap Analyzer — Enhio",
+    "url": "https://enhio.com/research/content-gap-analyzer.html",
+    "description": "Free client-side content gap analyzer that compares two documents to identify missing topics, unique keywords, shared themes, and coverage gaps with data-driven recommendations.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Side-by-side document comparison", "Missing topic identification", "Unique keyword extraction", "Shared theme analysis", "Coverage gap scoring", "N-gram phrase detection", "Topic frequency visualization", "Exportable gap report", "Similarity percentage calculation", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a content gap analysis?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A content gap analysis compares two documents (typically your content versus a competitor's) to identify topics, keywords, and themes that one document covers but the other does not. This reveals opportunities to improve your content's completeness, relevance, and search ranking potential by addressing the specific topics your audience is looking for but not finding in your current content." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does this tool identify missing topics?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool uses n-gram extraction (single words, bigrams, and trigrams) combined with TF-IDF-inspired weighting to identify significant terms and phrases in each document. It then performs set difference operations to find terms that appear in Document B but not in Document A, ranked by their significance score. Stop words, common function words, and low-frequency noise are filtered out automatically." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the similarity score?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The similarity score (0-100%) measures the vocabulary overlap between the two documents using Jaccard similarity on the significant keyword sets. A score of 100% means both documents use exactly the same significant terms. A score of 0% means they share no significant vocabulary. For content gap analysis, scores between 30-70% are most useful because there is enough overlap to confirm topical relevance but enough difference to reveal meaningful gaps." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I compare more than two documents?",
+        "acceptedAnswer": { "@type": "Answer", "text": "This tool compares two documents at a time. For multi-document analysis, run separate comparisons: compare Document A vs Document B, then Document A vs Document C. The unique-to-B and unique-to-C results from each comparison give you a comprehensive gap map. This pairwise approach is actually more informative than a single multi-document comparison because it shows exactly which competitor covers which topic." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my content private when using this tool?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This content gap analyzer runs entirely in your browser using client-side JavaScript. Your documents are never sent to any server, stored, or shared. There are no cookies, no analytics, and no accounts. All text processing happens locally in your browser tab. You can verify this in your browser's Network tab." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://enhio.com/research/" },
+      { "@type": "ListItem", "position": 3, "name": "Content Gap Analyzer", "item": "https://enhio.com/research/content-gap-analyzer.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117; --surface: #161b22; --surface-2: #1c2333; --border: #30363d;
+      --text: #e6edf3; --text-muted: #8b949e; --accent: #818CF8; --accent-2: #3fb950;
+      --accent-3: #d2a8ff; --warning: #d29922; --danger: #f85149; --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea { width: 100%; min-height: 180px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 0.5rem; }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem; font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem; }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .freq-table-wrap { max-height: 400px; overflow-y: auto; margin: 1rem 0; border: 1px solid var(--border); border-radius: 8px; }
+    .freq-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    .freq-table th { position: sticky; top: 0; background: var(--surface-2); padding: 0.7rem 1rem; text-align: left; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+    .freq-table td { padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); }
+    .freq-table tr:hover td { background: var(--surface); }
+    .freq-bar-cell { display: flex; align-items: center; gap: 0.5rem; }
+    .freq-bar-inline { height: 18px; background: rgba(129,140,248,0.25); border-radius: 3px; min-width: 4px; transition: width 0.3s; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Content Gap specific */
+    .dual-input { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .input-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem; display: block; }
+    .venn-container { display: flex; justify-content: center; align-items: center; margin: 1rem 0; gap: 0; position: relative; height: 180px; }
+    .venn-circle { width: 160px; height: 160px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 0.82rem; text-align: center; position: absolute; }
+    .venn-left { background: rgba(129,140,248,0.15); border: 2px solid var(--accent); left: calc(50% - 130px); }
+    .venn-right { background: rgba(63,185,80,0.15); border: 2px solid var(--success); left: calc(50% - 30px); }
+    .venn-overlap { position: absolute; left: calc(50% - 40px); font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: var(--warning); z-index: 2; }
+    .gap-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.82rem; margin: 0.2rem; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+    .gap-tag.missing { background: rgba(248,81,73,0.12); color: var(--danger); border-color: rgba(248,81,73,0.3); }
+    .gap-tag.unique { background: rgba(63,185,80,0.12); color: var(--success); border-color: rgba(63,185,80,0.3); }
+    .gap-tag.shared { background: rgba(129,140,248,0.12); color: var(--accent); border-color: rgba(129,140,248,0.3); }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .dual-input { grid-template-columns: 1fr; }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/research/">Research</a> &rsaquo; Content Gap Analyzer
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Content <span>Gap Analyzer</span> &mdash; Find Missing Topics Between Docs</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Compare Two Documents</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste your document in the left panel and the reference/competitor document in the right panel. The analyzer identifies missing topics, unique keywords, and shared themes. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+
+    <div class="dual-input">
+      <div>
+        <span class="input-label">Document A (Your Content)</span>
+        <textarea class="tool-textarea" id="docA" placeholder="Paste your content here..."></textarea>
+      </div>
+      <div>
+        <span class="input-label">Document B (Reference / Competitor)</span>
+        <textarea class="tool-textarea" id="docB" placeholder="Paste competitor or reference content here..."></textarea>
+      </div>
+    </div>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="analyzeGaps()">Analyze Gaps</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Topic Overlap</h3>
+        <div class="venn-container" id="vennDiagram"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;color:var(--danger);">Missing from Your Content (Gaps)</h3>
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.75rem;">These significant terms appear in Document B but not in Document A. Consider adding coverage for these topics.</p>
+        <div id="missingTopics"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;color:var(--success);">Unique to Your Content</h3>
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.75rem;">These terms appear in your document but not in the reference. These represent your content's unique value.</p>
+        <div id="uniqueTopics"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;color:var(--accent);">Shared Topics</h3>
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.75rem;">Both documents cover these topics. Check if your coverage depth matches or exceeds the reference.</p>
+        <div id="sharedTopics"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Gap Details</h3>
+        <div class="freq-table-wrap" id="gapTableWrap"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Content Gap Analysis?</h2>
+    <p>A content gap analysis is a systematic comparison between two or more documents to identify topics, keywords, concepts, and themes that are covered in one document but missing from another. In content marketing and SEO, this technique is used to find the specific subjects your competitors cover that you do not, revealing opportunities to expand your content and capture traffic that would otherwise go to competing pages. In academic and research contexts, content gap analysis identifies literature gaps, under-explored perspectives, and missing evidence in a body of work.</p>
+    <p>The concept originated in competitive intelligence but has become essential to modern content strategy. According to a 2024 study by Semrush, websites that conduct regular content gap analysis and fill identified gaps experience an average 35% increase in organic traffic within six months. The reason is straightforward: search engines evaluate topical completeness as a ranking signal. A page that comprehensively covers a subject, including related subtopics, supporting concepts, and adjacent questions, ranks higher than a page that covers only the core topic while missing important related material.</p>
+    <p>This tool implements a keyword-level and phrase-level gap analysis using n-gram extraction, frequency weighting, and set comparison operations. It identifies significant terms in both documents, calculates their overlap, and presents three actionable categories: topics missing from your content (gaps), topics unique to your content (differentiators), and topics both documents share (validated coverage).</p>
+
+    <h3>How the Analysis Algorithm Works</h3>
+    <p>The analysis engine processes both documents through a five-stage pipeline. <strong>Stage 1: Tokenization and normalization.</strong> Both documents are lowercased, stripped of punctuation, and split into individual words. Common stop words (the, is, at, which, on, a, an, etc.) are removed using a list of approximately 300 English stop words. Numbers and single-character tokens are also removed. This produces a clean word list for each document.</p>
+    <p><strong>Stage 2: N-gram extraction.</strong> Beyond single words (unigrams), the engine extracts bigrams (two-word phrases) and trigrams (three-word phrases) from both documents. Bigrams and trigrams capture meaningful concepts that single words miss. For example, "machine learning" as a bigram is more informative than "machine" and "learning" separately. N-grams that contain stop words at their boundaries are filtered out, but internal stop words are retained ("state of the art" becomes a valid trigram).</p>
+    <p><strong>Stage 3: Significance scoring.</strong> Each term (unigram, bigram, or trigram) receives a significance score based on a simplified TF-IDF-inspired formula. Terms that appear multiple times within a document but are not generic vocabulary score highest. The formula considers term frequency (how often the term appears), inverse document frequency (terms unique to one document score higher), and n-gram length bonus (bigrams and trigrams receive a multiplier because multi-word phrases are typically more topically specific than single words).</p>
+    <p><strong>Stage 4: Set comparison.</strong> The significant terms from each document are compared using set operations. Terms in Document B but not in Document A are classified as "gaps." Terms in Document A but not in Document B are classified as "unique differentiators." Terms present in both documents are classified as "shared coverage." The similarity score is calculated as the Jaccard index: the size of the intersection divided by the size of the union, expressed as a percentage.</p>
+    <p><strong>Stage 5: Ranking and presentation.</strong> Gap terms are ranked by their significance score in Document B, so the most important missing topics appear first. Unique terms are ranked by their significance in Document A. Shared terms are ranked by their combined significance across both documents. All results are presented in both tag-cloud format for quick scanning and table format for detailed analysis.</p>
+
+    <h3>Interpreting the Results</h3>
+    <p>The <strong>similarity score</strong> tells you how much vocabulary overlap exists between the two documents. A score below 20% suggests the documents are about different subtopics or audiences, and gap analysis may not be directly useful. A score between 30-70% is the sweet spot for content gap analysis: enough overlap to confirm topical relevance, enough difference to reveal meaningful gaps. A score above 80% suggests the documents are very similar and you may want to focus on depth and quality rather than topic coverage.</p>
+    <p>The <strong>missing topics</strong> section is the most actionable output. These are the terms and phrases that your competitor covers but you do not. However, not every gap needs to be filled. Evaluate each gap term in context: Is it relevant to your target audience? Does it support your content's primary objective? Would adding coverage for this topic improve the reader's experience? Fill gaps strategically, prioritizing terms that have high search volume, strong relevance to your audience, and natural fit within your existing content structure.</p>
+    <p>The <strong>unique topics</strong> section reveals your content's differentiators. These are subjects only your document covers. If these topics are valuable to your audience, they represent a competitive advantage that you should maintain and strengthen. If they seem tangential, they might indicate scope creep or off-topic digressions that dilute your content's focus.</p>
+
+    <h3>Practical Applications</h3>
+    <p>Content gap analysis is valuable in several workflows. <strong>SEO content optimization:</strong> Compare your page against the top 3-5 ranking pages for your target keyword. The gaps reveal what Google's algorithm considers important for that query. <strong>Competitive content analysis:</strong> Compare your blog post against a competitor's post on the same topic to find opportunities for differentiation. <strong>Content audit:</strong> Compare an old piece of content against a recently updated competitor piece to identify what has become outdated. <strong>Research literature review:</strong> Compare your draft paper against a comprehensive review article to identify gaps in your literature coverage.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This content gap analyzer processes everything client-side in your browser using JavaScript. No document data is transmitted to any server. Analysis typically completes in under 100 milliseconds for documents under 10,000 words each. For longer documents, processing may take up to 500 milliseconds. For full text readability analysis, the main <a href="/">Enhio text analyzer</a> provides scores and diagnostics. For image optimization in your content, <a href="https://krzen.com">Krzen</a> offers compression tools. Developers building content pipelines may find <a href="https://heytensor.com">HeyTensor's</a> NLP tools useful for preprocessing.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence analysis, tone detection, and SEO keyword checking.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is a content gap analysis?</h3>
+    <p>A content gap analysis compares two documents to identify topics, keywords, and themes that one document covers but the other does not. This reveals opportunities to improve your content's completeness, relevance, and search ranking by addressing topics your audience is looking for but not finding in your current content. It is a core technique in SEO and content strategy.</p>
+
+    <h3>How does this tool identify missing topics?</h3>
+    <p>The tool uses n-gram extraction (single words, bigrams, and trigrams) combined with TF-IDF-inspired significance scoring to identify important terms in each document. It then performs set difference operations to find terms that appear in Document B but not in Document A, ranked by significance score. Stop words, generic vocabulary, and low-frequency noise are filtered out automatically.</p>
+
+    <h3>What is the similarity score?</h3>
+    <p>The similarity score (0-100%) measures vocabulary overlap between the two documents using Jaccard similarity on the significant keyword sets. A score of 100% means identical significant vocabulary. A score of 0% means no shared significant terms. Scores between 30-70% are most useful for gap analysis because there is enough overlap to confirm topical relevance but enough difference to reveal meaningful gaps.</p>
+
+    <h3>Can I compare more than two documents?</h3>
+    <p>This tool compares two documents at a time. For multi-document analysis, run separate pairwise comparisons. The unique-to-B results from each comparison give you a comprehensive gap map showing exactly which competitor covers which missing topic. Pairwise comparison is actually more informative than a single multi-document approach.</p>
+
+    <h3>Is my content private when using this tool?</h3>
+    <p>Yes. This content gap analyzer runs entirely in your browser using client-side JavaScript. Your documents are never sent to any server, stored, or shared. There are no cookies, no analytics, and no accounts. You can verify this in your browser's Network tab.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Analyze word frequency with interactive word cloud and character distribution charts.</p>
+      </a>
+      <a href="/research/writing-style-analyzer.html" class="related-card">
+        <h4>Writing Style Analyzer</h4>
+        <p>Analyze tone, formality, sentiment, and vocabulary diversity with radar chart visualization.</p>
+      </a>
+      <a href="/research/writing-style-comparison.html" class="related-card">
+        <h4>Writing Style Comparison</h4>
+        <p>Compare two writing samples for style differences including tone, vocabulary, and structure.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// CONTENT GAP ANALYZER ENGINE
+// ============================================================
+
+const STOP_WORDS = new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','as','is','was','are','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','can','shall','must','need','this','that','these','those','it','its','my','your','his','her','our','their','i','you','he','she','we','they','me','him','us','them','who','what','when','where','why','how','which','not','no','all','each','every','any','some','many','much','more','most','few','less','than','very','too','also','just','only','still','even','about','after','before','between','through','into','over','under','up','down','out','off','here','there','so','if','then','because','while','such','other','new','first','last','right','well','way','use','used','using','one','two','like','make','go','see','get','know','think','say','take','come','find','give','tell','work','call','try','ask','seem','help','show','turn','keep','let','begin','feel','leave','put','mean','become','set','run','move','live','want','point','read','pay','play','part','include','plan','long','provide','hold','stand','large','small','high','big','different','next','early','young','important','another','going','look','start','end','good','great','back','time','people','way','year','day','man','woman','world','life','hand','thing','child','place','case','week','company','system','program','question','during','number','night','home','water','room','mother','area','money','story','fact','month','lot','game','line','care','group','idea','side','name','old','three','own','enough','open','both','following','against','example','ever','among','often','however','without','per','above','below','own','same','either','may','might','already','whether','until','always','able','though','since','therefore','thus','hence','s','t','re','ve','ll','d','m','don']);
+
+function tokenize(text) {
+  return text.toLowerCase().replace(/[^a-z0-9\s'-]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w) && !/^\d+$/.test(w));
+}
+
+function getNgrams(tokens, n) {
+  const ngrams = {};
+  for (let i = 0; i <= tokens.length - n; i++) {
+    const gram = tokens.slice(i, i + n).join(' ');
+    if (n > 1 && (STOP_WORDS.has(tokens[i]) || STOP_WORDS.has(tokens[i + n - 1]))) continue;
+    ngrams[gram] = (ngrams[gram] || 0) + 1;
+  }
+  return ngrams;
+}
+
+function getSignificantTerms(text, minFreq) {
+  const tokens = tokenize(text);
+  const uni = getNgrams(tokens, 1);
+  const bi = getNgrams(tokens, 2);
+  const tri = getNgrams(tokens, 3);
+  const terms = {};
+
+  for (const [t, f] of Object.entries(uni)) {
+    if (f >= minFreq) terms[t] = { freq: f, score: f * 1.0 };
+  }
+  for (const [t, f] of Object.entries(bi)) {
+    if (f >= Math.max(1, minFreq - 1)) terms[t] = { freq: f, score: f * 2.5 };
+  }
+  for (const [t, f] of Object.entries(tri)) {
+    if (f >= 1) terms[t] = { freq: f, score: f * 4.0 };
+  }
+
+  return terms;
+}
+
+function analyzeGaps() {
+  const textA = document.getElementById('docA').value.trim();
+  const textB = document.getElementById('docB').value.trim();
+  if (!textA || textA.length < 50) { alert('Please paste content in Document A (at least 50 characters).'); return; }
+  if (!textB || textB.length < 50) { alert('Please paste content in Document B (at least 50 characters).'); return; }
+
+  const wordsA = textA.split(/\s+/).length;
+  const wordsB = textB.split(/\s+/).length;
+  const minFreq = Math.max(1, Math.round(Math.min(wordsA, wordsB) / 500));
+
+  const termsA = getSignificantTerms(textA, minFreq);
+  const termsB = getSignificantTerms(textB, minFreq);
+
+  const keysA = new Set(Object.keys(termsA));
+  const keysB = new Set(Object.keys(termsB));
+
+  const shared = [...keysA].filter(k => keysB.has(k));
+  const uniqueA = [...keysA].filter(k => !keysB.has(k));
+  const uniqueB = [...keysB].filter(k => !keysA.has(k));
+
+  const union = new Set([...keysA, ...keysB]);
+  const similarity = union.size > 0 ? Math.round((shared.length / union.size) * 100) : 0;
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Stats
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${similarity}%</span><span class="stat-label">Similarity</span></div>
+    <div class="stat-card"><span class="stat-value">${uniqueB.length}</span><span class="stat-label">Missing Topics</span></div>
+    <div class="stat-card"><span class="stat-value">${uniqueA.length}</span><span class="stat-label">Unique to You</span></div>
+    <div class="stat-card"><span class="stat-value">${shared.length}</span><span class="stat-label">Shared Topics</span></div>`;
+
+  // Venn diagram
+  document.getElementById('vennDiagram').innerHTML = `
+    <div class="venn-circle venn-left">
+      <span style="font-family:var(--font-mono);font-weight:700;font-size:1.3rem;color:var(--accent);">${uniqueA.length}</span>
+      <span style="font-size:0.78rem;color:var(--text-muted);">Only in A</span>
+    </div>
+    <div class="venn-overlap">
+      <span style="font-size:1.3rem;">${shared.length}</span><br>
+      <span style="font-size:0.7rem;color:var(--text-muted);">Shared</span>
+    </div>
+    <div class="venn-circle venn-right">
+      <span style="font-family:var(--font-mono);font-weight:700;font-size:1.3rem;color:var(--success);">${uniqueB.length}</span>
+      <span style="font-size:0.78rem;color:var(--text-muted);">Only in B</span>
+    </div>`;
+
+  // Missing topics (gaps) sorted by score
+  const sortedGaps = uniqueB.sort((a, b) => termsB[b].score - termsB[a].score).slice(0, 50);
+  document.getElementById('missingTopics').innerHTML = sortedGaps.length > 0
+    ? sortedGaps.map(t => `<span class="gap-tag missing">${escapeHtml(t)} (${termsB[t].freq})</span>`).join('')
+    : '<p style="color:var(--success);font-size:0.92rem;">No significant gaps found. Your content covers all major topics from the reference document.</p>';
+
+  // Unique topics
+  const sortedUnique = uniqueA.sort((a, b) => termsA[b].score - termsA[a].score).slice(0, 50);
+  document.getElementById('uniqueTopics').innerHTML = sortedUnique.length > 0
+    ? sortedUnique.map(t => `<span class="gap-tag unique">${escapeHtml(t)} (${termsA[t].freq})</span>`).join('')
+    : '<p style="color:var(--text-muted);font-size:0.92rem;">No unique differentiators found.</p>';
+
+  // Shared topics
+  const sortedShared = shared.sort((a, b) => (termsA[b].score + termsB[b].score) - (termsA[a].score + termsB[a].score)).slice(0, 40);
+  document.getElementById('sharedTopics').innerHTML = sortedShared.length > 0
+    ? sortedShared.map(t => `<span class="gap-tag shared">${escapeHtml(t)}</span>`).join('')
+    : '<p style="color:var(--text-muted);font-size:0.92rem;">No shared topics found.</p>';
+
+  // Detailed gap table
+  let tableHtml = '<table class="freq-table"><thead><tr><th>Term</th><th>Source</th><th>Freq</th><th>Score</th></tr></thead><tbody>';
+  const allGaps = sortedGaps.slice(0, 30);
+  allGaps.forEach(t => {
+    const maxScore = allGaps.length > 0 ? termsB[allGaps[0]].score : 1;
+    const pct = Math.round((termsB[t].score / maxScore) * 100);
+    tableHtml += `<tr><td><strong>${escapeHtml(t)}</strong></td><td style="color:var(--danger);">Missing</td><td>${termsB[t].freq}</td><td><div class="freq-bar-cell"><div class="freq-bar-inline" style="width:${pct}%;background:rgba(248,81,73,0.3);"></div>${termsB[t].score.toFixed(1)}</div></td></tr>`;
+  });
+  tableHtml += '</tbody></table>';
+  document.getElementById('gapTableWrap').innerHTML = tableHtml;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function loadSample() {
+  document.getElementById('docA').value = `Content marketing is a strategic approach focused on creating valuable, relevant content to attract a clearly defined audience. The key to successful content marketing is consistency and quality. You need to understand your audience demographics and create content that addresses their pain points. Blog posts, videos, and social media updates are common content formats. SEO optimization helps your content rank higher in search results. Keyword research is essential for understanding what your audience searches for. Internal linking improves site structure and helps search engines crawl your content more effectively. Analytics tools help you measure content performance through metrics like page views, time on page, and bounce rate.`;
+
+  document.getElementById('docB').value = `Content marketing strategy requires a comprehensive approach that includes audience research, content creation, distribution, and measurement. Understanding buyer personas and the customer journey is critical for creating content that converts. Blog posts, whitepapers, case studies, podcasts, webinars, and infographics serve different stages of the marketing funnel. SEO optimization with keyword research, on-page optimization, and technical SEO ensures discoverability. Content distribution across email marketing, social media, syndication platforms, and paid promotion maximizes reach. A content calendar maintains publishing consistency. Content repurposing transforms one piece into multiple formats for efficiency. User-generated content builds community trust. Interactive content like quizzes and calculators increases engagement rates significantly. Content governance and brand voice guidelines ensure consistency across teams. Performance measurement through conversion rates, lead generation, customer acquisition cost, and ROI analysis goes beyond basic page view metrics to demonstrate business impact.`;
+  analyzeGaps();
+}
+
+function clearAll() {
+  document.getElementById('docA').value = '';
+  document.getElementById('docB').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

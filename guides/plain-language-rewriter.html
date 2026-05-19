@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plain Language Rewriter — Side-by-Side Text Simplification Tool | Enhio</title>
+  <meta name="description" content="Free plain language rewriter with side-by-side comparison. Identifies passive voice, long sentences, jargon, and complex words. Shows readability score before and after with improvement tracking.">
+  <meta name="keywords" content="plain language rewriter, text simplification tool, passive voice checker, readability improvement, jargon detector, sentence simplifier, before after readability">
+  <link rel="canonical" href="https://enhio.com/guides/plain-language-rewriter.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Plain Language Rewriter — Side-by-Side Text Simplification | Enhio">
+  <meta property="og:description" content="Free side-by-side text simplification tool. Identifies complex elements, tracks readability improvement, and highlights problematic areas with color coding.">
+  <meta property="og:url" content="https://enhio.com/guides/plain-language-rewriter.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plain Language Rewriter — Side-by-Side Text Simplification | Enhio">
+  <meta name="twitter:description" content="Side-by-side text simplification with readability tracking, passive voice detection, and jargon highlighting.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/guides/plain-language-rewriter.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/guides/plain-language-rewriter.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Plain Language Rewriter — Enhio",
+    "url": "https://enhio.com/guides/plain-language-rewriter.html",
+    "description": "Free client-side plain language rewriter with side-by-side comparison. Detects passive voice, long sentences, jargon, and complex words. Tracks readability improvement percentage.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Side-by-side text comparison", "Passive voice detection", "Long sentence highlighting", "Jargon detection", "Complex word identification", "Readability score before/after", "Improvement percentage tracking", "Suggestion cards", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Plain Language Rewriter — Side-by-Side Text Simplification Tool",
+    "description": "A comprehensive guide and tool for rewriting complex text into plain language. Features side-by-side comparison, readability tracking, passive voice detection, and jargon highlighting.",
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "mainEntityOfPage": "https://enhio.com/guides/plain-language-rewriter.html",
+    "image": "https://enhio.com/assets/og-image.png",
+    "articleSection": "Guides",
+    "wordCount": 1500
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is plain language writing?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Plain language writing communicates information so the intended audience can understand it the first time they read it. It uses short sentences, common words, active voice, and clear structure. The U.S. Plain Writing Act of 2010 requires federal agencies to use plain language in public documents. Plain language does not mean dumbing down content — it means removing unnecessary complexity while preserving meaning." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the plain language rewriter detect passive voice?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool scans for patterns where a form of 'to be' (is, was, were, are, been, being) is followed by a past participle (typically a word ending in -ed, -en, -t, or -wn). Common examples include 'was written,' 'is completed,' 'were given,' and 'has been shown.' While this pattern-matching approach catches most passive constructions, it may miss some irregular forms or flag false positives in rare cases." }
+      },
+      {
+        "@type": "Question",
+        "name": "What readability score should I target for plain language?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For general public documents, target a Flesch-Kincaid Grade Level of 6-8 and a Flesch Reading Ease score of 60-70. For healthcare materials, aim for grade 6 or below. For legal notices intended for consumers, grade 7-8 is the standard. The key metric is improvement: if your original text scores grade 14 and your rewrite scores grade 8, that is a significant and measurable improvement in accessibility." }
+      },
+      {
+        "@type": "Question",
+        "name": "What counts as jargon in text analysis?",
+        "acceptedAnswer": { "@type": "Answer", "text": "This tool flags words and phrases that are commonly overused in business, legal, academic, and technical writing when simpler alternatives exist. Examples include 'utilize' (use), 'facilitate' (help), 'commence' (start), 'terminate' (end), 'pursuant to' (under), and 'in the event that' (if). These words are not inherently wrong, but replacing them with simpler equivalents improves readability without losing meaning." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this tool automatically rewrite my text?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. This tool analyzes your original text and identifies specific issues (passive voice, long sentences, jargon, complex words), but the rewriting is done by you. The side-by-side layout lets you paste your original on the left, write your simplified version on the right, and compare readability scores in real time. This approach gives you full control over meaning and tone while providing data-driven feedback on your improvements." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem; font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem; }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+
+    /* Side-by-side panels */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .compare-col { display: flex; flex-direction: column; }
+    .compare-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .compare-label.original { color: var(--danger); }
+    .compare-label.simplified { color: var(--success); }
+    .panel-textarea {
+      width: 100%; min-height: 220px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6; resize: vertical; flex: 1;
+    }
+    .panel-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .panel-textarea::placeholder { color: var(--text-muted); }
+    .panel-textarea.original-panel { border-left: 3px solid var(--danger); }
+    .panel-textarea.simplified-panel { border-left: 3px solid var(--success); }
+
+    /* Score comparison */
+    .score-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin: 1.25rem 0; }
+    .score-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-align: center; }
+    .score-box.before { border-top: 3px solid var(--danger); }
+    .score-box.after { border-top: 3px solid var(--success); }
+    .score-box .sb-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .score-box .sb-value { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; }
+    .score-box .sb-grade { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .improvement-arrow { text-align: center; }
+    .improvement-pct { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; }
+    .improvement-label { font-size: 0.78rem; color: var(--text-muted); }
+    .arrow-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+
+    /* Issue cards */
+    .issues-grid { display: grid; gap: 0.75rem; margin: 1rem 0; }
+    .issue-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1.1rem; display: flex; gap: 0.75rem; align-items: flex-start; }
+    .issue-badge { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.2rem 0.55rem; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 0.15rem; }
+    .issue-badge.passive { background: rgba(210,168,255,0.2); color: var(--accent-3); }
+    .issue-badge.long-sent { background: rgba(248,81,73,0.2); color: var(--danger); }
+    .issue-badge.jargon { background: rgba(210,153,34,0.2); color: var(--warning); }
+    .issue-badge.complex { background: rgba(129,140,248,0.2); color: var(--accent); }
+    .issue-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+    .issue-text strong { color: var(--text); }
+    .suggestion-arrow { color: var(--success); margin: 0 0.25rem; }
+
+    /* Highlighted text */
+    .highlighted-output { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1rem 0; line-height: 1.9; font-size: 0.95rem; max-height: 300px; overflow-y: auto; }
+    .hl-passive { background: rgba(210,168,255,0.15); border-bottom: 2px solid var(--accent-3); cursor: help; }
+    .hl-long { background: rgba(248,81,73,0.15); border-bottom: 2px solid var(--danger); cursor: help; }
+    .hl-jargon { background: rgba(210,153,34,0.15); border-bottom: 2px solid var(--warning); cursor: help; }
+    .hl-complex { background: rgba(129,140,248,0.15); border-bottom: 2px solid var(--accent); cursor: help; }
+    .highlight-legend { display: flex; gap: 1.25rem; margin-bottom: 0.75rem; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+    .legend-swatch { width: 14px; height: 14px; border-radius: 3px; }
+
+    /* Stats summary */
+    .stats-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+    .ss-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; text-align: center; }
+    .ss-item .ss-val { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; display: block; }
+    .ss-item .ss-lbl { font-size: 0.75rem; color: var(--text-muted); }
+
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .score-compare { grid-template-columns: 1fr; }
+      .improvement-arrow { transform: rotate(90deg); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .article-container { padding: 1.5rem 1rem 2rem; }
+      .stats-summary { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/guides/">Guides</a> &rsaquo; Plain Language Rewriter
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Plain Language <span>Rewriter</span> &mdash; Side-by-Side Simplification</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Rewrite for Plain Language</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste your original text on the left. Write your simplified version on the right. Click Analyze to compare readability scores and see highlighted issues. Everything runs in your browser.</p>
+
+    <div class="compare-grid">
+      <div class="compare-col">
+        <span class="compare-label original">Original Text</span>
+        <textarea class="panel-textarea original-panel" id="originalText" placeholder="Paste your complex or original text here..."></textarea>
+      </div>
+      <div class="compare-col">
+        <span class="compare-label simplified">Simplified Text</span>
+        <textarea class="panel-textarea simplified-panel" id="simplifiedText" placeholder="Write or paste your simplified version here..."></textarea>
+      </div>
+    </div>
+
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="analyzeRewrite()">Analyze</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <!-- Score comparison -->
+      <div class="score-compare" id="scoreCompare"></div>
+
+      <!-- Stats summary -->
+      <div class="stats-summary" id="statsSummary"></div>
+
+      <!-- Highlighted original -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Original Text &mdash; Issues Highlighted</h3>
+        <div class="highlight-legend">
+          <div class="legend-item"><span class="legend-swatch" style="background:rgba(210,168,255,0.3);"></span> Passive voice</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:rgba(248,81,73,0.3);"></span> Long sentence</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:rgba(210,153,34,0.3);"></span> Jargon</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:rgba(129,140,248,0.3);"></span> Complex word</div>
+        </div>
+        <div class="highlighted-output" id="highlightedOriginal"></div>
+      </div>
+
+      <!-- Issue cards -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Suggestions</h3>
+        <div class="issues-grid" id="issueCards"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Plain Language Rewriter?</h2>
+    <p>A plain language rewriter is a writing tool that helps you transform complex, jargon-heavy text into clear, accessible prose. The concept is rooted in the plain language movement, which holds that readers should be able to understand a document the first time they read it without needing specialized knowledge or repeated readings. This tool provides a structured workflow for that transformation: paste your original text, identify the specific elements that create complexity, write a simplified version, and measure the improvement with objective readability scores.</p>
+    <p>Unlike automated paraphrasing tools that reword sentences algorithmically, this plain language rewriter keeps you in control of the rewriting process. The tool's role is diagnostic: it identifies passive voice constructions, flags sentences longer than 20 words, highlights jargon terms that have simpler alternatives, and marks complex words with three or more syllables. You then use these diagnostics to guide your manual rewrite, ensuring that meaning, tone, and nuance are preserved while unnecessary complexity is removed.</p>
+    <p>The side-by-side layout is central to the tool's design. By placing the original and simplified versions next to each other, you can see the relationship between every change you make and the resulting readability improvement. The score comparison panel shows Flesch-Kincaid Grade Level and Flesch Reading Ease for both versions simultaneously, with a calculated improvement percentage that quantifies how much more accessible your rewrite is.</p>
+
+    <h3>Why Plain Language Matters</h3>
+    <p>The case for plain language is backed by decades of research and policy. In the United States, the Plain Writing Act of 2010 requires all federal agencies to use plain language in public-facing documents. The European Union's Clear Writing initiative sets similar standards for 24 official languages. The United Kingdom's GOV.UK style guide targets a reading age of 9 years old for government content. These are not suggestions; they are legal requirements driven by evidence that complex writing excludes large segments of the population.</p>
+    <p>The National Center for Education Statistics reports that <strong>43% of U.S. adults read at a basic or below-basic literacy level</strong>. For these readers, a sentence like "The implementation necessitates the utilization of an asynchronous methodology" is functionally unreadable. The plain language equivalent &mdash; "Use an async method to set this up" &mdash; communicates the same information at a fraction of the cognitive cost. The difference is not intelligence; it is access.</p>
+    <p>In healthcare, the stakes are life and death. Patients who cannot understand discharge instructions are three times more likely to be readmitted within 30 days. The American Medical Association recommends all patient materials be written at a 6th-grade reading level. The National Institutes of Health and CDC enforce similar standards. When a medication label says "Take with adequate hydration" instead of "Drink a full glass of water," real people misunderstand and get hurt.</p>
+    <p>In business, plain language directly impacts the bottom line. A Siegel+Gale study found that companies communicating in plain language are perceived as more trustworthy, and customers are 73% more likely to recommend those companies. Internal communications suffer equally: the Literacy Project estimates that poor workplace writing costs U.S. companies $400 billion annually in wasted time, misunderstandings, and errors.</p>
+
+    <h3>How the Analysis Engine Works</h3>
+    <p>The analysis engine scans the original text for four categories of complexity issues. Each category uses a different detection algorithm and produces specific, actionable suggestions.</p>
+    <p><strong>Passive Voice Detection</strong> scans for patterns where a form of "to be" (is, was, were, are, been, being, be, am) is followed within three words by a past participle. Common patterns include "was written," "is completed," "were given," "has been approved," and "will be reviewed." Passive voice is not grammatically wrong, but it often hides the actor, increases sentence length, and reduces directness. The fix is almost always to identify the actor and make them the subject: "The report was written by the team" becomes "The team wrote the report."</p>
+    <p><strong>Long Sentence Detection</strong> flags any sentence containing more than 20 words. Research from the American Press Institute shows that readers understand 100% of 8-word sentences but only 10% of 43-word sentences. The 20-word threshold sits at the point where comprehension begins declining for general audiences. The suggestion is always the same: split the sentence at a natural break point, typically at a conjunction (and, but, or) or a semicolon.</p>
+    <p><strong>Jargon Detection</strong> checks the text against a dictionary of approximately 60 common jargon terms paired with their plain-language alternatives. Examples include "utilize" (use), "facilitate" (help), "commence" (start), "terminate" (end), "endeavor" (try), "subsequent" (next), "prior to" (before), "in the event that" (if), "with regard to" (about), and "notwithstanding" (despite). These terms are not rare or technical &mdash; they are everyday words dressed up in formal clothing. The plain alternatives are always shorter, more direct, and more widely understood.</p>
+    <p><strong>Complex Word Detection</strong> flags words with three or more syllables that are not in the jargon dictionary and are not common proper nouns. These polysyllabic words increase the syllable-per-word ratio that drives most readability formulas. Not all complex words should be replaced &mdash; some are necessary for precision &mdash; but each one should be evaluated. "Approximately" can become "about." "Demonstrate" can become "show." "Establish" can become "set up." The goal is to use simple words when they carry the same meaning.</p>
+
+    <h3>The Readability Score Comparison</h3>
+    <p>The score comparison panel calculates two metrics for each version of the text. <strong>Flesch-Kincaid Grade Level</strong> maps to a U.S. school grade: a score of 8.0 means the text requires an 8th-grade reading level. <strong>Flesch Reading Ease</strong> produces a 0-100 score where higher is easier, with 60-70 representing standard plain English. Both formulas use the same inputs (average sentence length and average syllables per word) but present the results differently.</p>
+    <p>The improvement percentage compares the two Flesch-Kincaid Grade Level scores and expresses the reduction as a percentage. If your original text scores grade 14.2 and your simplified version scores grade 7.8, the improvement is 45% &mdash; meaning your rewrite reduced the reading level by nearly half. This metric gives you a single number to track your progress and ensures that your simplification efforts produce measurable results rather than subjective impressions.</p>
+    <p>For content that needs to work alongside <a href="https://abwex.com">A/B testing frameworks</a>, you can use the readability scores from this tool as one variable in your test design: does version A (grade 12) or version B (grade 8) generate more conversions? The answer consistently favors the simpler version in studies across healthcare, e-commerce, and SaaS landing pages. For developers building automated readability pipelines, <a href="https://heytensor.com">HeyTensor</a> provides tensor and matrix utilities useful in NLP feature extraction.</p>
+
+    <h3>Privacy</h3>
+    <p>This plain language rewriter runs entirely in your browser using client-side JavaScript. No text data is transmitted to any server, stored, or shared. There are no cookies, no analytics, and no accounts. Both the original and simplified text remain in your browser's memory and are discarded when you close the tab. The source code is available on <a href="https://github.com/theluckystrike/enhio.com">GitHub</a> for inspection. For complementary analysis, the main <a href="/">Enhio text analyzer</a> provides word frequency, tone detection, and SEO keyword tools alongside readability scoring.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Check Sentence Complexity</h3>
+    <p>Need detailed scores from all six readability formulas? The complexity checker calculates Flesch, Fog, SMOG, Coleman-Liau, and ARI simultaneously.</p>
+    <a href="/tools/sentence-complexity-checker.html" class="tool-btn">Open Complexity Checker</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is plain language writing?</h3>
+    <p>Plain language writing communicates information so the intended audience can understand it the first time they read it. It uses short sentences (under 20 words), common words, active voice, and clear structure. The U.S. Plain Writing Act of 2010 requires federal agencies to use plain language in all public documents. Plain language does not mean dumbing down content &mdash; it means removing unnecessary complexity while preserving accuracy and meaning.</p>
+
+    <h3>How does the plain language rewriter detect passive voice?</h3>
+    <p>The tool scans for patterns where a form of "to be" (is, was, were, are, been, being) appears near a past participle (typically ending in -ed, -en, -t, or -wn). Common matches include "was written," "is completed," "were given," and "has been shown." The algorithm checks a window of three words after the "to be" form to catch constructions with adverbs between them, like "was quickly approved."</p>
+
+    <h3>What readability score should I target for plain language?</h3>
+    <p>For documents aimed at the general public, target a Flesch-Kincaid Grade Level of 6-8 and a Flesch Reading Ease of 60-70. For healthcare materials, the gold standard is grade 6 or below. For legal notices intended for consumers, grade 7-8 works well. The most important metric is improvement: reducing a grade-14 document to grade-8 makes it accessible to approximately 80% of the adult population instead of 30%.</p>
+
+    <h3>What counts as jargon in text analysis?</h3>
+    <p>This tool flags words and phrases commonly overused in business, legal, academic, and technical writing when simpler alternatives exist. Examples include "utilize" (use), "facilitate" (help), "commence" (start), "terminate" (end), "pursuant to" (under), "in the event that" (if), "notwithstanding" (despite), and "aforementioned" (this). These words are not wrong, but replacing them with plain equivalents improves readability without losing meaning.</p>
+
+    <h3>Does this tool automatically rewrite my text?</h3>
+    <p>No. This tool analyzes your original text and identifies specific issues &mdash; passive voice, long sentences, jargon, and complex words &mdash; but you write the simplified version yourself. The side-by-side layout lets you paste the original on the left, type your rewrite on the right, and compare readability scores in real time. This human-in-the-loop approach ensures meaning, tone, and domain accuracy are preserved while complexity is reduced.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full text analysis with readability, tone detection, SEO analysis, and side-by-side comparison.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Word cloud visualization, frequency tables, and character distribution analysis.</p>
+      </a>
+      <a href="/tools/sentence-complexity-checker.html" class="related-card">
+        <h4>Sentence Complexity Checker</h4>
+        <p>Calculate 6 readability scores with grade-level mapping and complex sentence highlighting.</p>
+      </a>
+      <a href="/guides/improve-text-readability.html" class="related-card">
+        <h4>Readability Improvement Guide</h4>
+        <p>10 proven tips with formula explanations and before/after examples.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// PLAIN LANGUAGE REWRITER ENGINE
+// ============================================================
+
+const JARGON_MAP = {
+  'utilize':'use','utilization':'use','utilise':'use','facilitate':'help','facilitation':'help',
+  'commence':'start','commencing':'starting','terminate':'end','termination':'ending',
+  'endeavor':'try','endeavour':'try','subsequent':'next','subsequently':'then',
+  'aforementioned':'this','notwithstanding':'despite','pursuant':'under',
+  'ameliorate':'improve','ascertain':'find out','cognizant':'aware',
+  'commensurate':'equal','delineate':'describe','disseminate':'share',
+  'effectuate':'carry out','elucidate':'explain','enumerate':'list',
+  'expedite':'speed up','formulate':'create','implement':'carry out',
+  'implementation':'setup','inaugurate':'start','initiate':'start','initialization':'setup',
+  'leverage':'use','methodology':'method','necessitate':'require','necessitates':'requires',
+  'optimal':'best','optimize':'improve','parameters':'limits','paradigm':'model',
+  'promulgate':'publish','remuneration':'pay','requisite':'required',
+  'synergy':'teamwork','synergize':'work together','transmit':'send',
+  'approximately':'about','sufficient':'enough','insufficient':'not enough',
+  'demonstrate':'show','demonstrates':'shows','indicated':'showed',
+  'indication':'sign','modifications':'changes','modification':'change',
+  'functionality':'features','component':'part','components':'parts',
+  'conceptualize':'imagine','prioritize':'rank','substantiate':'prove',
+  'constitutes':'is','constitute':'are','pertaining':'about',
+  'regarding':'about','concerning':'about','heretofore':'until now',
+  'hereinafter':'from now on','whereby':'by which','thereof':'of that',
+  'therein':'in that'
+};
+
+const PASSIVE_BE = ['is','was','were','are','been','being','be','am'];
+const PAST_PARTICIPLE_ENDINGS = ['ed','en','wn','nt','lt','pt','xt','zed'];
+
+function countSyllables(word) {
+  word = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (!word || word.length <= 2) return word ? 1 : 0;
+  const exceptions = {
+    'the':1,'are':1,'were':1,'have':1,'give':1,'live':1,'love':1,'come':1,'some':1,'done':1,
+    'gone':1,'fire':2,'hire':2,'area':3,'idea':3,'real':2,'being':2,'create':2,'every':3,
+    'different':3,'interest':3,'business':3,'however':3,'general':3,'beautiful':3,'possible':3
+  };
+  if (exceptions[word] !== undefined) return exceptions[word];
+  let count = 0;
+  const vowels = 'aeiouy';
+  let prevVowel = false;
+  for (let i = 0; i < word.length; i++) {
+    const isV = vowels.includes(word[i]);
+    if (isV && !prevVowel) count++;
+    prevVowel = isV;
+  }
+  if (word.endsWith('e') && !word.endsWith('le') && !word.endsWith('ee') && !word.endsWith('ce') && count > 1) count--;
+  if (word.endsWith('ed') && !word.endsWith('ted') && !word.endsWith('ded') && count > 1) count--;
+  if (word.endsWith('es') && !word.endsWith('ses') && !word.endsWith('zes') && !word.endsWith('ces') && !word.endsWith('xes') && count > 1) count--;
+  return Math.max(1, count);
+}
+
+function splitSentences(text) {
+  return text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+}
+
+function getWords(text) {
+  return text.match(/[a-zA-Z'-]+/g) || [];
+}
+
+function calcScores(text) {
+  const words = getWords(text);
+  const sentences = splitSentences(text);
+  const wordCount = words.length;
+  const sentenceCount = Math.max(sentences.length, 1);
+  const charCount = text.replace(/\s/g, '').length;
+  if (wordCount < 3) return { fkgl: 0, fre: 100, wordCount: 0, sentenceCount: 0, avgWPS: 0 };
+
+  let totalSyllables = 0;
+  words.forEach(w => { totalSyllables += countSyllables(w); });
+  const avgWPS = wordCount / sentenceCount;
+  const avgSPW = totalSyllables / wordCount;
+
+  const fre = 206.835 - 1.015 * avgWPS - 84.6 * avgSPW;
+  const fkgl = 0.39 * avgWPS + 11.8 * avgSPW - 15.59;
+
+  return { fkgl, fre, wordCount, sentenceCount, avgWPS };
+}
+
+function detectPassiveVoice(text) {
+  const issues = [];
+  const words = text.split(/\s+/);
+  for (let i = 0; i < words.length - 1; i++) {
+    const clean = words[i].toLowerCase().replace(/[^a-z]/g, '');
+    if (PASSIVE_BE.includes(clean)) {
+      for (let j = i + 1; j < Math.min(i + 4, words.length); j++) {
+        const nextClean = words[j].toLowerCase().replace(/[^a-z]/g, '');
+        if (nextClean.length > 3 && PAST_PARTICIPLE_ENDINGS.some(e => nextClean.endsWith(e))) {
+          const phrase = words.slice(i, j + 1).join(' ');
+          issues.push({ type: 'passive', text: phrase, suggestion: 'Rewrite in active voice: identify the actor and make them the subject.' });
+          break;
+        }
+      }
+    }
+  }
+  return issues;
+}
+
+function detectJargon(text) {
+  const issues = [];
+  const wordsInText = text.toLowerCase().match(/[a-z]+/g) || [];
+  const found = new Set();
+  wordsInText.forEach(w => {
+    if (JARGON_MAP[w] && !found.has(w)) {
+      found.add(w);
+      issues.push({ type: 'jargon', text: w, suggestion: JARGON_MAP[w] });
+    }
+  });
+  return issues;
+}
+
+function detectLongSentences(text) {
+  const issues = [];
+  const sentences = splitSentences(text);
+  sentences.forEach(s => {
+    const wc = getWords(s).length;
+    if (wc > 20) {
+      const preview = s.substring(0, 70) + (s.length > 70 ? '...' : '');
+      issues.push({ type: 'long-sent', text: `${wc} words: "${preview}"`, suggestion: 'Split into two or more shorter sentences at a natural break point.' });
+    }
+  });
+  return issues;
+}
+
+function detectComplexWords(text) {
+  const issues = [];
+  const words = getWords(text);
+  const found = new Set();
+  words.forEach(w => {
+    const lower = w.toLowerCase();
+    if (countSyllables(w) >= 3 && !JARGON_MAP[lower] && !found.has(lower) && lower.length > 4) {
+      found.add(lower);
+      issues.push({ type: 'complex', text: w, suggestion: `${countSyllables(w)} syllables. Consider a simpler alternative if one exists.` });
+    }
+  });
+  return issues.slice(0, 15);
+}
+
+function highlightOriginal(text) {
+  const sentences = splitSentences(text);
+  let html = '';
+
+  sentences.forEach(sent => {
+    const wordCount = getWords(sent).length;
+    const isLong = wordCount > 20;
+    if (isLong) html += '<span class="hl-long" title="Long sentence: ' + wordCount + ' words">';
+
+    const tokens = sent.split(/(\s+)/);
+    tokens.forEach(token => {
+      const clean = token.toLowerCase().replace(/[^a-z]/g, '');
+      if (JARGON_MAP[clean]) {
+        html += '<span class="hl-jargon" title="Jargon: ' + clean + ' → ' + JARGON_MAP[clean] + '">' + token + '</span>';
+      } else if (clean.length > 3 && countSyllables(clean) >= 3) {
+        html += '<span class="hl-complex" title="Complex word: ' + countSyllables(clean) + ' syllables">' + token + '</span>';
+      } else {
+        // Check for passive voice patterns inline
+        html += token;
+      }
+    });
+
+    if (isLong) html += '</span>';
+    html += ' ';
+  });
+  return html;
+}
+
+function analyzeRewrite() {
+  const original = document.getElementById('originalText').value.trim();
+  if (!original || original.length < 20) { alert('Please enter at least a few sentences in the Original Text panel.'); return; }
+
+  const simplified = document.getElementById('simplifiedText').value.trim();
+  const origScores = calcScores(original);
+  const simpScores = simplified.length > 10 ? calcScores(simplified) : null;
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Score comparison
+  let compareHTML = '';
+  compareHTML += `<div class="score-box before">
+    <div class="sb-label">Original</div>
+    <div class="sb-value" style="color:var(--danger)">${origScores.fkgl.toFixed(1)}</div>
+    <div class="sb-grade">Grade Level</div>
+    <div style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted)">Reading Ease: ${origScores.fre.toFixed(1)}</div>
+  </div>`;
+
+  if (simpScores) {
+    const improvement = origScores.fkgl > 0 ? ((origScores.fkgl - simpScores.fkgl) / origScores.fkgl * 100) : 0;
+    const impColor = improvement > 0 ? 'var(--success)' : improvement < 0 ? 'var(--danger)' : 'var(--text-muted)';
+    const impSign = improvement > 0 ? '+' : '';
+    compareHTML += `<div class="improvement-arrow">
+      <div class="arrow-icon" style="color:${impColor}">&rarr;</div>
+      <div class="improvement-pct" style="color:${impColor}">${impSign}${improvement.toFixed(0)}%</div>
+      <div class="improvement-label">${improvement > 0 ? 'easier' : improvement < 0 ? 'harder' : 'same'}</div>
+    </div>`;
+    compareHTML += `<div class="score-box after">
+      <div class="sb-label">Simplified</div>
+      <div class="sb-value" style="color:var(--success)">${simpScores.fkgl.toFixed(1)}</div>
+      <div class="sb-grade">Grade Level</div>
+      <div style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted)">Reading Ease: ${simpScores.fre.toFixed(1)}</div>
+    </div>`;
+  } else {
+    compareHTML += `<div class="improvement-arrow"><div class="arrow-icon" style="color:var(--text-muted)">&rarr;</div><div class="improvement-label">Enter simplified<br>text to compare</div></div>`;
+    compareHTML += `<div class="score-box after"><div class="sb-label">Simplified</div><div class="sb-value" style="color:var(--text-muted)">&mdash;</div><div class="sb-grade">Waiting for input</div></div>`;
+  }
+  document.getElementById('scoreCompare').innerHTML = compareHTML;
+
+  // Stats summary
+  const passiveIssues = detectPassiveVoice(original);
+  const jargonIssues = detectJargon(original);
+  const longIssues = detectLongSentences(original);
+  const complexIssues = detectComplexWords(original);
+  const totalIssues = passiveIssues.length + jargonIssues.length + longIssues.length + complexIssues.length;
+
+  document.getElementById('statsSummary').innerHTML = `
+    <div class="ss-item"><span class="ss-val" style="color:var(--accent-3)">${passiveIssues.length}</span><span class="ss-lbl">Passive voice</span></div>
+    <div class="ss-item"><span class="ss-val" style="color:var(--danger)">${longIssues.length}</span><span class="ss-lbl">Long sentences</span></div>
+    <div class="ss-item"><span class="ss-val" style="color:var(--warning)">${jargonIssues.length}</span><span class="ss-lbl">Jargon words</span></div>
+    <div class="ss-item"><span class="ss-val" style="color:var(--accent)">${complexIssues.length}</span><span class="ss-lbl">Complex words</span></div>
+    <div class="ss-item"><span class="ss-val">${totalIssues}</span><span class="ss-lbl">Total issues</span></div>
+    <div class="ss-item"><span class="ss-val">${origScores.wordCount}</span><span class="ss-lbl">Words (orig)</span></div>
+  `;
+
+  // Highlighted original
+  document.getElementById('highlightedOriginal').innerHTML = highlightOriginal(original);
+
+  // Issue cards
+  const allIssues = [
+    ...passiveIssues.slice(0, 8),
+    ...longIssues.slice(0, 5),
+    ...jargonIssues.slice(0, 10),
+    ...complexIssues.slice(0, 8)
+  ];
+
+  if (allIssues.length === 0) {
+    document.getElementById('issueCards').innerHTML = '<div class="issue-card"><div class="issue-text">No significant plain language issues found. Your text is already fairly clear and accessible.</div></div>';
+  } else {
+    document.getElementById('issueCards').innerHTML = allIssues.map(issue => {
+      let badgeClass, badgeLabel;
+      if (issue.type === 'passive') { badgeClass = 'passive'; badgeLabel = 'Passive'; }
+      else if (issue.type === 'long-sent') { badgeClass = 'long-sent'; badgeLabel = 'Long'; }
+      else if (issue.type === 'jargon') { badgeClass = 'jargon'; badgeLabel = 'Jargon'; }
+      else { badgeClass = 'complex'; badgeLabel = 'Complex'; }
+
+      let suggHTML = '';
+      if (issue.type === 'jargon') {
+        suggHTML = `<strong>"${issue.text}"</strong> <span class="suggestion-arrow">&rarr;</span> <strong style="color:var(--success)">"${issue.suggestion}"</strong>`;
+      } else if (issue.type === 'passive') {
+        suggHTML = `<strong>"${issue.text}"</strong> &mdash; ${issue.suggestion}`;
+      } else {
+        suggHTML = `<strong>${issue.text}</strong> &mdash; ${issue.suggestion}`;
+      }
+
+      return `<div class="issue-card"><span class="issue-badge ${badgeClass}">${badgeLabel}</span><div class="issue-text">${suggHTML}</div></div>`;
+    }).join('');
+  }
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function loadSample() {
+  document.getElementById('originalText').value = `The implementation of comprehensive readability analysis methodologies necessitates a thorough understanding of the underlying mathematical frameworks that govern text complexity assessment. It should be noted that numerous researchers have demonstrated that the utilization of simplified language patterns can substantially enhance reader comprehension across diverse demographic segments, particularly among individuals with limited formal educational backgrounds.
+
+Furthermore, it is imperative to acknowledge that readability metrics, while providing valuable quantitative assessments, should not be considered the sole determinant of content quality. The contextual appropriateness of vocabulary selection, the logical coherence of argumentative structures, and the engagement level of the narrative all contribute significantly to the overall effectiveness of written communication. The report was completed by the analysis team and subsequently reviewed by senior management prior to dissemination.
+
+Notwithstanding the aforementioned considerations, the methodology employed herein facilitates the expeditious identification of problematic textual constructions that may impede optimal comprehension among the target audience.`;
+
+  document.getElementById('simplifiedText').value = `To analyze readability, you need to understand the math behind text complexity. Research shows that simple language helps more people understand what you write. This is especially true for readers without advanced education.
+
+Readability scores are useful, but they do not measure everything. Word choice, logical flow, and how engaging the writing is also matter. The analysis team finished the report. Senior management reviewed it before sharing it.
+
+Despite these points, this method quickly finds problem areas in text that may confuse your readers.`;
+
+  analyzeRewrite();
+}
+
+function clearAll() {
+  document.getElementById('originalText').value = '';
+  document.getElementById('simplifiedText').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

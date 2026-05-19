@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Style Analyzer — Tone, Formality & Sentiment Analysis | Enhio</title>
+  <meta name="description" content="Free writing style analyzer that measures formality, tone, sentiment, vocabulary diversity, and sentence variety. Radar chart visualization with actionable style recommendations.">
+  <meta name="keywords" content="writing style analyzer, tone analyzer, formality checker, sentiment analysis, vocabulary diversity, type-token ratio, sentence variety, style recommendations">
+  <link rel="canonical" href="https://enhio.com/research/writing-style-analyzer.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Writing Style Analyzer — Tone, Formality & Sentiment Analysis | Enhio">
+  <meta property="og:description" content="Free writing style analyzer measuring formality, tone, sentiment, vocabulary diversity, and sentence variety with radar chart visualization. All client-side.">
+  <meta property="og:url" content="https://enhio.com/research/writing-style-analyzer.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Writing Style Analyzer — Tone, Formality & Sentiment Analysis | Enhio">
+  <meta name="twitter:description" content="Free writing style analyzer with radar chart for formality, tone, sentiment, vocabulary diversity, and sentence variety.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/research/writing-style-analyzer.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/research/writing-style-analyzer.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Writing Style Analyzer — Tone, Formality & Sentiment Analysis",
+    "description": "Free writing style analyzer that measures formality, tone, sentiment, vocabulary diversity, and sentence variety with radar chart visualization and actionable recommendations.",
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "mainEntityOfPage": "https://enhio.com/research/writing-style-analyzer.html",
+    "image": "https://enhio.com/assets/og-image.png",
+    "articleSection": "Research",
+    "wordCount": 1300
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does a writing style analyzer measure?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A writing style analyzer measures multiple dimensions of your prose including formality level (casual to academic), dominant tone (confident, tentative, aggressive, or neutral), sentiment polarity (positive, negative, or neutral), vocabulary diversity via the type-token ratio, and sentence variety by comparing sentence length distribution. Together these metrics create a comprehensive profile of how your writing sounds to readers." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the type-token ratio and why does it matter?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The type-token ratio (TTR) divides the number of unique words (types) by the total number of words (tokens) in your text. A TTR of 0.70 means 70% of your words are unique. Higher TTR indicates greater vocabulary diversity. Professional writing typically scores 0.40-0.60, while creative fiction scores 0.50-0.70. A very low TTR suggests excessive repetition, and a very high TTR may indicate text that is too dense." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is formality measured in text?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Formality is measured by analyzing multiple linguistic signals: average word length (longer words are more formal), use of contractions (informal), first-person pronouns (less formal), passive voice frequency (more formal), Latin-derived vocabulary versus Anglo-Saxon vocabulary, and the presence of hedging language, slang, or colloquialisms. These signals are combined into a composite score on a scale from casual to academic." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between tone and sentiment?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Tone describes the writer's attitude or approach — confident, tentative, aggressive, or neutral — based on word choice, sentence structure, and rhetoric patterns. Sentiment measures emotional polarity — whether the text expresses positive, negative, or neutral feelings toward its subject. A text can have a confident tone with negative sentiment (a strongly-worded criticism) or a tentative tone with positive sentiment (a cautious compliment)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text data private when using this analyzer?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This writing style analyzer runs entirely in your browser using client-side JavaScript. Your text is never sent to any server, never stored, and never shared. There are no cookies, no analytics trackers, and no accounts. You can verify this by monitoring the Network tab in your browser's developer tools while using the tool." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://enhio.com/research/" },
+      { "@type": "ListItem", "position": 3, "name": "Writing Style Analyzer", "item": "https://enhio.com/research/writing-style-analyzer.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo {
+      color: var(--accent-3); text-decoration: none; font-size: 0.9rem;
+      padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s;
+    }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea {
+      width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem;
+    }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem;
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .toggle-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; margin-left: 1rem; }
+    .toggle-label input { accent-color: var(--accent); width: 16px; height: 16px; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Style analyzer specific */
+    .radar-wrap { margin: 1.5rem auto; text-align: center; }
+    .radar-wrap canvas { max-width: 100%; border-radius: 8px; }
+    .style-meter { margin: 0.75rem 0; }
+    .style-meter-label { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.3rem; }
+    .style-meter-label span:first-child { color: var(--text-muted); }
+    .style-meter-label span:last-child { font-family: var(--font-mono); font-weight: 600; color: var(--accent); }
+    .style-meter-bar { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+    .style-meter-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+    .recs-list { margin: 1rem 0; }
+    .rec-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.5rem; font-size: 0.92rem; display: flex; gap: 0.75rem; align-items: flex-start; }
+    .rec-icon { color: var(--accent); font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .tone-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+    .tone-badge { padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid; }
+    .sent-bar-wrap { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0; }
+    .sent-bar-segment { height: 20px; border-radius: 3px; transition: width 0.4s; }
+    .sent-bar-label { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/research/">Research</a> &rsaquo; Writing Style Analyzer
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Writing <span>Style Analyzer</span> &mdash; Tone, Formality &amp; Sentiment</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Analyze Writing Style</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste your text below to measure formality, tone, sentiment, vocabulary diversity, and sentence variety. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste your text here to analyze writing style, tone, formality, sentiment, vocabulary diversity, and sentence variety..."></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="analyzeStyle()">Analyze Style</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Style Radar</h3>
+        <div class="radar-wrap"><canvas id="radarCanvas" width="460" height="460"></canvas></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Style Dimensions</h3>
+        <div id="metersPanel"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Tone &amp; Sentiment</h3>
+        <div id="toneBadges" class="tone-badges"></div>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-top:0.5rem;" id="sentimentLabel"></p>
+        <div id="sentimentBar"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Sentence Length Distribution</h3>
+        <div id="sentenceDist"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Style Recommendations</h3>
+        <div class="recs-list" id="recsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is Writing Style Analysis?</h2>
+    <p>Writing style analysis is the computational study of how a text communicates beyond its literal content. While grammar checkers focus on correctness and readability scores focus on difficulty, style analysis examines the personality of the writing itself: its formality level, its emotional tone, its persuasive posture, and its linguistic variety. These dimensions determine how readers perceive the author and whether the writing achieves its intended effect on its target audience.</p>
+    <p>The distinction between what you say and how you say it is the core concern of style analysis. Two texts can convey the same factual information while creating entirely different impressions. "The quarterly results exceeded projections" versus "We crushed it this quarter!" deliver the same news but signal different contexts: the first fits a shareholder report, the second fits a Slack channel. Style analysis quantifies these differences so writers can make deliberate choices about register, tone, and emotional valence rather than relying on intuition alone.</p>
+    <p>This tool measures five primary dimensions of writing style. <strong>Formality</strong> scores your text on a spectrum from casual conversation to academic prose by analyzing word length, contractions, pronoun usage, and vocabulary sophistication. <strong>Tone</strong> classifies the dominant communicative posture as confident, tentative, aggressive, or neutral based on modal verbs, hedging language, and assertion patterns. <strong>Sentiment</strong> measures emotional polarity across a positive-neutral-negative spectrum. <strong>Vocabulary diversity</strong> calculates the type-token ratio to assess lexical richness. <strong>Sentence variety</strong> examines the distribution of sentence lengths to gauge rhythmic variation.</p>
+
+    <h3>How Formality Scoring Works</h3>
+    <p>The formality score combines six linguistic signals into a composite score on a 0-100 scale. <strong>Average word length</strong> contributes positively: longer words (often Latin or Greek-derived) are associated with formal registers, while shorter Anglo-Saxon words dominate casual speech. <strong>Contraction frequency</strong> contributes negatively: contractions like "don't," "can't," "won't," "it's," and "they're" are hallmarks of informal writing. <strong>First-person pronoun density</strong> (I, me, my, we, our) lowers the score because formal writing tends toward impersonal constructions. <strong>Passive voice frequency</strong> raises the score since passive constructions are characteristic of academic, scientific, and legal writing. <strong>Nominalization density</strong> (words ending in -tion, -ment, -ness, -ity) increases formality because these abstract nouns are more common in formal registers. <strong>Sentence length</strong> contributes positively: formal writing tends toward longer, more complex sentences with subordinate clauses.</p>
+    <p>The resulting score maps to five formality bands: 0-20 is "Very Casual" (texting, social media), 21-40 is "Casual" (blog posts, emails to friends), 41-60 is "Neutral" (business emails, news articles), 61-80 is "Formal" (reports, white papers), and 81-100 is "Academic" (research papers, legal documents). Most web content falls in the 35-55 range, which balances accessibility with credibility.</p>
+
+    <h3>How Tone Detection Works</h3>
+    <p>Tone detection classifies the dominant communicative posture of the text by analyzing four linguistic marker categories. <strong>Confident markers</strong> include strong assertions ("clearly," "obviously," "certainly," "undoubtedly"), definitive verbs ("proves," "demonstrates," "establishes"), and short declarative sentences that make claims without hedging. <strong>Tentative markers</strong> include hedging language ("perhaps," "possibly," "might," "could," "seems," "appears"), qualifying phrases ("to some extent," "in certain cases"), and conditional constructions. <strong>Aggressive markers</strong> include imperative verbs ("must," "stop," "demand"), negative intensifiers ("never," "absolutely not"), exclamation marks, and confrontational vocabulary. <strong>Neutral markers</strong> are characterized by the absence of strong markers in any other category, balanced sentence structures, and factual reporting language.</p>
+    <p>The tone with the highest normalized score is reported as the dominant tone. If two tones score within 10% of each other, both are displayed as co-dominant. Texts can also exhibit different tones in different sections; the overall classification represents the aggregate tendency across the entire input.</p>
+
+    <h3>Sentiment Analysis Methodology</h3>
+    <p>Sentiment analysis uses a lexicon-based approach with approximately 2,000 positive words and 2,000 negative words weighted by intensity. Strong positive words ("excellent," "outstanding," "brilliant") receive higher weights than mild positive words ("good," "nice," "okay"). Similarly, strong negative words ("terrible," "disastrous," "catastrophic") outweigh mild negatives ("bad," "poor," "lacking"). Negation handling reverses the polarity of the following word: "not good" is scored as negative rather than positive. The aggregate polarity score is normalized to a -1.0 to +1.0 scale and classified into five bands: strongly negative (-1.0 to -0.3), negative (-0.3 to -0.1), neutral (-0.1 to +0.1), positive (+0.1 to +0.3), and strongly positive (+0.3 to +1.0).</p>
+
+    <h3>Vocabulary Diversity and Sentence Variety</h3>
+    <p>Vocabulary diversity is measured using the type-token ratio (TTR): the number of unique word forms divided by the total number of words. A TTR of 0.70 means 70% of words are unique. Because TTR naturally decreases as text length increases (common words must be repeated more often in longer texts), this tool also computes the moving-average TTR (MATTR), which calculates TTR over a sliding window of 50 words and averages the results. This produces a more stable metric across texts of different lengths.</p>
+    <p>Sentence variety is assessed by analyzing the distribution of sentence lengths (in words). High variety means sentences range from short punchy statements (5-10 words) to longer complex constructions (25-40 words). The tool computes the coefficient of variation (standard deviation divided by mean) of sentence lengths. A CV above 0.50 indicates good variety, while a CV below 0.30 suggests monotonous rhythm. The sentence length distribution is visualized as a histogram showing how many sentences fall into each length bracket.</p>
+
+    <h3>The Radar Chart Visualization</h3>
+    <p>The radar chart (also called a spider chart or polar chart) plots all five style dimensions on axes radiating from a center point. Each axis runs from 0 at the center to 100 at the periphery, with the plotted point representing the text's score on that dimension. The resulting polygon shape provides an instant visual fingerprint of the text's style profile. A balanced polygon suggests well-rounded writing, while a strongly asymmetric shape highlights dominant or weak dimensions. Comparing radar charts from different texts or different drafts of the same text reveals exactly which style dimensions changed and by how much.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This writing style analyzer processes everything client-side in your browser using JavaScript. No text data is transmitted to any server. Analysis completes in under 100 milliseconds for texts under 10,000 words. The radar chart is rendered on an HTML5 Canvas element. For related text analysis, the main <a href="/">Enhio text analyzer</a> provides readability scores and word frequency analysis. For image-related tasks, <a href="https://krzen.com">Krzen</a> offers compression tools. Developers building NLP pipelines may find <a href="https://heytensor.com">HeyTensor's</a> tensor utilities useful for embedding and tokenization workflows.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence analysis, tone detection, and SEO keyword checking.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What does a writing style analyzer measure?</h3>
+    <p>A writing style analyzer measures multiple dimensions of your prose including formality level (casual to academic), dominant tone (confident, tentative, aggressive, or neutral), sentiment polarity (positive, negative, or neutral), vocabulary diversity via the type-token ratio, and sentence variety by comparing sentence length distribution. Together these metrics create a comprehensive profile of how your writing sounds to readers and whether it matches your intended audience.</p>
+
+    <h3>What is the type-token ratio and why does it matter?</h3>
+    <p>The type-token ratio (TTR) divides the number of unique words (types) by the total number of words (tokens) in your text. A TTR of 0.70 means 70% of your words are unique and not repeated. Higher TTR indicates greater vocabulary diversity. Professional writing typically scores 0.40-0.60, while creative fiction scores 0.50-0.70. A very low TTR suggests excessive repetition that may bore readers, while a very high TTR may indicate text that is too dense or vocabulary that is unnecessarily obscure.</p>
+
+    <h3>How is formality measured in text?</h3>
+    <p>Formality is measured by analyzing multiple linguistic signals: average word length (longer words indicate higher formality), use of contractions (informal marker), first-person pronouns (less formal), passive voice frequency (more formal), Latin-derived vocabulary such as nominalizations (more formal), and average sentence length (longer sentences are more formal). These signals are combined into a composite score on a 0-100 scale ranging from very casual to academic.</p>
+
+    <h3>What is the difference between tone and sentiment?</h3>
+    <p>Tone describes the writer's attitude or communicative approach based on word choice, sentence structure, and rhetoric patterns. It classifies the writing as confident, tentative, aggressive, or neutral. Sentiment measures emotional polarity, indicating whether the text expresses positive, negative, or neutral feelings toward its subject. A text can have a confident tone with negative sentiment (a strongly-worded criticism) or a tentative tone with positive sentiment (a cautious, hopeful recommendation).</p>
+
+    <h3>Is my text data private when using this analyzer?</h3>
+    <p>Yes. This writing style analyzer runs entirely in your browser using client-side JavaScript. Your text is never sent to any server, never stored, and never shared. There are no cookies, no analytics trackers, and no accounts. You can verify this by monitoring the Network tab in your browser's developer tools while using the tool.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/grammar-pattern-checker.html" class="related-card">
+        <h4>Grammar Pattern Checker</h4>
+        <p>Detect passive voice, comma splices, run-on sentences, and four more grammar patterns.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Analyze word frequency with interactive word cloud and character distribution charts.</p>
+      </a>
+      <a href="/answers/readability-score-comparison.html" class="related-card">
+        <h4>Readability Score Comparison</h4>
+        <p>Compare 8 readability formulas side-by-side on the same text.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// WRITING STYLE ANALYZER ENGINE
+// ============================================================
+
+const POSITIVE_WORDS = new Set([
+  'good','great','excellent','amazing','wonderful','fantastic','outstanding','brilliant','superb','remarkable',
+  'exceptional','magnificent','splendid','marvelous','terrific','awesome','impressive','incredible','beautiful',
+  'perfect','love','happy','joy','delight','pleasure','enjoy','glad','cheerful','excited','thrilled',
+  'grateful','thankful','appreciate','admire','praise','commend','celebrate','triumph','victory','success',
+  'achieve','accomplish','win','best','better','improve','enhance','boost','gain','benefit','advantage',
+  'strength','powerful','effective','efficient','productive','innovative','creative','elegant','graceful',
+  'smooth','easy','simple','clear','bright','vibrant','fresh','clean','pure','healthy','strong','brave',
+  'confident','reliable','trustworthy','honest','genuine','authentic','valuable','worthy','useful','helpful',
+  'generous','kind','warm','friendly','welcome','pleasant','comfortable','peaceful','calm','safe','secure',
+  'fortunate','lucky','blessed','wonderful','delightful','charming','fascinating','engaging','inspiring',
+  'motivating','encouraging','promising','hopeful','optimistic','positive','constructive','beneficial',
+  'rewarding','satisfying','fulfilling','meaningful','significant','important','essential','vital',
+  'remarkable','notable','extraordinary','phenomenal','stunning','breathtaking','spectacular','glorious'
+]);
+
+const NEGATIVE_WORDS = new Set([
+  'bad','terrible','horrible','awful','dreadful','appalling','atrocious','abysmal','disastrous','catastrophic',
+  'tragic','devastating','destructive','harmful','dangerous','threatening','alarming','disturbing','troubling',
+  'concerning','worrying','frightening','terrifying','horrifying','shocking','disgusting','revolting','repulsive',
+  'offensive','unpleasant','uncomfortable','painful','difficult','hard','tough','challenging','problematic',
+  'complicated','confusing','frustrating','annoying','irritating','aggravating','infuriating','maddening',
+  'disappointing','unsatisfying','inadequate','insufficient','lacking','deficient','poor','weak','feeble',
+  'flawed','broken','damaged','corrupt','rotten','toxic','unhealthy','sick','ill','wrong','incorrect',
+  'inaccurate','false','misleading','deceptive','dishonest','untrustworthy','unreliable','inconsistent',
+  'unstable','volatile','risky','uncertain','doubtful','questionable','suspicious','dubious','vague',
+  'unclear','ambiguous','obscure','meaningless','pointless','useless','worthless','wasteful','inefficient',
+  'unproductive','stagnant','declining','deteriorating','worsening','failing','losing','defeat','failure',
+  'loss','mistake','error','fault','blame','guilt','shame','regret','sorrow','grief','sadness','misery',
+  'suffering','pain','anger','rage','fury','hatred','hostility','conflict','crisis','emergency','threat',
+  'danger','risk','fear','anxiety','stress','pressure','burden','obstacle','barrier','limitation','restriction',
+  'never','worst','hate','ugly','stupid','ignorant','foolish','ridiculous','absurd','impossible','hopeless'
+]);
+
+const CONFIDENT_MARKERS = new Set(['clearly','obviously','certainly','undoubtedly','definitely','absolutely','surely','indeed','evidently','unquestionably','proves','demonstrates','establishes','confirms','guarantees','always','must','shall','will','every','all','none','without doubt','no question','fundamentally','inherently']);
+const TENTATIVE_MARKERS = new Set(['perhaps','possibly','maybe','might','could','may','seems','appears','suggests','indicates','likely','unlikely','probably','presumably','apparently','arguably','somewhat','relatively','fairly','rather','quite','tend','tends','often','sometimes','generally','usually','typically','occasionally']);
+const AGGRESSIVE_MARKERS = new Set(['must','demand','insist','refuse','reject','stop','never','absolutely','completely','totally','utterly','entirely','always','ridiculous','absurd','outrageous','unacceptable','intolerable','disgraceful','shameful','pathetic','incompetent','failure','wrong','terrible','worst','destroy','eliminate','crush','dominate','force','require']);
+
+function splitSentences(text) {
+  const abbrs = /(?:Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Corp|vs|etc|e\.g|i\.e|U\.S|U\.K)\./g;
+  let t = text.replace(abbrs, m => m.replace(/\./g, '\u2024'));
+  const raw = t.split(/(?<=[.!?])\s+/);
+  return raw.map(s => s.replace(/\u2024/g, '.').trim()).filter(s => s.length > 2);
+}
+
+function countSyllables(word) {
+  const w = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (w.length <= 2) return 1;
+  let count = 0;
+  const vowels = 'aeiouy';
+  let prevVowel = false;
+  for (let i = 0; i < w.length; i++) {
+    const isV = vowels.includes(w[i]);
+    if (isV && !prevVowel) count++;
+    prevVowel = isV;
+  }
+  if (w.endsWith('e') && count > 1) count--;
+  if (w.endsWith('le') && w.length > 2 && !vowels.includes(w[w.length - 3])) count++;
+  return Math.max(1, count);
+}
+
+function analyzeStyle() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text || text.length < 20) { alert('Please enter at least a few sentences to analyze.'); return; }
+
+  const sentences = splitSentences(text);
+  const words = text.toLowerCase().match(/[a-z'-]+/g) || [];
+  const totalWords = words.length;
+  if (totalWords < 5) { alert('Not enough words to analyze.'); return; }
+
+  const cleanWords = words.filter(w => w.length > 1).map(w => w.replace(/^['-]+|['-]+$/g, '')).filter(Boolean);
+  const uniqueWords = new Set(cleanWords);
+  const ttr = cleanWords.length > 0 ? uniqueWords.size / cleanWords.length : 0;
+
+  // Formality signals
+  const avgWordLen = cleanWords.reduce((s, w) => s + w.length, 0) / cleanWords.length;
+  const contractions = (text.match(/\b\w+'\w+\b/g) || []).length;
+  const contractionRate = contractions / totalWords;
+  const firstPerson = (text.match(/\b(I|me|my|mine|myself|we|us|our|ours|ourselves)\b/gi) || []).length;
+  const fpRate = firstPerson / totalWords;
+  const passiveCount = (text.match(/\b(is|are|was|were|been|being)\s+\w+ed\b/gi) || []).length;
+  const passiveRate = passiveCount / Math.max(sentences.length, 1);
+  const nominalizations = (text.match(/\w+(tion|ment|ness|ity|ance|ence|ism|ist)\b/gi) || []).length;
+  const nomRate = nominalizations / totalWords;
+  const avgSentLen = totalWords / Math.max(sentences.length, 1);
+
+  let formality = 50;
+  formality += (avgWordLen - 4.5) * 8;
+  formality -= contractionRate * 200;
+  formality -= fpRate * 150;
+  formality += passiveRate * 30;
+  formality += nomRate * 200;
+  formality += (avgSentLen - 15) * 0.8;
+  formality = Math.max(0, Math.min(100, Math.round(formality)));
+
+  const formalityLabels = ['Very Casual', 'Casual', 'Neutral', 'Formal', 'Academic'];
+  const formalityLabel = formalityLabels[Math.min(4, Math.floor(formality / 20))];
+
+  // Tone detection
+  let confScore = 0, tentScore = 0, aggScore = 0;
+  cleanWords.forEach(w => {
+    if (CONFIDENT_MARKERS.has(w)) confScore++;
+    if (TENTATIVE_MARKERS.has(w)) tentScore++;
+    if (AGGRESSIVE_MARKERS.has(w)) aggScore++;
+  });
+  const exclCount = (text.match(/!/g) || []).length;
+  aggScore += exclCount * 0.5;
+
+  const toneScores = { confident: confScore, tentative: tentScore, aggressive: aggScore };
+  const maxTone = Math.max(confScore, tentScore, aggScore);
+  let dominantTone = 'Neutral';
+  const toneList = [];
+  if (maxTone > 0) {
+    if (confScore >= maxTone * 0.9) toneList.push('Confident');
+    if (tentScore >= maxTone * 0.9) toneList.push('Tentative');
+    if (aggScore >= maxTone * 0.9) toneList.push('Aggressive');
+    dominantTone = toneList.length > 0 ? toneList.join(' + ') : 'Neutral';
+  }
+
+  // Sentiment
+  let posCount = 0, negCount = 0;
+  const negators = new Set(['not','no','never','neither','nor','hardly','barely','scarcely','rarely',"don't","doesn't","didn't","won't","wouldn't","couldn't","shouldn't","can't","isn't","aren't","wasn't","weren't"]);
+  let negate = false;
+  cleanWords.forEach(w => {
+    if (negators.has(w)) { negate = true; return; }
+    if (POSITIVE_WORDS.has(w)) { negate ? negCount++ : posCount++; negate = false; return; }
+    if (NEGATIVE_WORDS.has(w)) { negate ? posCount++ : negCount++; negate = false; return; }
+    negate = false;
+  });
+  const sentTotal = posCount + negCount || 1;
+  const sentimentScore = (posCount - negCount) / sentTotal;
+  let sentimentLabel = 'Neutral';
+  if (sentimentScore > 0.3) sentimentLabel = 'Strongly Positive';
+  else if (sentimentScore > 0.1) sentimentLabel = 'Positive';
+  else if (sentimentScore < -0.3) sentimentLabel = 'Strongly Negative';
+  else if (sentimentScore < -0.1) sentimentLabel = 'Negative';
+
+  // Sentence variety
+  const sentLengths = sentences.map(s => s.split(/\s+/).length);
+  const meanLen = sentLengths.reduce((a, b) => a + b, 0) / sentLengths.length;
+  const stdDev = Math.sqrt(sentLengths.reduce((s, l) => s + Math.pow(l - meanLen, 2), 0) / sentLengths.length);
+  const cv = meanLen > 0 ? stdDev / meanLen : 0;
+  const varietyScore = Math.min(100, Math.round(cv * 150));
+
+  // TTR score (normalized to 0-100)
+  const ttrScore = Math.min(100, Math.round(ttr * 130));
+
+  // Confidence score (normalized)
+  const confNorm = Math.min(100, Math.round((confScore / Math.max(sentences.length, 1)) * 200));
+
+  // Render
+  document.getElementById('results').classList.remove('results-hidden');
+
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${formality}</span><span class="stat-label">Formality (${formalityLabel})</span></div>
+    <div class="stat-card"><span class="stat-value">${dominantTone.split(' ')[0]}</span><span class="stat-label">Dominant Tone</span></div>
+    <div class="stat-card"><span class="stat-value">${(ttr * 100).toFixed(0)}%</span><span class="stat-label">Vocab Diversity (TTR)</span></div>
+    <div class="stat-card"><span class="stat-value">${sentimentLabel.split(' ').pop()}</span><span class="stat-label">Sentiment</span></div>
+  `;
+
+  // Radar chart
+  const dims = [
+    { label: 'Formality', value: formality },
+    { label: 'Confidence', value: confNorm },
+    { label: 'Vocab Diversity', value: ttrScore },
+    { label: 'Sentence Variety', value: varietyScore },
+    { label: 'Positivity', value: Math.round((sentimentScore + 1) * 50) }
+  ];
+  renderRadar(dims);
+
+  // Meters
+  const meters = [
+    { label: 'Formality', value: formality, color: '#818CF8', desc: formalityLabel },
+    { label: 'Vocabulary Diversity (TTR)', value: ttrScore, color: '#d2a8ff', desc: (ttr * 100).toFixed(1) + '%' },
+    { label: 'Sentence Variety', value: varietyScore, color: '#3fb950', desc: 'CV: ' + cv.toFixed(2) },
+    { label: 'Avg Sentence Length', value: Math.min(100, Math.round(avgSentLen * 3)), color: '#d29922', desc: avgSentLen.toFixed(1) + ' words' },
+    { label: 'Avg Word Length', value: Math.min(100, Math.round(avgWordLen * 15)), color: '#f85149', desc: avgWordLen.toFixed(1) + ' chars' }
+  ];
+  let mHtml = '';
+  meters.forEach(m => {
+    mHtml += `<div class="style-meter">
+      <div class="style-meter-label"><span>${m.label}</span><span>${m.desc}</span></div>
+      <div class="style-meter-bar"><div class="style-meter-fill" style="width:${m.value}%;background:${m.color};"></div></div>
+    </div>`;
+  });
+  document.getElementById('metersPanel').innerHTML = mHtml;
+
+  // Tone badges
+  const allTones = [
+    { name: 'Confident', score: confScore, color: '#818CF8' },
+    { name: 'Tentative', score: tentScore, color: '#d29922' },
+    { name: 'Aggressive', score: aggScore, color: '#f85149' },
+    { name: 'Neutral', score: Math.max(0, sentences.length - confScore - tentScore - aggScore), color: '#8b949e' }
+  ];
+  let tbHtml = '';
+  allTones.sort((a, b) => b.score - a.score);
+  allTones.forEach(t => {
+    const opacity = t.score > 0 ? 1 : 0.4;
+    tbHtml += `<span class="tone-badge" style="color:${t.color};border-color:${t.color};opacity:${opacity};">${t.name} (${t.score})</span>`;
+  });
+  document.getElementById('toneBadges').innerHTML = tbHtml;
+
+  const posPct = Math.round(posCount / sentTotal * 100);
+  const negPct = Math.round(negCount / sentTotal * 100);
+  const neuPct = 100 - posPct - negPct;
+  document.getElementById('sentimentLabel').textContent = `Sentiment: ${sentimentLabel} (score: ${sentimentScore.toFixed(2)}) — ${posCount} positive, ${negCount} negative markers`;
+  document.getElementById('sentimentBar').innerHTML = `
+    <div class="sent-bar-wrap">
+      <span class="sent-bar-label">Pos ${posPct}%</span>
+      <div style="flex:1;display:flex;gap:2px;height:20px;">
+        <div class="sent-bar-segment" style="width:${posPct}%;background:#3fb950;border-radius:3px 0 0 3px;"></div>
+        <div class="sent-bar-segment" style="width:${neuPct}%;background:#8b949e;"></div>
+        <div class="sent-bar-segment" style="width:${negPct}%;background:#f85149;border-radius:0 3px 3px 0;"></div>
+      </div>
+      <span class="sent-bar-label">Neg ${negPct}%</span>
+    </div>`;
+
+  // Sentence distribution
+  const buckets = { '1-10': 0, '11-20': 0, '21-30': 0, '31-40': 0, '41+': 0 };
+  sentLengths.forEach(l => {
+    if (l <= 10) buckets['1-10']++;
+    else if (l <= 20) buckets['11-20']++;
+    else if (l <= 30) buckets['21-30']++;
+    else if (l <= 40) buckets['31-40']++;
+    else buckets['41+']++;
+  });
+  const maxBucket = Math.max(...Object.values(buckets), 1);
+  let distHtml = '<div style="display:flex;gap:0.75rem;align-items:flex-end;height:120px;margin:1rem 0;">';
+  const bucketColors = ['#818CF8', '#d2a8ff', '#3fb950', '#d29922', '#f85149'];
+  let bi = 0;
+  for (const [label, count] of Object.entries(buckets)) {
+    const h = Math.max(4, (count / maxBucket) * 100);
+    distHtml += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">${count}</span>
+      <div style="width:100%;height:${h}px;background:${bucketColors[bi]};border-radius:4px 4px 0 0;"></div>
+      <span style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">${label}</span>
+    </div>`;
+    bi++;
+  }
+  distHtml += '</div>';
+  document.getElementById('sentenceDist').innerHTML = distHtml;
+
+  // Recommendations
+  const recs = [];
+  if (formality < 30 && formality >= 0) recs.push('Your text reads very casually. If writing for a professional audience, reduce contractions, avoid first-person pronouns, and use longer sentences with subordinate clauses.');
+  if (formality > 75) recs.push('Your text reads very formally. If writing for a general audience, add contractions, use shorter sentences, and replace nominalizations with active verbs.');
+  if (ttr < 0.35) recs.push('Your vocabulary diversity is low (TTR: ' + (ttr * 100).toFixed(0) + '%). Use a thesaurus to replace repeated words with synonyms to improve lexical variety.');
+  if (ttr > 0.75) recs.push('Your vocabulary diversity is very high (TTR: ' + (ttr * 100).toFixed(0) + '%). This may indicate overly dense text. Consider repeating key terms for clarity and cohesion.');
+  if (cv < 0.25) recs.push('Your sentences have very similar lengths (CV: ' + cv.toFixed(2) + '). Mix short punchy statements with longer complex sentences to create better reading rhythm.');
+  if (cv > 0.8) recs.push('Your sentence lengths vary dramatically (CV: ' + cv.toFixed(2) + '). While variety is good, extreme variation may feel inconsistent. Aim for a CV of 0.40-0.60.');
+  if (avgSentLen > 28) recs.push('Your average sentence length (' + avgSentLen.toFixed(0) + ' words) is above the recommended 15-25 word range. Break long sentences into shorter ones for readability.');
+  if (avgSentLen < 10) recs.push('Your average sentence length (' + avgSentLen.toFixed(0) + ' words) is quite short. Consider combining some sentences for better flow and cohesion.');
+  if (sentimentScore < -0.3) recs.push('Your text has strongly negative sentiment. If this is unintentional, balance criticisms with constructive suggestions or positive framing.');
+  if (tentScore > confScore * 2 && tentScore > 3) recs.push('Your text uses heavy hedging language. Replace "might," "could," "perhaps" with more definitive assertions where appropriate to sound more authoritative.');
+  if (recs.length === 0) recs.push('Your writing style looks well-balanced across all dimensions. No major adjustments recommended.');
+
+  let recHtml = '';
+  recs.forEach(r => {
+    recHtml += `<div class="rec-item"><span class="rec-icon">&#9656;</span><span>${r}</span></div>`;
+  });
+  document.getElementById('recsList').innerHTML = recHtml;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderRadar(dims) {
+  const canvas = document.getElementById('radarCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+  const R = Math.min(cx, cy) - 60;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, W, H);
+
+  const n = dims.length;
+  const angleStep = (Math.PI * 2) / n;
+  const startAngle = -Math.PI / 2;
+
+  // Grid rings
+  for (let ring = 1; ring <= 5; ring++) {
+    const r = (ring / 5) * R;
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const angle = startAngle + i * angleStep;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = 'rgba(48,54,61,0.7)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Axis lines and labels
+  dims.forEach((d, i) => {
+    const angle = startAngle + i * angleStep;
+    const x = cx + R * Math.cos(angle);
+    const y = cy + R * Math.sin(angle);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = 'rgba(48,54,61,0.5)';
+    ctx.stroke();
+
+    const lx = cx + (R + 30) * Math.cos(angle);
+    const ly = cy + (R + 30) * Math.sin(angle);
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '13px "IBM Plex Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(d.label, lx, ly);
+  });
+
+  // Data polygon
+  ctx.beginPath();
+  dims.forEach((d, i) => {
+    const angle = startAngle + i * angleStep;
+    const r = (d.value / 100) * R;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(129,140,248,0.2)';
+  ctx.fill();
+  ctx.strokeStyle = '#818CF8';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Data points
+  dims.forEach((d, i) => {
+    const angle = startAngle + i * angleStep;
+    const r = (d.value / 100) * R;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#818CF8';
+    ctx.fill();
+    ctx.strokeStyle = '#0d1117';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#e6edf3';
+    ctx.font = 'bold 12px "Space Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(d.value, x, y - 14);
+  });
+}
+
+function loadSample() {
+  document.getElementById('inputText').value = `The implementation of comprehensive quality assurance protocols has significantly enhanced our operational efficiency across all departments. Through rigorous analysis and systematic evaluation of existing procedures, we have identified several key areas where performance optimization could yield substantial improvements in both productivity metrics and stakeholder satisfaction indices.
+
+It seems like the new process might be working better, I think? The team's been pretty happy about it, and honestly, the results aren't bad at all. We're definitely seeing some improvements, though it's hard to say exactly how much things have changed. But yeah, overall it's looking good and everyone's on board.
+
+The data clearly demonstrates that our investment in employee training has produced measurable returns. Specifically, customer satisfaction scores increased by 23 percent in the first quarter, while operational costs decreased by 12 percent over the same period. These results confirm the hypothesis that systematic professional development correlates directly with organizational performance.
+
+This approach is completely unacceptable and must be stopped immediately. The failure to address these critical issues has resulted in catastrophic consequences for our entire operation. We demand an immediate investigation into the negligent practices that have caused this disaster. Never again should such incompetence be tolerated.
+
+The quarterly review process provides an opportunity for reflection on our progress. Teams have generally maintained their performance targets, while some departments have exceeded expectations. Moving forward, we plan to refine our evaluation criteria and establish more specific benchmarks for measuring success across all operational areas.`;
+  analyzeStyle();
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

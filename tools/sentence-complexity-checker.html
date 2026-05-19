@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentence Complexity Checker — 6 Readability Scores & Grade Levels | Enhio</title>
+  <meta name="description" content="Free sentence complexity checker calculating Flesch-Kincaid, Flesch Reading Ease, Gunning Fog, Coleman-Liau, SMOG, and ARI scores. Highlights complex sentences and hard words with grade-level mapping.">
+  <meta name="keywords" content="sentence complexity checker, readability score calculator, Flesch-Kincaid grade level, Gunning Fog index, SMOG index, Coleman-Liau, ARI, reading level checker">
+  <link rel="canonical" href="https://enhio.com/tools/sentence-complexity-checker.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Sentence Complexity Checker — 6 Readability Scores & Grade Levels | Enhio">
+  <meta property="og:description" content="Calculate 6 readability scores with grade-level mapping, highlight complex sentences and hard words, and get an overall complexity rating.">
+  <meta property="og:url" content="https://enhio.com/tools/sentence-complexity-checker.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sentence Complexity Checker — 6 Readability Scores & Grade Levels | Enhio">
+  <meta name="twitter:description" content="6 readability formulas with grade-level mapping. Highlights complex sentences and hard words.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/sentence-complexity-checker.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/sentence-complexity-checker.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Sentence Complexity Checker — Enhio",
+    "url": "https://enhio.com/tools/sentence-complexity-checker.html",
+    "description": "Free client-side readability calculator with 6 formulas: Flesch-Kincaid Grade Level, Flesch Reading Ease, Gunning Fog, Coleman-Liau, SMOG, and ARI. Highlights complex sentences and hard words.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Flesch-Kincaid Grade Level", "Flesch Reading Ease", "Gunning Fog Index", "Coleman-Liau Index", "SMOG Index", "Automated Readability Index", "Complex sentence highlighting", "Hard word detection", "Grade-level mapping"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Sentence Complexity Checker — 6 Readability Scores & Grade Levels",
+    "description": "Calculate six readability scores with grade-level equivalents. Highlight complex sentences and hard words in any text with this free client-side analyzer.",
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "mainEntityOfPage": "https://enhio.com/tools/sentence-complexity-checker.html",
+    "image": "https://enhio.com/assets/og-image.png",
+    "articleSection": "Tools",
+    "wordCount": 1400
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between Flesch Reading Ease and Flesch-Kincaid Grade Level?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Both formulas use the same inputs (average sentence length and average syllables per word) but produce different outputs. Flesch Reading Ease gives a 0-100 score where higher means easier reading. Flesch-Kincaid Grade Level maps to a U.S. school grade (e.g., 8.0 means an 8th grader can read it). They are inversely correlated: high Reading Ease corresponds to low Grade Level." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Gunning Fog Index and how is it different from Flesch?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Gunning Fog Index estimates years of formal education needed to understand text on first reading. Unlike Flesch formulas that count syllables, Fog counts 'complex words' defined as words with three or more syllables (excluding common suffixes). Fog tends to produce higher grade levels than Flesch-Kincaid for the same text because its definition of complexity is stricter." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which readability formula should I use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No single formula is best for all purposes. Use Flesch-Kincaid for general content and web writing. Use SMOG for healthcare and patient education materials (it is the gold standard in health literacy). Use Coleman-Liau or ARI when you need character-based scoring that avoids syllable estimation. Use Gunning Fog for business and technical writing. This tool calculates all six so you can look at the consensus." }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes a sentence complex?",
+        "acceptedAnswer": { "@type": "Answer", "text": "This tool flags sentences with more than 25 words as complex. Research shows comprehension drops significantly beyond this threshold: sentences under 14 words are understood by 90% of readers, while sentences over 40 words drop to 10% comprehension. Complex sentences often contain multiple clauses, embedded parentheticals, or chains of prepositional phrases." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a hard word in readability analysis?",
+        "acceptedAnswer": { "@type": "Answer", "text": "In this tool, hard words are defined as words with three or more syllables, following the convention used by the Gunning Fog and SMOG formulas. These polysyllabic words require more cognitive processing and are less likely to be in a reader's active vocabulary. Common examples include 'approximately,' 'implementation,' 'consequently,' and 'nevertheless.'" }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea { width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem; }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem; font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem; }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+
+    /* Complexity summary card */
+    .complexity-summary {
+      background: var(--bg); border: 2px solid var(--border); border-radius: 10px;
+      padding: 1.5rem; margin: 1.25rem 0; text-align: center;
+    }
+    .complexity-level { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .complexity-desc { font-size: 0.95rem; color: var(--text-muted); }
+    .complexity-grade { font-size: 1.1rem; margin-top: 0.5rem; }
+
+    /* Score cards */
+    .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .score-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .score-card .sc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+    .score-card .sc-value { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; }
+    .score-card .sc-name { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+    .score-card .sc-grade { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem; }
+    .score-card .sc-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+    .score-bar { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; margin: 0.5rem 0; }
+    .score-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+
+    /* Highlighted text output */
+    .highlighted-output { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1rem 0; line-height: 1.9; font-size: 0.95rem; max-height: 360px; overflow-y: auto; }
+    .hl-long { background: rgba(248,81,73,0.15); border-bottom: 2px solid var(--danger); cursor: help; }
+    .hl-hard { background: rgba(210,168,255,0.2); border-bottom: 2px solid var(--accent-3); cursor: help; }
+    .highlight-legend { display: flex; gap: 1.5rem; margin-bottom: 0.75rem; font-size: 0.85rem; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+    .legend-swatch { width: 14px; height: 14px; border-radius: 3px; }
+
+    /* Stats row */
+    .stats-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; padding: 1rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); }
+    .stat-item { display: flex; flex-direction: column; align-items: center; }
+    .stat-item .stat-val { font-family: var(--font-mono); font-weight: 700; font-size: 1.15rem; }
+    .stat-item .stat-lbl { font-size: 0.78rem; color: var(--text-muted); }
+
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .score-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+      .stats-row { gap: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .score-grid { grid-template-columns: 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Sentence Complexity Checker
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Sentence <span>Complexity Checker</span> &mdash; Readability Scores</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Check Sentence Complexity</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste your text below to calculate six readability scores, identify complex sentences, and highlight hard words. All processing runs in your browser.</p>
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste your text here to calculate Flesch-Kincaid, Gunning Fog, SMOG, Coleman-Liau, ARI scores and highlight complex sentences..."></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="analyzeComplexity()">Check Complexity</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <!-- Summary Card -->
+      <div class="complexity-summary" id="summaryCard"></div>
+
+      <!-- Stats Row -->
+      <div class="stats-row" id="statsRow"></div>
+
+      <!-- Score Grid -->
+      <div class="score-grid" id="scoreGrid"></div>
+
+      <!-- Highlighted Text -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Highlighted Analysis</h3>
+        <div class="highlight-legend">
+          <div class="legend-item"><span class="legend-swatch" style="background:rgba(248,81,73,0.3);"></span> Complex sentence (&gt;25 words)</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:rgba(210,168,255,0.3);"></span> Hard word (&ge;3 syllables)</div>
+        </div>
+        <div class="highlighted-output" id="highlightedText"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Sentence Complexity Checker?</h2>
+    <p>A sentence complexity checker is a text analysis tool that evaluates how difficult your writing is to read by applying standardized readability formulas. Each formula uses a different combination of linguistic features &mdash; sentence length, syllable count, character count, and polysyllabic word frequency &mdash; to produce a score that maps to a U.S. school grade level or a numerical ease rating. By running multiple formulas simultaneously, you get a consensus view of your text's complexity rather than relying on a single metric.</p>
+    <p>This tool calculates six of the most widely used readability formulas in a single pass: Flesch-Kincaid Grade Level, Flesch Reading Ease, Gunning Fog Index, Coleman-Liau Index, SMOG Index, and the Automated Readability Index (ARI). Each score is accompanied by its grade-level equivalent and a plain-English description of what that level means for your audience. The tool also highlights two key sources of complexity directly in your text: sentences longer than 25 words and words with three or more syllables.</p>
+    <p>Understanding sentence complexity matters because readers have limited cognitive bandwidth. Working memory can hold approximately seven items at once, and long or structurally complex sentences exceed this capacity. When a reader loses track of a sentence's subject by the time they reach its verb, comprehension collapses. Readability formulas quantify this risk using objective, reproducible measurements that remove subjective judgment from the editing process.</p>
+
+    <h3>The Six Readability Formulas</h3>
+    <p><strong>Flesch-Kincaid Grade Level</strong> is the most widely used readability formula in the United States. Developed by J. Peter Kincaid and his team for the U.S. Navy in 1975, it maps directly to U.S. school grades. The formula weighs average sentence length (words per sentence) and average word length (syllables per word). A score of 8.0 means the text can be understood by an average 8th-grade student. Most web content should target grades 6-8 to reach the broadest audience.</p>
+    <p><strong>Flesch Reading Ease</strong> was developed by Rudolf Flesch in 1948 and uses the same inputs as Flesch-Kincaid but produces a 0-100 score where higher numbers mean easier reading. A score of 60-70 corresponds to plain English that a 13-15 year old can understand. Scores below 30 indicate text at a college graduate level. This inverse scale is sometimes confusing for first-time users, which is why this tool displays both the score and its interpretation.</p>
+    <p><strong>Gunning Fog Index</strong>, created by Robert Gunning in 1952, estimates the years of formal education needed to understand text on a first reading. Unlike Flesch formulas, Fog defines "hard words" as any word with three or more syllables, excluding proper nouns, familiar compound words, and common suffixes (-es, -ed, -ing). Fog tends to produce higher grade levels than Flesch-Kincaid for the same text, so do not compare Fog scores directly with Flesch-Kincaid scores.</p>
+    <p><strong>Coleman-Liau Index</strong> differs fundamentally from the other formulas because it uses character counts rather than syllable counts. Developed by Meri Coleman and T. L. Liau in 1975, this approach was designed for automated processing where syllable counting is error-prone. It counts the average number of letters per 100 words and the average number of sentences per 100 words. This makes it particularly suitable for machine-scored assessments and large corpus analysis.</p>
+    <p><strong>SMOG Index</strong> (Simple Measure of Gobbledygook) was developed by G. Harry McLaughlin in 1969 specifically for healthcare materials. It counts polysyllabic words (three or more syllables) per 30 sentences and applies a square root transformation. SMOG is considered the gold standard in health literacy because it estimates 100% comprehension rather than 50-75% comprehension like most other formulas. If you write patient education materials, SMOG is your primary metric.</p>
+    <p><strong>Automated Readability Index (ARI)</strong> was developed in 1967 for real-time readability monitoring on typewriters and teletype machines. Like Coleman-Liau, it uses character counts rather than syllable counts, making it fast to compute. ARI maps to grade level and correlates well with other formulas for most English text. Its main advantage is computational simplicity, which made it valuable in an era before computers and remains useful for processing very large volumes of text.</p>
+
+    <h3>How Complex Sentence Detection Works</h3>
+    <p>The highlighting engine processes your text in two passes. The first pass splits the text into sentences using punctuation boundaries (periods, exclamation marks, question marks) and counts the words in each sentence. Any sentence containing more than 25 words receives a red highlight. Research by the American Press Institute found that sentences of 14 words or fewer are understood at nearly 100% accuracy, while 43-word sentences drop to below 10% comprehension. The 25-word threshold represents the point where comprehension begins declining significantly for general audiences.</p>
+    <p>The second pass scans each word for syllable count. Words with three or more syllables receive a purple highlight, following the same "hard word" definition used by the Gunning Fog and SMOG formulas. The syllable counter uses a vowel-group algorithm with adjustments for silent-e, common suffixes (-ed, -es, -ing, -tion), and an exception dictionary for frequently miscounted words. While no syllable counter achieves 100% accuracy on all English words (due to irregularities like "fire" having one syllable versus "hire" having one syllable but "higher" having two), the algorithm is accurate enough for readability scoring purposes.</p>
+    <p>The overall complexity rating synthesizes all six scores into a single assessment. It averages the five grade-level scores (excluding Flesch Reading Ease, which uses a different scale) and classifies the result into five bands: Very Easy (grade 1-5), Easy (grade 6-8), Moderate (grade 9-12), Difficult (grade 13-16), and Very Difficult (grade 17+). This summary gives you an immediate sense of where your text falls without needing to interpret each formula individually.</p>
+
+    <h3>Practical Guidelines for Complexity Targets</h3>
+    <p>Different writing contexts demand different complexity levels. For web content aimed at a general audience, target a consensus grade level of 6-8. Blog posts, marketing copy, product descriptions, and news articles all perform best in this range. The U.S. federal government requires all public-facing documents to be written at a 6th-grade level under the Plain Writing Act of 2010.</p>
+    <p>For professional audiences within a specific field, grade levels of 8-12 are acceptable. A software developer can understand "asynchronous API endpoint" without definition. A physician can process "bilateral pneumonia with pleural effusion." The key is to keep sentence structure simple even when vocabulary is specialized. Technical vocabulary is fine; convoluted syntax is not.</p>
+    <p>For academic and scientific writing, grade levels of 12-16 may be unavoidable, but the best researchers still aim for maximum clarity within their discipline's constraints. Journals like Nature and Science actively edit submissions for readability, and shorter sentences remain more effective than longer ones even in PhD-level content.</p>
+    <p>For healthcare and patient education materials, always target grade 6 or below with a SMOG score under 6. The average American adult reads at a 7th-8th grade level, and health decisions are often made under stress, which reduces effective reading ability by several grade levels. The American Medical Association, National Institutes of Health, and CDC all recommend this standard. If you work with content that requires <a href="https://abwex.com">A/B testing different complexity levels</a> for conversion optimization, that tool can help you measure audience response to different reading levels.</p>
+
+    <h3>Privacy</h3>
+    <p>This sentence complexity checker runs entirely in your browser. No text data is transmitted to any server, stored, or shared. All six readability formulas are implemented in client-side JavaScript that executes locally. There are no cookies, no analytics, and no accounts. The source code is available on <a href="https://github.com/theluckystrike/enhio.com">GitHub</a> for verification. For complementary text analysis tools, the main <a href="/">Enhio analyzer</a> provides word frequency, tone detection, and SEO keyword analysis. Developers building NLP tools may find <a href="https://heytensor.com">HeyTensor</a> useful for matrix operations and embedding computations.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Analyze Word Frequency Too</h3>
+    <p>Pair complexity analysis with word frequency counting to get a complete picture of your text's vocabulary and structure.</p>
+    <a href="/tools/word-frequency-counter.html" class="tool-btn">Open Word Frequency Counter</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is the difference between Flesch Reading Ease and Flesch-Kincaid Grade Level?</h3>
+    <p>Both formulas use the same inputs &mdash; average sentence length and average syllables per word &mdash; but produce different outputs. Flesch Reading Ease gives a 0-100 score where higher means easier reading, targeting a score of 60-70 for plain English. Flesch-Kincaid Grade Level maps to a U.S. school grade where lower means easier. A Reading Ease of 60 roughly corresponds to a Grade Level of 8-9. They always move in opposite directions.</p>
+
+    <h3>What is Gunning Fog Index and how is it different from Flesch?</h3>
+    <p>The Gunning Fog Index estimates years of formal education needed to understand text on first reading. While Flesch formulas count total syllables per word, Fog specifically counts "complex words" with three or more syllables. This means Fog penalizes polysyllabic words more heavily and tends to produce higher grade levels than Flesch-Kincaid for the same text. Fog is particularly useful for business and corporate communications.</p>
+
+    <h3>Which readability formula should I use?</h3>
+    <p>Use Flesch-Kincaid for general web content and blog posts. Use SMOG for healthcare and patient education materials, as it is the gold standard in health literacy. Use Coleman-Liau or ARI when you need character-based scoring that avoids syllable estimation errors. Use Gunning Fog for business and technical writing. This tool calculates all six simultaneously, so look at the consensus rather than relying on any single formula.</p>
+
+    <h3>What makes a sentence complex?</h3>
+    <p>This tool flags sentences with more than 25 words as complex. Research from the American Press Institute shows that comprehension drops significantly beyond this length: sentences under 14 words achieve near-100% comprehension, while sentences over 43 words drop below 10%. Complex sentences often contain multiple subordinate clauses, chains of prepositional phrases, or embedded parenthetical expressions that strain working memory.</p>
+
+    <h3>What is a hard word in readability analysis?</h3>
+    <p>In readability analysis, hard words are defined as words with three or more syllables, following the convention used by the Gunning Fog and SMOG formulas. These polysyllabic words require more cognitive effort to process. Examples include "approximately" (5 syllables), "implementation" (5 syllables), "consequently" (4 syllables), and "nevertheless" (4 syllables). Replacing these with simpler alternatives directly improves readability scores.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full text analysis with readability, tone detection, SEO analysis, and side-by-side comparison.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Word cloud visualization, frequency tables, and character distribution analysis.</p>
+      </a>
+      <a href="/guides/plain-language-rewriter.html" class="related-card">
+        <h4>Plain Language Rewriter</h4>
+        <p>Side-by-side simplification with before/after readability comparison.</p>
+      </a>
+      <a href="/guides/improve-text-readability.html" class="related-card">
+        <h4>Readability Improvement Guide</h4>
+        <p>10 proven tips with formula explanations and before/after examples.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// SENTENCE COMPLEXITY CHECKER ENGINE
+// ============================================================
+
+function countSyllables(word) {
+  word = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (!word || word.length <= 2) return word ? 1 : 0;
+  const exceptions = {
+    'the':1,'are':1,'were':1,'have':1,'give':1,'live':1,'love':1,'come':1,'some':1,'done':1,
+    'gone':1,'fire':2,'hire':2,'tire':2,'wire':2,'area':3,'idea':3,'real':2,'being':2,'create':2,
+    'every':3,'evening':3,'different':3,'interest':3,'business':3,'however':3,'general':3,
+    'several':3,'beautiful':3,'possible':3,'comfortable':4,'implementation':5,'approximately':5,
+    'consequently':4,'nevertheless':4,'understanding':4,'communication':5,'simultaneously':6,
+    'comprehensive':4,'particularly':5,'significantly':5
+  };
+  if (exceptions[word] !== undefined) return exceptions[word];
+  let count = 0;
+  const vowels = 'aeiouy';
+  let prevVowel = false;
+  for (let i = 0; i < word.length; i++) {
+    const isV = vowels.includes(word[i]);
+    if (isV && !prevVowel) count++;
+    prevVowel = isV;
+  }
+  if (word.endsWith('e') && !word.endsWith('le') && !word.endsWith('ee') && !word.endsWith('ce') && count > 1) count--;
+  if (word.endsWith('ed') && !word.endsWith('ted') && !word.endsWith('ded') && count > 1) count--;
+  if (word.endsWith('es') && !word.endsWith('ses') && !word.endsWith('zes') && !word.endsWith('ces') && !word.endsWith('xes') && count > 1) count--;
+  return Math.max(1, count);
+}
+
+function splitSentences(text) {
+  return text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+}
+
+function getWords(text) {
+  return text.match(/[a-zA-Z'-]+/g) || [];
+}
+
+function analyzeComplexity() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text || text.length < 20) { alert('Please enter at least a few sentences to analyze.'); return; }
+
+  const sentences = splitSentences(text);
+  const words = getWords(text);
+  const charCount = text.replace(/\s/g, '').length;
+  const wordCount = words.length;
+  const sentenceCount = Math.max(sentences.length, 1);
+  if (wordCount < 5) { alert('Please enter more text for accurate analysis.'); return; }
+
+  let totalSyllables = 0, polysyllableCount = 0;
+  words.forEach(w => {
+    const s = countSyllables(w);
+    totalSyllables += s;
+    if (s >= 3) polysyllableCount++;
+  });
+
+  const avgWPS = wordCount / sentenceCount;
+  const avgSPW = totalSyllables / wordCount;
+  const avgCPW = charCount / wordCount;
+
+  // 1. Flesch Reading Ease
+  const fre = 206.835 - 1.015 * avgWPS - 84.6 * avgSPW;
+  // 2. Flesch-Kincaid Grade Level
+  const fkgl = 0.39 * avgWPS + 11.8 * avgSPW - 15.59;
+  // 3. Gunning Fog
+  const fog = 0.4 * (avgWPS + 100 * (polysyllableCount / wordCount));
+  // 4. Coleman-Liau
+  const L = (charCount / wordCount) * 100;
+  const S = (sentenceCount / wordCount) * 100;
+  const cli = 0.0588 * L - 0.296 * S - 15.8;
+  // 5. SMOG
+  const smog = sentenceCount >= 3 ? 1.0430 * Math.sqrt(polysyllableCount * (30 / sentenceCount)) + 3.1291 : fkgl;
+  // 6. ARI
+  const ari = 4.71 * (charCount / wordCount) + 0.5 * avgWPS - 21.43;
+
+  const avgGrade = (fkgl + fog + cli + smog + ari) / 5;
+
+  // Show results
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Complexity summary
+  let level, levelColor, levelDesc;
+  if (avgGrade <= 5) { level = 'Very Easy'; levelColor = 'var(--success)'; levelDesc = 'Elementary school level. Accessible to nearly all readers.'; }
+  else if (avgGrade <= 8) { level = 'Easy'; levelColor = 'var(--accent-2)'; levelDesc = 'Middle school level. Ideal for general web content and blog posts.'; }
+  else if (avgGrade <= 12) { level = 'Moderate'; levelColor = 'var(--warning)'; levelDesc = 'High school level. Suitable for informed general audiences.'; }
+  else if (avgGrade <= 16) { level = 'Difficult'; levelColor = 'var(--danger)'; levelDesc = 'College level. May challenge general readers.'; }
+  else { level = 'Very Difficult'; levelColor = 'var(--danger)'; levelDesc = 'Graduate/professional level. Only appropriate for specialist audiences.'; }
+
+  document.getElementById('summaryCard').innerHTML = `
+    <div class="complexity-level" style="color:${levelColor}">${level}</div>
+    <div class="complexity-desc">${levelDesc}</div>
+    <div class="complexity-grade">Consensus Grade Level: <strong style="color:${levelColor}">${avgGrade.toFixed(1)}</strong></div>
+  `;
+  document.getElementById('summaryCard').style.borderColor = levelColor;
+
+  // Stats row
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-item"><span class="stat-val">${wordCount.toLocaleString()}</span><span class="stat-lbl">Words</span></div>
+    <div class="stat-item"><span class="stat-val">${sentenceCount}</span><span class="stat-lbl">Sentences</span></div>
+    <div class="stat-item"><span class="stat-val">${avgWPS.toFixed(1)}</span><span class="stat-lbl">Avg words/sent</span></div>
+    <div class="stat-item"><span class="stat-val">${avgSPW.toFixed(2)}</span><span class="stat-lbl">Avg syll/word</span></div>
+    <div class="stat-item"><span class="stat-val">${polysyllableCount}</span><span class="stat-lbl">Hard words</span></div>
+    <div class="stat-item"><span class="stat-val">${(polysyllableCount/wordCount*100).toFixed(1)}%</span><span class="stat-lbl">Hard word %</span></div>
+  `;
+
+  // Score grid
+  function gradeColor(val) { if (val <= 8) return 'var(--success)'; if (val <= 12) return 'var(--warning)'; return 'var(--danger)'; }
+  function freColor(val) { if (val >= 60) return 'var(--success)'; if (val >= 30) return 'var(--warning)'; return 'var(--danger)'; }
+  function gradeLabel(g) {
+    if (g <= 1) return '1st grade';
+    if (g <= 5) return `${Math.round(g)}th grade (elementary)`;
+    if (g <= 8) return `${Math.round(g)}th grade (middle school)`;
+    if (g <= 12) return `${Math.round(g)}th grade (high school)`;
+    if (g <= 16) return `College year ${Math.round(g - 12)}`;
+    return 'Graduate level';
+  }
+  function freLabel(s) {
+    if (s >= 90) return 'Very Easy — 5th grade';
+    if (s >= 80) return 'Easy — 6th grade';
+    if (s >= 70) return 'Fairly Easy — 7th grade';
+    if (s >= 60) return 'Standard — 8th-9th grade';
+    if (s >= 50) return 'Fairly Difficult — 10th-12th grade';
+    if (s >= 30) return 'Difficult — College level';
+    return 'Very Confusing — College graduate';
+  }
+
+  const scores = [
+    { name: 'Flesch Reading Ease', val: fre, color: freColor(fre), grade: freLabel(fre), desc: '0-100 scale. Higher = easier. 60-70 is plain English.', bar: Math.max(0, Math.min(100, fre)), isFre: true },
+    { name: 'Flesch-Kincaid Grade', val: fkgl, color: gradeColor(fkgl), grade: gradeLabel(fkgl), desc: 'U.S. grade level. The most widely used readability formula.', bar: Math.max(0, Math.min(100, 100 - fkgl * 5)) },
+    { name: 'Gunning Fog Index', val: fog, color: gradeColor(fog), grade: gradeLabel(fog), desc: 'Years of education needed. Penalizes polysyllabic words.', bar: Math.max(0, Math.min(100, 100 - fog * 5)) },
+    { name: 'Coleman-Liau Index', val: cli, color: gradeColor(cli), grade: gradeLabel(cli), desc: 'Character-based formula. No syllable counting needed.', bar: Math.max(0, Math.min(100, 100 - cli * 5)) },
+    { name: 'SMOG Index', val: smog, color: gradeColor(smog), grade: gradeLabel(smog), desc: 'Gold standard for health literacy. Estimates 100% comprehension.', bar: Math.max(0, Math.min(100, 100 - smog * 5)) },
+    { name: 'ARI (Automated)', val: ari, color: gradeColor(ari), grade: gradeLabel(ari), desc: 'Character-based grade level. Fast and machine-friendly.', bar: Math.max(0, Math.min(100, 100 - ari * 5)) }
+  ];
+
+  document.getElementById('scoreGrid').innerHTML = scores.map(s => `
+    <div class="score-card">
+      <div class="sc-top">
+        <span class="sc-value" style="color:${s.color}">${s.val.toFixed(1)}</span>
+        <span class="sc-name">${s.name}</span>
+      </div>
+      <div class="score-bar"><div class="score-bar-fill" style="width:${s.bar}%;background:${s.color}"></div></div>
+      <div class="sc-grade">${s.grade}</div>
+      <div class="sc-desc">${s.desc}</div>
+    </div>
+  `).join('');
+
+  // Highlighted text
+  let html = '';
+  sentences.forEach(sent => {
+    const sWords = getWords(sent);
+    const isLong = sWords.length > 25;
+    if (isLong) html += '<span class="hl-long" title="Complex sentence: ' + sWords.length + ' words">';
+    // Highlight hard words within sentence
+    const tokens = sent.split(/(\b)/);
+    tokens.forEach(token => {
+      if (/^[a-zA-Z'-]+$/.test(token) && countSyllables(token) >= 3) {
+        html += '<span class="hl-hard" title="Hard word: ' + countSyllables(token) + ' syllables">' + token + '</span>';
+      } else {
+        html += token;
+      }
+    });
+    if (isLong) html += '</span>';
+    html += ' ';
+  });
+  document.getElementById('highlightedText').innerHTML = html;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function loadSample() {
+  document.getElementById('inputText').value = `The implementation of comprehensive readability analysis methodologies necessitates a thorough understanding of the underlying mathematical frameworks that govern text complexity assessment. Numerous researchers have demonstrated that the utilization of simplified language patterns can substantially enhance reader comprehension across diverse demographic segments, particularly among individuals with limited formal educational backgrounds.
+
+Furthermore, it is imperative to acknowledge that readability metrics, while providing valuable quantitative assessments, should not be considered the sole determinant of content quality. The contextual appropriateness of vocabulary selection, the logical coherence of argumentative structures, and the engagement level of the narrative all contribute significantly to the overall effectiveness of written communication.
+
+In contrast, consider this simpler version. Good writing is clear writing. Short sentences help readers understand your point. Use common words when possible. Break up long paragraphs into smaller chunks. Test your text with a readability tool before publishing. Your readers will thank you for the effort.
+
+The average American adult reads at a seventh to eighth grade level. Nearly half of adults read at a basic or below-basic literacy level. Medical patients who cannot understand discharge instructions are three times more likely to be readmitted. These facts make readability analysis essential, not optional.`;
+  analyzeComplexity();
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

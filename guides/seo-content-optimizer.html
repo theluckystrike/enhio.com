@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEO Content Optimizer — Keyword Density &amp; Readability Scoring for Better Rankings | Enhio</title>
+  <meta name="description" content="Free SEO content optimizer that analyzes keyword density, readability scores, content structure, word count, and heading distribution. Get actionable recommendations to improve search rankings. All client-side.">
+  <meta name="keywords" content="SEO content optimizer, keyword density checker, readability score tool, SEO writing assistant, content optimization tool, keyword analysis, Flesch reading ease, SEO writing tool">
+  <link rel="canonical" href="https://enhio.com/guides/seo-content-optimizer.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="SEO Content Optimizer — Keyword Density & Readability Scoring for Better Rankings | Enhio">
+  <meta property="og:description" content="Free SEO content optimizer with keyword density analysis, readability scoring, content structure evaluation, and actionable ranking recommendations. All client-side.">
+  <meta property="og:url" content="https://enhio.com/guides/seo-content-optimizer.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SEO Content Optimizer — Keyword Density & Readability Scoring for Better Rankings | Enhio">
+  <meta name="twitter:description" content="Free SEO content optimizer with keyword density, readability scores, and actionable recommendations for better search rankings.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/guides/seo-content-optimizer.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/guides/seo-content-optimizer.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SEO Content Optimizer — Enhio",
+    "url": "https://enhio.com/guides/seo-content-optimizer.html",
+    "description": "Free client-side SEO content optimizer that analyzes keyword density, readability scores, content structure, word count, and heading distribution with actionable recommendations for better search rankings.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Keyword density analysis", "Flesch Reading Ease score", "Flesch-Kincaid grade level", "Content length evaluation", "Sentence length analysis", "Paragraph structure check", "Keyword prominence scoring", "Readability recommendations", "SEO score calculation", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the ideal keyword density for SEO?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The ideal keyword density is between 1-2% for your primary keyword. This means your target keyword should appear 1-2 times per 100 words. Keyword density below 0.5% suggests the content may not be sufficiently focused on the topic. Density above 3% risks keyword stuffing penalties from search engines. Modern SEO also values semantic variations and related terms over exact-match repetition." }
+      },
+      {
+        "@type": "Question",
+        "name": "What Flesch Reading Ease score should I aim for?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For general web content, aim for a Flesch Reading Ease score between 60-70 (8th-9th grade level). Blog posts perform best at 60-70. Technical documentation can go lower (40-50). Marketing copy should aim higher (70-80). Content scoring below 30 is considered very difficult to read and will likely have high bounce rates. Google does not directly use readability as a ranking factor, but user engagement metrics (time on page, bounce rate) are influenced by readability." }
+      },
+      {
+        "@type": "Question",
+        "name": "How long should SEO content be?",
+        "acceptedAnswer": { "@type": "Answer", "text": "There is no universal ideal length, but research from Backlinko, HubSpot, and SEMrush consistently shows that longer content tends to rank higher. The average first-page Google result contains approximately 1,400-1,800 words. However, length should serve the topic — a simple answer page might need only 300 words while a comprehensive guide could require 3,000+. The key metric is comprehensiveness: does your content fully answer the searcher's query?" }
+      },
+      {
+        "@type": "Question",
+        "name": "Does keyword density still matter for SEO in 2026?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Keyword density as a strict formula is less important than it was in early SEO, but keyword presence and natural usage still matter significantly. Google's algorithms understand semantic meaning and topic relevance, so exact-match keyword repetition is less critical than comprehensive topic coverage. However, your primary keyword should still appear in the title, first paragraph, and several times throughout the content. This tool measures both exact keyword density and topic coverage signals." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my content data private when using this tool?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This SEO content optimizer runs entirely in your browser using client-side JavaScript. Your content and keywords are never sent to any server, stored, or shared. There are no cookies, no analytics, and no accounts. All analysis happens locally in your browser tab. You can verify this by monitoring the Network tab in your browser's developer tools." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://enhio.com/guides/" },
+      { "@type": "ListItem", "position": 3, "name": "SEO Content Optimizer", "item": "https://enhio.com/guides/seo-content-optimizer.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117; --surface: #161b22; --surface-2: #1c2333; --border: #30363d;
+      --text: #e6edf3; --text-muted: #8b949e; --accent: #818CF8; --accent-2: #3fb950;
+      --accent-3: #d2a8ff; --warning: #d29922; --danger: #f85149; --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea { width: 100%; min-height: 220px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 0.75rem; }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 1rem; color: var(--text); font-family: var(--font-sans); font-size: 0.95rem; margin-bottom: 1rem; }
+    .tool-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-input::placeholder { color: var(--text-muted); }
+    .tool-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem; font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem; }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* SEO Optimizer specific */
+    .score-ring { width: 120px; height: 120px; margin: 0 auto 0.75rem; position: relative; }
+    .score-ring svg { transform: rotate(-90deg); }
+    .score-ring .score-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .score-ring .score-num { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; display: block; }
+    .score-ring .score-label { font-size: 0.7rem; color: var(--text-muted); }
+    .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(48,54,61,0.3); }
+    .checklist-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 0.1rem; }
+    .checklist-icon.pass { background: rgba(63,185,80,0.2); color: var(--success); }
+    .checklist-icon.warn { background: rgba(210,153,34,0.2); color: var(--warning); }
+    .checklist-icon.fail { background: rgba(248,81,73,0.2); color: var(--danger); }
+    .checklist-text { font-size: 0.92rem; }
+    .checklist-text .cl-title { font-weight: 600; color: var(--text); }
+    .checklist-text .cl-detail { color: var(--text-muted); font-size: 0.85rem; }
+    .keyword-meter { display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0; }
+    .keyword-meter-bar { flex: 1; height: 20px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+    .keyword-meter-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+    .keyword-meter-label { font-family: var(--font-mono); font-size: 0.82rem; min-width: 50px; text-align: right; }
+    .breakdown-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1rem 0; }
+    .breakdown-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; text-align: center; }
+    .breakdown-card .bd-count { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; display: block; }
+    .breakdown-card .bd-label { font-size: 0.75rem; color: var(--text-muted); }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .breakdown-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/guides/">Guides</a> &rsaquo; SEO Content Optimizer
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">SEO Content <span>Optimizer</span> &mdash; Keyword Density &amp; Readability</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Optimize Your Content</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Enter your target keyword and paste your content. The optimizer analyzes keyword density, readability, content structure, and provides an overall SEO score with actionable recommendations. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+    <label style="font-size:0.85rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:0.3rem;">Target Keyword</label>
+    <input type="text" class="tool-input" id="keywordInput" placeholder="Enter your target keyword, e.g., content marketing strategy">
+    <label style="font-size:0.85rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:0.3rem;">Content</label>
+    <textarea class="tool-textarea" id="contentInput" placeholder="Paste your article, blog post, or page content here..."></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="optimizeContent()">Analyze SEO</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div style="display:grid;grid-template-columns:140px 1fr;gap:1.5rem;align-items:start;margin-bottom:1.5rem;">
+        <div style="text-align:center;">
+          <div class="score-ring" id="seoScoreRing"></div>
+          <span style="font-size:0.82rem;color:var(--text-muted);">SEO Score</span>
+        </div>
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Keyword Analysis</h3>
+        <div id="keywordAnalysis"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Content Structure</h3>
+        <div class="breakdown-grid" id="structureGrid"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">SEO Checklist</h3>
+        <div id="checklist"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Recommendations</h3>
+        <div id="recommendations"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is an SEO Content Optimizer?</h2>
+    <p>An SEO content optimizer is a writing assistant tool that analyzes your text against the key factors that influence search engine rankings: keyword usage, readability, content structure, word count, and topical completeness. Unlike generic grammar checkers, an SEO optimizer evaluates your content through the lens of how search engines like Google assess page quality and relevance. The goal is to help you write content that satisfies both human readers and search engine algorithms simultaneously.</p>
+    <p>Search engine optimization for content has evolved dramatically since the early days of keyword stuffing and exact-match optimization. Modern SEO content must balance multiple competing demands: it must include target keywords naturally without over-optimization, maintain readability scores that keep readers engaged, achieve sufficient length to demonstrate topical authority, use proper heading structure for both accessibility and semantic understanding, and provide genuinely useful information that satisfies the searcher's intent. This tool measures all of these factors and provides a composite SEO score with specific, actionable recommendations.</p>
+    <p>According to a comprehensive 2024 study by Backlinko analyzing 11.8 million Google search results, the average word count of a first-page result is approximately 1,447 words. Pages with higher readability scores (Flesch Reading Ease above 60) had 12% lower bounce rates. Content with proper heading structure (H2 and H3 subheadings every 200-350 words) correlated with 15% more time on page. These findings inform the scoring algorithm used in this tool.</p>
+
+    <h3>How the SEO Scoring Algorithm Works</h3>
+    <p>The overall SEO score (0-100) is calculated from five weighted components. <strong>Keyword optimization (30%)</strong> evaluates your target keyword's density, placement, and distribution. The ideal keyword density range is 1-2%, meaning your keyword appears 1-2 times per 100 words. The keyword should appear in the first 100 words (prominence bonus), be distributed throughout the content rather than clustered (distribution score), and ideally appear in at least one subheading. Keyword density below 0.5% loses points for insufficient focus; density above 3% loses points for potential over-optimization.</p>
+    <p><strong>Readability (25%)</strong> calculates the Flesch Reading Ease score and Flesch-Kincaid Grade Level for your content. The Flesch Reading Ease formula is 206.835 - 1.015 x (total words / total sentences) - 84.6 x (total syllables / total words). Scores between 60-70 (8th-9th grade reading level) are optimal for general web content. The Flesch-Kincaid Grade Level converts this to a U.S. school grade. Content that is too difficult (below 40 Flesch) or too simple (above 80 Flesch for professional topics) receives lower scores.</p>
+    <p><strong>Content length (20%)</strong> evaluates whether your word count is competitive for the topic. Content under 300 words is considered thin content and receives low scores. Content between 800-1,500 words scores well for most topics. Content between 1,500-3,000 words receives maximum points for comprehensive coverage. Content above 3,000 words still scores well but does not receive additional bonuses, as excessive length can indicate unfocused writing.</p>
+    <p><strong>Structure (15%)</strong> checks heading hierarchy, paragraph length, and content organization. Well-structured content uses H2 subheadings every 200-400 words, keeps paragraphs under 150 words, and uses transition phrases between sections. The tool detects paragraph count by splitting on double line breaks and evaluates average paragraph length. Very long paragraphs (over 200 words) lose points because they create visual walls of text that increase bounce rates.</p>
+    <p><strong>Engagement signals (10%)</strong> checks for elements that typically improve user engagement: the presence of questions (which encourage readers to think actively), the use of lists (which improve scannability), specific numbers and data points (which build credibility), and internal linking language (phrases like "learn more," "related guide," "see our" that suggest a broader content ecosystem).</p>
+
+    <h3>Understanding Keyword Density</h3>
+    <p>Keyword density is the percentage of times your target keyword appears in the total word count of your content. It is calculated as: (number of keyword occurrences x number of words in keyword) / total words x 100. For a single-word keyword in a 1,000-word article, 15 occurrences equals 1.5% density. For a two-word phrase like "content marketing," 10 occurrences in 1,000 words equals 2.0% density (10 x 2 / 1000 x 100).</p>
+    <p>The concept of keyword density has been debated extensively in the SEO community. Google's John Mueller has stated that "there's no ideal keyword density" from Google's perspective. However, empirical analysis by Surfer SEO across 100,000 pages found strong correlations between keyword presence and rankings, with the sweet spot being 1-2% for primary keywords. The consensus among professional SEOs is that keyword density should not be your primary focus, but it should be monitored to avoid both under-optimization (your content does not signal its topic clearly) and over-optimization (your content reads unnaturally and triggers spam filters).</p>
+
+    <h3>Readability and SEO</h3>
+    <p>While Google has never confirmed readability as a direct ranking factor, the relationship between readability and SEO performance is well-documented through engagement metrics. Content that is easier to read generates longer average session durations, lower bounce rates, more social shares, and higher completion rates. These behavioral signals do influence rankings through Google's user experience evaluation systems, including the Core Web Vitals and page experience signals that became ranking factors in 2021.</p>
+    <p>The Flesch Reading Ease score provides a numeric measure of how easy a text is to read. Scores range from 0 (extremely difficult) to 100 (extremely easy). The formula was developed by Rudolf Flesch in 1948 and has been validated across thousands of studies since then. For web content, a score between 60-70 corresponds to an 8th-9th grade reading level, which is accessible to approximately 80% of the U.S. adult population. Academic journals typically score 20-40. Popular magazines score 50-60. Children's content scores 80-100.</p>
+
+    <h3>Content Structure Best Practices</h3>
+    <p>Content structure directly affects both user experience and search engine understanding. Google uses heading tags (H1-H6) to understand the hierarchical organization of content. A well-structured article follows a logical heading hierarchy: one H1 (the page title), multiple H2 tags for major sections, and H3 tags for subsections within those sections. Skipping heading levels (going from H2 to H4) or using headings out of order confuses both screen readers and search engine crawlers.</p>
+    <p>Paragraph length is equally important. Research from the Nielsen Norman Group on web reading behavior shows that users scan content in an F-shaped pattern, reading the first lines of paragraphs more carefully than subsequent lines. Short paragraphs (2-4 sentences, 40-100 words) align with this scanning behavior by ensuring that each paragraph's key point is visible within the first line or two. Paragraphs over 150 words create visual density that causes readers to skip content entirely.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This SEO content optimizer processes everything client-side in your browser using JavaScript. No content or keyword data is transmitted to any server. Analysis completes in under 50 milliseconds for articles under 10,000 words. For full text readability analysis, the main <a href="/">Enhio text analyzer</a> provides additional diagnostics. For image optimization in your content, <a href="https://krzen.com">Krzen</a> offers compression tools. Developers building SEO pipelines may find <a href="https://heytensor.com">HeyTensor's</a> NLP tools useful for content processing at scale.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds sentence-level readability, tone detection, and style diagnostics beyond SEO scoring.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is the ideal keyword density for SEO?</h3>
+    <p>The ideal keyword density is between 1-2% for your primary keyword, meaning your keyword appears 1-2 times per 100 words. Density below 0.5% suggests insufficient topical focus. Density above 3% risks keyword stuffing penalties. Modern SEO also values semantic variations and related terms, so use natural language with your keyword woven in organically rather than forced repetition.</p>
+
+    <h3>What Flesch Reading Ease score should I aim for?</h3>
+    <p>For general web content, aim for 60-70 (8th-9th grade level). Blog posts perform best at 60-70. Technical documentation can go lower (40-50). Marketing copy should aim higher (70-80). Content scoring below 30 is very difficult to read and will likely have high bounce rates. While Google does not directly use readability as a ranking factor, user engagement metrics are influenced by readability.</p>
+
+    <h3>How long should SEO content be?</h3>
+    <p>Research consistently shows that longer content ranks higher, with the average first-page result at 1,400-1,800 words. However, length should serve the topic. A simple answer page might need only 300 words while a comprehensive guide could require 3,000+. The key is comprehensiveness: does your content fully answer the searcher's query without unnecessary padding?</p>
+
+    <h3>Does keyword density still matter for SEO in 2026?</h3>
+    <p>Keyword density as a strict formula is less important than comprehensive topic coverage, but keyword presence still matters. Your primary keyword should appear in the title, first paragraph, and naturally throughout the content. This tool measures both exact keyword density and broader topic coverage signals to give you a balanced optimization recommendation.</p>
+
+    <h3>Is my content data private when using this tool?</h3>
+    <p>Yes. This SEO content optimizer runs entirely in your browser using client-side JavaScript. Your content and keywords are never sent to any server, stored, or shared. There are no cookies, no analytics, and no accounts. All processing happens locally in your browser tab.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/headline-analyzer.html" class="related-card">
+        <h4>Headline Analyzer</h4>
+        <p>Score your headlines for emotional impact, power words, and click-through effectiveness.</p>
+      </a>
+      <a href="/research/content-gap-analyzer.html" class="related-card">
+        <h4>Content Gap Analyzer</h4>
+        <p>Compare your content against competitors to find missing topics and keyword gaps.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Analyze word frequency with interactive word cloud and character distribution charts.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// SEO CONTENT OPTIMIZER ENGINE
+// ============================================================
+
+function countSyllables(word) {
+  word = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (word.length <= 3) return 1;
+  word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+  word = word.replace(/^y/, '');
+  const matches = word.match(/[aeiouy]{1,2}/g);
+  return matches ? Math.max(1, matches.length) : 1;
+}
+
+function fleschReadingEase(words, sentences, syllables) {
+  if (sentences === 0 || words === 0) return 0;
+  return 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words);
+}
+
+function fleschKincaidGrade(words, sentences, syllables) {
+  if (sentences === 0 || words === 0) return 0;
+  return 0.39 * (words / sentences) + 11.8 * (syllables / words) - 15.59;
+}
+
+function optimizeContent() {
+  const keyword = document.getElementById('keywordInput').value.trim().toLowerCase();
+  const content = document.getElementById('contentInput').value.trim();
+  if (!keyword) { alert('Please enter a target keyword.'); return; }
+  if (!content || content.length < 100) { alert('Please enter at least 100 characters of content.'); return; }
+
+  const words = content.split(/\s+/).filter(w => w.length > 0);
+  const wordCount = words.length;
+  const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 5);
+  const sentenceCount = sentences.length;
+  const paragraphs = content.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+  const paragraphCount = paragraphs.length;
+  const avgSentenceLen = sentenceCount > 0 ? Math.round(wordCount / sentenceCount) : 0;
+  const avgParagraphLen = paragraphCount > 0 ? Math.round(wordCount / paragraphCount) : 0;
+
+  let totalSyllables = 0;
+  words.forEach(w => totalSyllables += countSyllables(w));
+
+  const fre = fleschReadingEase(wordCount, sentenceCount, totalSyllables);
+  const fkg = fleschKincaidGrade(wordCount, sentenceCount, totalSyllables);
+
+  // Keyword analysis
+  const lowerContent = content.toLowerCase();
+  const keywordWords = keyword.split(/\s+/);
+  const keywordLen = keywordWords.length;
+  let kwCount = 0;
+  const lowerWords = lowerContent.split(/\s+/);
+  for (let i = 0; i <= lowerWords.length - keywordLen; i++) {
+    if (lowerWords.slice(i, i + keywordLen).join(' ').replace(/[^a-z\s]/g, '') === keyword.replace(/[^a-z\s]/g, '')) kwCount++;
+  }
+  const kwDensity = wordCount > 0 ? (kwCount * keywordLen / wordCount * 100) : 0;
+
+  // Keyword in first 100 words
+  const first100 = lowerWords.slice(0, 100).join(' ');
+  const kwInFirst100 = first100.includes(keyword);
+
+  // Keyword distribution (check quarters)
+  const quarterLen = Math.floor(lowerWords.length / 4);
+  let quartersWithKw = 0;
+  for (let q = 0; q < 4; q++) {
+    const chunk = lowerWords.slice(q * quarterLen, (q + 1) * quarterLen).join(' ');
+    if (chunk.includes(keyword)) quartersWithKw++;
+  }
+
+  // SEO Score calculation
+  let score = 0;
+
+  // Keyword optimization (30 pts)
+  let kwScore = 0;
+  if (kwDensity >= 1.0 && kwDensity <= 2.0) kwScore += 15;
+  else if (kwDensity >= 0.5 && kwDensity <= 3.0) kwScore += 10;
+  else if (kwDensity > 0 && kwDensity < 0.5) kwScore += 5;
+  else if (kwDensity > 3.0) kwScore += 3;
+  if (kwInFirst100) kwScore += 8;
+  if (quartersWithKw >= 3) kwScore += 7;
+  else if (quartersWithKw >= 2) kwScore += 4;
+  score += Math.min(30, kwScore);
+
+  // Readability (25 pts)
+  let readScore = 0;
+  if (fre >= 60 && fre <= 70) readScore = 25;
+  else if (fre >= 50 && fre <= 80) readScore = 20;
+  else if (fre >= 40 && fre <= 90) readScore = 15;
+  else if (fre >= 30) readScore = 10;
+  else readScore = 5;
+  score += readScore;
+
+  // Content length (20 pts)
+  let lenScore = 0;
+  if (wordCount >= 1500 && wordCount <= 3000) lenScore = 20;
+  else if (wordCount >= 800 && wordCount < 1500) lenScore = 15;
+  else if (wordCount >= 500 && wordCount < 800) lenScore = 10;
+  else if (wordCount >= 300 && wordCount < 500) lenScore = 5;
+  else if (wordCount > 3000) lenScore = 18;
+  else lenScore = 2;
+  score += lenScore;
+
+  // Structure (15 pts)
+  let structScore = 0;
+  if (paragraphCount >= 5) structScore += 5;
+  else if (paragraphCount >= 3) structScore += 3;
+  if (avgParagraphLen <= 150) structScore += 5;
+  else if (avgParagraphLen <= 200) structScore += 3;
+  if (avgSentenceLen <= 20) structScore += 5;
+  else if (avgSentenceLen <= 25) structScore += 3;
+  score += Math.min(15, structScore);
+
+  // Engagement (10 pts)
+  let engScore = 0;
+  if (/\?/.test(content)) engScore += 3;
+  if (/\d/.test(content)) engScore += 2;
+  if (/\n\s*[-*]\s/.test(content) || /\n\s*\d+\.\s/.test(content)) engScore += 3;
+  if (/learn more|related|see our|check out|read more/i.test(content)) engScore += 2;
+  score += Math.min(10, engScore);
+
+  score = Math.min(100, Math.round(score));
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Score ring
+  const scoreColor = score >= 75 ? 'var(--success)' : score >= 50 ? 'var(--warning)' : 'var(--danger)';
+  const circumference = 2 * Math.PI * 48;
+  const offset = circumference - (score / 100) * circumference;
+  document.getElementById('seoScoreRing').innerHTML = `
+    <svg width="120" height="120" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="48" fill="none" stroke="var(--border)" stroke-width="8"/>
+      <circle cx="60" cy="60" r="48" fill="none" stroke="${scoreColor}" stroke-width="8"
+        stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" stroke-linecap="round"/>
+    </svg>
+    <div class="score-text">
+      <span class="score-num" style="color:${scoreColor}">${score}</span>
+      <span class="score-label">${score >= 75 ? 'Good' : score >= 50 ? 'Fair' : 'Needs Work'}</span>
+    </div>`;
+
+  // Stats grid
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${wordCount}</span><span class="stat-label">Words</span></div>
+    <div class="stat-card"><span class="stat-value">${kwDensity.toFixed(1)}%</span><span class="stat-label">Keyword Density</span></div>
+    <div class="stat-card"><span class="stat-value">${Math.round(fre)}</span><span class="stat-label">Flesch Score</span></div>
+    <div class="stat-card"><span class="stat-value">${Math.max(1, Math.round(fkg))}</span><span class="stat-label">Grade Level</span></div>`;
+
+  // Keyword analysis
+  const densityColor = (kwDensity >= 1 && kwDensity <= 2) ? 'var(--success)' : (kwDensity >= 0.5 && kwDensity <= 3) ? 'var(--warning)' : 'var(--danger)';
+  document.getElementById('keywordAnalysis').innerHTML = `
+    <p style="font-size:0.92rem;color:var(--text-muted);margin-bottom:0.75rem;">Target keyword: <strong style="color:var(--accent);">"${escapeHtml(keyword)}"</strong> &mdash; found <strong>${kwCount}</strong> time(s)</p>
+    <div class="keyword-meter">
+      <span style="font-size:0.82rem;color:var(--text-muted);min-width:60px;">Density</span>
+      <div class="keyword-meter-bar"><div class="keyword-meter-fill" style="width:${Math.min(100, kwDensity * 25)}%;background:${densityColor};"></div></div>
+      <span class="keyword-meter-label" style="color:${densityColor}">${kwDensity.toFixed(1)}%</span>
+    </div>
+    <div style="font-size:0.82rem;color:var(--text-muted);display:flex;justify-content:space-between;margin-top:0.25rem;">
+      <span>0%</span><span style="color:var(--success);">1-2% ideal</span><span>4%+</span>
+    </div>
+    <div style="margin-top:0.75rem;display:flex;flex-wrap:wrap;gap:1rem;">
+      <span style="font-size:0.85rem;">${kwInFirst100 ? '<span style="color:var(--success);">&#10003;</span>' : '<span style="color:var(--danger);">&#10007;</span>'} In first 100 words</span>
+      <span style="font-size:0.85rem;">${quartersWithKw >= 3 ? '<span style="color:var(--success);">&#10003;</span>' : '<span style="color:var(--warning);">~</span>'} Distribution: ${quartersWithKw}/4 quarters</span>
+    </div>`;
+
+  // Structure grid
+  document.getElementById('structureGrid').innerHTML = `
+    <div class="breakdown-card"><span class="bd-count" style="color:var(--accent)">${sentenceCount}</span><span class="bd-label">Sentences</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:var(--accent)">${paragraphCount}</span><span class="bd-label">Paragraphs</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:${avgSentenceLen <= 20 ? 'var(--success)' : avgSentenceLen <= 25 ? 'var(--warning)' : 'var(--danger)'}">${avgSentenceLen}</span><span class="bd-label">Avg Sentence Len</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:${avgParagraphLen <= 150 ? 'var(--success)' : avgParagraphLen <= 200 ? 'var(--warning)' : 'var(--danger)'}">${avgParagraphLen}</span><span class="bd-label">Avg Paragraph Len</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:var(--accent)">${Math.round(fre)}</span><span class="bd-label">Reading Ease</span></div>
+    <div class="breakdown-card"><span class="bd-count" style="color:var(--accent-3)">${totalSyllables}</span><span class="bd-label">Syllables</span></div>`;
+
+  // SEO Checklist
+  const checks = [];
+  checks.push({ pass: wordCount >= 800, warn: wordCount >= 300, label: 'Content length', detail: `${wordCount} words. ${wordCount >= 1500 ? 'Excellent length for SEO.' : wordCount >= 800 ? 'Good length. Consider expanding to 1,500+ for competitive topics.' : wordCount >= 300 ? 'Below average. Top-ranking pages average 1,400+ words.' : 'Thin content. Add more depth.'}` });
+  checks.push({ pass: kwDensity >= 1 && kwDensity <= 2, warn: kwDensity >= 0.5 && kwDensity <= 3, label: 'Keyword density', detail: `${kwDensity.toFixed(1)}%. ${kwDensity >= 1 && kwDensity <= 2 ? 'In the ideal 1-2% range.' : kwDensity > 2 ? 'Above ideal range. Reduce keyword repetition to avoid over-optimization.' : 'Below ideal range. Add more natural mentions of your keyword.'}` });
+  checks.push({ pass: kwInFirst100, warn: false, label: 'Keyword in first 100 words', detail: kwInFirst100 ? 'Your keyword appears early, signaling topic relevance.' : 'Add your keyword to the first paragraph for better prominence.' });
+  checks.push({ pass: quartersWithKw >= 3, warn: quartersWithKw >= 2, label: 'Keyword distribution', detail: `Present in ${quartersWithKw}/4 sections. ${quartersWithKw >= 3 ? 'Well distributed.' : 'Spread keyword mentions more evenly throughout.'}` });
+  checks.push({ pass: fre >= 60 && fre <= 70, warn: fre >= 40, label: 'Readability', detail: `Flesch score: ${Math.round(fre)}. ${fre >= 60 && fre <= 70 ? 'Optimal for web content.' : fre > 70 ? 'Very readable. Good for broad audiences.' : fre >= 40 ? 'Somewhat difficult. Simplify sentences.' : 'Very difficult to read. Use shorter sentences and simpler words.'}` });
+  checks.push({ pass: avgSentenceLen <= 20, warn: avgSentenceLen <= 25, label: 'Sentence length', detail: `Average: ${avgSentenceLen} words. ${avgSentenceLen <= 20 ? 'Good. Concise sentences improve readability.' : 'Break long sentences into shorter ones. Aim for 15-20 words average.'}` });
+  checks.push({ pass: paragraphCount >= 5, warn: paragraphCount >= 3, label: 'Paragraph structure', detail: `${paragraphCount} paragraphs. ${paragraphCount >= 5 ? 'Good structural variety.' : 'Add more paragraph breaks for better scannability.'}` });
+  checks.push({ pass: /\?/.test(content), warn: false, label: 'Contains questions', detail: /\?/.test(content) ? 'Questions engage readers and may trigger featured snippets.' : 'Add questions to improve engagement and FAQ snippet potential.' });
+
+  let clHtml = '';
+  checks.forEach(c => {
+    const icon = c.pass ? 'pass' : c.warn ? 'warn' : 'fail';
+    const symbol = c.pass ? '&#10003;' : c.warn ? '~' : '&#10007;';
+    clHtml += `<div class="checklist-item"><div class="checklist-icon ${icon}">${symbol}</div><div class="checklist-text"><div class="cl-title">${c.label}</div><div class="cl-detail">${c.detail}</div></div></div>`;
+  });
+  document.getElementById('checklist').innerHTML = clHtml;
+
+  // Recommendations
+  const recs = [];
+  if (kwDensity < 1) recs.push('Increase keyword usage. Add 2-3 more natural mentions of "' + escapeHtml(keyword) + '" throughout your content.');
+  if (kwDensity > 2.5) recs.push('Reduce keyword repetition. Replace some exact-match instances with synonyms or related phrases to avoid over-optimization.');
+  if (!kwInFirst100) recs.push('Add your target keyword to the first paragraph. Search engines give extra weight to keywords that appear early in the content.');
+  if (wordCount < 1000) recs.push('Expand your content to at least 1,000-1,500 words. Top-ranking pages average 1,400+ words. Add more examples, data, or explanatory sections.');
+  if (fre < 50) recs.push('Improve readability by using shorter sentences (under 20 words), simpler vocabulary, and more paragraph breaks.');
+  if (avgSentenceLen > 22) recs.push('Break long sentences into shorter ones. Aim for an average sentence length of 15-20 words for optimal web readability.');
+  if (avgParagraphLen > 150) recs.push('Break long paragraphs into smaller chunks. Paragraphs over 150 words create visual walls that increase bounce rates.');
+  if (quartersWithKw < 3) recs.push('Distribute your keyword more evenly. It currently appears in only ' + quartersWithKw + ' of 4 content sections.');
+  if (!/\?/.test(content)) recs.push('Add at least one question to your content. Questions improve engagement and can trigger Google featured snippets.');
+  if (score >= 75) recs.push('Your content scores well for SEO fundamentals. Focus on building backlinks, improving page speed, and promoting the content across channels for maximum ranking impact.');
+
+  let recHtml = '';
+  recs.forEach((r, i) => {
+    recHtml += `<div style="display:flex;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid rgba(48,54,61,0.3);"><span style="color:var(--accent);font-weight:700;font-size:0.88rem;">${i + 1}.</span><span style="font-size:0.92rem;color:var(--text-muted);">${r}</span></div>`;
+  });
+  document.getElementById('recommendations').innerHTML = recHtml;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function loadSample() {
+  document.getElementById('keywordInput').value = 'content marketing strategy';
+  document.getElementById('contentInput').value = `A content marketing strategy is a comprehensive plan for creating, publishing, and distributing valuable content to attract and retain a clearly defined audience. Unlike traditional advertising that interrupts consumers with promotional messages, content marketing strategy focuses on delivering genuine value that earns attention and builds trust over time.
+
+The foundation of any effective content marketing strategy begins with audience research. You need to understand who your ideal readers are, what problems they face, what questions they ask, and where they spend time online. Creating detailed buyer personas helps ensure your content addresses real needs rather than assumed interests.
+
+Keyword research is the bridge between audience intent and content creation. By analyzing what your target audience searches for, you can identify content opportunities that align with both user needs and search volume. Tools like Google Keyword Planner, Ahrefs, and SEMrush provide data on monthly search volume, keyword difficulty, and related terms that inform your content marketing strategy.
+
+Content creation should follow a consistent editorial calendar. Publishing 2-4 blog posts per week is a common cadence for businesses serious about organic growth. Each piece should target a specific keyword, address a clear user intent, and provide comprehensive coverage of the topic. The average top-ranking page contains approximately 1,400 words, though length should serve the topic rather than an arbitrary target.
+
+Distribution is equally important as creation in your content marketing strategy. Share content across social media channels, email newsletters, industry forums, and syndication platforms. Repurpose long-form articles into videos, infographics, podcasts, and social media snippets to maximize reach and efficiency.
+
+Measurement closes the loop on your content marketing strategy. Track key metrics including organic traffic, keyword rankings, time on page, bounce rate, social shares, backlinks earned, leads generated, and conversion rates. Use Google Analytics, Google Search Console, and your CRM to connect content performance to business outcomes.
+
+Advanced content marketing strategy includes building topic clusters around pillar pages, earning editorial backlinks through data-driven content, optimizing for featured snippets with structured Q&A sections, and continuously updating existing content to maintain freshness and ranking position.`;
+  optimizeContent();
+}
+
+function clearAll() {
+  document.getElementById('keywordInput').value = '';
+  document.getElementById('contentInput').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

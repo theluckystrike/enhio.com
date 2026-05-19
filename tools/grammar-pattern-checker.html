@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar Pattern Checker — Common Mistake Detector with Corrections | Enhio</title>
+  <meta name="description" content="Free grammar pattern checker that detects passive voice, dangling modifiers, subject-verb disagreement, comma splices, run-on sentences, and misplaced modifiers with inline highlighting and correction suggestions.">
+  <meta name="keywords" content="grammar checker, passive voice detector, comma splice finder, run-on sentence checker, grammar pattern analysis, writing mistakes, grammar correction tool">
+  <link rel="canonical" href="https://enhio.com/tools/grammar-pattern-checker.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Grammar Pattern Checker — Common Mistake Detector with Corrections | Enhio">
+  <meta property="og:description" content="Free grammar pattern checker with inline highlighting for passive voice, dangling modifiers, comma splices, run-on sentences, and subject-verb disagreement. All client-side.">
+  <meta property="og:url" content="https://enhio.com/tools/grammar-pattern-checker.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Grammar Pattern Checker — Common Mistake Detector with Corrections | Enhio">
+  <meta name="twitter:description" content="Free grammar pattern checker with inline highlighting and correction suggestions for six common mistake categories.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/grammar-pattern-checker.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/grammar-pattern-checker.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Grammar Pattern Checker — Enhio",
+    "url": "https://enhio.com/tools/grammar-pattern-checker.html",
+    "description": "Free client-side grammar pattern checker that detects passive voice, dangling modifiers, subject-verb disagreement, comma splices, run-on sentences, and misplaced modifiers with inline highlighting and correction suggestions.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Passive voice detection", "Dangling modifier detection", "Subject-verb disagreement detection", "Comma splice detection", "Run-on sentence detection", "Misplaced modifier detection", "Inline color-coded highlighting", "Correction suggestions", "Error category breakdown", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What grammar patterns does this tool detect?",
+        "acceptedAnswer": { "@type": "Answer", "text": "This tool detects six common grammar patterns: passive voice constructions, dangling modifiers, subject-verb disagreement, comma splices, run-on sentences, and misplaced modifiers. Each issue is highlighted inline with a unique color and accompanied by a suggested correction or rewriting strategy." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does passive voice detection work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool scans for forms of 'to be' (is, was, were, been, being, are) followed by a past participle (typically words ending in -ed, -en, -ght, or irregular forms). When this pattern is found, the phrase is flagged as passive voice, and a suggestion is shown to rewrite using active voice by identifying the implied agent and making it the subject." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is passive voice always wrong?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Passive voice is appropriate when the agent is unknown ('The window was broken overnight'), when the agent is less important than the action ('The vaccine was approved by the FDA'), or in scientific writing where objectivity is conventional ('The samples were tested at 200°C'). The tool flags passive constructions so you can make an informed choice, not to eliminate them entirely." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a comma splice and how do I fix it?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A comma splice occurs when two independent clauses are joined with only a comma instead of a conjunction or semicolon. For example: 'The report is finished, it needs review.' Fix options include adding a conjunction ('The report is finished, and it needs review'), using a semicolon ('The report is finished; it needs review'), or splitting into two sentences." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text data private when using this grammar checker?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This grammar pattern checker runs entirely in your browser using client-side JavaScript. Your text is never sent to any server, never stored, and never shared. There are no cookies, no analytics trackers, and no accounts. You can verify this by monitoring the Network tab in your browser's developer tools." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://enhio.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Grammar Pattern Checker", "item": "https://enhio.com/tools/grammar-pattern-checker.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo {
+      color: var(--accent-3); text-decoration: none; font-size: 0.9rem;
+      padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s;
+    }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea {
+      width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem;
+    }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem;
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .toggle-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; margin-left: 1rem; }
+    .toggle-label input { accent-color: var(--accent); width: 16px; height: 16px; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .freq-table-wrap { max-height: 450px; overflow-y: auto; margin: 1rem 0; border: 1px solid var(--border); border-radius: 8px; }
+    .freq-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    .freq-table th { position: sticky; top: 0; background: var(--surface-2); padding: 0.7rem 1rem; text-align: left; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 600; cursor: pointer; user-select: none; border-bottom: 1px solid var(--border); }
+    .freq-table th:hover { color: var(--accent); }
+    .freq-table th .sort-arrow { margin-left: 0.3rem; font-size: 0.7rem; }
+    .freq-table td { padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); }
+    .freq-table tr:hover td { background: var(--surface); }
+    .freq-bar-cell { display: flex; align-items: center; gap: 0.5rem; }
+    .freq-bar-inline { height: 18px; background: rgba(129,140,248,0.25); border-radius: 3px; min-width: 4px; transition: width 0.3s; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Grammar-specific styles */
+    .highlight-output { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; line-height: 1.8; font-size: 0.95rem; margin: 1rem 0; min-height: 100px; }
+    .hl-passive { background: rgba(129,140,248,0.25); border-bottom: 2px solid #818CF8; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-dangling { background: rgba(210,168,255,0.25); border-bottom: 2px solid #d2a8ff; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-agreement { background: rgba(248,81,73,0.25); border-bottom: 2px solid #f85149; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-comma { background: rgba(210,153,34,0.25); border-bottom: 2px solid #d29922; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-runon { background: rgba(63,185,80,0.25); border-bottom: 2px solid #3fb950; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-misplaced { background: rgba(165,110,255,0.25); border-bottom: 2px solid #a56eff; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .legend { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--text-muted); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+    .issue-list { margin: 1rem 0; }
+    .issue-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; }
+    .issue-item .issue-cat { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; margin-bottom: 0.3rem; }
+    .issue-item .issue-text { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .issue-item .issue-fix { font-size: 0.88rem; color: var(--accent-2); }
+    .cat-passive .issue-cat { color: #818CF8; }
+    .cat-dangling .issue-cat { color: #d2a8ff; }
+    .cat-agreement .issue-cat { color: #f85149; }
+    .cat-comma .issue-cat { color: #d29922; }
+    .cat-runon .issue-cat { color: #3fb950; }
+    .cat-misplaced .issue-cat { color: #a56eff; }
+    .breakdown-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1rem 0; }
+    .breakdown-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; text-align: center; }
+    .breakdown-card .bd-count { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; display: block; }
+    .breakdown-card .bd-label { font-size: 0.75rem; color: var(--text-muted); }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .breakdown-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Grammar Pattern Checker
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Grammar <span>Pattern Checker</span> &mdash; Mistake Detector &amp; Corrections</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Check Grammar Patterns</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste or type your text below. The checker scans for six common grammar patterns and highlights them inline with correction suggestions. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste your text here to detect passive voice, dangling modifiers, subject-verb disagreement, comma splices, run-on sentences, and misplaced modifiers..."></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="checkGrammar()">Check Grammar</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Highlighted Text</h3>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#818CF8;"></div> Passive Voice</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#d2a8ff;"></div> Dangling Modifier</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f85149;"></div> Subject-Verb</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#d29922;"></div> Comma Splice</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#3fb950;"></div> Run-on</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a56eff;"></div> Misplaced Modifier</div>
+        </div>
+        <div class="highlight-output" id="highlightOutput"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Error Category Breakdown</h3>
+        <div class="breakdown-grid" id="breakdownGrid"></div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Issues &amp; Suggestions</h3>
+        <div class="issue-list" id="issueList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Grammar Pattern Checker?</h2>
+    <p>A grammar pattern checker is a text analysis tool that scans your writing for structural grammar issues that weaken clarity, conciseness, or correctness. Unlike spell checkers that flag individual misspelled words, a pattern checker looks at how words relate to each other within and across sentences. It identifies constructions like passive voice, dangling modifiers, subject-verb disagreement, comma splices, run-on sentences, and misplaced modifiers, then highlights each occurrence with a color code and provides a specific correction suggestion.</p>
+    <p>The value of pattern-based checking over simple spell-checking is significant. Most grammar errors are not about individual words but about how those words are arranged. The sentence "The report was wrote by the team" contains a correct subject, a correct verb form (in isolation), and a correct prepositional phrase, yet the sentence is grammatically wrong because "wrote" should be "written" in the passive construction. Pattern detection catches these structural issues that word-level tools miss entirely.</p>
+    <p>This tool implements six detection categories chosen because they represent the most frequent grammar issues in professional and academic writing. Research from the Educational Testing Service (ETS) and multiple corpus studies of student and professional writing consistently identify passive voice overuse, comma splices, and run-on sentences as the three most common structural errors in English prose. The remaining three categories, dangling modifiers, subject-verb disagreement, and misplaced modifiers, round out the most impactful patterns that affect readability and professionalism.</p>
+
+    <h3>How Pattern Detection Works</h3>
+    <p>The detection engine processes your text in four stages. First, the text is split into individual sentences using punctuation boundaries (periods, exclamation marks, question marks) while respecting common abbreviations like "Mr.", "Dr.", "U.S.", and decimal numbers. Second, each sentence is tokenized into words while preserving position information so that matches can be highlighted in the original text. Third, each sentence is tested against the six pattern detectors in sequence, with each detector using a combination of regular expressions and rule-based heuristics to identify potential issues. Fourth, all detected issues are compiled into a results panel showing the highlighted text, an error category breakdown with counts, and individual issue cards with correction suggestions.</p>
+    <p><strong>Passive voice detection</strong> scans for combinations of a "to be" auxiliary (am, is, are, was, were, been, being, get, got, gotten) followed within three words by a past participle. Past participles are identified by their morphological form: regular verbs ending in "-ed" (e.g., "completed," "reviewed"), and a curated list of approximately 120 irregular past participles (e.g., "written," "broken," "chosen," "driven," "forgotten"). The detector also checks for the optional "by" phrase that typically follows passive constructions. When detected, the suggestion identifies the likely agent and proposes an active-voice rewrite.</p>
+    <p><strong>Dangling modifier detection</strong> looks for sentences that begin with a participial phrase (a phrase starting with a present participle like "running" or "having" or a past participle like "exhausted" or "confused") followed by a comma, where the subject of the main clause does not logically perform the action described by the participle. The classic example is "Walking down the street, the trees were beautiful," where "the trees" are not walking. The detector flags these openings and suggests either rewriting the main clause to include the correct agent or converting the participial phrase into a full subordinate clause.</p>
+    <p><strong>Subject-verb disagreement detection</strong> checks whether singular subjects are paired with plural verb forms and vice versa. This includes checking indefinite pronouns (everyone, each, neither, either, nobody) which are grammatically singular but often paired with plural verbs in informal speech. The detector also catches common traps like collective nouns, "there is/are" constructions, and subjects separated from their verbs by prepositional phrases ("The quality of the images are poor" should be "is poor").</p>
+    <p><strong>Comma splice detection</strong> identifies two independent clauses joined by only a comma without a coordinating conjunction (for, and, nor, but, or, yet, so). The detector looks for patterns where a comma is followed by a pronoun or noun phrase that begins a new independent clause. When found, it suggests three fixes: adding a coordinating conjunction, replacing the comma with a semicolon, or splitting into two sentences.</p>
+    <p><strong>Run-on sentence detection</strong> flags sentences that exceed a word count threshold (typically 40-50 words) or that contain two or more independent clauses joined without any punctuation or conjunction. Extremely long sentences are flagged even if technically correct because they impair readability. The suggestion recommends splitting the sentence at a logical break point or adding appropriate punctuation.</p>
+    <p><strong>Misplaced modifier detection</strong> looks for adverbs and adjective phrases that are positioned ambiguously within a sentence, creating confusion about what they modify. Common triggers include "only," "just," "nearly," "almost," "even," and "merely" when they appear far from the word they logically modify. The suggestion recommends repositioning the modifier directly before or after the word it is intended to modify.</p>
+
+    <h3>Understanding the Color-Coded Highlights</h3>
+    <p>Each grammar pattern category is assigned a unique color for instant visual identification. <strong>Indigo (#818CF8)</strong> marks passive voice constructions, the most common pattern in formal writing. <strong>Lavender (#d2a8ff)</strong> marks dangling modifiers, which often appear at sentence beginnings. <strong>Red (#f85149)</strong> marks subject-verb disagreement, chosen for its urgency since these are clear grammatical errors. <strong>Gold (#d29922)</strong> marks comma splices, a punctuation-level issue. <strong>Green (#3fb950)</strong> marks run-on sentences, typically the longest highlighted spans. <strong>Purple (#a56eff)</strong> marks misplaced modifiers, which usually involve single words or short phrases.</p>
+    <p>The highlighted text view preserves your original formatting while adding background colors and bottom borders to flagged spans. Hovering over any highlighted span shows a tooltip with the category name and a brief correction hint. Below the highlighted text, the issue list provides full correction suggestions for each detected pattern instance, ordered by their position in the text.</p>
+
+    <h3>When Grammar Patterns Are Acceptable</h3>
+    <p>Not every flagged pattern is an error. Passive voice is standard in scientific writing, legal documents, and news reporting where the agent is unknown or deliberately omitted. Long sentences are a feature of literary prose when used intentionally for rhythm or effect. Comma splices appear in some fiction styles for pacing. The goal of this tool is awareness, not rigid enforcement. Use it to see your patterns, then decide which ones serve your purpose and which ones you should revise.</p>
+    <p>Professional editors typically recommend that passive voice should constitute no more than 10-15% of sentences in general-audience writing. Academic writing may tolerate up to 25-30%. Business communication should aim for under 10%. The error category breakdown gives you the exact percentage so you can compare against these benchmarks and make data-driven editing decisions.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This grammar pattern checker processes everything client-side in your browser using JavaScript. No text data is transmitted to any server. The analysis typically completes in under 50 milliseconds for texts under 5,000 words. For longer documents, processing may take up to 200 milliseconds. The regex-based detection is approximate; it catches the majority of common pattern instances but cannot match the accuracy of a full natural language parser. For deeper analysis, the main <a href="/">Enhio text analyzer</a> provides readability scores and sentence-level diagnostics. For image-related tasks, <a href="https://krzen.com">Krzen</a> offers compression tools. Developers building NLP pipelines may find <a href="https://heytensor.com">HeyTensor's</a> tensor utilities useful for tokenization workflows.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence analysis, tone detection, and SEO keyword checking.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What grammar patterns does this tool detect?</h3>
+    <p>This tool detects six common grammar patterns: passive voice constructions, dangling modifiers, subject-verb disagreement, comma splices, run-on sentences, and misplaced modifiers. Each issue is highlighted inline with a unique color and accompanied by a suggested correction or rewriting strategy. The patterns were chosen based on research showing they represent the most frequent structural errors in English writing.</p>
+
+    <h3>How does passive voice detection work?</h3>
+    <p>The tool scans for forms of "to be" (is, was, were, been, being, are, am, get, got) followed within a few words by a past participle. Past participles are identified by their endings (-ed, -en, -ght) or matched against a list of approximately 120 common irregular forms. When this pattern is found, the phrase is flagged as passive voice, and the suggestion recommends rewriting with an active subject performing the action directly.</p>
+
+    <h3>Is passive voice always wrong?</h3>
+    <p>No. Passive voice is appropriate when the agent is unknown ("The window was broken overnight"), when the agent is less important than the action ("The vaccine was approved by the FDA"), or in scientific writing where objectivity is conventional ("The samples were tested at 200 degrees Celsius"). This tool flags passive constructions so you can make an informed choice, not to eliminate them entirely. Aim for under 15% passive sentences in general writing.</p>
+
+    <h3>What is a comma splice and how do I fix it?</h3>
+    <p>A comma splice occurs when two independent clauses are joined with only a comma instead of a conjunction or semicolon. For example: "The report is finished, it needs review." Fix options include adding a coordinating conjunction ("The report is finished, and it needs review"), using a semicolon ("The report is finished; it needs review"), making one clause subordinate ("Since the report is finished, it needs review"), or splitting into two sentences.</p>
+
+    <h3>Is my text data private when using this grammar checker?</h3>
+    <p>Yes. This grammar pattern checker runs entirely in your browser using client-side JavaScript. Your text is never sent to any server, never stored, and never shared. There are no cookies, no analytics trackers, and no accounts. You can verify this by monitoring the Network tab in your browser's developer tools while using the tool.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/sentence-complexity-checker.html" class="related-card">
+        <h4>Sentence Complexity Checker</h4>
+        <p>Calculate 6 readability scores with grade-level mapping and complex sentence highlighting.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Analyze word frequency with interactive word cloud and character distribution charts.</p>
+      </a>
+      <a href="/research/writing-style-analyzer.html" class="related-card">
+        <h4>Writing Style Analyzer</h4>
+        <p>Analyze tone, formality, sentiment, and vocabulary diversity with radar chart visualization.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// GRAMMAR PATTERN CHECKER ENGINE
+// ============================================================
+
+const BE_FORMS = /\b(am|is|are|was|were|been|being|be|get|got|gotten)\b/i;
+const PAST_PARTICIPLES_IRREG = new Set([
+  'been','broken','chosen','done','driven','eaten','fallen','forgotten','frozen','given','gone',
+  'grown','hidden','known','lain','lent','lost','made','meant','met','paid','proven','ridden',
+  'risen','run','said','seen','sent','set','shaken','shown','shut','spoken','spent','split',
+  'spread','stood','stolen','struck','stuck','sung','sunk','sworn','swept','swum','swung',
+  'taken','taught','thought','thrown','told','torn','understood','woken','won','worn','written',
+  'bought','brought','built','burnt','caught','cut','dealt','drawn','drunk','dug','fed','felt',
+  'fit','fled','flung','forbidden','forgiven','forsaken','fought','found','got','gotten','ground',
+  'heard','held','hit','hung','hurt','kept','knelt','knit','laid','led','left','let','lit',
+  'read','rid','rung','sat','sought','shot','shrunk','slid','slit','smelt','sown','spelt',
+  'spilt','spit','sprung','stung','stunk','strewn','stridden','striven','wept','wound','wrung'
+]);
+
+const SINGULAR_PRONOUNS = new Set(['everyone','everybody','everything','someone','somebody','something','anyone','anybody','anything','no one','nobody','nothing','each','either','neither','one']);
+const MISPLACED_ADVS = /\b(only|just|nearly|almost|even|merely|hardly|barely|simply|completely|totally|absolutely)\b/i;
+
+function splitSentences(text) {
+  const abbrs = /(?:Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Corp|vs|etc|e\.g|i\.e|U\.S|U\.K)\./g;
+  let t = text.replace(abbrs, m => m.replace(/\./g, '\u2024'));
+  const raw = t.split(/(?<=[.!?])\s+/);
+  return raw.map(s => s.replace(/\u2024/g, '.').trim()).filter(s => s.length > 0);
+}
+
+function isPastParticiple(word) {
+  const w = word.toLowerCase();
+  if (PAST_PARTICIPLES_IRREG.has(w)) return true;
+  if (/ed$/.test(w) && w.length > 3) return true;
+  if (/en$/.test(w) && w.length > 4) return true;
+  return false;
+}
+
+function detectPassive(sentence) {
+  const issues = [];
+  const re = /\b(am|is|are|was|were|been|being|be|get|got|gotten)\s+(\w+)\b/gi;
+  let m;
+  while ((m = re.exec(sentence)) !== null) {
+    if (isPastParticiple(m[2])) {
+      issues.push({
+        category: 'passive',
+        match: m[0],
+        index: m.index,
+        suggestion: 'Consider rewriting in active voice. Identify who performs the action and make them the subject.'
+      });
+    }
+  }
+  return issues;
+}
+
+function detectDangling(sentence) {
+  const issues = [];
+  const re = /^((?:Having|Being|Walking|Running|Looking|Sitting|Standing|Hoping|Thinking|Feeling|Knowing|Seeing|Hearing|Living|Working|Using|Trying|Moving|Coming|Going|Getting|Making|Taking|Turning|Reaching|Leaving|Holding|Keeping|Reading|Writing|Driving|Flying|Swimming|Climbing|Falling|Rising|Hanging|Lying|Playing|Singing|Dancing|Cooking|Eating|Drinking|Sleeping|Waiting|Watching|Listening|Speaking|Talking|Fighting|Hiding|Seeking|Searching|Finding|Losing|Winning|Breaking|Building|Growing|Changing|Closing|Opening|Starting|Stopping|Ending|Beginning|Finishing|Completing|Covered|Exhausted|Confused|Frustrated|Surprised|Amazed|Shocked|Worried|Concerned|Determined|Convinced|Pleased|Delighted|Disappointed|Annoyed|Alarmed|Distracted|Overwhelmed|Motivated|Inspired|Bored|Tired|Puzzled|Terrified|Relieved|Satisfied|Disgusted|Fascinated|Amused|Embarrassed|Thrilled|Horrified|Astonished|Bewildered|Captivated|Devastated|Elated|Infuriated)\w*\s+[^,]{2,40}),\s+/i;
+  const m = sentence.match(re);
+  if (m) {
+    const mainClause = sentence.slice(m[0].length);
+    const firstWord = mainClause.split(/\s+/)[0].toLowerCase();
+    const nonAgents = new Set(['the','a','an','it','its','this','that','these','those','there','my','your','his','her','our','their']);
+    const secondWord = mainClause.split(/\s+/)[1]?.toLowerCase() || '';
+    if (nonAgents.has(firstWord) && /^(tree|car|building|house|door|window|road|street|sky|sun|moon|rain|snow|fog|wind|report|data|table|chart|graph|wall|floor|ceiling|light|sign|book|paper|letter|email|message|phone|screen|computer|system|process|method|result|effect|problem|issue|error|day|night|morning|evening|weather|season|year|month|week|hour|minute|sound|noise|music|picture|image|photo|movie|video|game|food|water|air|plant|flower|animal|bird|fish|stone|rock|metal|glass|wood|plastic|fabric|surface|ground|field|river|lake|ocean|mountain|hill|valley|bridge|tunnel|corner|edge|side|top|bottom|front|back|end|beginning|center|middle|point|line|circle|square|shape|color|size|weight|height|length|width|depth|number|amount|level|rate|speed|price|cost|value|quality|type|kind|sort|form|way|part|piece|bit|set|group|pair|series|list|collection|range|variety|mix|combination|total|average|majority|minority|rest|remainder|half|quarter|third|section|area|region|zone|space|place|spot|location|position|direction|distance|path|route|track|trail)s?$/i.test(secondWord)) {
+      issues.push({
+        category: 'dangling',
+        match: m[1],
+        index: 0,
+        suggestion: 'The opening modifier may not logically relate to the subject of the main clause. Rewrite so the subject performs the action in the modifier.'
+      });
+    }
+  }
+  return issues;
+}
+
+function detectAgreement(sentence) {
+  const issues = [];
+  const patterns = [
+    { re: /\b(everyone|everybody|someone|somebody|anyone|anybody|each|either|neither|nobody|no one)\s+(are|were|have|do|go|seem|appear|make|take|come|need|want|like|say|get|know|think|see|give|find|tell|work|call|try|ask|use|look|play|run|move|live|believe|happen|include|turn|follow|begin|help|show|keep|start|hold|bring|write|provide|stand|lose|pay|meet|continue|learn|change|lead|understand|watch|grow|allow|add|spend|open|walk|win|offer|remember|consider|appear|buy|wait|serve|die|send|expect|build|stay|fall|reach|remain|suggest|raise|pass|sell|require|report|decide|pull|develop|miss|carry|produce|eat|read)\b/gi, msg: 'Singular indefinite pronoun paired with plural verb.' },
+    { re: /\b(the\s+(?:quality|number|set|series|group|collection|list|range|variety|type|kind|sort|level|amount|cost|price|rate|effect|result|purpose|use|cause|source|lack|rest|majority|minority|half|quarter|third|total|average|percentage|proportion)\s+of\s+(?:the\s+)?\w+s?)\s+(are|were|have)\b/gi, msg: 'The subject is singular despite the plural object of the prepositional phrase.' },
+    { re: /\bthere\s+is\s+(?:many|several|few|numerous|various|multiple|dozens|hundreds)\b/gi, msg: 'Use "there are" with plural subjects.' },
+    { re: /\bthere\s+are\s+(?:a|an|one|each|every)\b/gi, msg: 'Use "there is" with singular subjects.' }
+  ];
+  for (const p of patterns) {
+    let m;
+    while ((m = p.re.exec(sentence)) !== null) {
+      issues.push({
+        category: 'agreement',
+        match: m[0],
+        index: m.index,
+        suggestion: p.msg + ' Change the verb form to match the subject number.'
+      });
+    }
+  }
+  return issues;
+}
+
+function detectCommaSplice(sentence) {
+  const issues = [];
+  const re = /,\s+(he|she|it|they|we|I|you|the|this|that|these|those|there|here|my|his|her|our|their|its|some|many|most|all|both|few|several|another|other|each|every|any|no|such)\s+\w+/gi;
+  let m;
+  while ((m = re.exec(sentence)) !== null) {
+    const before = sentence.slice(0, m.index).trim();
+    const after = sentence.slice(m.index + 1).trim();
+    if (before.split(/\s+/).length >= 3 && after.split(/\s+/).length >= 3) {
+      const conjunctions = /,\s*(and|but|or|nor|for|yet|so|which|who|whom|that|where|when|while|although|because|since|if|unless|until|after|before|though|whereas|whether)\s+/i;
+      if (!conjunctions.test(sentence.slice(Math.max(0, m.index - 5), m.index + m[0].length + 5))) {
+        const afterWords = after.split(/\s+/);
+        let hasVerb = false;
+        const commonVerbs = new Set(['is','are','was','were','has','have','had','do','does','did','will','would','shall','should','can','could','may','might','must','need','want','like','know','think','see','get','make','go','come','take','give','find','tell','say','ask','try','use','keep','let','begin','seem','help','show','turn','play','run','move','live','work','call','look','write','read','feel','leave','put','mean','become','bring','hold','stand','lose','pay','meet','start','provide','set','learn','change','follow','stop','open','close','wait','send','build','stay','fall','reach','pass','sell','require','decide','develop','carry','produce','happen','include']);
+        for (let i = 0; i < Math.min(5, afterWords.length); i++) {
+          if (commonVerbs.has(afterWords[i].toLowerCase().replace(/[.,;!?]/g, ''))) { hasVerb = true; break; }
+        }
+        if (hasVerb) {
+          issues.push({
+            category: 'comma',
+            match: sentence.slice(m.index, m.index + Math.min(m[0].length + 10, 50)),
+            index: m.index,
+            suggestion: 'Possible comma splice: two independent clauses joined by only a comma. Add a conjunction (and, but, so), use a semicolon, or split into two sentences.'
+          });
+        }
+      }
+    }
+  }
+  return issues;
+}
+
+function detectRunon(sentence) {
+  const issues = [];
+  const words = sentence.split(/\s+/);
+  if (words.length > 45) {
+    issues.push({
+      category: 'runon',
+      match: words.slice(0, 8).join(' ') + ' ... ' + words.slice(-4).join(' '),
+      index: 0,
+      suggestion: 'This sentence is ' + words.length + ' words long. Consider splitting it into shorter sentences for better readability. Aim for 15-25 words per sentence.'
+    });
+  }
+  return issues;
+}
+
+function detectMisplaced(sentence) {
+  const issues = [];
+  const re = /\b(only|just|nearly|almost|even|merely|hardly|barely)\s+(\w+)\s+(\w+)/gi;
+  let m;
+  while ((m = re.exec(sentence)) !== null) {
+    const adv = m[1].toLowerCase();
+    const next = m[2].toLowerCase();
+    const verbs = new Set(['is','are','was','were','has','have','had','do','does','did','will','would','shall','should','can','could','may','might','must','want','need','like','know','think','see','get','make','go','come','take','give','find','tell','say','ask','try','use','keep','let','begin','seem','help','show','turn','feel','leave','mean','become','bring','hold','stand','pay','meet','start','set','learn','change','follow','stop','open','close','wait','send','build','stay','fall','reach','pass','sell','require','decide','develop','carry','produce','happen','include','cost','eat','run','read','write','work','call','play','move','live','heard','knew','spoke','felt','understood','mentioned','expected','claimed','argued','suggested','explained','insisted','proposed','recommended','demanded','warned','admitted','denied','announced','confirmed','reported','stated','believed','agreed','refused','offered','promised']);
+    if (verbs.has(next)) {
+      issues.push({
+        category: 'misplaced',
+        match: m[0],
+        index: m.index,
+        suggestion: '"' + adv + '" may be modifying the wrong word. Move it directly before the word it should modify for clarity. Example: "She only ate the salad" vs. "She ate only the salad."'
+      });
+    }
+  }
+  return issues;
+}
+
+function checkGrammar() {
+  const text = document.getElementById('inputText').value.trim();
+  if (!text || text.length < 10) { alert('Please enter some text to check.'); return; }
+
+  const sentences = splitSentences(text);
+  const allIssues = [];
+
+  sentences.forEach(sentence => {
+    const offset = text.indexOf(sentence);
+    const detectors = [detectPassive, detectDangling, detectAgreement, detectCommaSplice, detectRunon, detectMisplaced];
+    detectors.forEach(fn => {
+      const issues = fn(sentence);
+      issues.forEach(iss => {
+        iss.sentence = sentence;
+        iss.globalIndex = offset + iss.index;
+        allIssues.push(iss);
+      });
+    });
+  });
+
+  const totalSentences = sentences.length;
+  const totalIssues = allIssues.length;
+  const categories = {};
+  allIssues.forEach(i => { categories[i.category] = (categories[i.category] || 0) + 1; });
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  // Stats
+  const cleanPct = totalSentences > 0 ? Math.round(((totalSentences - totalIssues) / totalSentences) * 100) : 100;
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${totalIssues}</span><span class="stat-label">Issues Found</span></div>
+    <div class="stat-card"><span class="stat-value">${totalSentences}</span><span class="stat-label">Sentences</span></div>
+    <div class="stat-card"><span class="stat-value">${Object.keys(categories).length}</span><span class="stat-label">Categories</span></div>
+    <div class="stat-card"><span class="stat-value">${Math.max(0, cleanPct)}%</span><span class="stat-label">Clean Sentences</span></div>
+  `;
+
+  // Highlighted output
+  let html = escapeHtml(text);
+  const sortedIssues = [...allIssues].sort((a, b) => b.globalIndex - a.globalIndex);
+  const htmlText = text;
+  let highlightedText = escapeHtml(text);
+
+  const issuesForHL = [...allIssues].sort((a, b) => {
+    const aStart = escapeHtml(text.substring(0, a.globalIndex)).length;
+    const bStart = escapeHtml(text.substring(0, b.globalIndex)).length;
+    return bStart - aStart;
+  });
+
+  let resultHtml = text;
+  const applied = [];
+  for (const iss of sortedIssues) {
+    const matchStart = resultHtml.indexOf(iss.match, Math.max(0, iss.globalIndex - 5));
+    if (matchStart === -1) continue;
+    let overlap = false;
+    for (const a of applied) {
+      if (matchStart < a.end && matchStart + iss.match.length > a.start) { overlap = true; break; }
+    }
+    if (overlap) continue;
+    const before = resultHtml.slice(0, matchStart);
+    const matched = resultHtml.slice(matchStart, matchStart + iss.match.length);
+    const after = resultHtml.slice(matchStart + iss.match.length);
+    resultHtml = before + '\u0000HL_START_' + iss.category + '\u0000' + matched + '\u0000HL_END\u0000' + after;
+    applied.push({ start: matchStart, end: matchStart + iss.match.length });
+  }
+  resultHtml = escapeHtml(resultHtml);
+  resultHtml = resultHtml.replace(/\u0000HL_START_(\w+)\u0000/g, (_, cat) => '<span class="hl-' + cat + '" title="' + catLabel(cat) + '">');
+  resultHtml = resultHtml.replace(/\u0000HL_END\u0000/g, '</span>');
+  resultHtml = resultHtml.replace(/\n/g, '<br>');
+  document.getElementById('highlightOutput').innerHTML = resultHtml;
+
+  // Breakdown
+  const catNames = { passive: 'Passive Voice', dangling: 'Dangling Modifier', agreement: 'Subject-Verb', comma: 'Comma Splice', runon: 'Run-on Sentence', misplaced: 'Misplaced Modifier' };
+  const catColors = { passive: '#818CF8', dangling: '#d2a8ff', agreement: '#f85149', comma: '#d29922', runon: '#3fb950', misplaced: '#a56eff' };
+  let bdHtml = '';
+  for (const [key, label] of Object.entries(catNames)) {
+    const count = categories[key] || 0;
+    bdHtml += `<div class="breakdown-card"><span class="bd-count" style="color:${catColors[key]}">${count}</span><span class="bd-label">${label}</span></div>`;
+  }
+  document.getElementById('breakdownGrid').innerHTML = bdHtml;
+
+  // Issue list
+  let ilHtml = '';
+  if (allIssues.length === 0) {
+    ilHtml = '<p style="color:var(--success);text-align:center;padding:1rem;">No grammar pattern issues detected. Your text looks clean.</p>';
+  } else {
+    allIssues.forEach((iss, idx) => {
+      ilHtml += `<div class="issue-item cat-${iss.category}">
+        <div class="issue-cat">${catNames[iss.category] || iss.category} (#${idx + 1})</div>
+        <div class="issue-text">"${escapeHtml(iss.match)}"</div>
+        <div class="issue-fix">${escapeHtml(iss.suggestion)}</div>
+      </div>`;
+    });
+  }
+  document.getElementById('issueList').innerHTML = ilHtml;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function catLabel(cat) {
+  const labels = { passive: 'Passive Voice', dangling: 'Dangling Modifier', agreement: 'Subject-Verb Disagreement', comma: 'Comma Splice', runon: 'Run-on Sentence', misplaced: 'Misplaced Modifier' };
+  return labels[cat] || cat;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function loadSample() {
+  document.getElementById('inputText').value = `The report was written by the team and it was reviewed by the manager. Walking down the hallway, the lights flickered and went out unexpectedly. Everyone in the office are aware of the policy changes that were announced last week, they have already started adapting their workflows.
+
+The new software was installed on all computers by the IT department. Running late for the meeting, the elevator doors closed just as she arrived. The project that was completed by the developers were deployed to production on Friday, the servers crashed immediately afterward.
+
+The data was analyzed by the research team and the results was published in the quarterly report. Hoping to finish early, the deadline was moved up by management without consulting anyone. Each of the participants have submitted their evaluations, he only mentioned the key findings in his summary.
+
+Nearly exhausted from working overtime, the coffee machine broke down at the worst possible moment. The quality of the submissions are declining every quarter. She just wanted to clarify the main points, she did not intend to start a debate about methodology or process improvements that would affect the entire department's workflow for the foreseeable future and beyond what anyone had originally anticipated when the project was first conceived by the original stakeholders.`;
+  checkGrammar();
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

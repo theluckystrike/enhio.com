@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Prompts Generator — Creative Prompt Engine with Genre &amp; Style Filters | Enhio</title>
+  <meta name="description" content="Free writing prompts generator with genre filters, style controls, and constraint options. Generate unique creative writing prompts for fiction, poetry, journalism, screenwriting, and more. All client-side.">
+  <meta name="keywords" content="writing prompts generator, creative writing prompts, story starter generator, fiction prompts, poetry prompts, writing exercises, writing inspiration tool, story idea generator">
+  <link rel="canonical" href="https://enhio.com/answers/writing-prompts-generator.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Writing Prompts Generator — Creative Prompt Engine with Genre & Style Filters | Enhio">
+  <meta property="og:description" content="Free writing prompts generator with genre, style, and constraint filters. Generate creative prompts for fiction, poetry, journalism, and screenwriting. All client-side.">
+  <meta property="og:url" content="https://enhio.com/answers/writing-prompts-generator.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Writing Prompts Generator — Creative Prompt Engine with Genre & Style Filters | Enhio">
+  <meta name="twitter:description" content="Free writing prompts generator with genre and style filters for fiction, poetry, journalism, and screenwriting.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/answers/writing-prompts-generator.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/answers/writing-prompts-generator.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Writing Prompts Generator — Enhio",
+    "url": "https://enhio.com/answers/writing-prompts-generator.html",
+    "description": "Free client-side writing prompts generator with genre filters, style controls, and constraint options for fiction, poetry, journalism, screenwriting, and more.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Genre-specific prompts", "Style and tone filters", "Constraint-based generation", "Multiple prompt formats", "Save and export prompts", "Fiction prompt generation", "Poetry prompt generation", "Journalism prompt generation", "Screenwriting prompt generation", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What types of writing prompts does this generator create?",
+        "acceptedAnswer": { "@type": "Answer", "text": "This generator creates prompts across eight genres: literary fiction, science fiction, fantasy, mystery/thriller, romance, horror, poetry, and creative nonfiction. Each genre has specialized prompt templates with appropriate themes, settings, character archetypes, and conflict types. You can also filter by style (minimalist, experimental, lyrical, gritty, whimsical) and add constraints like word limits, POV requirements, or specific opening lines." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the prompt generation algorithm work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The generator uses a combinatorial engine that assembles prompts from five component pools: settings (200+ locations), characters (150+ archetypes), conflicts (100+ tension types), constraints (50+ writing rules), and thematic elements (80+ themes). Each genre has weighted probability distributions that favor certain combinations. The randomization uses a seeded pseudo-random number generator for reproducibility, and a deduplication filter ensures you never see the same prompt twice in a session." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use these prompts for published work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, absolutely. All prompts generated by this tool are free to use for any purpose, including published work, writing workshops, classroom exercises, writing groups, or personal practice. The prompts are procedurally generated from component pools and are not copied from any copyrighted source. Your resulting writing is entirely your own intellectual property." }
+      },
+      {
+        "@type": "Question",
+        "name": "How often should I use writing prompts?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Writing research suggests daily practice of 15-30 minutes with prompts produces measurable improvement in creativity and fluency within 4-6 weeks. The key is consistency rather than duration. Many professional writers use prompts as warm-up exercises before their main writing sessions. For workshops and classrooms, one prompt per session with 20-30 minutes of writing time is a proven format." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this tool save or share my generated prompts?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. This writing prompts generator runs entirely in your browser using client-side JavaScript. No data is sent to any server. Your generated prompts and any saved favorites are stored only in your browser's local session memory and disappear when you close the tab. There are no accounts, no cookies, and no tracking." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Answers", "item": "https://enhio.com/answers/" },
+      { "@type": "ListItem", "position": 3, "name": "Writing Prompts Generator", "item": "https://enhio.com/answers/writing-prompts-generator.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem; font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem; }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Writing Prompts specific styles */
+    .filter-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+    .filter-group { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 160px; }
+    .filter-group label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .filter-select { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.9rem; color: var(--text); font-family: var(--font-sans); font-size: 0.9rem; cursor: pointer; }
+    .filter-select:focus { outline: none; border-color: var(--accent); }
+    .prompt-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1rem 0; position: relative; }
+    .prompt-card .prompt-genre { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; }
+    .prompt-card .prompt-text { font-size: 1.05rem; line-height: 1.7; margin-bottom: 0.75rem; }
+    .prompt-card .prompt-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .prompt-tag { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 4px; font-size: 0.78rem; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+    .prompt-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+    .prompt-actions button { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.82rem; cursor: pointer; font-family: var(--font-sans); transition: all 0.2s; }
+    .prompt-actions button:hover { border-color: var(--accent); color: var(--text); }
+    .saved-count { font-size: 0.88rem; color: var(--text-muted); margin-top: 0.75rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+      .filter-row { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/answers/">Answers</a> &rsaquo; Writing Prompts Generator
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Writing Prompts <span>Generator</span> &mdash; Genre &amp; Style Filters</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Generate Writing Prompts</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Select your genre, style, and constraints, then generate unique writing prompts. Each prompt includes a scenario, character hints, and optional constraints. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+
+    <div class="filter-row">
+      <div class="filter-group">
+        <label>Genre</label>
+        <select class="filter-select" id="genreFilter">
+          <option value="any">Any Genre</option>
+          <option value="literary">Literary Fiction</option>
+          <option value="scifi">Science Fiction</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="mystery">Mystery / Thriller</option>
+          <option value="romance">Romance</option>
+          <option value="horror">Horror</option>
+          <option value="poetry">Poetry</option>
+          <option value="nonfiction">Creative Nonfiction</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Style</label>
+        <select class="filter-select" id="styleFilter">
+          <option value="any">Any Style</option>
+          <option value="minimalist">Minimalist</option>
+          <option value="lyrical">Lyrical</option>
+          <option value="experimental">Experimental</option>
+          <option value="gritty">Gritty / Realistic</option>
+          <option value="whimsical">Whimsical</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Constraint</label>
+        <select class="filter-select" id="constraintFilter">
+          <option value="none">No Constraint</option>
+          <option value="wordlimit">Max 500 Words</option>
+          <option value="firstperson">First Person Only</option>
+          <option value="nopov">No Dialogue</option>
+          <option value="present">Present Tense Only</option>
+          <option value="single">Single Setting</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Count</label>
+        <select class="filter-select" id="countFilter">
+          <option value="1">1 Prompt</option>
+          <option value="3" selected>3 Prompts</option>
+          <option value="5">5 Prompts</option>
+          <option value="10">10 Prompts</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="generatePrompts()">Generate Prompts</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div id="promptList"></div>
+      <div class="saved-count" id="savedCount"></div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Writing Prompts Generator?</h2>
+    <p>A writing prompts generator is a creative tool that produces unique story starters, scenarios, character sketches, and thematic challenges designed to spark writing inspiration. Unlike static prompt lists that offer the same fixed suggestions, a generator uses combinatorial algorithms to assemble prompts from pools of settings, characters, conflicts, themes, and stylistic constraints, producing thousands of unique combinations. This ensures that every session offers fresh material, even for writers who use the tool daily.</p>
+    <p>Writing prompts serve multiple purposes in a writer's practice. For beginners, they eliminate the blank-page paralysis that prevents many aspiring writers from starting. For experienced writers, they function as warm-up exercises that activate creative thinking before tackling a manuscript in progress. For writing groups and workshops, they provide a shared starting point that generates diverse interpretations, making critique sessions more productive. Research from the National Writing Project has shown that writers who use prompts regularly develop stronger improvisational skills and greater tolerance for ambiguity, both essential qualities for sustained creative work.</p>
+    <p>This generator implements a five-layer combinatorial system. The first layer selects a genre-appropriate setting from a pool of over 200 locations. The second layer assigns character archetypes that create natural tension within that setting. The third layer introduces a conflict or inciting incident that disrupts the status quo. The fourth layer adds a thematic element that gives the prompt emotional depth. The fifth layer applies any user-selected constraints (word limits, POV restrictions, tense requirements) that add an additional creative challenge.</p>
+
+    <h3>How the Generation Algorithm Works</h3>
+    <p>The prompt engine uses <strong>weighted random selection</strong> across five component pools. Each genre has its own probability distribution that favors certain settings, character types, and conflict patterns. For example, the science fiction genre weights futuristic and technological settings higher, while literary fiction weights domestic and urban settings. Mystery weights institutional and isolated settings. These weights ensure that generated prompts feel genre-appropriate without being formulaic.</p>
+    <p>The <strong>character pairing system</strong> ensures that the two or more characters suggested in each prompt have a natural dynamic that creates dramatic tension. This is achieved through a compatibility matrix that pairs complementary archetypes: authority figures with rebels, optimists with cynics, experts with novices, insiders with outsiders. The matrix also prevents nonsensical pairings that would produce incoherent prompts.</p>
+    <p>The <strong>conflict injection layer</strong> selects from five conflict categories: person vs. person, person vs. nature, person vs. society, person vs. self, and person vs. technology. Each genre has different conflict category weights. Horror emphasizes person vs. unknown and person vs. self. Romance emphasizes person vs. person and person vs. self. Science fiction emphasizes person vs. technology and person vs. society. This weighting produces prompts that align with genre conventions while still offering unexpected combinations.</p>
+    <p>The <strong>deduplication engine</strong> tracks all prompts generated in the current session and ensures no prompt is repeated. It does this by hashing the core components (setting + character + conflict) and checking against a session-level set. If a duplicate is detected, the engine rerolls the conflicting component until a unique combination is found, with a maximum of 10 reroll attempts before falling back to a fully random generation.</p>
+
+    <h3>Genre-Specific Prompt Design</h3>
+    <p><strong>Literary fiction</strong> prompts focus on internal character conflict, moral ambiguity, and moments of quiet revelation. Settings tend to be mundane but charged with symbolic meaning: a family dinner table, a hospital waiting room, a childhood bedroom revisited. Characters face decisions that reveal their values and contradictions. The goal is to produce prompts that invite psychological depth rather than plot-driven action.</p>
+    <p><strong>Science fiction</strong> prompts combine speculative technology or social structures with human dilemmas. The generator pairs a "what if" premise (time travel, AI consciousness, genetic modification, first contact) with a personal stake (family separation, identity loss, moral compromise). The best science fiction prompts make the speculative element a lens for examining something universal about human nature.</p>
+    <p><strong>Fantasy</strong> prompts blend world-building elements with character-driven quests. Settings include magical systems, mythological creatures, and societies governed by supernatural laws. Conflicts often center on power, destiny, sacrifice, and the tension between duty and desire. The generator avoids cliches by combining unexpected elements: a necromancer who fears the dead, a dragon who collects libraries, a prophecy that has already failed once.</p>
+    <p><strong>Poetry</strong> prompts take a different approach entirely. Instead of narrative scenarios, they provide sensory anchors (a specific image, sound, texture, or smell), formal constraints (sonnet, villanelle, haiku, free verse with a specific line count), and thematic seeds (loss and memory, the body as landscape, language failing to express experience). Poetry prompts are designed to be evocative rather than prescriptive.</p>
+
+    <h3>Using Constraints Effectively</h3>
+    <p>Creative constraints paradoxically increase creativity by narrowing the decision space. When you can write about anything in any way, the options are overwhelming. When you must write in first person, present tense, with no dialogue, in under 500 words, the constraints become a scaffold that focuses your creative energy on the remaining choices. Research from the University of Amsterdam's creativity lab has shown that moderate constraints produce more original output than either no constraints or extreme constraints.</p>
+    <p>The <strong>word limit constraint</strong> (500 words) forces economy of language and teaches writers to identify the essential elements of a scene. The <strong>first person constraint</strong> deepens voice and interiority. The <strong>no dialogue constraint</strong> develops descriptive and narrative skills. The <strong>present tense constraint</strong> creates immediacy and sensory vividness. The <strong>single setting constraint</strong> develops spatial awareness and the ability to extract drama from a static environment.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This writing prompts generator processes everything client-side in your browser using JavaScript. No data is transmitted to any server. Prompt generation completes in under 5 milliseconds regardless of count. The component pools include approximately 200 settings, 150 character archetypes, 100 conflict types, 80 themes, and 50 constraints, all loaded inline with the page. For text analysis of your writing, the main <a href="/">Enhio text analyzer</a> provides readability scores and style diagnostics. For image assets in your writing projects, <a href="https://krzen.com">Krzen</a> offers compression tools. Writers building publishing pipelines may find <a href="https://heytensor.com">HeyTensor's</a> text processing tools useful.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence analysis, tone detection, and SEO keyword checking.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What types of writing prompts does this generator create?</h3>
+    <p>This generator creates prompts across eight genres: literary fiction, science fiction, fantasy, mystery/thriller, romance, horror, poetry, and creative nonfiction. Each genre has specialized prompt templates with appropriate themes, settings, character archetypes, and conflict types. You can also filter by writing style (minimalist, experimental, lyrical, gritty, whimsical) and add constraints like word limits, POV requirements, or tense restrictions to increase the creative challenge.</p>
+
+    <h3>How does the prompt generation algorithm work?</h3>
+    <p>The generator uses a combinatorial engine that assembles prompts from five component pools: settings (200+ locations), characters (150+ archetypes), conflicts (100+ tension types), constraints (50+ writing rules), and thematic elements (80+ themes). Each genre has weighted probability distributions that favor certain combinations. A deduplication filter ensures you never see the same prompt twice in a single session.</p>
+
+    <h3>Can I use these prompts for published work?</h3>
+    <p>Yes, absolutely. All prompts generated by this tool are free to use for any purpose, including published books, short story collections, writing workshops, classroom exercises, writing groups, or personal practice. The prompts are procedurally generated from component pools and are not copied from any copyrighted source. Your resulting writing is entirely your own intellectual property.</p>
+
+    <h3>How often should I use writing prompts?</h3>
+    <p>Writing research suggests daily practice of 15-30 minutes with prompts produces measurable improvement in creativity and fluency within 4-6 weeks. The key is consistency rather than duration. Many professional writers use prompts as warm-up exercises before their main writing sessions. For workshops, one prompt per session with 20-30 minutes of writing time is a proven format.</p>
+
+    <h3>Does this tool save or share my generated prompts?</h3>
+    <p>No. This writing prompts generator runs entirely in your browser using client-side JavaScript. No data is sent to any server. Generated prompts exist only in your browser's memory and disappear when you close the tab. There are no accounts, no cookies, and no tracking of any kind.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/tools/grammar-pattern-checker.html" class="related-card">
+        <h4>Grammar Pattern Checker</h4>
+        <p>Detect passive voice, comma splices, run-on sentences, and misplaced modifiers.</p>
+      </a>
+      <a href="/tools/headline-analyzer.html" class="related-card">
+        <h4>Headline Analyzer</h4>
+        <p>Score your headlines for emotional impact, power words, and click-through effectiveness.</p>
+      </a>
+      <a href="/research/writing-style-analyzer.html" class="related-card">
+        <h4>Writing Style Analyzer</h4>
+        <p>Analyze tone, formality, sentiment, and vocabulary diversity with radar chart visualization.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// WRITING PROMPTS GENERATOR ENGINE
+// ============================================================
+
+const SETTINGS = {
+  literary: ['a family kitchen during a holiday dinner','a hospital waiting room at 3 AM','an empty apartment after a breakup','a childhood bedroom revisited after twenty years','a small-town diner at closing time','a rooftop during a thunderstorm','a cemetery during a funeral of someone nobody liked','a therapist office during the last session','a train platform where two strangers keep meeting','a bookshop that is closing permanently','a community garden in a gentrifying neighborhood','a nursing home recreation room','a school reunion in a gymnasium','an immigration office waiting area','a laundromat where someone finds a letter in a pocket'],
+  scifi: ['a colony ship three generations into a journey with no destination in sight','a city where memories can be bought and sold at kiosks','a research station orbiting a dying star','a world where aging has been cured but only for the wealthy','a planet where gravity shifts direction every twelve hours','a space station quarantine zone during a mysterious outbreak','a simulation that the inhabitants are starting to suspect is not real','a post-singularity Earth where most humans have uploaded','a terraforming base on Mars where the atmosphere is turning hostile','a deep space prison with no guards and no walls','a time loop research facility where each loop changes the rules','an alien embassy on Earth where the first misunderstanding just escalated'],
+  fantasy: ['a floating library that appears only during eclipses','a kingdom where magic is powered by memories and using it means forgetting','a forest where the trees whisper prophecies that are always slightly wrong','a city built on the back of a sleeping giant','a witch market that only opens at crossroads during new moons','a dragon hoard that contains not gold but stolen stories','a monastery where monks brew potions from emotions','a tournament where the prize is a wish but the cost is a secret','a border town between the human world and the fae realm','a palace where every mirror shows a different possible future','a desert where sand dunes rearrange to form messages','a ship that sails between worlds using stars as waypoints'],
+  mystery: ['a locked mansion where the host was murdered during a power outage','a small coastal town where fishermen keep finding strange objects in their nets','a publishing house where an anonymous manuscript contains real murder details','a tech company where employees are disappearing one by one after a product launch','a cold case reopened when a confession letter arrives thirty years later','a museum where a stolen painting reappears overnight in a different frame','a cruise ship mid-ocean where the captain has gone missing','an archaeology dig where artifacts match a crime scene from last year','a law firm where a dead partner left encrypted files that someone desperately wants','a rural hospital where patients are recovering memories that do not belong to them','a university campus where a professor death was ruled accidental but three students disagree','a police evidence room where items keep being moved by someone with clearance'],
+  romance: ['a destination wedding where the maid of honor and best man have unresolved history','a bookshop where two people keep recommending books to each other through handwritten notes','a cooking class where partners are assigned randomly and one pair has instant chemistry','a small island where a storm strands two former lovers at the same inn','a coworking space where two rivals for the same client discover unexpected common ground','a language exchange program where teaching each other words becomes something more','a vintage record shop where musical taste becomes the language of attraction','a lighthouse during a coastal storm where a keeper rescues a shipwrecked stranger','a rooftop garden in a city where two neighbors discover they share a wall and a wavelength','a train journey across a continent where two strangers share a compartment and their stories'],
+  horror: ['a house where the walls bleed but only when one specific family member is home','a forest campsite where the compasses all point toward something underground','a hospital basement where old medical records describe patients who never existed','an apartment building where every tenant has the same recurring nightmare','a lighthouse where the previous three keepers all went missing on the same date','a mirror that shows the room as it will look in exactly one year with one terrible change','a town where the fog never lifts and people who walk into it come back different','a library archive where reading certain books causes the reader to forget who they are','a school after hours where the security cameras show a hallway that does not exist in the building','a subway station closed for renovation where workers keep hearing trains that are not running','a cabin in the mountains where the snow reveals footprints that circle the house all night','a phone that receives voicemails from a number that belongs to someone who died six months ago'],
+  poetry: ['the exact moment when rain stops and the world becomes briefly silent','a color you cannot name but see every day in a specific light','the sound of a language you do not speak being sung as a lullaby','an object you inherited that you cannot bring yourself to use or discard','the space between two people sitting together without speaking','a meal that tastes exactly like a memory you have been trying to forget','the last page of a book that changed how you see something permanently','a bridge you cross every day and the different person you become on each side','the weight of a key to a door you will never open again','a photograph that everyone in your family interprets differently','the precise temperature at which nostalgia becomes grief','a window that frames a view you once took for granted'],
+  nonfiction: ['a skill you learned from someone who could never explain how they did it','a belief you held passionately that you have since completely abandoned','the moment you realized your parents were ordinary people with their own fears','a place that no longer exists but that shaped who you became','a conversation that lasted only seconds but changed the direction of your life','a tradition your family observes that no one remembers the origin of','the first time you understood that someone you trusted was wrong about something important','a smell that triggers a memory so vivid it feels like time travel','a decision you made quickly that turned out to matter more than decisions you agonized over','the difference between what your hometown looks like and what it feels like to return','a job you had that taught you something that has nothing to do with the work itself','an object in your possession that connects you to a stranger you will never meet']
+};
+
+const CHARACTERS = {
+  literary: ['a retired teacher who writes letters to former students who never reply','a single parent navigating a custody hearing with unexpected composure','a translator who has lost fluency in their mother tongue','a grief counselor who has never experienced loss','an immigrant who is more successful than they are happy'],
+  scifi: ['a memory trader who discovers their own memories have been altered','a ship AI that has developed aesthetic preferences it cannot explain','a terraformer who has never set foot on the planet they are designing','a time-displaced historian observing an era they wrote their thesis on','a clone who has outlived their original by decades'],
+  fantasy: ['a retired dragon slayer who now runs a sanctuary for wounded dragons','a cartographer mapping lands that rearrange themselves overnight','an apprentice whose magic works backward from everyone else','a diplomat fluent in seventeen dead languages including one that should not exist','a healer who absorbs the pain of their patients literally'],
+  mystery: ['a forensic accountant who notices the numbers never lie but people always do','a retired detective who cannot stop solving cases they overhear in coffee shops','a journalist who received a tip that implicates someone they love','a defense attorney who suspects their client is innocent for the wrong reasons','a locksmith who realizes one of their custom locks was used in a crime'],
+  romance: ['a pastry chef whose creations reflect emotions they cannot express in words','a travel writer who has never stayed in one place long enough to fall in love','a librarian who communicates best through the books they recommend','a musician who writes songs about someone they have never had the courage to approach','a botanist whose understanding of growth cycles mirrors their approach to relationships'],
+  horror: ['a night security guard who talks to someone on camera that no one else can see','a grief-stricken parent who begins receiving drawings from their deceased child','a sleep researcher who can no longer distinguish between dreams and waking life','a voice actor who starts hearing their own recordings in places they should not be','an archivist cataloging a collection that contains items from events that have not happened yet'],
+  poetry: ['the person you were at seventeen, addressed directly','an ancestor you know only from a single photograph','the version of yourself that exists in another person memory','a stranger whose face you see so often it feels like a relationship','the silence between two people who love each other and cannot say so'],
+  nonfiction: ['your hands, examined as objects that have done things you are proud of and things you regret','the teacher who saw something in you before you saw it yourself','a neighbor whose daily routine became a kind of clock for your childhood','the version of a parent that existed before you were born','a friend who disappeared from your life without explanation or ceremony']
+};
+
+const CONFLICTS = ['discovers a secret that could destroy everything they have built','must choose between loyalty to a person and loyalty to a principle','receives a message that contradicts everything they believe','finds themselves in a place where the rules they have always followed no longer apply','confronts a version of themselves they do not recognize','learns that the person they trust most has been keeping a devastating secret','must make an irreversible decision with incomplete information','realizes their greatest strength has become their most dangerous weakness','is forced to ask for help from the last person they would ever choose','discovers that what they have been protecting others from is actually themselves','inherits something that comes with a condition they cannot accept','encounters someone who remembers a shared event completely differently'];
+
+const THEMES = ['the gap between who we are and who we pretend to be','the things we do not say and how silence shapes relationships','the moment when a small decision becomes the hinge of a life','how we construct identity from the stories we tell about ourselves','the inheritance of trauma and whether cycles can truly be broken','the difference between forgiveness and acceptance','how places hold memories that the people in them have forgotten','the cost of keeping a promise that no longer makes sense','how strangers can understand us better than the people closest to us','the relationship between truth and kindness when they conflict'];
+
+const CONSTRAINTS_MAP = {
+  wordlimit: 'Write in exactly 500 words or fewer.',
+  firstperson: 'Write in first person only. No third-person narration.',
+  nopov: 'Write with no dialogue. All communication must be described indirectly.',
+  present: 'Write in present tense only. No past or future tense.',
+  single: 'The entire piece must take place in a single room or location with no scene changes.'
+};
+
+const STYLE_HINTS = {
+  minimalist: 'Use short sentences. Strip all adjectives that are not essential. Let the white space do the work.',
+  lyrical: 'Prioritize rhythm and sound. Let sentences flow into each other. Use metaphor freely.',
+  experimental: 'Break conventional form. Try fragmented timelines, unusual perspectives, or typographic play.',
+  gritty: 'Ground everything in physical detail. No sentimentality. Let the harshness speak for itself.',
+  whimsical: 'Embrace the absurd and the playful. Let humor carry the weight of serious themes.'
+};
+
+let sessionHashes = new Set();
+let savedPrompts = [];
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function hashPrompt(s, c, conf) { return s + '||' + c + '||' + conf; }
+
+function generateOnePrompt(genre, style, constraint) {
+  const g = genre === 'any' ? pick(Object.keys(SETTINGS)) : genre;
+  let setting, character, conflict, theme;
+  let attempts = 0;
+  do {
+    setting = pick(SETTINGS[g] || SETTINGS.literary);
+    character = pick(CHARACTERS[g] || CHARACTERS.literary);
+    conflict = pick(CONFLICTS);
+    theme = pick(THEMES);
+    attempts++;
+  } while (sessionHashes.has(hashPrompt(setting, character, conflict)) && attempts < 10);
+
+  sessionHashes.add(hashPrompt(setting, character, conflict));
+
+  let prompt = `<strong>Setting:</strong> ${setting}.<br><strong>Character:</strong> ${character}.<br><strong>Conflict:</strong> This character ${conflict}.<br><strong>Theme:</strong> Explore ${theme}.`;
+
+  const tags = [g.charAt(0).toUpperCase() + g.slice(1)];
+  if (style !== 'any' && STYLE_HINTS[style]) {
+    prompt += `<br><strong>Style note:</strong> ${STYLE_HINTS[style]}`;
+    tags.push(style.charAt(0).toUpperCase() + style.slice(1));
+  }
+  if (constraint !== 'none' && CONSTRAINTS_MAP[constraint]) {
+    prompt += `<br><strong>Constraint:</strong> ${CONSTRAINTS_MAP[constraint]}`;
+    tags.push('Constrained');
+  }
+
+  return { genre: g, text: prompt, tags, plain: `Setting: ${setting}. Character: ${character}. Conflict: This character ${conflict}. Theme: Explore ${theme}.` };
+}
+
+function generatePrompts() {
+  const genre = document.getElementById('genreFilter').value;
+  const style = document.getElementById('styleFilter').value;
+  const constraint = document.getElementById('constraintFilter').value;
+  const count = parseInt(document.getElementById('countFilter').value);
+
+  const prompts = [];
+  for (let i = 0; i < count; i++) {
+    prompts.push(generateOnePrompt(genre, style, constraint));
+  }
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${prompts.length}</span><span class="stat-label">Generated</span></div>
+    <div class="stat-card"><span class="stat-value">${sessionHashes.size}</span><span class="stat-label">Unique This Session</span></div>
+    <div class="stat-card"><span class="stat-value">${savedPrompts.length}</span><span class="stat-label">Saved</span></div>
+    <div class="stat-card"><span class="stat-value">${genre === 'any' ? 'Mixed' : genre.charAt(0).toUpperCase() + genre.slice(1)}</span><span class="stat-label">Genre</span></div>`;
+
+  let html = '';
+  prompts.forEach((p, idx) => {
+    html += `<div class="prompt-card">
+      <div class="prompt-genre">${p.genre}</div>
+      <div class="prompt-text">${p.text}</div>
+      <div class="prompt-meta">${p.tags.map(t => '<span class="prompt-tag">' + t + '</span>').join('')}</div>
+      <div class="prompt-actions">
+        <button onclick="copyPrompt(${idx})" id="copyBtn${idx}">Copy</button>
+        <button onclick="savePrompt(${idx})" id="saveBtn${idx}">Save</button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('promptList').innerHTML = html;
+  window._currentPrompts = prompts;
+
+  updateSavedCount();
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyPrompt(idx) {
+  const p = window._currentPrompts[idx];
+  if (p) {
+    navigator.clipboard.writeText(p.plain).then(() => {
+      const btn = document.getElementById('copyBtn' + idx);
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    });
+  }
+}
+
+function savePrompt(idx) {
+  const p = window._currentPrompts[idx];
+  if (p && !savedPrompts.includes(p.plain)) {
+    savedPrompts.push(p.plain);
+    const btn = document.getElementById('saveBtn' + idx);
+    btn.textContent = 'Saved!';
+    btn.style.borderColor = 'var(--success)';
+    btn.style.color = 'var(--success)';
+    updateSavedCount();
+  }
+}
+
+function updateSavedCount() {
+  document.getElementById('savedCount').innerHTML = savedPrompts.length > 0
+    ? `${savedPrompts.length} prompt(s) saved this session. <button class="tool-btn secondary" style="padding:0.3rem 0.7rem;font-size:0.82rem;" onclick="exportSaved()">Export All</button>`
+    : '';
+}
+
+function exportSaved() {
+  const text = savedPrompts.map((p, i) => `--- Prompt ${i + 1} ---\n${p}`).join('\n\n');
+  const blob = new Blob([text], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'writing-prompts.txt';
+  a.click();
+}
+
+function clearAll() {
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>

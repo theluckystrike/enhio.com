@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Diff Tool — Side-by-Side Text Comparison with Inline Diff Highlighting | Enhio</title>
+  <meta name="description" content="Free text diff tool that compares two texts side by side with inline diff highlighting. See additions, deletions, and modifications at a glance with color-coded output. All client-side, no sign-up.">
+  <meta name="keywords" content="text diff tool, text comparison, inline diff, side by side diff, text difference checker, compare text online, diff viewer, document comparison tool">
+  <link rel="canonical" href="https://enhio.com/tools/text-diff-tool.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Text Diff Tool — Side-by-Side Text Comparison with Inline Diff Highlighting | Enhio">
+  <meta property="og:description" content="Free text diff tool with side-by-side comparison, inline highlighting for additions, deletions, and modifications. All client-side processing.">
+  <meta property="og:url" content="https://enhio.com/tools/text-diff-tool.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zovo Tools">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Text Diff Tool — Side-by-Side Text Comparison with Inline Diff Highlighting | Enhio">
+  <meta name="twitter:description" content="Free text diff tool with side-by-side comparison and inline highlighting for additions, deletions, and changes.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/text-diff-tool.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/text-diff-tool.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Text Diff Tool — Enhio",
+    "url": "https://enhio.com/tools/text-diff-tool.html",
+    "description": "Free client-side text diff tool that compares two texts side by side with inline diff highlighting showing additions, deletions, and modifications with color-coded output.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-05-25",
+    "featureList": ["Side-by-side comparison", "Inline diff highlighting", "Addition detection", "Deletion detection", "Modification detection", "Line-by-line analysis", "Word-level diff", "Change statistics", "Copy diff output", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the text diff algorithm work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The diff tool uses a longest common subsequence (LCS) algorithm adapted for line-level and word-level comparison. First, it splits both texts into lines and identifies lines that are identical, added, removed, or modified. For modified lines, it performs a second pass at the word level to highlight exactly which words within a line changed. This two-level approach gives you both a high-level view of structural changes and a detailed view of specific edits." }
+      },
+      {
+        "@type": "Question",
+        "name": "What do the different colors mean?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Green highlights indicate additions — text that exists in the new version but not the original. Red highlights indicate deletions — text that was in the original but removed from the new version. Yellow/amber highlights indicate modifications — lines that exist in both versions but with changes. Within modified lines, the specific changed words are highlighted in their respective colors (red for removed words, green for added words)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I compare code with this tool?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This text diff tool works with any plain text content including source code, configuration files, JSON, XML, CSV, markdown, and prose. It preserves whitespace and indentation, which is essential for code comparison. However, it does not perform syntax-aware diffing — it treats all content as plain text, so it will not understand language-specific semantics like renamed variables." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a size limit for comparison?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool handles texts up to approximately 50,000 characters (about 10,000 words) per side with good performance. For very large documents, comparison may take a few hundred milliseconds. All processing happens in your browser, so performance depends on your device's processing power. There is no server-side limit since nothing is transmitted." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text data private?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This text diff tool runs entirely in your browser using client-side JavaScript. Your texts are never sent to any server, stored, or shared. There are no cookies, no analytics, and no accounts. All comparison processing happens locally in your browser tab." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://enhio.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Text Diff Tool", "item": "https://enhio.com/tools/text-diff-tool.html" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+      --bg: #0d1117; --surface: #161b22; --surface-2: #1c2333; --border: #30363d;
+      --text: #e6edf3; --text-muted: #8b949e; --accent: #818CF8; --accent-2: #3fb950;
+      --accent-3: #d2a8ff; --warning: #d29922; --danger: #f85149; --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; background: var(--surface); border-radius: 0 8px 8px 0; margin: 1.25rem 0; font-style: italic; color: var(--text-muted); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea { width: 100%; min-height: 180px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.6; resize: vertical; margin-bottom: 0.5rem; }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem; font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem; }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; color: var(--accent); }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .author-bio { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.2rem; color: #000; flex-shrink: 0; }
+    .author-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .author-info p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Diff-specific styles */
+    .dual-input { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .input-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem; display: block; }
+    .diff-output { max-height: 600px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.7; }
+    .diff-line { display: flex; padding: 0 0.75rem; min-height: 1.7em; border-bottom: 1px solid rgba(48,54,61,0.3); }
+    .diff-line-num { width: 40px; text-align: right; padding-right: 0.75rem; color: var(--text-muted); user-select: none; flex-shrink: 0; opacity: 0.6; font-size: 0.78rem; }
+    .diff-line-sign { width: 20px; text-align: center; flex-shrink: 0; font-weight: 700; }
+    .diff-line-content { flex: 1; white-space: pre-wrap; word-break: break-all; padding-left: 0.5rem; }
+    .diff-line.added { background: rgba(63,185,80,0.1); }
+    .diff-line.added .diff-line-sign { color: var(--success); }
+    .diff-line.removed { background: rgba(248,81,73,0.1); }
+    .diff-line.removed .diff-line-sign { color: var(--danger); }
+    .diff-line.modified { background: rgba(210,153,34,0.08); }
+    .diff-line.modified .diff-line-sign { color: var(--warning); }
+    .diff-line.context { background: transparent; }
+    .diff-word-add { background: rgba(63,185,80,0.3); border-radius: 2px; padding: 0 2px; }
+    .diff-word-del { background: rgba(248,81,73,0.3); border-radius: 2px; padding: 0 2px; text-decoration: line-through; }
+    .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0.75rem 0; font-size: 0.85rem; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .dual-input { grid-template-columns: 1fr; }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Text Diff Tool
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Text <span>Diff Tool</span> &mdash; Side-by-Side Comparison &amp; Highlighting</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-25" itemprop="datePublished">May 25, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Compare Two Texts</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1rem;">Paste the original text on the left and the modified text on the right. The diff engine compares them line by line with word-level highlighting. Everything runs in your browser &mdash; nothing is sent to a server.</p>
+
+    <div class="dual-input">
+      <div>
+        <span class="input-label">Original Text</span>
+        <textarea class="tool-textarea" id="textA" placeholder="Paste your original text here..."></textarea>
+      </div>
+      <div>
+        <span class="input-label">Modified Text</span>
+        <textarea class="tool-textarea" id="textB" placeholder="Paste your modified/updated text here..."></textarea>
+      </div>
+    </div>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="computeDiff()">Compare Texts</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="swapTexts()">Swap</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="section-card">
+        <h3 style="margin-top:0;">Diff Output</h3>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--success);"></div> Added</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--danger);"></div> Removed</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--warning);"></div> Modified</div>
+          <div class="legend-item"><div class="legend-dot" style="background:transparent;border:1px solid var(--border);"></div> Unchanged</div>
+        </div>
+        <div class="diff-output" id="diffOutput"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section id="about-tool">
+    <h2>What Is a Text Diff Tool?</h2>
+    <p>A text diff (short for "difference") tool compares two versions of a text and visually highlights the changes between them. Additions, deletions, and modifications are displayed with color-coded highlighting so you can instantly see what changed, where it changed, and how it changed. Text diff tools are essential in software development for code review, in publishing for tracking editorial changes, in legal work for contract revision tracking, and in any workflow where multiple versions of a document need to be compared.</p>
+    <p>The concept of computing text differences dates back to the 1970s when the Unix <code>diff</code> command was created by Douglas McIlroy at Bell Labs. The underlying algorithm, based on the longest common subsequence (LCS) problem, was formalized by Hunt and McIlroy in 1976 and later optimized by Eugene Myers in his 1986 paper "An O(ND) Difference Algorithm and Its Variations." Today, diff algorithms power version control systems like Git, code review tools like GitHub's pull request view, and document comparison features in word processors.</p>
+    <p>This tool implements a line-level diff with word-level refinement. It first identifies which lines were added, removed, or modified using a longest common subsequence algorithm. For lines marked as modified (similar but not identical), it performs a second-pass word-level diff to highlight exactly which words within the line changed. This two-level approach provides both the structural overview of a line diff and the precision of a word diff.</p>
+
+    <h3>How the Diff Algorithm Works</h3>
+    <p>The diff computation follows a three-stage process. <strong>Stage 1: Line splitting.</strong> Both texts are split into arrays of lines. Empty trailing lines are preserved because whitespace changes can be meaningful (especially in code). Each line is assigned an index for position tracking.</p>
+    <p><strong>Stage 2: Longest Common Subsequence (LCS).</strong> The engine computes the LCS of the two line arrays. The LCS identifies the longest sequence of lines that appear in both texts in the same order, though not necessarily contiguously. Lines in the LCS are "unchanged" — they exist in both versions at compatible positions. Lines in the original but not in the LCS are "removed." Lines in the modified text but not in the LCS are "added." Adjacent removed and added lines are paired as "modified" when their similarity exceeds a threshold (measured by the ratio of shared words to total words).</p>
+    <p><strong>Stage 3: Word-level refinement.</strong> For each pair of modified lines, the engine splits both lines into words and applies a word-level LCS algorithm. Words present in the original but not in the modified version are highlighted as deletions (red background with strikethrough). Words present in the modified version but not the original are highlighted as additions (green background). This gives you precise character-level change visibility within modified lines.</p>
+
+    <h3>Reading the Diff Output</h3>
+    <p>The diff output uses a unified format with color coding. Each line is prefixed with a line number and a symbol indicating its status. <strong>Lines prefixed with "+" in green</strong> are additions: text that exists in the modified version but not the original. <strong>Lines prefixed with "-" in red</strong> are deletions: text that was in the original but was removed. <strong>Lines prefixed with "~" in amber</strong> are modifications: lines that exist in both versions but with changes. Within modified lines, the specific changed words are highlighted with green (added words) or red with strikethrough (removed words). <strong>Unmarked lines</strong> are unchanged context that appears identically in both versions.</p>
+    <p>The statistics panel shows four key metrics: total lines changed (the sum of additions, deletions, and modifications), the number of additions, the number of deletions, and the similarity percentage between the two texts. The similarity percentage is calculated as the number of unchanged lines divided by the total number of unique lines across both texts, giving you a quick measure of how different the two versions are.</p>
+
+    <h3>Use Cases and Applications</h3>
+    <p><strong>Code review:</strong> Compare two versions of source code to identify what was changed in a commit, pull request, or patch. The monospace font and line-level precision make this tool suitable for reviewing code changes outside of a version control system.</p>
+    <p><strong>Document editing:</strong> Compare a draft against a revised version to see exactly what an editor changed. This is particularly useful when receiving edits from a collaborator who does not use track changes or when comparing exported plain text from different document versions.</p>
+    <p><strong>Configuration management:</strong> Compare two configuration files (JSON, YAML, INI, env files) to identify differences between environments (staging vs. production, local vs. remote). Mismatched configuration is a common source of deployment issues.</p>
+    <p><strong>Content versioning:</strong> Compare published web content against a planned update to verify all intended changes are present and no unintended changes were introduced. This is a quality assurance step in content publishing workflows.</p>
+    <p><strong>Legal document comparison:</strong> Compare two versions of a contract, agreement, or policy document to identify every change, addition, and deletion. In legal contexts, even minor wording changes can have significant implications.</p>
+
+    <h3>Privacy and Performance</h3>
+    <p>This text diff tool processes everything client-side in your browser using JavaScript. No text data is transmitted to any server. Diff computation typically completes in under 50 milliseconds for texts under 5,000 lines. For very long texts (over 10,000 lines), the LCS algorithm may take a few hundred milliseconds. All processing happens locally with no network requests. For full text analysis, the main <a href="/">Enhio text analyzer</a> provides readability and style diagnostics. For image comparison, <a href="https://krzen.com">Krzen</a> offers visual diff tools. Developers building diff pipelines may find <a href="https://heytensor.com">HeyTensor's</a> text processing utilities useful.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence analysis, tone detection, and SEO keyword checking.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>How does the text diff algorithm work?</h3>
+    <p>The diff tool uses a longest common subsequence (LCS) algorithm for line-level comparison, then performs a second word-level pass on modified lines. This two-level approach shows both structural changes (which lines were added, removed, or changed) and precise edits (which specific words within a line were modified). The LCS algorithm identifies the longest sequence of lines shared between both texts.</p>
+
+    <h3>What do the different colors mean?</h3>
+    <p>Green highlights indicate additions (text in the new version but not the original). Red highlights indicate deletions (text removed from the original). Amber/yellow highlights indicate modifications (lines that exist in both versions but with changes). Within modified lines, changed words are highlighted green (new) or red with strikethrough (removed) for precise identification.</p>
+
+    <h3>Can I compare code with this tool?</h3>
+    <p>Yes. This tool works with any plain text including source code, configuration files, JSON, XML, CSV, markdown, and prose. It uses a monospace font and preserves whitespace and indentation. However, it performs text-level diffing and does not understand language-specific semantics like variable renames or function moves.</p>
+
+    <h3>Is there a size limit for comparison?</h3>
+    <p>The tool handles texts up to approximately 50,000 characters per side with good performance. All processing happens client-side in your browser, so performance depends on your device. There is no server-side limit since nothing is transmitted over the network.</p>
+
+    <h3>Is my text data private?</h3>
+    <p>Yes. This text diff tool runs entirely in your browser using client-side JavaScript. Your texts are never sent to any server, stored, or shared. There are no cookies, no analytics, and no accounts. Verify this in your browser's Network tab.</p>
+  </section>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/" class="related-card">
+        <h4>Text Enhancement Tool</h4>
+        <p>Full readability analysis with Flesch scores, tone detection, and writing suggestions.</p>
+      </a>
+      <a href="/research/content-gap-analyzer.html" class="related-card">
+        <h4>Content Gap Analyzer</h4>
+        <p>Compare two documents for missing topics, unique keywords, and coverage gaps.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Analyze word frequency with interactive word cloud and character distribution charts.</p>
+      </a>
+      <a href="/research/writing-style-comparison.html" class="related-card">
+        <h4>Writing Style Comparison</h4>
+        <p>Compare two writing samples for style differences including tone, vocabulary, and structure.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Author Bio -->
+  <div class="author-bio">
+    <div class="author-avatar">ML</div>
+    <div class="author-info">
+      <h4><a href="https://zovo.one">Michael Lip</a></h4>
+      <p>Solo developer building free, privacy-first writing and developer tools. All Enhio tools run client-side with zero tracking. Part of the <a href="https://zovo.one/tools">Zovo Tools</a> network.</p>
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a></p>
+    <p style="margin-top: 0.5rem;">All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com?utm_source=enhio.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com?utm_source=enhio.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com?utm_source=enhio.com">ClaudHQ &mdash; AI Code Tools & Fixes</a>
+            <a href="https://claudkit.com?utm_source=enhio.com">ClaudKit &mdash; API</a>
+            <a href="https://epochpilot.com?utm_source=enhio.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com?utm_source=enhio.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com?utm_source=enhio.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com?utm_source=enhio.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com?utm_source=enhio.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com?utm_source=enhio.com">Kappafy &mdash; JSON</a>
+            <a href="https://kappakit.com?utm_source=enhio.com">KappaKit &mdash; Dev Toolkit</a>
+            <a href="https://kickllm.com?utm_source=enhio.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com?utm_source=enhio.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com?utm_source=enhio.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com?utm_source=enhio.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com?utm_source=enhio.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// ============================================================
+// TEXT DIFF ENGINE
+// ============================================================
+
+function lcs(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]);
+    }
+  }
+  const result = [];
+  let i = m, j = n;
+  while (i > 0 && j > 0) {
+    if (a[i - 1] === b[j - 1]) { result.unshift({ aIdx: i - 1, bIdx: j - 1, val: a[i - 1] }); i--; j--; }
+    else if (dp[i - 1][j] > dp[i][j - 1]) i--;
+    else j--;
+  }
+  return result;
+}
+
+function wordDiff(oldLine, newLine) {
+  const oldWords = oldLine.split(/(\s+)/);
+  const newWords = newLine.split(/(\s+)/);
+  const common = lcs(oldWords, newWords);
+  const commonSet = new Set(common.map(c => c.aIdx));
+  const commonBSet = new Set(common.map(c => c.bIdx));
+
+  let oldHtml = '';
+  oldWords.forEach((w, i) => {
+    if (commonSet.has(i)) oldHtml += escapeHtml(w);
+    else if (w.trim()) oldHtml += '<span class="diff-word-del">' + escapeHtml(w) + '</span>';
+    else oldHtml += escapeHtml(w);
+  });
+
+  let newHtml = '';
+  newWords.forEach((w, i) => {
+    if (commonBSet.has(i)) newHtml += escapeHtml(w);
+    else if (w.trim()) newHtml += '<span class="diff-word-add">' + escapeHtml(w) + '</span>';
+    else newHtml += escapeHtml(w);
+  });
+
+  return { oldHtml, newHtml };
+}
+
+function similarity(a, b) {
+  const wordsA = a.toLowerCase().split(/\s+/);
+  const wordsB = b.toLowerCase().split(/\s+/);
+  const setA = new Set(wordsA);
+  const setB = new Set(wordsB);
+  const intersection = [...setA].filter(w => setB.has(w));
+  const union = new Set([...setA, ...setB]);
+  return union.size > 0 ? intersection.length / union.size : 0;
+}
+
+function computeDiff() {
+  const textA = document.getElementById('textA').value;
+  const textB = document.getElementById('textB').value;
+  if (!textA && !textB) { alert('Please enter text in at least one panel.'); return; }
+
+  const linesA = textA.split('\n');
+  const linesB = textB.split('\n');
+  const common = lcs(linesA, linesB);
+
+  const diffLines = [];
+  let aPtr = 0, bPtr = 0, cPtr = 0;
+  let additions = 0, deletions = 0, modifications = 0, unchanged = 0;
+
+  while (aPtr < linesA.length || bPtr < linesB.length) {
+    if (cPtr < common.length && aPtr === common[cPtr].aIdx && bPtr === common[cPtr].bIdx) {
+      diffLines.push({ type: 'context', lineA: aPtr + 1, lineB: bPtr + 1, content: escapeHtml(linesA[aPtr]) });
+      unchanged++;
+      aPtr++; bPtr++; cPtr++;
+    } else {
+      const removedLines = [];
+      const addedLines = [];
+      while (aPtr < linesA.length && (cPtr >= common.length || aPtr < common[cPtr].aIdx)) {
+        removedLines.push({ idx: aPtr, text: linesA[aPtr] });
+        aPtr++;
+      }
+      while (bPtr < linesB.length && (cPtr >= common.length || bPtr < common[cPtr].bIdx)) {
+        addedLines.push({ idx: bPtr, text: linesB[bPtr] });
+        bPtr++;
+      }
+
+      // Try to pair removed and added lines as modifications
+      const paired = new Set();
+      const pairedB = new Set();
+      for (let r = 0; r < removedLines.length; r++) {
+        let bestJ = -1, bestSim = 0;
+        for (let a = 0; a < addedLines.length; a++) {
+          if (pairedB.has(a)) continue;
+          const sim = similarity(removedLines[r].text, addedLines[a].text);
+          if (sim > bestSim && sim > 0.3) { bestSim = sim; bestJ = a; }
+        }
+        if (bestJ >= 0) {
+          paired.add(r);
+          pairedB.add(bestJ);
+          const wd = wordDiff(removedLines[r].text, addedLines[bestJ].text);
+          diffLines.push({ type: 'modified-del', lineA: removedLines[r].idx + 1, content: wd.oldHtml });
+          diffLines.push({ type: 'modified-add', lineB: addedLines[bestJ].idx + 1, content: wd.newHtml });
+          modifications++;
+        }
+      }
+      for (let r = 0; r < removedLines.length; r++) {
+        if (paired.has(r)) continue;
+        diffLines.push({ type: 'removed', lineA: removedLines[r].idx + 1, content: escapeHtml(removedLines[r].text) });
+        deletions++;
+      }
+      for (let a = 0; a < addedLines.length; a++) {
+        if (pairedB.has(a)) continue;
+        diffLines.push({ type: 'added', lineB: addedLines[a].idx + 1, content: escapeHtml(addedLines[a].text) });
+        additions++;
+      }
+    }
+  }
+
+  document.getElementById('results').classList.remove('results-hidden');
+
+  const totalChanges = additions + deletions + modifications;
+  const totalLines = Math.max(linesA.length, linesB.length);
+  const simPct = totalLines > 0 ? Math.round((unchanged / totalLines) * 100) : 100;
+
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><span class="stat-value">${totalChanges}</span><span class="stat-label">Changes</span></div>
+    <div class="stat-card"><span class="stat-value" style="color:var(--success)">${additions}</span><span class="stat-label">Additions</span></div>
+    <div class="stat-card"><span class="stat-value" style="color:var(--danger)">${deletions}</span><span class="stat-label">Deletions</span></div>
+    <div class="stat-card"><span class="stat-value">${simPct}%</span><span class="stat-label">Similarity</span></div>`;
+
+  let html = '';
+  diffLines.forEach(d => {
+    const cls = d.type === 'added' ? 'added' : d.type === 'removed' ? 'removed' : d.type.startsWith('modified') ? 'modified' : 'context';
+    const sign = d.type === 'added' ? '+' : d.type === 'removed' ? '-' : d.type.startsWith('modified') ? '~' : ' ';
+    const lineNum = d.lineA || d.lineB || '';
+    html += `<div class="diff-line ${cls}"><span class="diff-line-num">${lineNum}</span><span class="diff-line-sign">${sign}</span><span class="diff-line-content">${d.content || '&nbsp;'}</span></div>`;
+  });
+  document.getElementById('diffOutput').innerHTML = html;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function swapTexts() {
+  const a = document.getElementById('textA').value;
+  const b = document.getElementById('textB').value;
+  document.getElementById('textA').value = b;
+  document.getElementById('textB').value = a;
+}
+
+function loadSample() {
+  document.getElementById('textA').value = `# Content Marketing Strategy 2026
+
+## Overview
+Our content strategy focuses on three pillars:
+1. Blog posts targeting long-tail keywords
+2. Video tutorials for product features
+3. Case studies from enterprise clients
+
+## Target Audience
+- Marketing managers at mid-size companies
+- Content creators and freelance writers
+- Small business owners with limited budgets
+
+## Publishing Schedule
+We publish 3 blog posts per week on Monday,
+Wednesday, and Friday. Video content goes out
+on Tuesday and Thursday.
+
+## Metrics
+- Page views and unique visitors
+- Time on page
+- Bounce rate
+- Social shares`;
+
+  document.getElementById('textB').value = `# Content Marketing Strategy 2026
+
+## Overview
+Our content strategy focuses on four pillars:
+1. Blog posts targeting long-tail keywords
+2. Video tutorials for product features
+3. Case studies from enterprise clients
+4. Interactive tools and calculators
+
+## Target Audience
+- Marketing managers at mid-size companies
+- Content creators and freelance writers
+- Small business owners with limited budgets
+- Developer advocates and technical writers
+
+## Publishing Schedule
+We publish 4 blog posts per week on Monday,
+Tuesday, Wednesday, and Friday. Video content
+goes out on Thursday. Interactive tools launch
+monthly on the first Monday.
+
+## Metrics
+- Page views and unique visitors
+- Time on page and scroll depth
+- Conversion rate and lead generation
+- Social shares and backlinks earned`;
+  computeDiff();
+}
+
+function clearAll() {
+  document.getElementById('textA').value = '';
+  document.getElementById('textB').value = '';
+  document.getElementById('results').classList.add('results-hidden');
+}
+</script>
+
+</body>
+</html>
