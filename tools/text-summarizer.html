@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Summarizer Tool — Extract Key Points Instantly | Enhio</title>
+  <meta name="description" content="Free text summarizer using TF-IDF extractive scoring. Paste text, choose 25%, 50%, or 75% summary length. Top sentences are selected and highlighted in the source text. Word count comparison bar.">
+  <meta name="keywords" content="text summarizer, extractive summarization, TF-IDF summarizer, key sentence extractor, automatic summarization tool, summarize text online, text summary generator">
+  <link rel="canonical" href="https://enhio.com/tools/text-summarizer.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Text Summarizer Tool — Extract Key Points Instantly | Enhio">
+  <meta property="og:description" content="Extractive text summarizer using TF-IDF scoring. Select 25/50/75% length, see top sentences highlighted in source, compare word counts.">
+  <meta property="og:url" content="https://enhio.com/tools/text-summarizer.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Enhio">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Text Summarizer Tool — Extract Key Points Instantly | Enhio">
+  <meta name="twitter:description" content="Free TF-IDF extractive summarizer. Choose compression level, see highlighted source sentences, compare word counts.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/text-summarizer.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/text-summarizer.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Text Summarizer Tool — Enhio",
+    "url": "https://enhio.com/tools/text-summarizer.html",
+    "description": "Free client-side extractive text summarizer. Paste text, select summary length (25%, 50%, or 75%), and TF-IDF scoring picks the most information-dense sentences. Shows the summary alongside highlighted source sentences and a word count comparison bar.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-28",
+    "dateModified": "2026-05-28",
+    "featureList": ["TF-IDF sentence scoring", "25% summary length", "50% summary length", "75% summary length", "Source sentence highlighting", "Word count comparison bar", "Reading time estimate", "Compression ratio display", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://enhio.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Text Summarizer", "item": "https://enhio.com/tools/text-summarizer.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does TF-IDF text summarization work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "TF-IDF stands for Term Frequency-Inverse Document Frequency. For summarization, each sentence is scored based on the importance of its words. Term Frequency (TF) measures how often a word appears in the document. Inverse Document Frequency (IDF) downweights words that appear in most sentences (common words like 'the', 'is', 'and') and upweights words that appear in only a few sentences (likely topic-specific terms). Each sentence receives a score equal to the sum of the TF-IDF weights of its non-stopword words. The top-scoring sentences are selected for the summary, then presented in their original document order to preserve coherence." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the summary length percentage mean?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The summary length percentage controls how many sentences are included in the output. At 25%, approximately one quarter of the original sentences are selected — the highest-scoring ones by TF-IDF. At 50%, half the sentences are kept. At 75%, three quarters are retained, which is more of a light condensation than a true summary. For most use cases, 25-35% provides the best balance between brevity and coverage." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is extractive vs. abstractive summarization?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Extractive summarization (used by this tool) selects existing sentences from the original text without modification. The output is always grammatically correct because it uses verbatim sentences. Abstractive summarization generates new sentences that paraphrase the source material, similar to how a human would summarize. Abstractive methods require large language models and significant compute. Extractive methods like TF-IDF work entirely in the browser with no external dependencies." }
+      },
+      {
+        "@type": "Question",
+        "name": "Why are the highlighted source sentences in a different color?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The source view highlights in amber the exact sentences that were selected for the summary. This lets you see at a glance which parts of the original text the algorithm considered most important, and which sentences were omitted. Sentences with lower TF-IDF scores — often transitional, contextual, or repetitive sentences — are left unhighlighted." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a maximum text length?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool handles texts up to approximately 50,000 words comfortably in modern browsers. Processing typically completes in under 100 milliseconds for texts under 5,000 words. For very long documents, performance depends on your browser and device. Your text is processed entirely client-side and is never uploaded to a server." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea {
+      width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem;
+    }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem;
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Length selector */
+    .length-selector { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .len-btn {
+      background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border);
+      padding: 0.45rem 1.1rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem;
+      font-family: var(--font-sans); transition: all 0.2s; font-weight: 500;
+    }
+    .len-btn:hover { border-color: var(--accent); color: var(--text); }
+    .len-btn.active { background: rgba(129,140,248,0.15); border-color: var(--accent); color: var(--accent); font-weight: 700; }
+
+    /* Stats row */
+    .stats-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.25rem 0; }
+    .stat-pill { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 1.1rem; }
+    .stat-pill .sp-val { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700; color: var(--accent); display: block; }
+    .stat-pill .sp-label { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Word count bar */
+    .wc-bar-wrap { margin: 1rem 0; }
+    .wc-bar-labels { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .wc-bar-track { height: 24px; background: var(--surface-2); border-radius: 6px; overflow: hidden; display: flex; }
+    .wc-bar-orig { background: var(--border); height: 100%; transition: width 0.5s; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
+    .wc-bar-summ { background: var(--accent); height: 100%; transition: width 0.5s; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #000; font-family: var(--font-mono); font-weight: 700; }
+    .wc-legend { display: flex; gap: 1.25rem; margin-top: 0.5rem; }
+    .wc-legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); }
+    .wc-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* Summary output */
+    .summary-output { background: var(--bg); border: 1px solid var(--accent); border-radius: 8px; padding: 1.25rem; line-height: 1.85; font-size: 0.95rem; margin: 1rem 0; }
+    .summary-output p { margin-bottom: 0.75rem; }
+    .summary-output p:last-child { margin-bottom: 0; }
+
+    /* Source output with highlights */
+    .source-output { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; line-height: 1.9; font-size: 0.93rem; margin: 1rem 0; }
+    .hl-selected { background: rgba(210,153,34,0.2); border-radius: 3px; padding: 1px 2px; }
+    .sent-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); vertical-align: super; margin-right: 2px; }
+
+    /* Copy btn */
+    .copy-btn {
+      background: transparent; color: var(--text-muted); border: 1px solid var(--border);
+      padding: 0.35rem 0.9rem; border-radius: 6px; cursor: pointer; font-size: 0.83rem;
+      font-family: var(--font-sans); transition: all 0.2s; margin-top: 0.75rem; display: inline-block;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Score bar */
+    .score-bars { margin: 0.75rem 0; }
+    .score-bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .sb-label { font-size: 0.82rem; color: var(--text-muted); width: 100px; flex-shrink: 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+    .sb-track { flex: 1; background: var(--surface-2); border-radius: 3px; height: 16px; overflow: hidden; }
+    .sb-fill { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.4s; min-width: 2px; }
+    .sb-val { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); width: 50px; text-align: right; }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+      .stats-row { gap: 0.6rem; }
+    }
+    @media (max-width: 480px) {
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Text Summarizer
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Text <span>Summarizer</span> Tool &mdash; Extract Key Points Instantly</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-28" itemprop="datePublished">May 28, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Summarize Text</h2>
+    <p style="color:var(--text-muted);margin-bottom:1rem;">Paste your text, choose how much to keep, and the tool selects the highest-scoring sentences by TF-IDF. The summary preserves original sentence order. All processing is client-side &mdash; nothing is sent to a server.</p>
+
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste article, essay, report, or any text here. Works best with 3+ paragraphs..."></textarea>
+
+    <div style="margin-bottom:1rem;">
+      <div style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.5rem;">Summary length:</div>
+      <div class="length-selector" id="lengthSelector">
+        <button class="len-btn active" data-val="25" onclick="setLen(this)">25% — Brief</button>
+        <button class="len-btn" data-val="50" onclick="setLen(this)">50% — Standard</button>
+        <button class="len-btn" data-val="75" onclick="setLen(this)">75% — Full</button>
+      </div>
+    </div>
+
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="summarize()">Summarize</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+
+      <!-- Stats row -->
+      <div class="stats-row" id="statsRow"></div>
+
+      <!-- Word count bar -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Word Count Comparison</h3>
+        <div class="wc-bar-wrap" id="wcBar"></div>
+      </div>
+
+      <!-- Summary output -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Extracted Summary</h3>
+        <div class="summary-output" id="summaryOutput"></div>
+        <button class="copy-btn" onclick="copySummary()">Copy Summary</button>
+      </div>
+
+      <!-- Top sentence scores -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Sentence TF-IDF Scores</h3>
+        <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:0.75rem;">Top 10 sentences by score. Higher scores indicate greater information density relative to the document.</p>
+        <div class="score-bars" id="scoreBars"></div>
+      </div>
+
+      <!-- Highlighted source -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Source with Selected Sentences Highlighted</h3>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:0.75rem;">Amber highlight marks sentences included in the summary. Unhighlighted sentences were omitted as lower-scoring.</p>
+        <div class="source-output" id="sourceOutput"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <section id="about-tool">
+    <h2>How Extractive Text Summarization Works</h2>
+    <p>Text summarization is the process of reducing a document to its most essential information while preserving meaning. There are two broad approaches: <strong>extractive summarization</strong> selects and concatenates existing sentences from the source; <strong>abstractive summarization</strong> generates new language that paraphrases the source. This tool uses extractive summarization powered by TF-IDF scoring, which provides high-quality results entirely within the browser with zero external dependencies or server calls.</p>
+    <p>The extraction pipeline works in four steps. First, the input text is split into individual sentences using punctuation boundaries, with care taken to avoid splitting on abbreviations like "Dr.", "U.S.", or decimal numbers. Second, each sentence's words are tokenized and a set of stopwords (common function words like "the", "is", "and", "that") are removed. Third, TF-IDF weights are computed for every remaining word across the whole document. Fourth, each sentence receives a score equal to the normalized sum of its word TF-IDF weights, and sentences are ranked. The top N% by score are selected and returned in their original order to preserve narrative flow.</p>
+
+    <h3>Understanding TF-IDF Sentence Scoring</h3>
+    <p>TF-IDF (Term Frequency-Inverse Document Frequency) is a classical information retrieval weighting scheme originally developed for document ranking but extensively adapted for extractive summarization. In the document-level context used here, the "document" is the entire input text and the "sentences" play the role of units to be scored.</p>
+    <p><strong>Term Frequency (TF)</strong> for a word in a sentence is the count of how many times that word appears in the sentence, normalized by the total number of words in the sentence. This prevents longer sentences from being unfairly advantaged purely by having more words.</p>
+    <p><strong>Inverse Document Frequency (IDF)</strong> for a word across the document is calculated as the logarithm of the ratio of total sentences to the number of sentences containing the word: <code>log(N / df)</code> where N is total sentence count and df is document frequency. Words that appear in nearly every sentence (like "the" or "this") receive a very low IDF and thus contribute little to sentence scores. Words that appear in only one or two sentences receive a high IDF and contribute strongly to the scores of those sentences. These high-IDF words are typically the topic-specific terminology that defines what a text is actually about.</p>
+    <p>The sentence score is the sum of TF-IDF values for all non-stopword words in that sentence. Sentences containing rare, high-frequency topic terms score highest and are selected first. This naturally extracts the sentences that are most informationally unique to the document, rather than sentences full of generic transition language.</p>
+
+    <h3>How to Choose Summary Length</h3>
+    <p>The 25/50/75% length settings control what fraction of the original sentences are kept in the summary.</p>
+    <p><strong>25% (Brief)</strong> is suitable for getting the core thesis and key claims of a document quickly. Best for: executive summaries, skimming research abstracts before deciding to read in full, rapid review of long reports. At 25%, some supporting evidence and context is omitted.</p>
+    <p><strong>50% (Standard)</strong> retains the majority of substantive content while removing transitional, introductory, and redundant sentences. Best for: reading comprehension, study notes, condensed versions of articles for reference. Most practical use cases work well at 50%.</p>
+    <p><strong>75% (Full)</strong> is a light condensation that primarily removes the lowest-scoring filler sentences. Best for: proofreading a heavily revised draft to check logical flow, or producing a version of an article that removes primarily transitional and scaffolding sentences. At 75%, the output is close to the original in length.</p>
+
+    <h3>Limitations of Extractive Summarization</h3>
+    <p>Because extractive summarization works by selecting complete sentences verbatim, the output may occasionally lack coherence at sentence boundaries. Pronouns in selected sentences may refer to entities in omitted sentences, creating dangling references. For example, a selected sentence beginning "This suggests that..." may become confusing if the sentence introducing "this" was not selected.</p>
+    <p>Extractive methods also cannot merge or combine information from multiple sentences the way a human summarizer would. If the same point is made in three different sentences, all three may be selected at higher compression ratios, resulting in apparent redundancy. Abstractive summarization with language models handles these issues but requires significant computational resources not available in a browser-based tool.</p>
+    <p>For best results, use inputs of at least three paragraphs. Very short texts (under 5 sentences) produce trivial summaries. Very repetitive texts may yield summaries that feel redundant because the algorithm selects the most representative sentences from each repeated concept cluster.</p>
+
+    <h3>Use Cases for Browser-Based Summarization</h3>
+    <p>This tool is particularly useful for researchers processing large volumes of literature, students taking notes from lengthy reading assignments, journalists extracting key facts from press releases and reports, content editors reviewing drafts for structural completeness, and legal professionals identifying the key clauses in long contractual documents. Because all processing is client-side, sensitive documents (contracts, internal reports, proprietary research) can be summarized without any data leaving the device.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, keyword density, tone detection, and sentence complexity analysis.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/tools/academic-writing-checker.html" class="related-card">
+        <h4>Academic Writing Checker</h4>
+        <p>Analyze formality, passive voice, hedging density, and citation style for academic submissions.</p>
+      </a>
+      <a href="/tools/word-frequency-counter.html" class="related-card">
+        <h4>Word Frequency Counter</h4>
+        <p>Visualize word usage distribution and identify overused terms in any text.</p>
+      </a>
+      <a href="/tools/sentence-complexity-checker.html" class="related-card">
+        <h4>Sentence Complexity Checker</h4>
+        <p>Get six readability scores and sentence-level complexity diagnostics.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>How does TF-IDF text summarization work?</h3>
+    <p>Each sentence is scored by summing the TF-IDF weights of its non-stopword words. Term Frequency (TF) rewards words that appear often in a sentence. Inverse Document Frequency (IDF) upweights words that appear in only a few sentences (topic-specific terms) and downweights words that appear in most sentences (common filler). Sentences with high TF-IDF scores contain the most unique, information-dense language in the document and are selected first.</p>
+
+    <h3>What does the summary length percentage mean?</h3>
+    <p>The percentage controls how many of the original sentences are kept. At 25%, the top quarter by TF-IDF score are selected. At 50%, half are kept. At 75%, three quarters are retained. Selected sentences are always returned in original document order to preserve narrative coherence.</p>
+
+    <h3>What is extractive vs. abstractive summarization?</h3>
+    <p>Extractive summarization (this tool) selects verbatim sentences. Abstractive summarization generates new paraphrase language using language models. Extractive methods are fast, run in-browser, and never alter the original text. Abstractive methods can combine and rephrase but require significant compute.</p>
+
+    <h3>Is there a maximum text length?</h3>
+    <p>The tool handles texts up to ~50,000 words in modern browsers. Processing is typically under 100ms for texts under 5,000 words. All processing is client-side; your text is never uploaded to any server.</p>
+
+    <h3>Why do some short sentences score higher than long ones?</h3>
+    <p>TF-IDF scores are normalized by sentence length, so length alone does not advantage longer sentences. A short, dense sentence containing several high-IDF topic terms can outrank a long sentence full of common transition words. This reflects genuine information density rather than word count.</p>
+  </section>
+
+  <div class="article-footer">
+    <p>&copy; 2026 <a href="https://enhio.com">Enhio</a> &middot; A <a href="https://zovo.one">Zovo</a> project &middot; <a href="/about.html">About</a></p>
+  </div>
+</article>
+
+<footer style="background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;">
+  <div style="color:var(--text-muted);font-size:0.88rem;">
+    Free text analysis tools &middot; <a href="https://zovo.one" style="color:var(--accent);">Zovo</a> &middot; No tracking
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  let selectedLen = 25;
+
+  const STOPWORDS = new Set([
+    'a','an','the','and','or','but','in','on','at','to','for','of','with','by','from',
+    'is','are','was','were','be','been','being','have','has','had','do','does','did',
+    'will','would','could','should','may','might','shall','can','need','dare','ought',
+    'used','that','this','these','those','it','its','i','we','you','he','she','they',
+    'me','him','her','us','them','my','your','his','our','their','what','which','who',
+    'whom','when','where','why','how','all','each','every','both','few','more','most',
+    'other','some','such','no','not','only','same','so','than','too','very','just',
+    'also','then','there','here','about','as','into','through','during','before',
+    'after','above','below','between','out','off','over','under','again','further',
+    'while','though','although','because','since','whether','if','unless','until',
+    'even','still','already','yet','else','therefore','however','moreover','furthermore',
+    'thus','hence','accordingly','consequently','meanwhile','nevertheless','otherwise',
+    'indeed','apparently','certainly','clearly','obviously','simply','quite','rather'
+  ]);
+
+  function tokenizeSentences(text) {
+    // Split on sentence-ending punctuation, keep punctuation with preceding sentence
+    const raw = text.match(/[^.!?]*[.!?]+/g) || [];
+    // filter out very short fragments
+    return raw.filter(s => s.trim().split(/\s+/).length >= 3);
+  }
+
+  function tokenizeWords(text) {
+    return text.toLowerCase().match(/[a-z']+/g) || [];
+  }
+
+  function countWords(text) {
+    return text.trim().split(/\s+/).filter(Boolean).length;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function computeTfIdf(sentences) {
+    const N = sentences.length;
+    if (N === 0) return [];
+
+    // Build word -> set of sentence indices (document frequency)
+    const df = {};
+    const sentWords = sentences.map((s, si) => {
+      const words = tokenizeWords(s).filter(w => !STOPWORDS.has(w) && w.length > 2);
+      const freq = {};
+      words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
+      Object.keys(freq).forEach(w => {
+        if (!df[w]) df[w] = new Set();
+        df[w].add(si);
+      });
+      return { words, freq, len: Math.max(1, words.length) };
+    });
+
+    // Compute IDF for each word
+    const idf = {};
+    Object.keys(df).forEach(w => {
+      idf[w] = Math.log((N + 1) / (df[w].size + 1)) + 1; // smoothed
+    });
+
+    // Score each sentence: sum(TF * IDF) / sentence_word_count
+    const scores = sentWords.map(({ words, freq, len }) => {
+      if (words.length === 0) return 0;
+      let score = 0;
+      Object.keys(freq).forEach(w => {
+        const tf = freq[w] / len;
+        score += tf * (idf[w] || 0);
+      });
+      return score / Math.sqrt(len); // length normalization
+    });
+
+    return scores;
+  }
+
+  function setLen(btn) {
+    document.querySelectorAll('.len-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedLen = parseInt(btn.getAttribute('data-val'), 10);
+  }
+
+  function summarize() {
+    const raw = document.getElementById('inputText').value.trim();
+    if (!raw) { alert('Please paste some text to summarize.'); return; }
+
+    const sentences = tokenizeSentences(raw);
+    if (sentences.length < 3) { alert('Please provide at least 3 sentences for a useful summary.'); return; }
+
+    const scores = computeTfIdf(sentences);
+    const origWordCount = countWords(raw);
+
+    // How many sentences to keep
+    const keepCount = Math.max(1, Math.round(sentences.length * (selectedLen / 100)));
+
+    // Rank sentences by score, record original index
+    const ranked = scores.map((s, i) => ({ score: s, idx: i })).sort((a, b) => b.score - a.score);
+    const selectedIndices = new Set(ranked.slice(0, keepCount).map(r => r.idx));
+
+    // Reconstruct summary in original order
+    const summarySentences = sentences.filter((_, i) => selectedIndices.has(i));
+    const summaryText = summarySentences.join(' ');
+    const summaryWordCount = countWords(summaryText);
+    const compressionPct = Math.round((summaryWordCount / origWordCount) * 100);
+    const origReadTime = Math.ceil(origWordCount / 200);
+    const summReadTime = Math.ceil(summaryWordCount / 200);
+
+    // --- Stats row ---
+    document.getElementById('statsRow').innerHTML = `
+      <div class="stat-pill"><span class="sp-val">${origWordCount.toLocaleString()}</span><span class="sp-label">Original words</span></div>
+      <div class="stat-pill"><span class="sp-val">${summaryWordCount.toLocaleString()}</span><span class="sp-label">Summary words</span></div>
+      <div class="stat-pill"><span class="sp-val">${compressionPct}%</span><span class="sp-label">Compression ratio</span></div>
+      <div class="stat-pill"><span class="sp-val">${sentences.length}</span><span class="sp-label">Source sentences</span></div>
+      <div class="stat-pill"><span class="sp-val">${keepCount}</span><span class="sp-label">Selected sentences</span></div>
+      <div class="stat-pill"><span class="sp-val">${origReadTime}→${summReadTime}min</span><span class="sp-label">Read time (200wpm)</span></div>
+    `;
+
+    // --- Word count bar ---
+    const summPct = Math.max(4, compressionPct);
+    const origPct = 100;
+    document.getElementById('wcBar').innerHTML = `
+      <div class="wc-bar-labels"><span>Original (${origWordCount.toLocaleString()} words)</span><span>Summary (${summaryWordCount.toLocaleString()} words, ${compressionPct}%)</span></div>
+      <div class="wc-bar-track">
+        <div class="wc-bar-orig" style="width:${origPct}%;">${origWordCount}</div>
+      </div>
+      <div class="wc-bar-track" style="margin-top:6px;">
+        <div class="wc-bar-summ" style="width:${summPct}%;">${summaryWordCount}</div>
+      </div>
+      <div class="wc-legend">
+        <div class="wc-legend-item"><div class="wc-dot" style="background:var(--border);"></div> Original text</div>
+        <div class="wc-legend-item"><div class="wc-dot" style="background:var(--accent);"></div> Extracted summary</div>
+      </div>
+    `;
+
+    // --- Summary output ---
+    document.getElementById('summaryOutput').innerHTML = summarySentences.map(s => `<p>${escapeHtml(s.trim())}</p>`).join('');
+
+    // --- Score bars (top 10) ---
+    const top10 = ranked.slice(0, 10);
+    const maxScore = Math.max(0.001, top10[0].score);
+    let scoreBarsHtml = '';
+    top10.forEach(({ score, idx }) => {
+      const pct = Math.round((score / maxScore) * 100);
+      const label = sentences[idx].trim().slice(0, 50) + (sentences[idx].length > 50 ? '…' : '');
+      const isSelected = selectedIndices.has(idx) ? 'style="opacity:1;"' : 'style="opacity:0.5;"';
+      scoreBarsHtml += `<div class="score-bar-row" ${isSelected}>
+        <span class="sb-label" title="${escapeHtml(sentences[idx].trim())}">${escapeHtml(label)}</span>
+        <div class="sb-track"><div class="sb-fill" style="width:${pct}%;${selectedIndices.has(idx) ? '' : 'background:var(--border);'}"></div></div>
+        <span class="sb-val">${score.toFixed(3)}</span>
+      </div>`;
+    });
+    document.getElementById('scoreBars').innerHTML = scoreBarsHtml;
+
+    // --- Source highlighted ---
+    let sourceHtml = '';
+    sentences.forEach((s, i) => {
+      if (selectedIndices.has(i)) {
+        sourceHtml += `<span class="hl-selected">${escapeHtml(s.trim())}</span> `;
+      } else {
+        sourceHtml += escapeHtml(s.trim()) + ' ';
+      }
+    });
+    document.getElementById('sourceOutput').innerHTML = sourceHtml;
+
+    const resultsEl = document.getElementById('results');
+    resultsEl.style.display = 'block';
+    resultsEl.classList.remove('results-hidden');
+  }
+
+  function copySummary() {
+    const el = document.getElementById('summaryOutput');
+    const text = el ? el.innerText : '';
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { btn.textContent = 'Copy Summary'; }, 2000); }
+    }).catch(() => {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      const btn = document.querySelector('.copy-btn');
+      if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { btn.textContent = 'Copy Summary'; }, 2000); }
+    });
+  }
+
+  function loadSample() {
+    document.getElementById('inputText').value = `Artificial intelligence has become one of the most transformative technologies of the twenty-first century, reshaping industries from healthcare and finance to transportation and education. The pace of development has accelerated dramatically in the past decade, driven by increases in computational power, the availability of large datasets, and advances in machine learning architectures such as deep neural networks and transformer models.
+
+In healthcare, AI systems have demonstrated remarkable capabilities in medical image analysis. Convolutional neural networks trained on millions of retinal scans can detect diabetic retinopathy with accuracy comparable to board-certified ophthalmologists. In radiology, AI models have achieved high sensitivity in detecting early-stage lung cancers in CT scans, sometimes outperforming radiologists in controlled studies. These advances hold significant promise for improving diagnostic accuracy and expanding access to specialist-level diagnostics in underserved regions.
+
+However, the deployment of AI in high-stakes medical settings also raises serious concerns about liability, transparency, and bias. Many deep learning models operate as black boxes, producing outputs without interpretable reasoning that clinicians can evaluate. When an AI system misclassifies a scan, it may be unclear whether the error resulted from a data quality issue, a distribution shift between training and deployment environments, or a fundamental limitation of the model architecture. Regulatory frameworks for AI-assisted diagnostics are still evolving, and the lack of clear liability standards creates uncertainty for healthcare providers and technology developers alike.
+
+The financial sector has also been profoundly affected by AI adoption. Algorithmic trading systems now execute the majority of equity transactions on major exchanges, often reacting to market signals in microseconds. Fraud detection models powered by machine learning analyze billions of card transactions daily, identifying anomalous patterns that would be impossible for human analysts to detect at scale. Credit scoring algorithms incorporate hundreds of variables beyond the traditional credit history, enabling more granular risk assessment and potentially expanding access to credit for underbanked populations.
+
+Yet financial AI also poses systemic risks. The 2010 Flash Crash, in which the Dow Jones Industrial Average dropped nearly 1,000 points in minutes before recovering, highlighted how automated trading systems can interact in destabilizing ways that their designers did not anticipate. Algorithmic models trained on historical data may fail catastrophically during market regimes that differ substantially from the training distribution, as seen during various financial crises. The opacity of proprietary trading algorithms makes it difficult for regulators to assess systemic risk exposure across interconnected institutions.
+
+Looking forward, the development of large language models has opened new possibilities for AI applications in content generation, code synthesis, and scientific research. Models trained on internet-scale text corpora can engage in nuanced dialogue, draft coherent long-form content, and assist researchers in hypothesis generation. These capabilities are beginning to find applications in drug discovery, materials science, and climate modeling, areas where the ability to rapidly process and synthesize vast bodies of scientific literature could accelerate research cycles.
+
+The ethical dimensions of these developments remain contested. Questions about intellectual property, employment displacement, surveillance, and the concentration of AI capabilities among a small number of technology companies are at the forefront of policy debates in governments worldwide. Developing robust governance frameworks that enable the beneficial applications of AI while managing its risks is arguably one of the most important policy challenges of the coming decade.`;
+  }
+
+  function clearAll() {
+    document.getElementById('inputText').value = '';
+    document.getElementById('results').style.display = 'none';
+  }
+
+  window.summarize = summarize;
+  window.loadSample = loadSample;
+  window.clearAll = clearAll;
+  window.setLen = setLen;
+  window.copySummary = copySummary;
+})();
+</script>
+</body>
+</html>

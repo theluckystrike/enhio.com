@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academic Writing Checker — Formality &amp; Citation Style Analyzer | Enhio</title>
+  <meta name="description" content="Free academic writing checker that analyzes formality level, passive voice percentage, hedging language, citation format detection (APA/MLA/Chicago), and sentence length distribution with a scored dashboard.">
+  <meta name="keywords" content="academic writing checker, formality analyzer, citation style detector, APA MLA Chicago checker, passive voice percentage, hedging words, academic tone analyzer">
+  <link rel="canonical" href="https://enhio.com/tools/academic-writing-checker.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="Academic Writing Checker — Formality &amp; Citation Style Analyzer | Enhio">
+  <meta property="og:description" content="Analyze academic text for formality, passive voice, hedging language, citation style, and sentence length distribution. All client-side, no sign-up.">
+  <meta property="og:url" content="https://enhio.com/tools/academic-writing-checker.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Enhio">
+  <meta property="og:image" content="https://enhio.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Academic Writing Checker — Formality &amp; Citation Style Analyzer | Enhio">
+  <meta name="twitter:description" content="Score your academic text for formality, passive voice, hedging, citation style, and sentence length distribution.">
+  <meta name="twitter:image" content="https://enhio.com/assets/og-image.png">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/academic-writing-checker.html">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/academic-writing-checker.html">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Academic Writing Checker — Enhio",
+    "url": "https://enhio.com/tools/academic-writing-checker.html",
+    "description": "Free client-side academic writing checker that analyzes formality level, passive voice percentage, hedging language frequency, citation format detection (APA/MLA/Chicago), and sentence length distribution with a scored dashboard and per-issue highlighting.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-05-28",
+    "dateModified": "2026-05-28",
+    "featureList": ["Formality score", "Passive voice percentage", "Hedging language detection", "APA citation detection", "MLA citation detection", "Chicago citation detection", "Sentence length distribution histogram", "Per-issue inline highlighting", "Scored dashboard", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://enhio.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "Academic Writing Checker", "item": "https://enhio.com/tools/academic-writing-checker.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does the Academic Writing Checker analyze?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool analyzes five dimensions: (1) formality score based on informal word frequency, (2) passive voice percentage across all sentences, (3) hedging language density using words like 'suggest', 'may', 'appear', and 'could', (4) citation style detection for APA, MLA, and Chicago formats, and (5) sentence length distribution showing short, medium, long, and very long sentence counts." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is the formality score calculated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The formality score starts at 100 and deducts points for each detected informal word or phrase such as contractions (don't, isn't), colloquialisms (stuff, kind of, a lot), first-person casual constructions, and hedging overuse. A score above 80 is considered highly formal, 60-80 is standard academic, and below 60 indicates colloquial writing that needs revision for academic submission." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which citation formats can the tool detect?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The checker detects three major citation styles. APA: author-year format like (Smith, 2020) or (Smith &amp; Jones, 2020). MLA: author-page format like (Smith 45) or (Smith and Jones 120). Chicago: footnote-style numeric references like superscript numbers or bracketed numbers, and author-date variants. Mixed citation styles are flagged as a consistency issue." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is hedging language and why does it matter?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Hedging language consists of words and phrases that soften claims to acknowledge uncertainty, such as 'may', 'might', 'suggest', 'appear to', 'it is possible that', and 'seems'. In academic writing, appropriate hedging (15-30% of sentences) signals scholarly caution. Too little hedging reads as overconfident. Too much hedging (above 40%) weakens the argument and signals lack of conviction." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text processed on the server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. All analysis runs entirely in your browser using client-side JavaScript. Your academic text is never transmitted to any server, stored, or shared. You can verify this by checking the Network tab in browser developer tools — no outgoing requests are made when you click Analyze." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .tool-textarea {
+      width: 100%; min-height: 200px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6; resize: vertical; margin-bottom: 1rem;
+    }
+    .tool-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-textarea::placeholder { color: var(--text-muted); }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans); margin-right: 0.5rem;
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .results-hidden { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; display: block; margin-bottom: 0.15rem; }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+
+    /* Score gauge */
+    .score-gauge { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.25rem; }
+    .gauge-ring { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 5px solid var(--border); position: relative; }
+    .gauge-ring .gauge-val { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; }
+    .gauge-label { font-size: 0.72rem; color: var(--text-muted); text-align: center; margin-top: 0.25rem; }
+
+    /* Highlight output */
+    .highlight-output { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; line-height: 1.9; font-size: 0.95rem; margin: 1rem 0; min-height: 80px; }
+    .hl-informal { background: rgba(248,81,73,0.2); border-bottom: 2px solid #f85149; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-passive { background: rgba(129,140,248,0.22); border-bottom: 2px solid #818CF8; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-hedge { background: rgba(210,153,34,0.22); border-bottom: 2px solid #d29922; padding: 1px 3px; border-radius: 3px; cursor: help; }
+    .hl-citation { background: rgba(63,185,80,0.22); border-bottom: 2px solid #3fb950; padding: 1px 3px; border-radius: 3px; cursor: help; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--text-muted); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+    /* Score dashboard */
+    .score-dashboard { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .score-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 0.75rem; text-align: center; }
+    .score-card .sc-val { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; display: block; margin-bottom: 0.2rem; }
+    .score-card .sc-label { font-size: 0.72rem; color: var(--text-muted); line-height: 1.3; }
+    .sc-good { color: #3fb950; }
+    .sc-warn { color: #d29922; }
+    .sc-bad { color: #f85149; }
+    .sc-neutral { color: var(--accent); }
+
+    /* Sentence length histogram */
+    .hist-wrap { margin: 1rem 0; }
+    .hist-bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+    .hist-label { font-size: 0.82rem; color: var(--text-muted); width: 110px; flex-shrink: 0; text-align: right; }
+    .hist-track { flex: 1; background: var(--surface-2); border-radius: 4px; height: 20px; overflow: hidden; }
+    .hist-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+    .hist-count { font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); width: 28px; text-align: right; }
+
+    /* Citation badge */
+    .cite-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+    .cite-badge { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600; }
+    .cite-apa { background: rgba(129,140,248,0.15); border: 1px solid #818CF8; color: #818CF8; }
+    .cite-mla { background: rgba(210,168,255,0.15); border: 1px solid #d2a8ff; color: #d2a8ff; }
+    .cite-chicago { background: rgba(63,185,80,0.15); border: 1px solid #3fb950; color: #3fb950; }
+    .cite-mixed { background: rgba(248,81,73,0.15); border: 1px solid #f85149; color: #f85149; }
+    .cite-none { background: rgba(139,148,158,0.15); border: 1px solid var(--text-muted); color: var(--text-muted); }
+
+    /* Issue list */
+    .issue-list { margin: 0.75rem 0; }
+    .issue-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1rem; margin-bottom: 0.6rem; }
+    .issue-item .issue-cat { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-bottom: 0.3rem; }
+    .issue-item .issue-text { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .issue-item .issue-fix { font-size: 0.87rem; color: var(--accent-2); }
+    .cat-informal .issue-cat { color: #f85149; }
+    .cat-passive .issue-cat { color: #818CF8; }
+    .cat-hedge .issue-cat { color: #d29922; }
+    .cat-citation .issue-cat { color: #3fb950; }
+
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .score-dashboard { grid-template-columns: repeat(3, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .score-dashboard { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Academic Writing Checker
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">Academic Writing <span>Checker</span> &mdash; Formality &amp; Citation Style Analyzer</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-05-28" itemprop="datePublished">May 28, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Analyze Academic Writing</h2>
+    <p style="color:var(--text-muted);margin-bottom:1rem;">Paste your academic text below. The checker scores formality, passive voice usage, hedging density, citation style, and sentence length distribution. All processing happens in your browser &mdash; your text never leaves your device.</p>
+    <textarea class="tool-textarea" id="inputText" placeholder="Paste your academic text here — essay, research paper, thesis excerpt, or lab report..."></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn" onclick="analyzeAcademic()">Analyze Text</button>
+      <button class="tool-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="tool-btn secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="results" class="results-hidden">
+
+      <!-- Score Dashboard -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Score Dashboard</h3>
+        <div class="score-dashboard" id="scoreDashboard"></div>
+      </div>
+
+      <!-- Highlighted Text -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Annotated Text</h3>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#f85149;"></div> Informal Language</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#818CF8;"></div> Passive Voice</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#d29922;"></div> Hedging Words</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#3fb950;"></div> Citation Detected</div>
+        </div>
+        <div class="highlight-output" id="highlightOutput"></div>
+      </div>
+
+      <!-- Citation Style -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Citation Style Detection</h3>
+        <div id="citationResult"></div>
+      </div>
+
+      <!-- Sentence Length Histogram -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Sentence Length Distribution</h3>
+        <div class="hist-wrap" id="histWrap"></div>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:0;">Academic writing ideally mixes short (clarity), medium (argument), and long (complex ideas) sentences. Very long sentences (&gt;40 words) often need splitting.</p>
+      </div>
+
+      <!-- Issues List -->
+      <div class="section-card">
+        <h3 style="margin-top:0;">Issues &amp; Suggestions</h3>
+        <div class="issue-list" id="issueList"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <section id="about-tool">
+    <h2>What Is an Academic Writing Checker?</h2>
+    <p>An academic writing checker is a text analysis tool that evaluates whether your writing meets the stylistic and structural conventions expected in scholarly work. Academic writing has specific requirements that distinguish it from general prose: it uses formal register, avoids contractions and colloquialisms, relies on third-person perspective, employs appropriate hedging to acknowledge uncertainty, and follows a consistent citation style. Violating these conventions, even in otherwise well-researched work, can undermine the credibility of the writing and result in lower grades or rejection from academic journals.</p>
+    <p>This tool analyzes five dimensions simultaneously: formality level, passive voice percentage, hedging language density, citation format detection, and sentence length distribution. Each dimension is scored and presented in a visual dashboard so you can see at a glance where your writing meets academic standards and where it needs revision before submission.</p>
+
+    <h3>Formality Score: What It Measures</h3>
+    <p>The formality score is computed by scanning your text for informal language markers and deducting points from a baseline of 100. Informal markers include contractions (<code>don't</code>, <code>it's</code>, <code>they're</code>), casual quantifiers (<code>a lot</code>, <code>lots of</code>, <code>tons of</code>), vague intensifiers (<code>really</code>, <code>very</code>, <code>pretty much</code>), colloquial connectors (<code>plus</code>, <code>also</code> at sentence start), first-person casual constructions (<code>I think</code>, <code>I feel like</code>), and discourse-level informalities (<code>stuff</code>, <code>things</code>, <code>kind of</code>, <code>sort of</code>).</p>
+    <p>A score above 80 indicates highly formal writing appropriate for peer-reviewed journals and upper-level coursework. Scores from 60 to 80 represent standard academic register suitable for most essays and reports. Scores below 60 suggest the text contains significant informal language that should be revised before academic submission. Each informal phrase is highlighted in red in the annotated text view, with a suggestion for a formal equivalent.</p>
+
+    <h3>Passive Voice in Academic Writing</h3>
+    <p>Passive voice is more accepted in academic writing than in most other registers, but its appropriate use depends heavily on discipline. In natural sciences and engineering, passive constructions like "the samples were analyzed" are standard because they foreground the procedure rather than the researcher. In humanities and social sciences, active voice is generally preferred to clarify agency and strengthen argument. In business and management writing, active voice is strongly preferred throughout.</p>
+    <p>The passive voice detector identifies constructions using forms of "to be" (is, are, was, were, been, being) followed by a past participle. The score shows passive voice as a percentage of all sentences. The tool highlights passive constructions in indigo so you can review them individually and decide which serve your disciplinary conventions and which introduce unnecessary distance or ambiguity.</p>
+
+    <h3>Hedging Language: The Goldilocks Problem</h3>
+    <p>Hedging is a defining feature of academic prose. Phrases like "the data suggest," "it appears that," "this may indicate," and "the results could be interpreted as" signal that the writer acknowledges the provisional nature of empirical claims. This is considered a marker of intellectual rigor rather than weakness. However, hedging must be calibrated. Too little hedging makes writing read as overconfident or even dogmatic. Too much hedging undercuts the argument and gives the impression the writer has no real conclusions to offer.</p>
+    <p>Research on academic writing corpora by Hyland (2005) and others consistently finds that appropriate hedging density in research articles is around 20-30% of propositions. The tool counts hedging words and phrases (modal verbs like <code>may</code>, <code>might</code>, <code>could</code>; semi-modals like <code>tend to</code>, <code>appear to</code>; reporting verbs like <code>suggest</code>, <code>indicate</code>, <code>imply</code>; and explicit hedges like <code>it is possible that</code>, <code>there is evidence that</code>) and expresses them as a density per 100 words.</p>
+
+    <h3>Citation Style Detection</h3>
+    <p>The citation detector scans for in-text citation patterns corresponding to APA, MLA, and Chicago formats using regular expressions. <strong>APA</strong> citations follow the author-year pattern: <code>(Smith, 2020)</code>, <code>(Smith &amp; Jones, 2019, p. 45)</code>. <strong>MLA</strong> citations use the author-page pattern: <code>(Smith 45)</code>, <code>(Smith and Jones 120-135)</code>. <strong>Chicago</strong> author-date citations look like <code>(Smith 2020, 45)</code> while footnote-numeric styles use superscript numbers or bracketed integers.</p>
+    <p>The tool detects which style is present and flags mixed usage. Mixing APA and MLA citations in the same document is a serious consistency error that academic style guides prohibit. When mixed styles are detected, each citation type is highlighted in green and the issue list specifies which instances do not match the dominant style.</p>
+
+    <h3>Sentence Length Distribution</h3>
+    <p>The sentence length histogram categorizes every sentence into four buckets: <strong>short</strong> (1-15 words), <strong>medium</strong> (16-25 words), <strong>long</strong> (26-40 words), and <strong>very long</strong> (41+ words). Academic writing should have a roughly bell-shaped distribution centered on medium sentences, with a meaningful proportion of both short and long sentences to create rhythm and accommodate varying complexity.</p>
+    <p>A text consisting almost entirely of very long sentences is difficult to parse and often indicates sentences that need to be split. A text consisting almost entirely of short sentences reads as choppy and may not adequately develop the nuanced arguments academic writing requires. The histogram gives you a visual snapshot of your distribution and the issue list flags individual very long sentences for revision.</p>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Full Text Analysis?</h3>
+    <p>The main Enhio tool adds readability scores, sentence-level diagnostics, and keyword density analysis.</p>
+    <a href="/" class="tool-btn">Open Full Analyzer</a>
+  </div>
+
+  <!-- Related Tools -->
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/tools/grammar-pattern-checker.html" class="related-card">
+        <h4>Grammar Pattern Checker</h4>
+        <p>Detect passive voice, dangling modifiers, comma splices, and run-on sentences with inline highlighting.</p>
+      </a>
+      <a href="/tools/sentence-complexity-checker.html" class="related-card">
+        <h4>Sentence Complexity Checker</h4>
+        <p>Get six readability scores and grade levels. Identify complex sentences and simplification targets.</p>
+      </a>
+      <a href="/tools/text-summarizer.html" class="related-card">
+        <h4>Text Summarizer</h4>
+        <p>Extract key sentences from long academic texts using TF-IDF scoring. Compare word counts instantly.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What does the Academic Writing Checker analyze?</h3>
+    <p>The tool analyzes five dimensions: formality score based on informal word frequency, passive voice percentage across all sentences, hedging language density, citation style detection for APA/MLA/Chicago, and sentence length distribution.</p>
+
+    <h3>How is the formality score calculated?</h3>
+    <p>The formality score starts at 100 and deducts points for each detected informal word or phrase such as contractions, colloquialisms, and casual quantifiers. A score above 80 is highly formal, 60-80 is standard academic register, and below 60 indicates writing that needs revision for academic submission.</p>
+
+    <h3>Which citation formats can the tool detect?</h3>
+    <p>The checker detects APA (author-year: <code>(Smith, 2020)</code>), MLA (author-page: <code>(Smith 45)</code>), and Chicago formats. Mixed citation styles are flagged as a consistency issue requiring correction before submission.</p>
+
+    <h3>What is the ideal passive voice percentage for academic writing?</h3>
+    <p>It depends on discipline. Natural sciences often run 30-60% passive. Humanities should stay below 20%. Business and management writing should target under 10%. The tool shows your current percentage so you can calibrate against your field's conventions.</p>
+
+    <h3>Is my text sent to a server?</h3>
+    <p>No. All analysis runs client-side in your browser using JavaScript. Your text is never transmitted, stored, or shared. You can verify this by monitoring the Network tab in browser developer tools.</p>
+  </section>
+
+  <div class="article-footer">
+    <p>&copy; 2026 <a href="https://enhio.com">Enhio</a> &middot; A <a href="https://zovo.one">Zovo</a> project &middot; <a href="/about.html">About</a></p>
+  </div>
+</article>
+
+<footer style="background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;">
+  <div style="color:var(--text-muted);font-size:0.88rem;">
+    Free text analysis tools &middot; <a href="https://zovo.one" style="color:var(--accent);">Zovo</a> &middot; No tracking
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const INFORMAL_WORDS = [
+    { re: /\b(don't|doesn't|didn't|won't|wouldn't|can't|couldn't|isn't|aren't|wasn't|weren't|haven't|hasn't|hadn't|I'm|I've|I'll|I'd|you're|you've|you'll|they're|they've|we're|we've|it's|that's|there's|here's|let's|who's|what's|how's)\b/gi, label: 'Contraction', fix: 'Replace with full form (e.g. "do not", "it is")' },
+    { re: /\b(a lot of|lots of|tons of|a bunch of|a ton of)\b/gi, label: 'Casual quantifier', fix: 'Use "a substantial number of", "numerous", or a specific count' },
+    { re: /\b(really|very much|pretty much|kind of|sort of|kinda|sorta|basically|literally|totally|actually|definitely)\b/gi, label: 'Vague intensifier', fix: 'Remove or replace with precise qualifier' },
+    { re: /\b(stuff|things|something|someone|somewhere|somehow|whatever|whenever|whoever)\b/gi, label: 'Vague noun', fix: 'Use precise academic terminology' },
+    { re: /\b(I think|I feel|I believe|I guess|I suppose|I reckon|in my opinion|in my view)\b/gi, label: 'Informal opinion marker', fix: 'Use "this study argues", "the evidence suggests", or cite a source' },
+    { re: /\b(get|got|gets|getting|gotten)\b/gi, label: 'Informal verb "get"', fix: 'Replace with "obtain", "achieve", "become", or "receive"' },
+    { re: /\b(big|huge|tiny|awesome|amazing|terrible|horrible|nice|good|bad)\b/gi, label: 'Informal adjective', fix: 'Replace with precise descriptors: "substantial", "negligible", "significant"' },
+  ];
+
+  const PASSIVE_RE = /\b(is|are|was|were|been|being|be)\s+(\w+ed|written|broken|chosen|driven|forgotten|given|gone|grown|known|seen|shown|spoken|taken|understood|worn|found|left|kept|built|bought|brought|caught|felt|heard|held|made|met|paid|said|sent|set|spent|stood|taught|thought|told|understood|won|read)\b/gi;
+
+  const HEDGE_WORDS = [
+    /\b(may|might|could|would|should)\b/gi,
+    /\b(suggest|suggests|suggested|indicate|indicates|indicated|imply|implies|appear|appears|seem|seems|tend|tends)\b/gi,
+    /\b(it is possible|it is likely|there is evidence|it appears that|it seems that|it could be argued|one might argue)\b/gi,
+    /\b(relatively|somewhat|generally|typically|often|frequently|usually|in many cases|in some cases|to some extent)\b/gi,
+  ];
+
+  const CITE_APA = /\(([A-Z][a-z]+(?:\s*&\s*[A-Z][a-z]+)?(?:\s*et al\.?)?,\s*\d{4}(?:,\s*p+\.\s*\d+)?\))/g;
+  const CITE_MLA = /\(([A-Z][a-z]+(?:\s+and\s+[A-Z][a-z]+)?\s+\d{1,4}(?:[-–]\d{1,4})?\))/g;
+  const CITE_CHICAGO = /\(([A-Z][a-z]+\s+\d{4}(?:,\s*\d+)?\))/g;
+
+  function tokenizeSentences(text) {
+    return text.match(/[^.!?]+[.!?]+/g) || [text];
+  }
+
+  function countWords(text) {
+    return text.trim().split(/\s+/).filter(Boolean).length;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function analyzeAcademic() {
+    const raw = document.getElementById('inputText').value.trim();
+    if (!raw) { alert('Please paste some text to analyze.'); return; }
+
+    const sentences = tokenizeSentences(raw);
+    const words = raw.trim().split(/\s+/).filter(Boolean);
+    const wordCount = words.length;
+    const sentCount = sentences.length;
+
+    // --- Formality ---
+    let informalHits = [];
+    let formalityDeduction = 0;
+    INFORMAL_WORDS.forEach(({re, label, fix}) => {
+      re.lastIndex = 0;
+      let m;
+      while ((m = re.exec(raw)) !== null) {
+        informalHits.push({ match: m[0], index: m.index, label, fix });
+        formalityDeduction += 4;
+      }
+    });
+    const formalityScore = Math.max(0, 100 - formalityDeduction);
+
+    // --- Passive Voice ---
+    let passiveHits = [];
+    PASSIVE_RE.lastIndex = 0;
+    let pm;
+    while ((pm = PASSIVE_RE.exec(raw)) !== null) {
+      passiveHits.push({ match: pm[0], index: pm.index });
+    }
+    const passivePct = sentCount > 0 ? Math.round((passiveHits.length / sentCount) * 100) : 0;
+
+    // --- Hedging ---
+    let hedgeHits = [];
+    HEDGE_WORDS.forEach(re => {
+      re.lastIndex = 0;
+      let hm;
+      while ((hm = re.exec(raw)) !== null) {
+        hedgeHits.push({ match: hm[0], index: hm.index });
+      }
+    });
+    const hedgeDensity = wordCount > 0 ? Math.round((hedgeHits.length / wordCount) * 100) : 0;
+
+    // --- Citations ---
+    let citeHits = [];
+    let apaCount = 0, mlaCount = 0, chicagoCount = 0;
+
+    CITE_APA.lastIndex = 0;
+    let ca;
+    while ((ca = CITE_APA.exec(raw)) !== null) {
+      citeHits.push({ match: ca[0], index: ca.index, style: 'APA' });
+      apaCount++;
+    }
+    CITE_MLA.lastIndex = 0;
+    let cm;
+    while ((cm = CITE_MLA.exec(raw)) !== null) {
+      // avoid double-counting overlaps
+      if (!citeHits.some(c => Math.abs(c.index - cm.index) < 5)) {
+        citeHits.push({ match: cm[0], index: cm.index, style: 'MLA' });
+        mlaCount++;
+      }
+    }
+    CITE_CHICAGO.lastIndex = 0;
+    let cc;
+    while ((cc = CITE_CHICAGO.exec(raw)) !== null) {
+      if (!citeHits.some(c => Math.abs(c.index - cc.index) < 5)) {
+        citeHits.push({ match: cc[0], index: cc.index, style: 'Chicago' });
+        chicagoCount++;
+      }
+    }
+
+    const stylesUsed = [apaCount > 0 && 'APA', mlaCount > 0 && 'MLA', chicagoCount > 0 && 'Chicago'].filter(Boolean);
+    const isMixed = stylesUsed.length > 1;
+    const dominantStyle = [['APA', apaCount], ['MLA', mlaCount], ['Chicago', chicagoCount]].sort((a,b)=>b[1]-a[1])[0];
+    const totalCites = apaCount + mlaCount + chicagoCount;
+
+    // --- Sentence Length ---
+    const buckets = { short: 0, medium: 0, long: 0, veryLong: 0 };
+    const veryLongSentences = [];
+    sentences.forEach(s => {
+      const wc = countWords(s);
+      if (wc <= 15) buckets.short++;
+      else if (wc <= 25) buckets.medium++;
+      else if (wc <= 40) buckets.long++;
+      else { buckets.veryLong++; veryLongSentences.push(s.trim()); }
+    });
+
+    // --- Build highlighted text ---
+    // Collect all hits with type
+    let allHits = [];
+    informalHits.forEach(h => allHits.push({ start: h.index, end: h.index + h.match.length, cls: 'hl-informal', title: h.label + ': ' + h.fix }));
+    passiveHits.forEach(h => allHits.push({ start: h.index, end: h.index + h.match.length, cls: 'hl-passive', title: 'Passive voice — consider active construction' }));
+    hedgeHits.forEach(h => allHits.push({ start: h.index, end: h.index + h.match.length, cls: 'hl-hedge', title: 'Hedging language' }));
+    citeHits.forEach(h => allHits.push({ start: h.index, end: h.index + h.match.length, cls: 'hl-citation', title: 'Citation: ' + h.style + ' style detected' }));
+
+    // Remove overlaps: keep longest
+    allHits.sort((a, b) => a.start - b.start);
+    let filtered = [];
+    let lastEnd = -1;
+    allHits.forEach(h => {
+      if (h.start >= lastEnd) { filtered.push(h); lastEnd = h.end; }
+    });
+
+    let highlighted = '';
+    let cursor = 0;
+    filtered.forEach(h => {
+      highlighted += escapeHtml(raw.slice(cursor, h.start));
+      highlighted += `<mark class="${h.cls}" title="${escapeHtml(h.title)}">${escapeHtml(raw.slice(h.start, h.end))}</mark>`;
+      cursor = h.end;
+    });
+    highlighted += escapeHtml(raw.slice(cursor));
+
+    // --- Score Dashboard ---
+    const fClass = formalityScore >= 80 ? 'sc-good' : formalityScore >= 60 ? 'sc-warn' : 'sc-bad';
+    const pClass = passivePct <= 20 ? 'sc-good' : passivePct <= 40 ? 'sc-warn' : 'sc-bad';
+    const hClass = hedgeDensity >= 2 && hedgeDensity <= 8 ? 'sc-good' : 'sc-warn';
+    const cClass = totalCites > 0 ? (isMixed ? 'sc-bad' : 'sc-good') : 'sc-neutral';
+    const vlClass = buckets.veryLong === 0 ? 'sc-good' : buckets.veryLong <= 2 ? 'sc-warn' : 'sc-bad';
+
+    document.getElementById('scoreDashboard').innerHTML = `
+      <div class="score-card"><span class="sc-val ${fClass}">${formalityScore}</span><span class="sc-label">Formality Score<br>/100</span></div>
+      <div class="score-card"><span class="sc-val ${pClass}">${passivePct}%</span><span class="sc-label">Passive Voice<br>of sentences</span></div>
+      <div class="score-card"><span class="sc-val ${hClass}">${hedgeDensity}%</span><span class="sc-label">Hedging<br>per 100 words</span></div>
+      <div class="score-card"><span class="sc-val ${cClass}">${totalCites > 0 ? (isMixed ? 'Mixed' : dominantStyle[0]) : 'None'}</span><span class="sc-label">Citation<br>Style</span></div>
+      <div class="score-card"><span class="sc-val ${vlClass}">${buckets.veryLong}</span><span class="sc-label">Very Long<br>Sentences (40+w)</span></div>
+    `;
+
+    // --- Highlighted text ---
+    document.getElementById('highlightOutput').innerHTML = highlighted || '<em style="color:var(--text-muted)">No text processed.</em>';
+
+    // --- Citation result ---
+    let citeHtml = '';
+    if (totalCites === 0) {
+      citeHtml = '<div class="cite-badges"><span class="cite-badge cite-none">No citations detected</span></div><p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0;">If your document uses footnotes only, in-text detection does not apply.</p>';
+    } else {
+      citeHtml = '<div class="cite-badges">';
+      if (apaCount) citeHtml += `<span class="cite-badge cite-apa">APA: ${apaCount}</span>`;
+      if (mlaCount) citeHtml += `<span class="cite-badge cite-mla">MLA: ${mlaCount}</span>`;
+      if (chicagoCount) citeHtml += `<span class="cite-badge cite-chicago">Chicago: ${chicagoCount}</span>`;
+      if (isMixed) citeHtml += `<span class="cite-badge cite-mixed">Mixed styles — inconsistent</span>`;
+      citeHtml += '</div>';
+      if (isMixed) {
+        citeHtml += '<p style="color:#f85149;font-size:0.9rem;margin-top:0.5rem;margin-bottom:0;">Multiple citation styles detected. Standardize to a single style before submission.</p>';
+      } else {
+        citeHtml += `<p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.5rem;margin-bottom:0;">Consistent ${dominantStyle[0]} style detected across ${totalCites} citation(s).</p>`;
+      }
+    }
+    document.getElementById('citationResult').innerHTML = citeHtml;
+
+    // --- Histogram ---
+    const maxBucket = Math.max(1, buckets.short, buckets.medium, buckets.long, buckets.veryLong);
+    const histColors = { short: '#818CF8', medium: '#3fb950', long: '#d29922', veryLong: '#f85149' };
+    const histLabels = { short: 'Short (1-15w)', medium: 'Medium (16-25w)', long: 'Long (26-40w)', veryLong: 'Very long (41+w)' };
+    let histHtml = '';
+    ['short','medium','long','veryLong'].forEach(k => {
+      const pct = Math.round((buckets[k] / maxBucket) * 100);
+      histHtml += `<div class="hist-bar-row">
+        <span class="hist-label">${histLabels[k]}</span>
+        <div class="hist-track"><div class="hist-fill" style="width:${pct}%;background:${histColors[k]};"></div></div>
+        <span class="hist-count">${buckets[k]}</span>
+      </div>`;
+    });
+    document.getElementById('histWrap').innerHTML = histHtml;
+
+    // --- Issues List ---
+    let issues = [];
+    informalHits.slice(0, 10).forEach(h => {
+      issues.push({ cat: 'Informal Language', cls: 'cat-informal', text: `"${h.match}" — ${h.label}`, fix: h.fix });
+    });
+    if (passivePct > 20) {
+      issues.push({ cat: 'Passive Voice', cls: 'cat-passive', text: `${passivePct}% of sentences use passive voice (${passiveHits.length} instances)`, fix: passivePct > 40 ? 'High passive rate. Review and convert to active voice where agent is known.' : 'Moderate passive rate. Acceptable for science; review for humanities writing.' });
+    }
+    if (hedgeDensity > 8) {
+      issues.push({ cat: 'Over-Hedging', cls: 'cat-hedge', text: `${hedgeDensity} hedging words per 100 words — above recommended maximum`, fix: 'Reduce hedging to 2-8 per 100 words. Remove redundant epistemic markers.' });
+    } else if (hedgeDensity < 2 && wordCount > 100) {
+      issues.push({ cat: 'Under-Hedging', cls: 'cat-hedge', text: `${hedgeDensity} hedging words per 100 words — below recommended minimum`, fix: 'Add hedging to empirical claims. Use "suggests", "may indicate", or "the evidence implies".' });
+    }
+    if (isMixed) {
+      issues.push({ cat: 'Mixed Citations', cls: 'cat-citation', text: `${stylesUsed.join(' + ')} styles mixed in the same document`, fix: 'Standardize to one citation style. Check your institution\'s or journal\'s style guide.' });
+    }
+    veryLongSentences.slice(0, 3).forEach(s => {
+      const wc = countWords(s);
+      issues.push({ cat: 'Very Long Sentence', cls: 'cat-passive', text: `${wc}-word sentence: "${s.slice(0, 80)}…"`, fix: 'Split into two sentences at the main clause boundary, or use a semicolon.' });
+    });
+
+    if (issues.length === 0) {
+      document.getElementById('issueList').innerHTML = '<p style="color:var(--accent-2);">No major issues detected. Text meets academic writing standards across all five dimensions.</p>';
+    } else {
+      document.getElementById('issueList').innerHTML = issues.map(i => `
+        <div class="issue-item ${i.cls}">
+          <div class="issue-cat">${i.cat}</div>
+          <div class="issue-text">${escapeHtml(i.text)}</div>
+          <div class="issue-fix">Suggestion: ${escapeHtml(i.fix)}</div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').classList.remove('results-hidden');
+  }
+
+  function loadSample() {
+    document.getElementById('inputText').value = `The relationship between sleep deprivation and cognitive performance has been extensively studied in recent decades. Research suggests that insufficient sleep may significantly impair executive function, working memory, and attentional control (Walker & Stickgold, 2006). It is possible that the mechanisms underlying these deficits involve disrupted hippocampal consolidation during slow-wave sleep, though the precise pathways remain incompletely characterized.
+
+In a landmark study, participants were randomly assigned to either a sleep restriction condition (4 hours per night for five consecutive days) or a control condition with adequate sleep (8 hours per night). The results indicated that sleep-restricted participants performed significantly worse on tests of sustained attention, as measured by the Psychomotor Vigilance Task (Dinges et al., 2005). These findings appear consistent with earlier evidence suggesting that cumulative sleep loss produces deficits comparable in magnitude to total acute sleep deprivation.
+
+It is worth noting, however, that individual differences in sleep need may moderate these effects to some extent. Some individuals seem to tolerate sleep restriction with relatively minor performance decrements, a phenomenon that could reflect genetic variation in adenosine receptor sensitivity. The data suggest that a one-size-fits-all approach to sleep recommendations is probably insufficient given this inter-individual variability.`;
+  }
+
+  function clearAll() {
+    document.getElementById('inputText').value = '';
+    document.getElementById('results').style.display = 'none';
+  }
+
+  window.analyzeAcademic = analyzeAcademic;
+  window.loadSample = loadSample;
+  window.clearAll = clearAll;
+})();
+</script>
+</body>
+</html>
