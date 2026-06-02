@@ -26,4 +26,10 @@
   <url><loc>https://enhio.com/tools/sentence-complexity-checker.html</loc></url>
   <url><loc>https://enhio.com/tools/text-diff-tool.html</loc></url>
   <url><loc>https://enhio.com/tools/word-frequency-counter.html</loc></url>
+  <url>
+    <loc>https://enhio.com/tools/email-tone-analyzer-check-if-your-email-sounds-right</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
