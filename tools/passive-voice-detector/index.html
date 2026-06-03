@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Passive Voice Detector — Find & Fix Passive</title>
+  <meta name="description" content="Detect passive voice in your text with enhio's free tool. Highlights passive sentences, suggests active rewrites, and scores your writing. Ideal for...">
+  <meta name="keywords" content="passive voice detector, passive voice checker, active voice rewrite, grammar tool, writing assistant, enhio">
+  <link rel="canonical" href="https://enhio.com/tools/passive-voice-detector">
+  <!-- JSON-LD FAQ schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is passive voice?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Passive voice occurs when the subject receives the action (e.g., 'The ball was thrown by John'). It often uses a form of 'to be' plus a past participle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is passive voice acceptable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Passive voice is acceptable in scientific writing (to emphasize the process), when the agent is unknown, or when the object is more important than the subject."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the passive score work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The score is the percentage of passive sentences out of total sentences. Lower is better; 0% means no passive constructions detected."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      padding: 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1000px;
+      width: 100%;
+    }
+    header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #38bdf8, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.25rem;
+    }
+    .subhead {
+      color: #94a3b8;
+      font-size: 1.1rem;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 24px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
+      border: 1px solid #334155;
+    }
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 1.2rem;
+      color: #e2e8f0;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      transition: border 0.2s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1.5rem 0 0.8rem;
+    }
+    .btn {
+      background: #334155;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-primary {
+      background: #38bdf8;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: scale(1.02);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #475569;
+    }
+    .btn-outline:hover {
+      background: #1e293b;
+      border-color: #38bdf8;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 1rem;
+    }
+    .stat-item {
+      background: #0f172a;
+      border-radius: 20px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+      border: 1px solid #2d3a4e;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #38bdf8;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94a3b8;
+    }
+    .gauge-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin: 1rem 0 1.5rem;
+    }
+    .gauge {
+      width: 100px;
+      height: 100px;
+      position: relative;
+    }
+    .gauge-bg {
+      fill: none;
+      stroke: #1e293b;
+      stroke-width: 10;
+    }
+    .gauge-fill {
+      fill: none;
+      stroke: #38bdf8;
+      stroke-width: 10;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s ease;
+    }
+    .gauge-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .gauge-label {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    .passive-list {
+      margin-top: 1.8rem;
+    }
+    .passive-item {
+      background: #0f172a;
+      border-left: 4px solid #facc15;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      word-break: break-word;
+    }
+    .passive-item .original {
+      color: #fde68a;
+      background: rgba(250, 204, 21, 0.1);
+      padding: 0.1rem 0.3rem;
+      border-radius: 6px;
+    }
+    .passive-item .rewrite {
+      color: #a7f3d0;
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+    }
+    .badge {
+      background: #334155;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+    .pattern-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0 0.8rem;
+    }
+    .pattern-tag {
+      background: #1e293b;
+      border: 1px solid #38bdf8;
+      color: #bae6fd;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+    .guide-note {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      border: 1px solid #334155;
+    }
+    .guide-note h3 {
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .guide-note ul {
+      padding-left: 1.2rem;
+      color: #cbd5e1;
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+      padding-top: 2rem;
+      width: 100%;
+    }
+    .highlight-passive {
+      background-color: rgba(250, 204, 21, 0.25) !important;
+      padding: 0 0.1rem;
+      border-radius: 4px;
+    }
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .card { padding: 1.2rem; }
+      h1 { font-size: 1.8rem; }
+      .stat-number { font-size: 1.6rem; }
+      .gauge { width: 80px; height: 80px; }
+    }
+  </style>
+
+    <meta property="og:title" content="Passive Voice Detector — Find & Fix Passive">
+    <meta property="og:description" content="Detect passive voice in your text with enhio's free tool. Highlights passive sentences, suggests active rewrites, and scores your writing. Ideal for...">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enhio.com/tools/passive-voice-detector">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🔍 Passive Voice Detector</h1>
+    <div class="subhead">Find &amp; fix passive constructions — write with clarity</div>
+  </header>
+
+  <div class="card">
+    <textarea id="inputText" placeholder="Paste your text here...&#10;Example: The experiment was conducted by the team. The results were analyzed. The researcher wrote the report.">The experiment was conducted by the team. The results were analyzed carefully. The researcher wrote the report. It is believed that the data is accurate. The cake was eaten by the children. She sings beautifully.</textarea>
+    <div class="btn-group">
+      <button class="btn btn-primary" id="analyzeBtn">✨ Analyze text</button>
+      <button class="btn btn-outline" id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <!-- Stats + gauge -->
+  <div class="card" id="resultsPanel">
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-number" id="totalSentences">0</span><div class="stat-label">Sentences</div></div>
+      <div class="stat-item"><span class="stat-number" id="passiveCount">0</span><div class="stat-label">Passive</div></div>
+      <div class="stat-item"><span class="stat-number" id="passivePercent">0%</span><div class="stat-label">Passive %</div></div>
+    </div>
+
+    <div class="gauge-wrapper">
+      <div class="gauge">
+        <svg viewBox="0 0 36 36" width="100%" height="100%">
+          <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+          <path class="gauge-fill" id="gaugeArc" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+        </svg>
+        <span class="gauge-text" id="gaugeScore">0</span>
+      </div>
+      <div><span class="gauge-label">Passive voice score (lower is better)</span></div>
+    </div>
+
+    <!-- common patterns -->
+    <div class="pattern-tags" id="patternTags">
+      <span class="pattern-tag">is/are/was/were + past participle</span>
+      <span class="pattern-tag">been/being + past participle</span>
+      <span class="pattern-tag">get/got + past participle</span>
+    </div>
+
+    <!-- passive sentences list -->
+    <div id="passiveListContainer" class="passive-list">
+      <h3 style="color:#94a3b8; font-weight:400; margin-bottom:1rem;">📋 Passive sentences &amp; suggested rewrites</h3>
+      <div id="passiveItems"></div>
+    </div>
+
+    <!-- style guide note -->
+    <div class="guide-note">
+      <h3>📖 When passive voice is acceptable</h3>
+      <ul>
+        <li><strong>Scientific writing</strong> — focus on process, not agent ("The solution was heated to 80°C")</li>
+        <li><strong>Unknown agent</strong> — "The window was broken" (who broke it?)</li>
+        <li><strong>Object emphasis</strong> — "The Mona Lisa was painted by da Vinci" (focus on painting)</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>© 2025 enhio.com</footer>
+</div>
+
+<script>
+  (function() {
+    // ----- passive detection regex (forms of be + past participle) -----
+    // captures passive patterns: is/am/are/was/were/been/being/be + past participle (optional 'not' / adverb)
+    // also get/got + past participle (informal passive)
+    const passiveRegex = /\b(?:is|am|are|was|were|been|being|be|get|got)\s+(?:not\s+)?(?:\w+\s+)?(\w+ed|\w+en|\w+t)\b/gi;
+
+    // auxiliary be forms for highlighting
+    const beForms = /\b(is|am|are|was|were|been|being|be|get|got)\b/i;
+
+    // DOM refs
+    const inputEl = document.getElementById('inputText');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const totalSpan = document.getElementById('totalSentences');
+    const passiveCountSpan = document.getElementById('passiveCount');
+    const passivePercentSpan = document.getElementById('passivePercent');
+    const gaugeScoreSpan = document.getElementById('gaugeScore');
+    const gaugeArc = document.getElementById('gaugeArc');
+    const passiveItemsDiv = document.getElementById('passiveItems');
+
+    // helper: split text into sentences (handles . ! ?)
+    function splitSentences(text) {
+      if (!text.trim()) return [];
+      // split on sentence-ending punctuation, keep delimiter
+      const raw = text.match(/[^.!?]*[.!?]+/g);
+      if (!raw) return [text.trim()];
+      return raw.map(s => s.trim()).filter(s => s.length > 0);
+    }
+
+    // check if a sentence contains passive voice (using regex)
+    function isPassive(sentence) {
+      passiveRegex.lastIndex = 0;
+      return passiveRegex.test(sentence);
+    }
+
+    // extract passive pattern matches for display
+    function getPassiveMatches(sentence) {
+      const matches = [];
+      let match;
+      passiveRegex.lastIndex = 0;
+      while ((match = passiveRegex.exec(sentence)) !== null) {
+        matches.push(match[0].trim());
+      }
+      return matches;
+    }
+
+    // simple template-based active rewrite (naive but functional)
+    function suggestActiveRewrite(sentence) {
+      // try to convert "was/were/ is/are/ been/ being + past participle (by ...)" to active
+      // pattern: subject? + be + past participle + (by agent)?
+      let rewritten = sentence;
+      // handle "by [agent]" removal and reposition
+      const byAgentMatch = rewritten.match(/\s+by\s+([^.!?]+)/i);
+      let agent = '';
+      if (byAgentMatch) {
+        agent = byAgentMatch[1].trim();
+        rewritten = rewritten.replace(/\s+by\s+([^.!?]+)/i, '');
+      }
+
+      // replace passive verb: be + past participle -> simple past active (approximate)
+      // use a generic approach: replace "was/were/ is/are + past participle" with past tense of the main verb (if possible)
+      // we'll do a simple heuristic: take the past participle, try to make it simple past (remove -ed/-en etc)
+      const passivePhraseRegex = /\b(?:is|am|are|was|were|been|being|be)\s+(?:not\s+)?(\w+ed|\w+en|\w+t)\b/gi;
+      let activeSentence = rewritten;
+      let m;
+      passivePhraseRegex.lastIndex = 0;
+      while ((m = passivePhraseRegex.exec(rewritten)) !== null) {
+        const fullMatch = m[0];
+        const participle = m[1];
+        // crude "past tense" conversion: remove -ed, -en, -t etc (not perfect but template)
+        let baseVerb = participle.replace(/(ed|en|t)$/i, '');
+        if (baseVerb.length < 2) baseVerb = participle; // fallback
+        // if agent exists, prepend agent + verb
+        let replacement = '';
+        if (agent) {
+          replacement = agent + ' ' + baseVerb + 's';
+        } else {
+          replacement = baseVerb + 's'; // generic
+        }
+        // avoid double spaces
+        activeSentence = activeSentence.replace(fullMatch, replacement);
+      }
+
+      // if agent was present, we already integrated; else just return modified
+      if (agent && !activeSentence.includes(agent)) {
+        // agent might have been removed; put at beginning
+        activeSentence = agent + ' ' + activeSentence;
+      }
+      // clean up extra spaces
+      activeSentence = activeSentence.replace(/\s+/g, ' ').trim();
+      if (!activeSentence.endsWith('.') && !activeSentence.endsWith('!') && !activeSentence.endsWith('?')) activeSentence += '.';
+      return activeSentence || sentence + ' (rewrite unavailable)';
+    }
+
+    // main analysis
+    function analyzeText() {
+      const text = inputEl.value;
+      const sentences = splitSentences(text);
+      const total = sentences.length;
+      totalSpan.textContent = total;
+
+      if (total === 0) {
+        passiveCountSpan.textContent = '0';
+        passivePercentSpan.textContent = '0%';
+        gaugeScoreSpan.textContent = '0';
+        gaugeArc.setAttribute('stroke-dasharray', '100, 100');
+        passiveItemsDiv.innerHTML = '<div style="color:#64748b; padding:1rem;">No sentences detected.</div>';
+        return;
+      }
+
+      // detect passive per sentence
+      const passiveResults = sentences.map(s => ({
+        sentence: s,
+        isPassive: isPassive(s),
+        matches: getPassiveMatches(s)
+      }));
+
+      const passiveSentences = passiveResults.filter(r => r.isPassive);
+      const passiveCount = passiveSentences.length;
+      const percent = total > 0 ? (passiveCount / total) * 100 : 0;
+      const score = Math.round(percent);
+
+      passiveCountSpan.textContent = passiveCount;
+      passivePercentSpan.textContent = score + '%';
+      gaugeScoreSpan.textContent = score;
+
+      // gauge arc: 0% = full circle (0 dashoffset), 100% = empty (100 offset)
+      const offset = 100 - score; // lower score => less offset (full circle)
+      gaugeArc.setAttribute('stroke-dasharray', '100, 100');
+      gaugeArc.setAttribute('stroke-dashoffset', Math.max(0, Math.min(100, 100 - score)));
+
+      // render passive items with rewrites
+      let html = '';
+      if (passiveSentences.length === 0) {
+        html = '<div style="color:#4ade80; padding:0.5rem 0;">✅ No passive voice detected! Great writing.</div>';
+      } else {
+        passiveSentences.forEach((item, idx) => {
+          const original = item.sentence;
+          const rewrite = suggestActiveRewrite(original);
+          // highlight passive patterns in original (simple)
+          let highlighted = original;
+          item.matches.forEach(m => {
+            highlighted = highlighted.replace(m, `<span class="highlight-passive">${m}</span>`);
+          });
+          html += `<div class="passive-item">
+            <div><span class="badge">#${idx+1}</span><span class="original">${highlighted}</span></div>
+            <div class="rewrite">✏️ Active suggestion: ${rewrite}</div>
+          </div>`;
+        });
+      }
+      passiveItemsDiv.innerHTML = html;
+    }
+
+    // clear handler
+    function clearAll() {
+      inputEl.value = '';
+      totalSpan.textContent = '0';
+      passiveCountSpan.textContent = '0';
+      passivePercentSpan.textContent = '0%';
+      gaugeScoreSpan.textContent = '0';
+      gaugeArc.setAttribute('stroke-dasharray', '100, 100');
+      passiveItemsDiv.innerHTML = '<div style="color:#64748b; padding:1rem;">Awaiting text...</div>';
+    }
+
+    // event listeners
+    analyzeBtn.addEventListener('click', analyzeText);
+    clearBtn.addEventListener('click', clearAll);
+
+    // run initial analysis on page load (with placeholder text)
+    window.addEventListener('DOMContentLoaded', () => {
+      analyzeText();
+    });
+  })();
+</script>
+</body>
+</html>

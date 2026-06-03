@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Word Choice Optimizer — Replace Weak Words with Strong</title>
+  <meta name="description" content="Enhance your writing instantly. Paste text, analyze weak words (very, really, just, things, etc.), and replace with powerful alternatives. Dark theme...">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://enhio.com/tools/word-choice-optimizer">
+  <!-- JSON-LD FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a word choice optimizer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It scans your text for weak or overused words (like 'very', 'really', 'things') and suggests stronger, more precise alternatives to improve clarity and impact."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the word strength score work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The score starts at 100. Each weak word reduces the score proportionally. A score of 100 means no weak words found; lower scores indicate room for improvement."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I replace words directly in the tool?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Click any suggestion button next to a highlighted weak word to replace it in the text. The stats and score update automatically."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 1.5rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1000px;
+      width: 100%;
+    }
+    header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    h1 span {
+      background: #1e293b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      color: #38bdf8;
+      border: 1px solid #334155;
+    }
+    .subhead {
+      color: #94a3b8;
+      margin-top: 0.3rem;
+      font-size: 1.05rem;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 24px;
+      padding: 1.8rem 1.5rem;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
+      border: 1px solid #2d3a4e;
+      margin-bottom: 2rem;
+    }
+    textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 1.2rem 1.2rem;
+      font-size: 1rem;
+      color: #e2e8f0;
+      resize: vertical;
+      min-height: 160px;
+      font-family: inherit;
+      transition: border 0.2s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
+    }
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.2rem 0 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn {
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #e2e8f0;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #1e293b;
+    }
+    .btn-primary {
+      background: #38bdf8;
+      border-color: #38bdf8;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: #7dd3fc;
+      border-color: #7dd3fc;
+      box-shadow: 0 0 15px #38bdf880;
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: #475569;
+    }
+    .btn-outline:hover {
+      background: #1e293b;
+      border-color: #38bdf8;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 1rem;
+    }
+    .stat-item {
+      background: #0f172a;
+      border-radius: 20px;
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+      border: 1px solid #2a374b;
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #38bdf8;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .top-weak-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin: 0.5rem 0 0.2rem;
+    }
+    .top-weak-item {
+      background: #2d3a4e;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      border: 1px solid #3b4a62;
+    }
+    .highlight-area {
+      background: #0f172a;
+      border-radius: 20px;
+      padding: 1.2rem 1.2rem;
+      margin: 1.2rem 0 0.5rem;
+      border: 1px solid #2a374b;
+      min-height: 100px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.8;
+    }
+    .weak-word {
+      background: #b91c1c40;
+      border-bottom: 2px solid #f87171;
+      padding: 0.1rem 0.2rem;
+      border-radius: 6px;
+      cursor: default;
+      position: relative;
+      transition: background 0.1s;
+    }
+    .weak-word:hover {
+      background: #b91c1c80;
+    }
+    .suggestion-box {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem 0.5rem;
+      margin-left: 0.3rem;
+      background: #1e293b;
+      padding: 0.1rem 0.4rem 0.1rem 0.6rem;
+      border-radius: 30px;
+      border: 1px solid #3b4a62;
+      font-size: 0.85rem;
+    }
+    .suggestion-btn {
+      background: #2d3a4e;
+      border: none;
+      color: #e2e8f0;
+      padding: 0.1rem 0.7rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.1s;
+      font-weight: 500;
+      border: 1px solid #475569;
+    }
+    .suggestion-btn:hover {
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
+    }
+    .inline-dropdown {
+      background: #0f172a;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      border-radius: 30px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+      padding-top: 1.8rem;
+    }
+    .footer a {
+      color: #94a3b8;
+      text-decoration: none;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .card { padding: 1.2rem 1rem; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+
+    <meta property="og:title" content="Word Choice Optimizer — Replace Weak Words with Strong">
+    <meta property="og:description" content="Enhance your writing instantly. Paste text, analyze weak words (very, really, just, things, etc.), and replace with powerful alternatives. Dark theme...">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enhio.com/tools/word-choice-optimizer">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>✍️ Word Choice Optimizer <span>beta</span></h1>
+    <div class="subhead">Replace weak words with strong, precise alternatives</div>
+  </header>
+
+  <div class="card">
+    <textarea id="inputText" placeholder="Paste your text here... e.g., 'It was a very nice day and I really liked the big things.'">It was a very nice day and I really liked the big things. Actually, basically it was literally good stuff. I got a lot of small things.</textarea>
+    <div class="flex-row">
+      <button class="btn btn-primary" id="analyzeBtn">🔍 Analyze &amp; Highlight</button>
+      <button class="btn btn-outline" id="resetBtn">↺ Reset example</button>
+    </div>
+
+    <!-- stats -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-item"><div class="stat-number" id="weakCount">0</div><div class="stat-label">Weak words</div></div>
+      <div class="stat-item"><div class="stat-number" id="weakPercent">0%</div><div class="stat-label">of total</div></div>
+      <div class="stat-item"><div class="stat-number" id="strengthScore">100</div><div class="stat-label">Word strength</div></div>
+      <div class="stat-item" style="grid-column: span 1;"><div class="stat-number" style="font-size:1.2rem;" id="topWeakList">—</div><div class="stat-label">Top overused</div></div>
+    </div>
+
+    <!-- highlighted text area -->
+    <div id="highlightContainer" class="highlight-area">Click "Analyze" to scan for weak words.</div>
+
+    <div style="font-size:0.85rem; color:#94a3b8; margin-top:0.5rem;">
+      ⚡ Click any suggestion to replace in-place. Score updates automatically.
+    </div>
+  </div>
+
+  <div class="footer">© 2025 enhio.com</div>
+</div>
+
+<script>
+  (function() {
+    // ----- weak words dictionary with strong alternatives -----
+    const WEAK_MAP = {
+      'very': ['extremely', 'highly', 'deeply', 'exceedingly'],
+      'really': ['truly', 'genuinely', 'absolutely', 'undeniably'],
+      'just': ['merely', 'simply', 'exactly', 'precisely'],
+      'things': ['items', 'elements', 'aspects', 'factors'],
+      'stuff': ['materials', 'belongings', 'substances', 'matters'],
+      'got': ['obtained', 'received', 'acquired', 'earned'],
+      'nice': ['pleasant', 'delightful', 'charming', 'enjoyable'],
+      'good': ['excellent', 'superb', 'outstanding', 'beneficial'],
+      'bad': ['terrible', 'poor', 'unfavorable', 'inferior'],
+      'big': ['large', 'enormous', 'significant', 'massive'],
+      'small': ['tiny', 'compact', 'minor', 'slight'],
+      'a lot': ['many', 'numerous', 'abundant', 'plenty'],
+      'basically': ['essentially', 'fundamentally', 'primarily', 'ultimately'],
+      'literally': ['figuratively', 'actually', 'truly', 'precisely'],
+      'actually': ['in fact', 'indeed', 'truly', 'veritably']
+    };
+    const WEAK_WORDS = Object.keys(WEAK_MAP);
+
+    // DOM refs
+    const textarea = document.getElementById('inputText');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const highlightContainer = document.getElementById('highlightContainer');
+    const weakCountEl = document.getElementById('weakCount');
+    const weakPercentEl = document.getElementById('weakPercent');
+    const strengthScoreEl = document.getElementById('strengthScore');
+    const topWeakListEl = document.getElementById('topWeakList');
+
+    // current state
+    let originalText = '';
+    let wordList = [];           // array of {word, index} for each weak occurrence
+    let totalWords = 0;
+    let weakWordCount = 0;
+
+    // ----- helpers -----
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // tokenize: returns array of {token, isWord}
+    function tokenizeText(text) {
+      const regex = /(\b[a-zA-Z]+(?:'\w+)?\b|[.,!?;:"()\-]+|\s+)/g;
+      const parts = [];
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        parts.push(match[0]);
+      }
+      return parts;
+    }
+
+    // count total words (alpha sequences)
+    function countWords(text) {
+      const matches = text.match(/\b[a-zA-Z]+(?:'\w+)?\b/g);
+      return matches ? matches.length : 0;
+    }
+
+    // compute stats and re-render highlight
+    function analyzeAndRender() {
+      const rawText = textarea.value;
+      originalText = rawText;
+      const tokens = tokenizeText(rawText);
+      totalWords = countWords(rawText);
+      weakWordCount = 0;
+      const weakOccurrences = []; // { word, tokenIndex, alternatives }
+
+      // map weak words to lowercase keys, but preserve case for display
+      const lowerToAlternatives = {};
+      for (const w of WEAK_WORDS) {
+        lowerToAlternatives[w.toLowerCase()] = WEAK_MAP[w];
+      }
+
+      // also handle multi-word "a lot", "a lot" as separate tokens? we'll treat as phrase.
+      // We'll scan for "a lot" as a special phrase: combine tokens.
+      // We'll do a second pass for multi-word weak phrases.
+      // simpler: preprocess text to replace "a lot" with marker? but we need highlighting.
+      // We'll handle "a lot" by scanning raw text with regex.
+      // For accurate highlighting, we'll use a combined approach.
+
+      // first, find single-word weak words
+      const singleWeakSet = new Set(WEAK_WORDS.filter(w => !w.includes(' ')));
+      for (let i = 0; i < tokens.length; i++) {
+        const token = tokens[i];
+        const lower = token.toLowerCase().replace(/[^a-zA-Z]/g, '');
+        if (lower && singleWeakSet.has(lower)) {
+          const alts = lowerToAlternatives[lower] || [];
+          weakOccurrences.push({ 
+            word: token, 
+            tokenIndex: i, 
+            alternatives: alts,
+            original: token
+          });
+          weakWordCount++;
+        }
+      }
+
+      // handle "a lot" as phrase (two tokens)
+      const phraseMap = { 'a lot': lowerToAlternatives['a lot'] || [] };
+      for (let i = 0; i < tokens.length - 1; i++) {
+        const twoTokens = (tokens[i] + ' ' + tokens[i+1]).toLowerCase().replace(/[^a-z\s]/g, '');
+        if (twoTokens === 'a lot') {
+          // mark both tokens as weak? we'll treat as one weak occurrence but highlight both.
+          // we'll add a special entry with tokenIndex i, and length 2.
+          weakOccurrences.push({
+            word: tokens[i] + ' ' + tokens[i+1],
+            tokenIndex: i,
+            alternatives: phraseMap['a lot'],
+            original: tokens[i] + ' ' + tokens[i+1],
+            phraseLength: 2
+          });
+          weakWordCount++;
+        }
+      }
+
+      // store for replacement
+      wordList = weakOccurrences;
+
+      // update stats
+      weakCountEl.textContent = weakWordCount;
+      const percent = totalWords > 0 ? ((weakWordCount / totalWords) * 100).toFixed(1) : '0';
+      weakPercentEl.textContent = percent + '%';
+      const score = totalWords > 0 ? Math.max(0, Math.round(100 - (weakWordCount / totalWords) * 100)) : 100;
+      strengthScoreEl.textContent = score;
+
+      // top 5 overused
+      const freqMap = {};
+      for (const occ of weakOccurrences) {
+        const key = occ.original.toLowerCase().replace(/\s+/g, ' ');
+        freqMap[key] = (freqMap[key] || 0) + 1;
+      }
+      const sorted = Object.entries(freqMap).sort((a,b) => b[1] - a[1]).slice(0,5);
+      if (sorted.length === 0) {
+        topWeakListEl.textContent = '—';
+      } else {
+        topWeakListEl.innerHTML = sorted.map(([w, c]) => 
+          `<span class="top-weak-item">${w} (${c})</span>`
+        ).join(' ');
+      }
+
+      // build highlighted HTML
+      let html = '';
+      let tokenIdx = 0;
+      let skipUntil = -1;
+      for (let i = 0; i < tokens.length; i++) {
+        if (i < skipUntil) continue;
+        // check if this token index is part of a weak occurrence
+        const occ = weakOccurrences.find(o => o.tokenIndex === i);
+        if (occ) {
+          const phraseLen = occ.phraseLength || 1;
+          const weakText = tokens.slice(i, i + phraseLen).join('');
+          const alts = occ.alternatives || [];
+          // build suggestion dropdown + buttons
+          let suggestionsHtml = '';
+          if (alts.length > 0) {
+            suggestionsHtml = `<span class="suggestion-box">→ ${alts.map(alt => 
+              `<button class="suggestion-btn" data-replace="${alt}" data-tokenidx="${i}" data-phraselen="${phraseLen}">${alt}</button>`
+            ).join(' ')}</span>`;
+          } else {
+            suggestionsHtml = `<span class="suggestion-box">(no alternatives)</span>`;
+          }
+          html += `<span class="weak-word">${weakText}${suggestionsHtml}</span>`;
+          skipUntil = i + phraseLen;
+        } else {
+          html += tokens[i];
+        }
+      }
+      highlightContainer.innerHTML = html || '(no text)';
+
+      // attach event listeners to suggestion buttons
+      document.querySelectorAll('.suggestion-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const replacement = this.dataset.replace;
+          const tokenIdx = parseInt(this.dataset.tokenidx, 10);
+          const phraseLen = parseInt(this.dataset.phraselen, 10);
+          replaceWeakWord(tokenIdx, phraseLen, replacement);
+        });
+      });
+    }
+
+    // replace weak word at given token index
+    function replaceWeakWord(tokenIndex, phraseLen, replacement) {
+      const tokens = tokenizeText(originalText);
+      if (tokenIndex < 0 || tokenIndex >= tokens.length) return;
+      // preserve original casing? we'll replace with suggestion but keep surrounding spaces.
+      // simple: replace token(s) with replacement, but keep any punctuation attached? 
+      // We'll replace the exact word part.
+      // For simplicity, replace the token(s) entirely with replacement.
+      const before = tokens.slice(0, tokenIndex).join('');
+      const after = tokens.slice(tokenIndex + phraseLen).join('');
+      // we need to preserve spaces: but join will lose spaces? tokenize includes spaces.
+      // better: rebuild full text with replacement.
+      let newTokens = [...tokens];
+      // remove phrase tokens and insert replacement
+      newTokens.splice(tokenIndex, phraseLen, replacement);
+      let newText = newTokens.join('');
+      // but we might have double spaces? fine.
+      textarea.value = newText;
+      // re-analyze
+      analyzeAndRender();
+    }
+
+    // reset to example
+    function resetToExample() {
+      textarea.value = 'It was a very nice day and I really liked the big things. Actually, basically it was literally good stuff. I got a lot of small things.';
+      analyzeAndRender();
+    }
+
+    // event listeners
+    analyzeBtn.addEventListener('click', analyzeAndRender);
+    resetBtn.addEventListener('click', resetToExample);
+
+    // initial load
+    resetToExample();
+
+    // also re-analyze on paste? optional: but user clicks analyze.
+    // for convenience, we could auto-analyze on button click only.
+
+  })();
+</script>
+</body>
+</html>
