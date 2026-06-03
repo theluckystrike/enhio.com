@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Sentence Length Analyzer — Optimize Your Writing Rhythm</title>
+  <meta name="description" content="Analyze sentence lengths, visualize rhythm, and improve readability with enhio's free Sentence Length Analyzer. Get word counts, histograms, and style suggestions.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://enhio.com/tools/sentence-length-analyzer">
+  <!-- JSON-LD FAQ schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a good average sentence length?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most non-fiction, 15–20 words per sentence is clear. Fiction can vary more. Our analyzer flags sentences over 35 words as very long."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is rhythm score calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rhythm score measures variation: coefficient of variation (std/mean) scaled to 0–100. Higher scores indicate varied, engaging rhythm; low scores suggest monotony."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do the colors mean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Green: ≤14 words (short), Yellow: 15–25 (medium), Orange: 26–35 (long), Red: >35 (very long)."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1.5rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1100px;
+      width: 100%;
+    }
+    header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p {
+      color: #94a3b8;
+      margin-top: 0.25rem;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 24px;
+      padding: 1.8rem 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      border: 1px solid #334155;
+    }
+    textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 1.2rem 1.2rem;
+      font-size: 1rem;
+      color: #f1f5f9;
+      resize: vertical;
+      min-height: 140px;
+      font-family: inherit;
+      transition: border 0.2s;
+    }
+    textarea:focus {
+      outline: 2px solid #38bdf8;
+      border-color: transparent;
+    }
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.8rem;
+      margin: 1.5rem 0 1rem;
+      background: #0f172a;
+      padding: 1rem 1.2rem;
+      border-radius: 20px;
+      border: 1px solid #2d3a4e;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94a3b8;
+    }
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    .stat-value small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #94a3b8;
+    }
+    .rhythm-score {
+      background: #0f172a;
+      border-radius: 40px;
+      padding: 0.3rem 1rem 0.3rem 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      border: 1px solid #38bdf8;
+      margin-left: auto;
+    }
+    .rhythm-score .score-value {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #38bdf8;
+    }
+    .sentence-list {
+      margin: 1.5rem 0 1rem;
+    }
+    .sentence-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 30px;
+      margin-bottom: 0.25rem;
+      background: #0f172a;
+      border-left: 4px solid transparent;
+      transition: background 0.1s;
+    }
+    .sentence-item .index {
+      font-size: 0.7rem;
+      color: #64748b;
+      min-width: 1.8rem;
+      text-align: right;
+    }
+    .sentence-item .text {
+      flex: 1;
+      word-break: break-word;
+    }
+    .sentence-item .word-count {
+      font-weight: 600;
+      font-size: 0.8rem;
+      background: #1e293b;
+      padding: 0.1rem 0.8rem;
+      border-radius: 40px;
+      white-space: nowrap;
+    }
+    .color-green { border-left-color: #22c55e; }
+    .color-green .word-count { color: #22c55e; background: rgba(34,197,94,0.15); }
+    .color-yellow { border-left-color: #eab308; }
+    .color-yellow .word-count { color: #eab308; background: rgba(234,179,8,0.15); }
+    .color-orange { border-left-color: #f97316; }
+    .color-orange .word-count { color: #f97316; background: rgba(249,115,22,0.15); }
+    .color-red { border-left-color: #ef4444; }
+    .color-red .word-count { color: #ef4444; background: rgba(239,68,68,0.15); }
+
+    .chart-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 1.8rem 0 1rem;
+    }
+    .chart-box {
+      flex: 2;
+      min-width: 260px;
+    }
+    .sparkline-box {
+      flex: 1;
+      min-width: 140px;
+    }
+    canvas {
+      width: 100%;
+      height: auto;
+      background: #0f172a;
+      border-radius: 20px;
+      display: block;
+      border: 1px solid #2d3a4e;
+    }
+    .suggestions {
+      background: #0f172a;
+      padding: 1rem 1.2rem;
+      border-radius: 20px;
+      border-left: 4px solid #f97316;
+      margin-top: 1.2rem;
+    }
+    .suggestions h4 {
+      color: #fbbf24;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+    .suggestions ul {
+      padding-left: 1.2rem;
+      color: #cbd5e1;
+    }
+    .footer {
+      text-align: center;
+      color: #475569;
+      font-size: 0.9rem;
+      margin-top: 2.5rem;
+      border-top: 1px solid #1e293b;
+      padding-top: 1.5rem;
+    }
+    .btn-clear {
+      background: #334155;
+      border: none;
+      color: #e2e8f0;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-left: 0.8rem;
+    }
+    .btn-clear:hover {
+      background: #475569;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8rem; }
+      .card { padding: 1.2rem 1rem; }
+      .stats-grid { gap: 0.8rem; }
+      .stat-value { font-size: 1.2rem; }
+      .rhythm-score .score-value { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>✎ Sentence Length Analyzer</h1>
+    <p>Optimize your writing rhythm · paste any text</p>
+  </header>
+
+  <div class="card">
+    <textarea id="textInput" placeholder="Paste your text here (e.g., a paragraph, essay, or article) ...">The quick brown fox jumps over the lazy dog. This is a longer sentence that contains many words and might be considered quite lengthy for some readers. Short sentences rock. Another medium length sentence here, with enough words to test the yellow zone. And here comes a very long sentence that definitely exceeds thirty five words and will be marked as red because it is indeed too long and should be broken down for better readability and rhythm. Tiny one.</textarea>
+    <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+      <button class="btn-clear" id="clearBtn">Clear text</button>
+    </div>
+  </div>
+
+  <div class="card" id="analysisPanel">
+    <!-- stats -->
+    <div class="stats-grid" id="statsContainer">
+      <div class="stat-item"><span class="stat-label">Avg length</span><span class="stat-value" id="avgLength">—</span></div>
+      <div class="stat-item"><span class="stat-label">Median</span><span class="stat-value" id="medianLength">—</span></div>
+      <div class="stat-item"><span class="stat-label">Std dev</span><span class="stat-value" id="stdDev">—</span></div>
+      <div class="stat-item"><span class="stat-label">Shortest</span><span class="stat-value" id="shortestLen">—</span></div>
+      <div class="stat-item"><span class="stat-label">Longest</span><span class="stat-value" id="longestLen">—</span></div>
+      <div class="rhythm-score"><span style="color:#94a3b8; font-size:0.9rem;">🎵 rhythm</span><span class="score-value" id="rhythmScore">0</span></div>
+    </div>
+
+    <!-- sentence list -->
+    <div class="sentence-list" id="sentenceListContainer"></div>
+
+    <!-- charts -->
+    <div class="chart-row">
+      <div class="chart-box">
+        <canvas id="histogramCanvas" height="200"></canvas>
+        <p style="font-size:0.7rem; color:#64748b; margin-top:0.2rem;">⬆ sentence length histogram (bars: count)</p>
+      </div>
+      <div class="sparkline-box">
+        <canvas id="sparklineCanvas" height="80"></canvas>
+        <p style="font-size:0.7rem; color:#64748b; margin-top:0.2rem;">sparkline · each dot = sentence length</p>
+      </div>
+    </div>
+
+    <!-- suggestions -->
+    <div class="suggestions" id="suggestionsBox">
+      <h4>💡 suggestions</h4>
+      <ul id="suggestionList"><li>Analysis will appear here.</li></ul>
+    </div>
+  </div>
+
+  <div class="footer">© 2025 enhio.com</div>
+</div>
+
+<script>
+  (function() {
+    const textarea = document.getElementById('textInput');
+    const sentenceListContainer = document.getElementById('sentenceListContainer');
+    const avgEl = document.getElementById('avgLength');
+    const medianEl = document.getElementById('medianLength');
+    const stdDevEl = document.getElementById('stdDev');
+    const shortestEl = document.getElementById('shortestLen');
+    const longestEl = document.getElementById('longestLen');
+    const rhythmScoreEl = document.getElementById('rhythmScore');
+    const suggestionList = document.getElementById('suggestionList');
+    const histogramCanvas = document.getElementById('histogramCanvas');
+    const sparklineCanvas = document.getElementById('sparklineCanvas');
+
+    // clear button
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      textarea.value = '';
+      textarea.dispatchEvent(new Event('input'));
+    });
+
+    function analyze(text) {
+      // split sentences: keep punctuation, handle multiple spaces
+      const raw = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+      // further clean: remove leading/trailing spaces, ensure ends with punctuation? keep as is
+      const sentences = raw.map(s => s.trim()).filter(s => s.length > 0);
+      if (sentences.length === 0) {
+        // show empty state
+        sentenceListContainer.innerHTML = `<div style="color:#64748b; padding:0.5rem;">No sentences found.</div>`;
+        resetStats();
+        clearCanvas(histogramCanvas);
+        clearCanvas(sparklineCanvas);
+        suggestionList.innerHTML = '<li>Add some text to analyze.</li>';
+        return;
+      }
+
+      // word count per sentence
+      const wordCounts = sentences.map(s => {
+        const words = s.split(/\s+/).filter(w => w.length > 0);
+        return words.length;
+      });
+
+      // basic stats
+      const n = wordCounts.length;
+      const sum = wordCounts.reduce((a,b) => a+b, 0);
+      const avg = sum / n;
+      const sorted = [...wordCounts].sort((a,b) => a-b);
+      const median = n % 2 === 0 ? (sorted[n/2 - 1] + sorted[n/2]) / 2 : sorted[Math.floor(n/2)];
+      const variance = wordCounts.reduce((acc, val) => acc + (val - avg)**2, 0) / n;
+      const std = Math.sqrt(variance);
+      const shortest = sorted[0];
+      const longest = sorted[n-1];
+
+      // rhythm score: coefficient of variation (std/mean) scaled to 0-100, capped
+      let rhythm = 0;
+      if (avg > 0 && std > 0) {
+        const cv = std / avg;
+        // cv typically 0.2-1.0, scale: 0->0, 0.8->100, above 1.2 still 100
+        rhythm = Math.min(100, Math.round((cv / 1.2) * 100));
+      } else if (avg > 0 && std === 0) {
+        rhythm = 0; // monotone
+      }
+      rhythmScoreEl.textContent = rhythm;
+
+      // update stats
+      avgEl.textContent = avg.toFixed(1);
+      medianEl.textContent = median.toFixed(1);
+      stdDevEl.textContent = std.toFixed(1);
+      shortestEl.textContent = shortest;
+      longestEl.textContent = longest;
+
+      // render sentence list with colors
+      let html = '';
+      const colorMap = (w) => {
+        if (w <= 14) return 'green';
+        if (w <= 25) return 'yellow';
+        if (w <= 35) return 'orange';
+        return 'red';
+      };
+      sentences.forEach((s, i) => {
+        const wc = wordCounts[i];
+        const colorClass = colorMap(wc);
+        const displayText = s.length > 120 ? s.slice(0, 120) + '…' : s;
+        html += `<div class="sentence-item color-${colorClass}">
+          <span class="index">${i+1}</span>
+          <span class="text">${escapeHtml(displayText)}</span>
+          <span class="word-count">${wc}</span>
+        </div>`;
+      });
+      sentenceListContainer.innerHTML = html;
+
+      // histogram (bar chart) – group lengths into bins 0-10,11-20,21-30,31-40,41-50,51+
+      const bins = [0,10,20,30,40,50,Infinity];
+      const binLabels = ['0-10','11-20','21-30','31-40','41-50','50+'];
+      const binCounts = new Array(bins.length-1).fill(0);
+      wordCounts.forEach(w => {
+        for (let i=0; i<bins.length-1; i++) {
+          if (w > bins[i] && w <= bins[i+1]) { binCounts[i]++; break; }
+        }
+      });
+      drawHistogram(binLabels, binCounts);
+
+      // sparkline: show each sentence length as dot/line
+      drawSparkline(wordCounts);
+
+      // suggestions for long sentences
+      const longIndices = [];
+      wordCounts.forEach((w, idx) => { if (w > 35) longIndices.push(idx+1); });
+      let suggHtml = '';
+      if (longIndices.length > 0) {
+        suggHtml = `<li>✂️ ${longIndices.length} sentence(s) over 35 words (sentence #${longIndices.join(', #')}). Consider splitting for better flow.</li>`;
+      } else {
+        suggHtml = `<li>✅ No overly long sentences (all ≤35 words). Good readability.</li>`;
+      }
+      if (rhythm < 30) {
+        suggHtml += `<li>⚖️ Rhythm score low (${rhythm}). Try mixing short & long sentences to create engaging variation.</li>`;
+      } else if (rhythm > 80) {
+        suggHtml += `<li>🎵 High rhythm score — nice variation!</li>`;
+      } else {
+        suggHtml += `<li>📊 Moderate rhythm. Could still benefit from more variety.</li>`;
+      }
+      suggestionList.innerHTML = suggHtml;
+    }
+
+    function resetStats() {
+      avgEl.textContent = '—'; medianEl.textContent = '—'; stdDevEl.textContent = '—';
+      shortestEl.textContent = '—'; longestEl.textContent = '—'; rhythmScoreEl.textContent = '0';
+      suggestionList.innerHTML = '<li>Add text to see suggestions.</li>';
+    }
+
+    function clearCanvas(canvas) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawHistogram(labels, counts) {
+      const canvas = histogramCanvas;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = 200 * dpr;
+      ctx.scale(dpr, dpr);
+      const w = rect.width;
+      const h = 200;
+      ctx.clearRect(0, 0, w, h);
+
+      const maxCount = Math.max(...counts, 1);
+      const barWidth = Math.max(20, (w - 40) / labels.length - 6);
+      const startX = 20;
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(0,0,w,h);
+      
+      counts.forEach((c, i) => {
+        const barH = (c / maxCount) * (h - 40);
+        const x = startX + i * (barWidth + 8);
+        const y = h - 20 - barH;
+        // color based on bin
+        let color = '#38bdf8';
+        if (i === 0) color = '#22c55e';
+        else if (i === 1) color = '#eab308';
+        else if (i === 2) color = '#f97316';
+        else if (i >= 3) color = '#ef4444';
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, barWidth, barH);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '9px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(labels[i], x + barWidth/2, h - 4);
+        ctx.fillText(c, x + barWidth/2, y - 4);
+      });
+    }
+
+    function drawSparkline(data) {
+      const canvas = sparklineCanvas;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = 80 * dpr;
+      ctx.scale(dpr, dpr);
+      const w = rect.width;
+      const h = 80;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0,0,w,h);
+
+      if (data.length < 2) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('need more sentences', w/2, h/2+4);
+        return;
+      }
+      const max = Math.max(...data, 1);
+      const min = Math.min(...data, 0);
+      const range = max - min || 1;
+      const padding = 8;
+      const stepX = (w - 2*padding) / (data.length - 1);
+      const points = data.map((v, i) => ({
+        x: padding + i * stepX,
+        y: h - padding - ((v - min) / range) * (h - 2*padding)
+      }));
+      // draw line
+      ctx.beginPath();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i=1; i<points.length; i++) {
+        ctx.lineTo(points[i].x, points[i].y);
+      }
+      ctx.stroke();
+      // draw dots
+      ctx.fillStyle = '#38bdf8';
+      points.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, 2*Math.PI);
+        ctx.fill();
+      });
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // handle input
+    function handleInput() {
+      const text = textarea.value;
+      analyze(text);
+    }
+
+    textarea.addEventListener('input', handleInput);
+    // initial analysis
+    handleInput();
+
+    // redraw on resize (debounced)
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => handleInput(), 200);
+    });
+  })();
+</script>
+</body>
+</html>

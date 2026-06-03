@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Flesch Reading Score Calculator — Check Your Text Readability</title>
+  <meta name="description" content="Analyze text readability with Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog, Coleman-Liau, SMOG, ARI. Real-time syllable counter, sentence highlighting, and color-coded gauge.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://enhio.com/tools/flesch-reading-calculator">
+  <!-- JSON-LD FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Flesch Reading Ease?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Flesch Reading Ease is a readability test that scores text from 0 (very complex) to 100 (very easy). It uses average sentence length and average syllables per word."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is the Flesch-Kincaid Grade Level calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Flesch-Kincaid Grade Level = 0.39 × (words/sentences) + 11.8 × (syllables/words) − 15.59. It maps to U.S. school grade levels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the color-coded gauge mean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The gauge shows Flesch score from 0 to 100. Dark green (90-100) = Very Easy, light green (80-89) = Easy, yellow (70-79) = Fairly Easy, orange (60-69) = Standard, red (50-59) = Fairly Difficult, dark red (0-49) = Difficult."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      padding: 1.5rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1100px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      color: #f1f5f9;
+      border-left: 5px solid #38bdf8;
+      padding-left: 1rem;
+    }
+    .subhead {
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 24px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      border: 1px solid #2d3a52;
+    }
+    textarea {
+      width: 100%;
+      min-height: 220px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 1.2rem;
+      color: #e2e8f0;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border 0.2s;
+      font-family: inherit;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+    }
+    .btn {
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      font-weight: 600;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 1rem;
+      display: inline-block;
+      letter-spacing: 0.3px;
+    }
+    .btn:hover {
+      background: #7dd3fc;
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin: 1.2rem 0 0.8rem;
+    }
+    .stat-item {
+      background: #0f172a;
+      border-radius: 20px;
+      padding: 0.6rem 0.4rem;
+      text-align: center;
+      border: 1px solid #2d3a52;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+    }
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .gauge-section {
+      margin: 1.5rem 0 0.5rem;
+    }
+    .gauge-bar {
+      background: #1e293b;
+      height: 22px;
+      border-radius: 40px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      position: relative;
+    }
+    .gauge-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #84cc16, #22c55e);
+      transition: width 0.4s ease;
+      border-radius: 40px;
+    }
+    .gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .score-badge {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.5rem 0 0.2rem;
+    }
+    .score-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .grade-label {
+      background: #2d3a52;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .index-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem 1.2rem;
+      margin: 1rem 0;
+    }
+    .index-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #334155;
+      padding: 0.3rem 0;
+    }
+    .index-name {
+      color: #b0c4de;
+    }
+    .index-value {
+      font-weight: 600;
+    }
+    .highlight-box {
+      background: #0f172a;
+      border-radius: 20px;
+      padding: 1rem 1.2rem;
+      margin-top: 1.2rem;
+      border-left: 4px solid #f97316;
+    }
+    .highlight-box h3 {
+      font-size: 0.9rem;
+      color: #fbbf24;
+      margin-bottom: 0.5rem;
+    }
+    .highlight-text {
+      max-height: 130px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      word-break: break-word;
+    }
+    .highlight-text mark {
+      background: #f97316;
+      color: #0f172a;
+      padding: 0.1rem 0.2rem;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+      padding-top: 2rem;
+      width: 100%;
+    }
+    @media (max-width: 700px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      h1 { font-size: 1.8rem; }
+      .stat-grid { grid-template-columns: repeat(3, 1fr); }
+      .index-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📖 Flesch Reading Score Calculator</h1>
+  <div class="subhead">Paste any text — get real‑time readability scores, syllable count, and complex sentence highlighting.</div>
+
+  <div class="grid-2">
+    <!-- Input card -->
+    <div class="card">
+      <label for="textInput" style="font-weight: 500; display: block; margin-bottom: 0.5rem;">Your text</label>
+      <textarea id="textInput" placeholder="Paste your text here (at least a few sentences) ...">The sun rose over the quiet village. Birds began to sing in the old oak trees. Children ran through the dewy grass, laughing with joy. The morning air was fresh and clean. It was a perfect start to a beautiful day. Nevertheless, the complexity of the modern world often overshadows these simple pleasures, creating a dissonance between nature and the relentless march of technology and progress.</textarea>
+      <button class="btn" id="analyzeBtn">🔍 Analyze readability</button>
+    </div>
+
+    <!-- Results card -->
+    <div class="card" id="resultsCard">
+      <div style="display: flex; justify-content: space-between; align-items: baseline;">
+        <span style="font-weight: 500;">Readability dashboard</span>
+        <span style="font-size: 0.75rem; color: #94a3b8;" id="wordCountDisplay">0 words</span>
+      </div>
+
+      <!-- stat row -->
+      <div class="stat-grid">
+        <div class="stat-item"><div class="stat-label">Sentences</div><div class="stat-value" id="sentencesCount">0</div></div>
+        <div class="stat-item"><div class="stat-label">Syllables</div><div class="stat-value" id="syllablesCount">0</div></div>
+        <div class="stat-item"><div class="stat-label">Avg S/W</div><div class="stat-value" id="avgSylPerWord">0</div></div>
+      </div>
+      <div class="stat-grid" style="grid-template-columns: 1fr 1fr; margin-top: 0;">
+        <div class="stat-item"><div class="stat-label">Avg sentence len</div><div class="stat-value" id="avgSentenceLen">0</div></div>
+        <div class="stat-item"><div class="stat-label">Complex sent.</div><div class="stat-value" id="complexSentCount">0</div></div>
+      </div>
+
+      <!-- Gauge + Flesch -->
+      <div class="gauge-section">
+        <div class="score-badge">
+          <span class="score-number" id="fleschScoreDisplay">72.4</span>
+          <span class="grade-label" id="gradeLevelLabel">Fairly Easy</span>
+        </div>
+        <div class="gauge-bar">
+          <div class="gauge-fill" id="gaugeFill" style="width: 72%"></div>
+        </div>
+        <div class="gauge-labels"><span>0 (difficult)</span><span>100 (easy)</span></div>
+      </div>
+
+      <!-- Index list -->
+      <div class="index-list">
+        <div class="index-item"><span class="index-name">Flesch-Kincaid Grade</span><span class="index-value" id="fkGrade">7.2</span></div>
+        <div class="index-item"><span class="index-name">Gunning Fog</span><span class="index-value" id="gunningFog">9.8</span></div>
+        <div class="index-item"><span class="index-name">Coleman-Liau</span><span class="index-value" id="colemanLiau">10.1</span></div>
+        <div class="index-item"><span class="index-name">SMOG Index</span><span class="index-value" id="smogIndex">8.5</span></div>
+        <div class="index-item"><span class="index-name">Automated Readability</span><span class="index-value" id="ariIndex">7.9</span></div>
+      </div>
+
+      <!-- Complex sentences highlight -->
+      <div class="highlight-box">
+        <h3>⚠️ Complex sentences ( >25 words )</h3>
+        <div class="highlight-text" id="complexHighlight">Click "Analyze" to highlight long sentences.</div>
+      </div>
+    </div>
+  </div>
+  <footer>© 2025 enhio.com</footer>
+</div>
+
+<script>
+  (function() {
+    const textarea = document.getElementById('textInput');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+
+    // Display elements
+    const wordCountDisplay = document.getElementById('wordCountDisplay');
+    const sentencesCount = document.getElementById('sentencesCount');
+    const syllablesCount = document.getElementById('syllablesCount');
+    const avgSylPerWord = document.getElementById('avgSylPerWord');
+    const avgSentenceLen = document.getElementById('avgSentenceLen');
+    const complexSentCount = document.getElementById('complexSentCount');
+    const fleschScoreDisplay = document.getElementById('fleschScoreDisplay');
+    const gradeLevelLabel = document.getElementById('gradeLevelLabel');
+    const gaugeFill = document.getElementById('gaugeFill');
+    const fkGrade = document.getElementById('fkGrade');
+    const gunningFog = document.getElementById('gunningFog');
+    const colemanLiau = document.getElementById('colemanLiau');
+    const smogIndex = document.getElementById('smogIndex');
+    const ariIndex = document.getElementById('ariIndex');
+    const complexHighlight = document.getElementById('complexHighlight');
+
+    // syllable counter (simple but robust)
+    function countSyllables(word) {
+      if (!word) return 0;
+      word = word.toLowerCase().replace(/[^a-z]/g, '');
+      if (word.length === 0) return 0;
+      // special cases
+      if (word === 'the') return 1;
+      let vowels = word.match(/[aeiouy]+/gi);
+      if (!vowels) return 1;
+      let count = vowels.length;
+      // subtract silent e
+      if (word.endsWith('e') && word.length > 2 && !word.endsWith('le')) count--;
+      // handle -le ending
+      if (word.endsWith('le') && word.length > 2 && !/[aeiouy]/.test(word[word.length-3])) count++;
+      if (count < 1) count = 1;
+      return count;
+    }
+
+    function analyzeText(text) {
+      if (!text.trim()) {
+        return null;
+      }
+      // normalize spaces
+      const clean = text.replace(/\s+/g, ' ').trim();
+      // split sentences: ., !, ? but keep abbreviations like Mr. etc? simple approach
+      const sentences = clean.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      const words = clean.split(/\s+/).filter(w => w.length > 0);
+      const wordCount = words.length;
+      const sentenceCount = sentences.length || 1;
+
+      // syllables per word
+      let totalSyllables = 0;
+      for (let w of words) {
+        totalSyllables += countSyllables(w);
+      }
+      const avgSyl = wordCount > 0 ? totalSyllables / wordCount : 0;
+      const avgSentLen = wordCount / sentenceCount;
+
+      // Flesch Reading Ease
+      let flesch = 206.835 - 1.015 * avgSentLen - 84.6 * avgSyl;
+      flesch = Math.min(100, Math.max(0, flesch));
+
+      // Flesch-Kincaid Grade
+      const fkGradeVal = 0.39 * avgSentLen + 11.8 * avgSyl - 15.59;
+      // Gunning Fog
+      const complexWords = words.filter(w => countSyllables(w) >= 3).length;
+      const fog = 0.4 * (avgSentLen + 100 * (complexWords / wordCount));
+      // Coleman-Liau
+      const letters = clean.replace(/[^a-zA-Z]/g, '').length;
+      const L = (letters / wordCount) * 100;
+      const S = (sentenceCount / wordCount) * 100;
+      const coleman = 0.0588 * L - 0.296 * S - 15.8;
+      // SMOG
+      const smog = 1.0430 * Math.sqrt(complexWords * (30 / sentenceCount)) + 3.1291;
+      // ARI
+      const chars = clean.replace(/[^a-zA-Z0-9]/g, '').length;
+      const ari = 4.71 * (chars / wordCount) + 0.5 * avgSentLen - 21.43;
+
+      // Complex sentences (>25 words)
+      const sentWords = sentences.map(s => s.trim().split(/\s+/).filter(w => w.length > 0));
+      const complexSentences = sentWords.filter(arr => arr.length > 25);
+      const complexCount = complexSentences.length;
+
+      // Build highlighted text (original sentences with marks)
+      let highlightedHtml = '';
+      for (let i = 0; i < sentences.length; i++) {
+        const s = sentences[i].trim();
+        const wc = s.split(/\s+/).filter(w => w.length > 0).length;
+        let display = s;
+        if (wc > 25) {
+          display = `<mark>${s}</mark>`;
+        }
+        highlightedHtml += display + '. ';
+      }
+      if (sentences.length === 0) highlightedHtml = 'No sentences found.';
+
+      return {
+        wordCount,
+        sentenceCount,
+        totalSyllables,
+        avgSyl,
+        avgSentLen,
+        flesch,
+        fkGrade: fkGradeVal,
+        fog,
+        coleman,
+        smog,
+        ari,
+        complexCount,
+        highlightedHtml
+      };
+    }
+
+    function updateUI(data) {
+      if (!data) {
+        return;
+      }
+      wordCountDisplay.textContent = data.wordCount + ' words';
+      sentencesCount.textContent = data.sentenceCount;
+      syllablesCount.textContent = data.totalSyllables;
+      avgSylPerWord.textContent = data.avgSyl.toFixed(2);
+      avgSentenceLen.textContent = data.avgSentLen.toFixed(1);
+      complexSentCount.textContent = data.complexCount;
+
+      // Flesch
+      const fleschRounded = Math.round(data.flesch * 10) / 10;
+      fleschScoreDisplay.textContent = fleschRounded.toFixed(1);
+      let gradeText = '';
+      if (fleschRounded >= 90) gradeText = 'Very Easy';
+      else if (fleschRounded >= 80) gradeText = 'Easy';
+      else if (fleschRounded >= 70) gradeText = 'Fairly Easy';
+      else if (fleschRounded >= 60) gradeText = 'Standard';
+      else if (fleschRounded >= 50) gradeText = 'Fairly Difficult';
+      else gradeText = 'Difficult';
+      gradeLevelLabel.textContent = gradeText;
+      gaugeFill.style.width = Math.min(100, Math.max(0, fleschRounded)) + '%';
+
+      // indices
+      fkGrade.textContent = data.fkGrade.toFixed(1);
+      gunningFog.textContent = data.fog.toFixed(1);
+      colemanLiau.textContent = data.coleman.toFixed(1);
+      smogIndex.textContent = data.smog.toFixed(1);
+      ariIndex.textContent = data.ari.toFixed(1);
+
+      // highlight
+      complexHighlight.innerHTML = data.highlightedHtml || 'No text to highlight.';
+    }
+
+    function performAnalysis() {
+      const text = textarea.value;
+      const result = analyzeText(text);
+      if (!result) {
+        // reset
+        wordCountDisplay.textContent = '0 words';
+        sentencesCount.textContent = '0';
+        syllablesCount.textContent = '0';
+        avgSylPerWord.textContent = '0';
+        avgSentenceLen.textContent = '0';
+        complexSentCount.textContent = '0';
+        fleschScoreDisplay.textContent = '—';
+        gradeLevelLabel.textContent = '—';
+        gaugeFill.style.width = '0%';
+        fkGrade.textContent = '—';
+        gunningFog.textContent = '—';
+        colemanLiau.textContent = '—';
+        smogIndex.textContent = '—';
+        ariIndex.textContent = '—';
+        complexHighlight.innerHTML = 'Please paste some text.';
+        return;
+      }
+      updateUI(result);
+    }
+
+    // initial analysis on page load
+    window.addEventListener('load', function() {
+      performAnalysis();
+    });
+
+    analyzeBtn.addEventListener('click', performAnalysis);
+
+    // optional: real-time on Ctrl+Enter? but we keep button.
+  })();
+</script>
+</body>
+</html>

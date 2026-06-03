@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Speaking Time Estimator — How Long Will Your Text Take to Read Aloud?</title>
+  <meta name="description" content="Estimate speaking time from text or word count. Adjust pace (slow, conversational, moderate, fast, presentation, audiobook, auctioneer) or custom WPM. Visual timeline, pause analysis, and content comparisons.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://enhio.com/tools/speaking-time-estimator">
+  <!-- JSON-LD FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is speaking time calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Speaking time = total words ÷ speaking rate (WPM). Pause time adds 0.5 seconds per sentence. Adjusted total includes pauses."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good speaking pace?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Conversational pace is around 130–150 WPM. Audiobooks often use 150 WPM, while auctioneers can reach 250 WPM."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use custom WPM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the custom slider lets you choose any WPM between 80 and 300."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem;
+    }
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      background: #1e293b;
+      border-radius: 2rem;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      border: 1px solid #334155;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #e2e8f0 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .subhead {
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      border-left: 4px solid #38bdf8;
+      padding-left: 1rem;
+      font-size: 1.1rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+    @media (max-width: 700px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      h1 { font-size: 1.8rem; }
+      .container { padding: 1.5rem 1rem; }
+    }
+    .card {
+      background: #0f172a;
+      border-radius: 1.5rem;
+      padding: 1.5rem 1.2rem;
+      border: 1px solid #2d3a52;
+    }
+    .card-title {
+      font-weight: 500;
+      color: #94a3b8;
+      letter-spacing: 0.3px;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-title i { color: #38bdf8; }
+    textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 1rem;
+      padding: 1rem;
+      color: #e2e8f0;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 120px;
+      transition: 0.2s;
+    }
+    textarea:focus {
+      outline: 2px solid #38bdf8;
+      border-color: transparent;
+    }
+    .word-count-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1rem 0 0.5rem;
+    }
+    .word-count-area label {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+    .word-count-area input {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      color: #e2e8f0;
+      width: 100px;
+      font-size: 1rem;
+    }
+    .word-count-area input:focus {
+      outline: 2px solid #38bdf8;
+    }
+    .pace-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 0.8rem 0 1rem;
+    }
+    .pace-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-weight: 500;
+    }
+    .pace-btn.active {
+      background: #38bdf8;
+      border-color: #38bdf8;
+      color: #0f172a;
+      box-shadow: 0 0 12px #38bdf866;
+    }
+    .pace-btn:hover {
+      background: #2d3a52;
+    }
+    .slider-block {
+      margin: 1rem 0 0.5rem;
+    }
+    .slider-block label {
+      display: flex;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    input[type=range] {
+      width: 100%;
+      margin: 0.3rem 0;
+      -webkit-appearance: none;
+      background: #1e293b;
+      height: 6px;
+      border-radius: 10px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: #38bdf8;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px #38bdf8aa;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #1e293b;
+    }
+    .stat-row:last-child { border: none; }
+    .stat-label { color: #94a3b8; }
+    .stat-value { font-weight: 600; color: #e2e8f0; }
+    .highlight {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    .timeline-container {
+      margin: 1.5rem 0 0.5rem;
+      background: #0f172a;
+      border-radius: 1.2rem;
+      padding: 1rem 0.8rem;
+    }
+    .timeline-bar {
+      display: flex;
+      height: 28px;
+      background: #1e293b;
+      border-radius: 40px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+    .timeline-fill {
+      background: linear-gradient(90deg, #38bdf8, #2dd4bf);
+      height: 100%;
+      border-radius: 40px;
+      transition: width 0.2s;
+    }
+    .timeline-marks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #64748b;
+      padding: 0 0.2rem;
+    }
+    .comparison {
+      background: #0f172a;
+      border-radius: 1.2rem;
+      padding: 0.8rem 1rem;
+      margin-top: 1rem;
+      border: 1px solid #2d3a52;
+      font-size: 0.95rem;
+    }
+    .comparison span {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #475569;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+      padding-top: 1.5rem;
+    }
+    .breakdown-item {
+      background: #0f172a;
+      border-radius: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      margin: 0.3rem 0;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .inline-icon { margin-right: 6px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>⏱️ Speaking Time Estimator</h1>
+  <div class="subhead">How long will your text take to read aloud? Paste text, choose pace, see timeline.</div>
+
+  <div class="grid-2">
+    <!-- left: input -->
+    <div class="card">
+      <div class="card-title"><span>📝</span> Your text</div>
+      <textarea id="textInput" placeholder="Paste your text here, or enter word count below...">The quick brown fox jumps over the lazy dog. Speaking time tools help presenters plan. This paragraph has multiple sentences. Each one adds a small pause.</textarea>
+      <div class="word-count-area">
+        <label for="wordCountInput">📊 Word count:</label>
+        <input type="number" id="wordCountInput" min="1" value="48" step="1">
+        <span style="color:#64748b; font-size:0.85rem;">(overrides text)</span>
+      </div>
+      <div style="margin-top: 0.8rem;">
+        <div style="display:flex; justify-content: space-between;"><span style="color:#94a3b8;">🗣️ Speaking pace</span><span id="paceLabel" style="color:#38bdf8;">conversational (130 wpm)</span></div>
+        <div class="pace-grid" id="paceGrid">
+          <button class="pace-btn" data-wpm="100">slow (100)</button>
+          <button class="pace-btn active" data-wpm="130">conversational (130)</button>
+          <button class="pace-btn" data-wpm="150">moderate (150)</button>
+          <button class="pace-btn" data-wpm="170">fast (170)</button>
+          <button class="pace-btn" data-wpm="120">presentation (120)</button>
+          <button class="pace-btn" data-wpm="150">audiobook (150)</button>
+          <button class="pace-btn" data-wpm="250">auctioneer (250)</button>
+        </div>
+        <div class="slider-block">
+          <label>🎚️ Custom WPM <span id="customWpmDisplay">130</span></label>
+          <input type="range" id="wpmSlider" min="80" max="300" value="130" step="1">
+        </div>
+      </div>
+    </div>
+
+    <!-- right: results -->
+    <div class="card">
+      <div class="card-title"><span>📊</span> Speaking estimate</div>
+      <div class="stat-row"><span class="stat-label">📄 Words</span><span class="stat-value" id="wordDisplay">48</span></div>
+      <div class="stat-row"><span class="stat-label">✂️ Sentences (pauses)</span><span class="stat-value" id="sentenceDisplay">3</span></div>
+      <div class="stat-row"><span class="stat-label">⏱️ Speaking time</span><span class="stat-value highlight" id="speakingTimeDisplay">0m 22s</span></div>
+      <div class="stat-row"><span class="stat-label">⏸️ Pause time (0.5s/pause)</span><span class="stat-value" id="pauseTimeDisplay">1.5s</span></div>
+      <div class="stat-row"><span class="stat-label">🕒 Adjusted total</span><span class="stat-value highlight" id="adjustedTimeDisplay">0m 23s</span></div>
+      
+      <div class="timeline-container">
+        <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#94a3b8;"><span>Start</span><span id="timelineEndLabel">0:23</span></div>
+        <div class="timeline-bar">
+          <div class="timeline-fill" id="timelineFill" style="width: 100%;"></div>
+        </div>
+        <div class="timeline-marks" id="timelineMarks">
+          <span>0:00</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <span>📈</span> Equivalent to <span id="tedTalks">0.02</span> TED talks (18min) · <span id="podcastEp">0.01</span> podcast episodes (30min)
+      </div>
+    </div>
+  </div>
+
+  <!-- section breakdown -->
+  <div style="margin-top: 1.8rem; background: #0f172a; border-radius: 1.5rem; padding: 1.2rem; border:1px solid #2d3a52;">
+    <div style="display:flex; align-items:center; gap:0.5rem; color:#94a3b8; margin-bottom:0.8rem;"><span>📑</span> Paragraph breakdown (by paragraph)</div>
+    <div id="paragraphBreakdown"><div class="breakdown-item"><span>Paragraph 1</span><span>~22s (adjusted)</span></div></div>
+  </div>
+
+  <div class="footer">© 2025 enhio.com</div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const textInput = document.getElementById('textInput');
+    const wordCountInput = document.getElementById('wordCountInput');
+    const paceBtns = document.querySelectorAll('.pace-btn');
+    const wpmSlider = document.getElementById('wpmSlider');
+    const customWpmDisplay = document.getElementById('customWpmDisplay');
+    const paceLabel = document.getElementById('paceLabel');
+
+    const wordDisplay = document.getElementById('wordDisplay');
+    const sentenceDisplay = document.getElementById('sentenceDisplay');
+    const speakingTimeDisplay = document.getElementById('speakingTimeDisplay');
+    const pauseTimeDisplay = document.getElementById('pauseTimeDisplay');
+    const adjustedTimeDisplay = document.getElementById('adjustedTimeDisplay');
+    const timelineFill = document.getElementById('timelineFill');
+    const timelineEndLabel = document.getElementById('timelineEndLabel');
+    const tedTalks = document.getElementById('tedTalks');
+    const podcastEp = document.getElementById('podcastEp');
+    const paragraphBreakdown = document.getElementById('paragraphBreakdown');
+
+    // state
+    let activeWpm = 130; // default conversational
+    let customMode = false; // true if slider moved manually
+
+    // Helper: count words from text
+    function countWords(text) {
+      const trimmed = text.trim();
+      if (trimmed === '') return 0;
+      return trimmed.split(/\s+/).length;
+    }
+
+    // Count sentences (rough)
+    function countSentences(text) {
+      const trimmed = text.trim();
+      if (trimmed === '') return 0;
+      const matches = trimmed.match(/[.!?]+/g);
+      if (!matches) return 1; // at least one sentence if text exists
+      let count = matches.length;
+      // handle trailing punctuation
+      if (trimmed.endsWith('.') || trimmed.endsWith('!') || trimmed.endsWith('?')) {
+        // count is fine
+      }
+      // if no punctuation but has words, at least 1
+      if (count === 0 && trimmed.length > 0) return 1;
+      return count;
+    }
+
+    // Get paragraphs (split by double newline)
+    function getParagraphs(text) {
+      return text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+    }
+
+    // Main calculation
+    function compute() {
+      // 1. determine word count
+      let text = textInput.value || '';
+      let wordCount = parseInt(wordCountInput.value, 10);
+      if (isNaN(wordCount) || wordCount < 1) wordCount = 1;
+      
+      // if text not empty, we can override word count from text? but user can set word count manually.
+      // we respect word count input as primary if > 0, but also sync from text if wordcount empty?
+      // According to spec: paste text OR enter word count. We'll use wordCountInput as primary if provided,
+      // but also update from text if user types? We'll keep both in sync: if text changes, update wordCountInput.
+      // For simplicity: if text is not empty, we count words from text and set input.
+      // But if user manually changes wordCountInput, we keep that value and ignore text? 
+      // We'll implement: text area overrides word count input when text changes, but user can manually set word count.
+      // We'll add event listeners to sync.
+      
+      // Actually we compute from text first, but if wordCountInput is focused? we'll use wordCountInput as override.
+      // Let's compute from text and then check if wordCountInput is different? We'll use wordCountInput value.
+      // But we need to keep consistency: we'll set wordCountInput from text when text changes.
+      // We'll do that in event listeners. For compute, we use wordCountInput.
+      
+      const sentences = countSentences(text);
+      const words = wordCount; // from input
+
+      // 2. wpm
+      let wpm = activeWpm;
+      
+      // 3. times
+      const speakingTimeMin = words / wpm;
+      const speakingTimeSec = speakingTimeMin * 60;
+      const pauseCount = sentences;
+      const totalPauseSec = pauseCount * 0.5;
+      const adjustedSec = speakingTimeSec + totalPauseSec;
+
+      // format
+      function formatTime(sec) {
+        if (sec < 0) sec = 0;
+        const h = Math.floor(sec / 3600);
+        const m = Math.floor((sec % 3600) / 60);
+        const s = Math.floor(sec % 60);
+        if (h > 0) return `${h}h ${m}m ${s}s`;
+        if (m > 0) return `${m}m ${s}s`;
+        return `${s}s`;
+      }
+      function formatTimeColon(sec) {
+        if (sec < 0) sec = 0;
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+      }
+
+      const speakStr = formatTime(speakingTimeSec);
+      const pauseStr = totalPauseSec.toFixed(1) + 's';
+      const adjustedStr = formatTime(adjustedSec);
+
+      // update UI
+      wordDisplay.textContent = words;
+      sentenceDisplay.textContent = sentences;
+      speakingTimeDisplay.textContent = speakStr;
+      pauseTimeDisplay.textContent = pauseStr;
+      adjustedTimeDisplay.textContent = adjustedStr;
+
+      // timeline
+      const totalSec = adjustedSec || 1;
+      timelineFill.style.width = '100%';
+      timelineEndLabel.textContent = formatTimeColon(totalSec);
+
+      // comparison
+      const tedTalkLen = 18 * 60; // 18 min
+      const podcastLen = 30 * 60; // 30 min
+      const tedVal = (adjustedSec / tedTalkLen);
+      const podVal = (adjustedSec / podcastLen);
+      tedTalks.textContent = tedVal.toFixed(2);
+      podcastEp.textContent = podVal.toFixed(2);
+
+      // paragraph breakdown
+      const paragraphs = getParagraphs(text);
+      if (paragraphs.length === 0) {
+        paragraphBreakdown.innerHTML = `<div class="breakdown-item"><span>No paragraphs</span><span>—</span></div>`;
+      } else {
+        let html = '';
+        let paraWordsAccum = 0;
+        paragraphs.forEach((p, idx) => {
+          const w = countWords(p);
+          paraWordsAccum += w;
+          // estimate time for this paragraph (proportional)
+          const paraSec = (w / words) * adjustedSec;
+          const timeStr = formatTime(paraSec);
+          html += `<div class="breakdown-item"><span>Paragraph ${idx+1} (${w} words)</span><span>~${timeStr}</span></div>`;
+        });
+        paragraphBreakdown.innerHTML = html;
+      }
+    }
+
+    // sync text to word count
+    function syncWordCountFromText() {
+      const text = textInput.value || '';
+      const wc = countWords(text);
+      wordCountInput.value = wc;
+      compute();
+    }
+
+    // set active pace
+    function setPace(wpm, label) {
+      activeWpm = wpm;
+      wpmSlider.value = wpm;
+      customWpmDisplay.textContent = wpm;
+      paceLabel.textContent = label || `${wpm} wpm`;
+      // remove active class
+      paceBtns.forEach(btn => btn.classList.remove('active'));
+      // mark matching button
+      paceBtns.forEach(btn => {
+        if (parseInt(btn.dataset.wpm, 10) === wpm && !customMode) {
+          btn.classList.add('active');
+        }
+      });
+      compute();
+    }
+
+    // pace button click
+    paceBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const wpm = parseInt(this.dataset.wpm, 10);
+        const label = this.textContent.trim() + ' wpm';
+        customMode = false;
+        setPace(wpm, label);
+        // highlight active
+        paceBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // slider change
+    wpmSlider.addEventListener('input', function() {
+      const val = parseInt(this.value, 10);
+      customWpmDisplay.textContent = val;
+      activeWpm = val;
+      customMode = true;
+      paceLabel.textContent = `custom (${val} wpm)`;
+      paceBtns.forEach(b => b.classList.remove('active'));
+      compute();
+    });
+
+    // text input -> sync word count
+    textInput.addEventListener('input', function() {
+      syncWordCountFromText();
+    });
+
+    // word count input change
+    wordCountInput.addEventListener('input', function() {
+      const val = parseInt(this.value, 10);
+      if (!isNaN(val) && val > 0) {
+        // do not override text, just compute
+        compute();
+      }
+    });
+
+    // initial compute
+    // set default active
+    document.querySelector('.pace-btn.active')?.classList.remove('active');
+    document.querySelector('.pace-btn[data-wpm="130"]')?.classList.add('active');
+    setPace(130, 'conversational (130 wpm)');
+    syncWordCountFromText();
+    // ensure word count from text
+    compute();
+  })();
+</script>
+</body>
+</html>
