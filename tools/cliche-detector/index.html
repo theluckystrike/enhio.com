@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliche Detector - Find Overused Phrases</title>
+    <meta name="description" content="Detect overused cliches and get fresh alternatives. Boost originality with real-time phrase analysis and suggestions.">
+    <meta name="canonical" href="https://enhio.com/tools/cliche-detector">
+    <meta property="og:title" content="Cliche Detector - Find Overused Phrases">
+    <meta property="og:description" content="Detect overused cliches and get fresh alternatives. Boost originality with real-time phrase analysis and suggestions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enhio.com/tools/cliche-detector">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Cliche Detector",
+        "description": "Find and replace overused cliches with fresh alternatives",
+        "url": "https://enhio.com/tools/cliche-detector",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #22c55e;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #b0b0b0;
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            font-size: 1.3em;
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        button {
+            background-color: #22c55e;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .button-secondary {
+            background-color: #333;
+            color: #ffffff;
+            margin-left: 10px;
+        }
+
+        .button-secondary:hover {
+            background-color: #444;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-box {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            color: #22c55e;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #b0b0b0;
+            font-size: 0.9em;
+        }
+
+        .originality-gauge {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .gauge-bar {
+            width: 100%;
+            height: 40px;
+            background-color: #333;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .gauge-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #eab308, #22c55e);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+
+        .originality-score {
+            font-size: 2em;
+            color: #22c55e;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .cliche-chart {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .chart-item {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .chart-count {
+            font-size: 1.8em;
+            color: #ef4444;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .chart-category {
+            color: #b0b0b0;
+            font-size: 0.9em;
+        }
+
+        .chart-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .chart-bar-fill {
+            height: 100%;
+            background-color: #ef4444;
+            border-radius: 10px;
+        }
+
+        .cliche-list {
+            margin: 20px 0;
+        }
+
+        .cliche-item {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #ef4444;
+        }
+
+        .cliche-text {
+            color: #ef4444;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .cliche-category {
+            display: inline-block;
+            background-color: #ef4444;
+            color: #0a0a0a;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+            margin-right: 5px;
+        }
+
+        .alternatives {
+            margin: 10px 0;
+        }
+
+        .alternative {
+            color: #22c55e;
+            padding: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .alternative:before {
+            content: "→ ";
+            margin-right: 5px;
+        }
+
+        .text-display {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            line-height: 1.8;
+            word-break: break-word;
+        }
+
+        .cliche-highlight {
+            background-color: rgba(239, 68, 68, 0.4);
+            color: #ff6b6b;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+
+        .clean-version {
+            background-color: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .copy-btn {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cliche-chart {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+<link rel="canonical" href="https://enhio.com/tools/cliche-detector">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cliche Detector</h1>
+            <p class="subtitle">Find overused phrases and get fresh alternatives</p>
+        </header>
+
+        <div class="card">
+            <h2>Paste Your Text</h2>
+            <textarea id="textInput" placeholder="Paste your text here for analysis..." rows="8"></textarea>
+            <button onclick="analyzeText()">Analyze</button>
+        </div>
+
+        <div id="results" class="results active">
+            <div class="card">
+                <h2>Originality Score</h2>
+                <div class="originality-gauge">
+                    <div class="gauge-bar">
+                        <div class="gauge-fill" id="gaugeBar" style="width: 50%;">
+                            <span id="gaugeLabelPercent">50</span>
+                        </div>
+                    </div>
+                    <div class="originality-score" id="scoreValue">50</div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <div class="metric-value" id="clicheCount">0</div>
+                        <div class="metric-label">Cliches Found</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="clicheDensity">0</div>
+                        <div class="metric-label">per 100 words</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="totalWords">0</div>
+                        <div class="metric-label">Total Words</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Cliche Categories Found</h2>
+                <div class="cliche-chart" id="categoryChart"></div>
+            </div>
+
+            <div class="card">
+                <h2>Detected Cliches & Alternatives</h2>
+                <div class="cliche-list" id="clicheList"></div>
+            </div>
+
+            <div class="card">
+                <h2>Original Text with Highlights</h2>
+                <div class="text-display" id="highlightedText"></div>
+            </div>
+
+            <div class="card">
+                <h2>Clean Version</h2>
+                <div class="clean-version">
+                    <div id="cleanVersion"></div>
+                    <button class="copy-btn button-secondary" onclick="copyClean()">Copy Clean Version</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 40px 20px; color: #666;">
+            <p>Paste text and click "Analyze" to get started</p>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 enhio.com
+    </footer>
+
+    <script>
+        const CLICHES = {
+            business: [
+                { phrase: 'take it to the next level', alternatives: ['improve', 'enhance', 'advance significantly'] },
+                { phrase: 'think outside the box', alternatives: ['consider unconventional approaches', 'challenge assumptions', 'explore creative solutions'] },
+                { phrase: 'synergy', alternatives: ['collaboration', 'combined effort', 'cooperation'] },
+                { phrase: 'at the end of the day', alternatives: ['ultimately', 'in the end', 'when all is said and done'] },
+                { phrase: 'win-win situation', alternatives: ['mutually beneficial outcome', 'positive for all parties'] },
+                { phrase: 'circle back', alternatives: ['return to', 'revisit', 'discuss further'] },
+                { phrase: 'low-hanging fruit', alternatives: ['quick wins', 'easy opportunities', 'immediate gains'] },
+                { phrase: 'touch base', alternatives: ['connect', 'check in', 'communicate'] }
+            ],
+            sports: [
+                { phrase: 'knock it out of the park', alternatives: ['succeed significantly', 'achieve a great result', 'exceed expectations'] },
+                { phrase: 'level playing field', alternatives: ['fair competition', 'equal opportunity', 'equal conditions'] },
+                { phrase: 'in the final stretch', alternatives: ['near completion', 'approaching the finish', 'in the home run'] },
+                { phrase: 'moving the goalposts', alternatives: ['changing expectations', 'shifting requirements', 'moving targets'] },
+                { phrase: 'get the ball rolling', alternatives: ['start the process', 'begin', 'initiate'] }
+            ],
+            weather: [
+                { phrase: 'under the weather', alternatives: ['feeling unwell', 'not feeling well', 'sick'] },
+                { phrase: 'breeze', alternatives: ['ease', 'simplicity', 'straightforward task'] },
+                { phrase: 'storm', alternatives: ['turmoil', 'chaos', 'upheaval'] },
+                { phrase: 'calm before the storm', alternatives: ['peaceful period before trouble', 'quiet precedes chaos'] }
+            ],
+            time: [
+                { phrase: 'in a nutshell', alternatives: ['briefly', 'to summarize', 'in short'] },
+                { phrase: 'in due time', alternatives: ['eventually', 'at the right time', 'when ready'] },
+                { phrase: 'in the nick of time', alternatives: ['just in time', 'at the last moment', 'just barely'] },
+                { phrase: 'since time immemorial', alternatives: ['for ages', 'throughout history', 'for a very long time'] }
+            ],
+            emotion: [
+                { phrase: 'heart of gold', alternatives: ['kind-hearted', 'compassionate', 'generous spirit'] },
+                { phrase: 'break my heart', alternatives: ['deeply disappoint', 'cause sadness', 'distress'] },
+                { phrase: 'love at first sight', alternatives: ['instant attraction', 'immediate connection', 'immediate appeal'] },
+                { phrase: 'bitter end', alternatives: ['final defeat', 'complete failure', 'conclusive ending'] }
+            ],
+            action: [
+                { phrase: 'beat a dead horse', alternatives: ['dwell on resolved issues', 'pursue futile efforts', 'waste time'] },
+                { phrase: 'put all your eggs in one basket', alternatives: ['risk everything on one outcome', 'lack diversification'] },
+                { phrase: 'burn the midnight oil', alternatives: ['work late', 'put in extra effort', 'work hard'] },
+                { phrase: 'pull the plug', alternatives: ['stop', 'end', 'terminate'] }
+            ]
+        };
+
+        let clicheMatches = [];
+
+        function findClichesInText(text) {
+            const matches = [];
+            const lowerText = text.toLowerCase();
+
+            for (let [category, cliches] of Object.entries(CLICHES)) {
+                cliches.forEach(cliche => {
+                    const regex = new RegExp(`\\b${cliche.phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+                    let match;
+                    while ((match = regex.exec(text)) !== null) {
+                        matches.push({
+                            phrase: cliche.phrase,
+                            alternatives: cliche.alternatives,
+                            category: category,
+                            index: match.index,
+                            length: match[0].length,
+                            actual: match[0]
+                        });
+                    }
+                });
+            }
+
+            return matches.sort((a, b) => a.index - b.index);
+        }
+
+        function analyzeText() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text) return alert('Please paste some text');
+
+            clicheMatches = findClichesInText(text);
+            const words = text.split(/\s+/).length;
+
+            // Calculate originality score
+            const clicheCount = clicheMatches.length;
+            const clicheDensity = Math.round((clicheCount / words) * 100);
+            const originalityScore = Math.max(0, 100 - (clicheCount * 5 + clicheDensity));
+
+            // Update metrics
+            document.getElementById('clicheCount').textContent = clicheCount;
+            document.getElementById('clicheDensity').textContent = clicheDensity;
+            document.getElementById('totalWords').textContent = words;
+            document.getElementById('scoreValue').textContent = originalityScore;
+
+            const gauge = document.getElementById('gaugeBar');
+            gauge.style.width = originalityScore + '%';
+            document.getElementById('gaugeLabelPercent').textContent = originalityScore;
+
+            // Category breakdown
+            const categoryCount = {};
+            clicheMatches.forEach(m => {
+                categoryCount[m.category] = (categoryCount[m.category] || 0) + 1;
+            });
+
+            const categoryChart = document.getElementById('categoryChart');
+            categoryChart.innerHTML = '';
+            const maxCount = Math.max(...Object.values(categoryCount), 1);
+
+            for (let [cat, count] of Object.entries(categoryCount)) {
+                const item = document.createElement('div');
+                item.className = 'chart-item';
+                const percentage = (count / maxCount) * 100;
+                item.innerHTML = `
+                    <div class="chart-count">${count}</div>
+                    <div class="chart-category">${cat}</div>
+                    <div class="chart-bar">
+                        <div class="chart-bar-fill" style="width: ${percentage}%"></div>
+                    </div>
+                `;
+                categoryChart.appendChild(item);
+            }
+
+            // Cliche list
+            const clicheList = document.getElementById('clicheList');
+            clicheList.innerHTML = '';
+            const uniqueCliches = [...new Set(clicheMatches.map(m => m.phrase))];
+
+            uniqueCliches.forEach(phrase => {
+                const matches = clicheMatches.filter(m => m.phrase === phrase);
+                const firstMatch = matches[0];
+                const item = document.createElement('div');
+                item.className = 'cliche-item';
+                item.innerHTML = `
+                    <div class="cliche-category">${firstMatch.category}</div>
+                    <div class="cliche-text">"${firstMatch.actual}"</div>
+                    <div class="alternatives">
+                        ${firstMatch.alternatives.map(alt => `<div class="alternative">"${alt}"</div>`).join('')}
+                    </div>
+                    <div style="font-size: 0.85em; color: #b0b0b0;">Found ${matches.length} time(s)</div>
+                `;
+                clicheList.appendChild(item);
+            });
+
+            // Highlighted text
+            let highlightedText = text;
+            const sortedMatches = [...clicheMatches].sort((a, b) => b.index - a.index);
+            sortedMatches.forEach(match => {
+                const before = highlightedText.substring(0, match.index);
+                const highlight = `<span class="cliche-highlight">${match.actual}</span>`;
+                const after = highlightedText.substring(match.index + match.length);
+                highlightedText = before + highlight + after;
+            });
+
+            document.getElementById('highlightedText').innerHTML = highlightedText;
+
+            // Clean version
+            let cleanText = text;
+            sortedMatches.forEach(match => {
+                const before = cleanText.substring(0, match.index);
+                const replacement = match.alternatives[0];
+                const after = cleanText.substring(match.index + match.length);
+                cleanText = before + replacement + after;
+            });
+
+            document.getElementById('cleanVersion').textContent = cleanText;
+            document.getElementById('results').classList.add('active');
+        }
+
+        function copyClean() {
+            const cleanText = document.getElementById('cleanVersion').textContent;
+            navigator.clipboard.writeText(cleanText).then(() => {
+                alert('Clean version copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>

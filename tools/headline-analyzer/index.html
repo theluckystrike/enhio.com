@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headline Analyzer - Boost Writing</title>
+    <meta name="description" content="Analyze headlines for emotional impact, power words & SEO. Get actionable insights to improve engagement instantly.">
+    <meta name="canonical" href="https://enhio.com/tools/headline-analyzer">
+    <meta property="og:title" content="Headline Analyzer - Boost Writing">
+    <meta property="og:description" content="Analyze headlines for emotional impact, power words & SEO. Get actionable insights to improve engagement instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enhio.com/tools/headline-analyzer">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Headline Analyzer",
+        "description": "Analyze headlines for emotional impact, power words, and SEO optimization",
+        "url": "https://enhio.com/tools/headline-analyzer",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #22c55e;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #b0b0b0;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .card h2 {
+            font-size: 1.3em;
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: inherit;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        button {
+            background-color: #22c55e;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .score-display {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .score-value {
+            font-size: 3em;
+            color: #22c55e;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .score-label {
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #b0b0b0;
+            font-size: 0.95em;
+        }
+
+        .metric-value {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .gauge {
+            width: 100%;
+            height: 200px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .gauge-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .comparison-container {
+            margin-top: 30px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .comparison-item {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .comparison-score {
+            font-size: 2em;
+            color: #22c55e;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .suggestion {
+            background-color: #1a3a1a;
+            border-left: 3px solid #22c55e;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .headline-type {
+            display: inline-block;
+            background-color: #22c55e;
+            color: #0a0a0a;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .word-breakdown {
+            margin: 20px 0;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.9em;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .tab-switch {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #22c55e;
+            border-bottom-color: #22c55e;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gauge {
+                height: 150px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+<link rel="canonical" href="https://enhio.com/tools/headline-analyzer">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Headline Analyzer</h1>
+            <p class="subtitle">Optimize your headlines for impact, engagement & SEO</p>
+        </header>
+
+        <div class="main-content">
+            <div class="card">
+                <h2>Analyze Headline</h2>
+                <textarea id="headlineInput" placeholder="Enter your headline here..." rows="4"></textarea>
+                <button onclick="analyzeHeadline()">Analyze</button>
+
+                <div style="margin-top: 30px;">
+                    <h3 style="color: #22c55e; margin-bottom: 15px;">A/B Compare Mode</h3>
+                    <textarea id="headlineCompare" placeholder="Enter a second headline to compare..." rows="3"></textarea>
+                    <button onclick="compareHeadlines()" style="margin-top: 10px;">Compare Headlines</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="tab-switch">
+                    <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+                    <button class="tab-btn" onclick="switchTab('breakdown')">Breakdown</button>
+                    <button class="tab-btn" onclick="switchTab('suggestions')">Suggestions</button>
+                </div>
+
+                <div id="overview" class="results active">
+                    <div class="score-display">
+                        <div class="score-value" id="overallScore">0</div>
+                        <div class="score-label">Overall Score</div>
+                    </div>
+                    <div id="gaugeContainer" class="gauge">
+                        <svg class="gauge-svg" viewBox="0 0 200 120" id="scoreSvg"></svg>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div class="metric-row">
+                            <span class="metric-label">Word Count</span>
+                            <span class="metric-value"><span id="wordCount">0</span> words</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Character Count</span>
+                            <span class="metric-value"><span id="charCount">0</span> chars</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Reading Grade Level</span>
+                            <span class="metric-value">Grade <span id="gradeLevel">0</span></span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Sentiment</span>
+                            <span class="metric-value" id="sentiment">Neutral</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="breakdown" class="results">
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #22c55e; margin-bottom: 15px;">Headline Type</h3>
+                        <div id="headlineType"></div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #22c55e; margin-bottom: 15px;">Power Words Analysis</h3>
+                        <div class="metric-row">
+                            <span class="metric-label">Power Words Found</span>
+                            <span class="metric-value" id="powerWordCount">0</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Power Word %</span>
+                            <span class="metric-value" id="powerWordPercent">0%</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #22c55e; margin-bottom: 15px;">Word Type Distribution</h3>
+                        <div class="breakdown-item">
+                            <span>Common Words</span>
+                            <span style="color: #22c55e;"><span id="commonWordPercent">0</span>%</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Uncommon Words</span>
+                            <span style="color: #22c55e;"><span id="uncommonWordPercent">0</span>%</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Emotional Words</span>
+                            <span style="color: #22c55e;"><span id="emotionalWordPercent">0</span>%</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #22c55e; margin-bottom: 15px;">First & Last Words</h3>
+                        <div class="breakdown-item">
+                            <span>First 3 Words</span>
+                            <span id="firstWords" style="color: #22c55e; font-size: 0.9em;"></span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Last 3 Words</span>
+                            <span id="lastWords" style="color: #22c55e; font-size: 0.9em;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="suggestions" class="results">
+                    <div id="suggestionsContainer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Comparison Results</h2>
+            <div id="comparisonResults" style="display: none;">
+                <div class="comparison-grid" id="comparisonGrid"></div>
+            </div>
+            <div id="noComparison" style="text-align: center; color: #666; padding: 40px 20px;">
+                Enter two headlines and click "Compare" to see side-by-side analysis
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 enhio.com
+    </footer>
+
+    <script>
+        const POWER_WORDS = ['ultimate', 'proven', 'secret', 'exclusive', 'amazing', 'breakthrough', 'revolutionary', 'powerful', 'guaranteed', 'instant', 'essential', 'critical', 'urgent', 'explosive', 'incredible', 'extraordinary', 'unstoppable', 'unbelievable', 'unconditional', 'forbidden', 'discovered', 'exposed', 'bizarre', 'sensational', 'shocking', 'startling', 'astonishing', 'stunning', 'remarkable', 'phenomenal', 'outstanding', 'magnificent', 'brilliant', 'inspired', 'genius', 'masterpiece', 'triumph', 'victory', 'success', 'elite', 'premium', 'luxury', 'exclusive', 'rare', 'limited', 'unprecedented', 'unparalleled', 'transcendent', 'magnificent'];
+
+        const EMOTIONAL_WORDS = ['love', 'hate', 'fear', 'hope', 'joy', 'sad', 'angry', 'desperate', 'amazing', 'terrible', 'wonderful', 'horrific', 'beautiful', 'ugly', 'passion', 'betrayal', 'triumph', 'disaster', 'miracle', 'nightmare'];
+
+        const COMMON_WORDS = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'your', 'you', 'it', 'that', 'this', 'these', 'those', 'with', 'by', 'from', 'as', 'about'];
+
+        const HEADLINE_KEYWORDS = {
+            'how': 'How-To',
+            'what': 'What/Question',
+            'why': 'Why/Question',
+            'when': 'When/Question',
+            'where': 'Where/Question',
+            'who': 'Who/Question',
+            'list': 'List Post',
+            'tips': 'Tips/Advice',
+            'secrets': 'Secrets/Exclusive',
+            'tricks': 'Tricks/Hacks',
+            'ways': 'Ways/How-To',
+            'reason': 'Reason/Explanation',
+            'best': 'Best/Superlative',
+            'top': 'Top/Ranking',
+            'ultimate': 'Ultimate/Complete',
+            'complete': 'Complete/Guide',
+            'guide': 'Guide',
+            'tutorial': 'Tutorial',
+            'mistakes': 'Common Mistakes',
+            'fails': 'Failures/Mistakes'
+        };
+
+        function countSyllables(word) {
+            word = word.toLowerCase();
+            let syllableCount = 0;
+            let vowels = 'aeiou';
+            let previousWasVowel = false;
+
+            for (let i = 0; i < word.length; i++) {
+                let isVowel = vowels.includes(word[i]);
+                if (isVowel && !previousWasVowel) {
+                    syllableCount++;
+                }
+                previousWasVowel = isVowel;
+            }
+
+            if (word.endsWith('e')) syllableCount--;
+            if (word.endsWith('le')) syllableCount++;
+
+            return Math.max(1, syllableCount);
+        }
+
+        function getGradeLevel(text) {
+            let sentences = text.match(/[.!?]+/g) || [];
+            let words = text.trim().split(/\s+/).filter(w => w.length > 0);
+
+            if (sentences.length === 0 || words.length === 0) return 0;
+
+            let syllables = words.reduce((sum, word) => sum + countSyllables(word), 0);
+            let grade = 0.39 * (words.length / sentences.length) + 11.8 * (syllables / words.length) - 15.59;
+            return Math.max(0, Math.round(grade * 10) / 10);
+        }
+
+        function detectSentiment(text) {
+            const positive = ['amazing', 'great', 'love', 'best', 'excellent', 'wonderful', 'fantastic', 'incredible', 'awesome', 'perfect'];
+            const negative = ['bad', 'terrible', 'hate', 'worst', 'horrible', 'awful', 'disgusting', 'poor', 'ugly'];
+
+            let posCount = 0, negCount = 0;
+            const words = text.toLowerCase().split(/\s+/);
+
+            words.forEach(word => {
+                if (positive.some(p => word.includes(p))) posCount++;
+                if (negative.some(n => word.includes(n))) negCount++;
+            });
+
+            if (posCount > negCount) return 'Positive';
+            if (negCount > posCount) return 'Negative';
+            return 'Neutral';
+        }
+
+        function detectHeadlineType(text) {
+            const lower = text.toLowerCase();
+            for (let [keyword, type] of Object.entries(HEADLINE_KEYWORDS)) {
+                if (lower.includes(keyword)) return type;
+            }
+            if (text.trim().endsWith('?')) return 'Question';
+            return 'Standard';
+        }
+
+        function analyzeHeadline() {
+            const headline = document.getElementById('headlineInput').value.trim();
+            if (!headline) return alert('Please enter a headline');
+
+            const words = headline.trim().split(/\s+/).filter(w => w.length > 0);
+            const chars = headline.length;
+            const wordCount = words.length;
+
+            let powerWordCount = 0;
+            let emotionalWordCount = 0;
+            let commonWordCount = 0;
+
+            const lowerHeadline = headline.toLowerCase();
+            words.forEach(word => {
+                const cleanWord = word.toLowerCase().replace(/[^a-z]/g, '');
+                if (POWER_WORDS.some(pw => cleanWord.includes(pw))) powerWordCount++;
+                if (EMOTIONAL_WORDS.includes(cleanWord)) emotionalWordCount++;
+                if (COMMON_WORDS.includes(cleanWord)) commonWordCount++;
+            });
+
+            const uncommonWordCount = wordCount - commonWordCount;
+            const gradeLevel = getGradeLevel(headline);
+            const sentiment = detectSentiment(headline);
+            const headlineType = detectHeadlineType(headline);
+
+            // Calculate score
+            let score = 0;
+            score += Math.min(30, wordCount * 3); // Word count bonus (7-10 optimal)
+            score += (powerWordCount / Math.max(wordCount, 1)) * 25; // Power words
+            score += (emotionalWordCount / Math.max(wordCount, 1)) * 20; // Emotional impact
+            score += Math.max(0, 15 - Math.abs(chars - 60)) / 15 * 15; // SEO length
+            score += (sentiment !== 'Neutral' ? 10 : 0); // Sentiment bonus
+
+            // Update display
+            document.getElementById('overallScore').textContent = Math.round(score);
+            document.getElementById('wordCount').textContent = wordCount;
+            document.getElementById('charCount').textContent = chars;
+            document.getElementById('gradeLevel').textContent = gradeLevel;
+            document.getElementById('sentiment').textContent = sentiment;
+            document.getElementById('powerWordCount').textContent = powerWordCount;
+            document.getElementById('powerWordPercent').textContent = Math.round((powerWordCount / wordCount) * 100);
+            document.getElementById('commonWordPercent').textContent = Math.round((commonWordCount / wordCount) * 100);
+            document.getElementById('uncommonWordPercent').textContent = Math.round((uncommonWordCount / wordCount) * 100);
+            document.getElementById('emotionalWordPercent').textContent = Math.round((emotionalWordCount / wordCount) * 100);
+
+            // First and last words
+            const firstWords = words.slice(0, 3).join(' ');
+            const lastWords = words.slice(-3).join(' ');
+            document.getElementById('firstWords').textContent = firstWords;
+            document.getElementById('lastWords').textContent = lastWords;
+
+            // Headline type
+            document.getElementById('headlineType').innerHTML = `<span class="headline-type">${headlineType}</span>`;
+
+            // Suggestions
+            let suggestions = '';
+            if (wordCount < 6) suggestions += '<div class="suggestion">Try 7-10 words for optimal engagement</div>';
+            if (wordCount > 12) suggestions += '<div class="suggestion">Consider shortening to under 12 words for readability</div>';
+            if (chars < 40) suggestions += '<div class="suggestion">Add 10-20 characters for better SEO visibility</div>';
+            if (chars > 70) suggestions += '<div class="suggestion">Shorten to ~60 characters for full SERP display</div>';
+            if (powerWordCount === 0) suggestions += '<div class="suggestion">Add a power word like: proven, secret, ultimate, exclusive</div>';
+            if (sentiment === 'Neutral') suggestions += '<div class="suggestion">Consider adding emotional language to boost impact</div>';
+            if (!suggestions) suggestions = '<div class="suggestion">✓ Excellent headline! Well-balanced across all metrics.</div>';
+
+            document.getElementById('suggestionsContainer').innerHTML = suggestions;
+
+            drawGauge(Math.round(score));
+            document.querySelectorAll('.results').forEach(r => r.classList.remove('active'));
+            document.getElementById('overview').classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.tab-btn').classList.add('active');
+        }
+
+        function drawGauge(score) {
+            const svg = document.getElementById('scoreSvg');
+            svg.innerHTML = '';
+
+            const arcPath = (radius, startAngle, endAngle) => {
+                const start = {
+                    x: 100 + radius * Math.cos((startAngle - 90) * Math.PI / 180),
+                    y: 60 + radius * Math.sin((startAngle - 90) * Math.PI / 180)
+                };
+                const end = {
+                    x: 100 + radius * Math.cos((endAngle - 90) * Math.PI / 180),
+                    y: 60 + radius * Math.sin((endAngle - 90) * Math.PI / 180)
+                };
+                const large = endAngle - startAngle > 180 ? 1 : 0;
+                return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${large} 1 ${end.x} ${end.y}`;
+            };
+
+            // Background arc
+            const bgPath = arcPath(40, 0, 180);
+            svg.innerHTML += `<path d="${bgPath}" stroke="#333" stroke-width="8" fill="none"/>`;
+
+            // Score arc
+            const percentage = Math.min(100, score) / 100;
+            const scoreArc = arcPath(40, 0, 180 * percentage);
+            const color = score > 75 ? '#22c55e' : score > 50 ? '#eab308' : '#ef4444';
+            svg.innerHTML += `<path d="${scoreArc}" stroke="${color}" stroke-width="8" fill="none" stroke-linecap="round"/>`;
+
+            // Text
+            svg.innerHTML += `<text x="100" y="90" text-anchor="middle" font-size="28" font-weight="bold" fill="#22c55e">${score}</text>`;
+        }
+
+        function compareHeadlines() {
+            const h1 = document.getElementById('headlineInput').value.trim();
+            const h2 = document.getElementById('headlineCompare').value.trim();
+
+            if (!h1 || !h2) return alert('Please enter both headlines');
+
+            const analyzeForComparison = (text) => {
+                const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+                let powerWords = 0;
+                words.forEach(word => {
+                    if (POWER_WORDS.some(pw => word.toLowerCase().includes(pw))) powerWords++;
+                });
+
+                let score = 0;
+                score += Math.min(30, words.length * 3);
+                score += (powerWords / Math.max(words.length, 1)) * 25;
+                score += Math.max(0, 15 - Math.abs(text.length - 60)) / 15 * 15;
+
+                return {
+                    text: text,
+                    wordCount: words.length,
+                    charCount: text.length,
+                    powerWords: powerWords,
+                    score: Math.round(score),
+                    sentiment: detectSentiment(text),
+                    type: detectHeadlineType(text)
+                };
+            };
+
+            const h1Analysis = analyzeForComparison(h1);
+            const h2Analysis = analyzeForComparison(h2);
+
+            const html = `
+                <div class="comparison-item">
+                    <div style="color: #b0b0b0; margin-bottom: 10px; word-break: break-word;">${h1Analysis.text}</div>
+                    <div class="comparison-score">${h1Analysis.score}</div>
+                    <div style="font-size: 0.85em; color: #b0b0b0; margin-top: 10px;">
+                        <div>Words: ${h1Analysis.wordCount} | Chars: ${h1Analysis.charCount}</div>
+                        <div>Power Words: ${h1Analysis.powerWords}</div>
+                        <div>Sentiment: ${h1Analysis.sentiment}</div>
+                        <div>Type: ${h1Analysis.type}</div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div style="color: #b0b0b0; margin-bottom: 10px; word-break: break-word;">${h2Analysis.text}</div>
+                    <div class="comparison-score">${h2Analysis.score}</div>
+                    <div style="font-size: 0.85em; color: #b0b0b0; margin-top: 10px;">
+                        <div>Words: ${h2Analysis.wordCount} | Chars: ${h2Analysis.charCount}</div>
+                        <div>Power Words: ${h2Analysis.powerWords}</div>
+                        <div>Sentiment: ${h2Analysis.sentiment}</div>
+                        <div>Type: ${h2Analysis.type}</div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('comparisonGrid').innerHTML = html;
+            document.getElementById('comparisonResults').style.display = 'block';
+            document.getElementById('noComparison').style.display = 'none';
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.results').forEach(r => r.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

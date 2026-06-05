@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transition Words Analyzer</title>
+    <meta name="description" content="Check text cohesion with transition word analysis. Rate writing flow and get suggestions for better sentence connectivity.">
+    <meta name="canonical" href="https://enhio.com/tools/transition-words-analyzer">
+    <meta property="og:title" content="Transition Words Analyzer">
+    <meta property="og:description" content="Check text cohesion with transition word analysis. Rate writing flow and get suggestions for better sentence connectivity.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enhio.com/tools/transition-words-analyzer">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Transition Words Analyzer",
+        "description": "Analyze text cohesion and transition word frequency",
+        "url": "https://enhio.com/tools/transition-words-analyzer",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #22c55e;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #b0b0b0;
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            font-size: 1.3em;
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        button {
+            background-color: #22c55e;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-box {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            color: #22c55e;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #b0b0b0;
+            font-size: 0.9em;
+        }
+
+        .cohesion-gauge {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .gauge-bar {
+            width: 100%;
+            height: 40px;
+            background-color: #333;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .gauge-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #eab308, #22c55e);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+
+        .cohesion-label {
+            font-size: 1.2em;
+            color: #22c55e;
+            margin-top: 10px;
+        }
+
+        .category-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .category-item {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .category-count {
+            font-size: 1.8em;
+            color: #22c55e;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .category-name {
+            color: #b0b0b0;
+            font-size: 0.9em;
+        }
+
+        .transition-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 0.85em;
+            font-weight: 600;
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        .transition-badge.addition { background-color: rgba(59, 130, 246, 0.3); color: #60a5fa; }
+        .transition-badge.contrast { background-color: rgba(249, 115, 22, 0.3); color: #fb923c; }
+        .transition-badge.cause { background-color: rgba(34, 197, 94, 0.3); color: #4ade80; }
+        .transition-badge.sequence { background-color: rgba(168, 85, 247, 0.3); color: #d8b4fe; }
+        .transition-badge.emphasis { background-color: rgba(236, 72, 153, 0.3); color: #f472b6; }
+        .transition-badge.example { background-color: rgba(234, 179, 8, 0.3); color: #fde047; }
+        .transition-badge.conclusion { background-color: rgba(34, 197, 94, 0.3); color: #86efac; }
+        .transition-badge.comparison { background-color: rgba(139, 92, 246, 0.3); color: #d8b4fe; }
+        .transition-badge.time { background-color: rgba(14, 165, 233, 0.3); color: #38bdf8; }
+
+        .text-display {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .sentence {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .sentence.with-transition {
+            background-color: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid #22c55e;
+        }
+
+        .sentence.gap {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid #ef4444;
+        }
+
+        .gap-warning {
+            font-size: 0.85em;
+            color: #ef4444;
+            margin-top: 5px;
+        }
+
+        .suggestion {
+            background-color: #1a3a1a;
+            border-left: 3px solid #22c55e;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .suggestion-label {
+            color: #b0b0b0;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .suggested-text {
+            color: #22c55e;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-breakdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+<link rel="canonical" href="https://enhio.com/tools/transition-words-analyzer">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Transition Words Analyzer</h1>
+            <p class="subtitle">Measure text cohesion and sentence flow</p>
+        </header>
+
+        <div class="card">
+            <h2>Paste Your Text</h2>
+            <textarea id="textInput" placeholder="Paste your text here for analysis..." rows="8"></textarea>
+            <button onclick="analyzeText()">Analyze</button>
+        </div>
+
+        <div id="results" style="display: none;">
+            <div class="card">
+                <h2>Cohesion Overview</h2>
+                <div class="cohesion-gauge">
+                    <div>Transition Density</div>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill" id="gaugeBar" style="width: 50%;">
+                            <span id="gaugeLabelPercent">50%</span>
+                        </div>
+                    </div>
+                    <div class="cohesion-label" id="cohesionLabel">Fair</div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <div class="metric-value" id="totalSentences">0</div>
+                        <div class="metric-label">Total Sentences</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="transitionCount">0</div>
+                        <div class="metric-label">Transitions Found</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="transitionPercent">0%</div>
+                        <div class="metric-label">Starting w/ Transition</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="gapCount">0</div>
+                        <div class="metric-label">Transition Gaps</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Transition Category Breakdown</h2>
+                <div class="category-breakdown" id="categoryBreakdown"></div>
+            </div>
+
+            <div class="card">
+                <h2>Analyzed Text</h2>
+                <div class="text-display" id="textDisplay"></div>
+            </div>
+
+            <div class="card">
+                <h2>Improvement Suggestions</h2>
+                <div id="suggestionsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 enhio.com
+    </footer>
+
+    <script>
+        const TRANSITIONS = {
+            addition: ['also', 'furthermore', 'moreover', 'additionally', 'besides', 'in addition', 'and', 'plus', 'further', 'as well', 'including', 'too'],
+            contrast: ['however', 'but', 'yet', 'on the other hand', 'conversely', 'instead', 'whereas', 'although', 'though', 'nonetheless', 'still', 'rather', 'nevertheless'],
+            cause: ['because', 'since', 'as', 'caused by', 'due to', 'caused', 'reason', 'therefore', 'thus', 'consequently', 'as a result', 'resulted in'],
+            sequence: ['first', 'second', 'third', 'next', 'then', 'finally', 'lastly', 'previously', 'afterward', 'initially', 'before', 'after', 'meanwhile', 'subsequently'],
+            emphasis: ['indeed', 'certainly', 'definitely', 'undoubtedly', 'importantly', 'notably', 'significantly', 'clearly', 'obviously', 'of course', 'must', 'absolutely'],
+            example: ['for example', 'for instance', 'such as', 'like', 'to illustrate', 'illustrated', 'example', 'specifically', 'namely', 'e.g.', 'like', 'including'],
+            conclusion: ['in conclusion', 'to conclude', 'ultimately', 'in summary', 'in the end', 'therefore', 'thus', 'finally', 'as a result', 'overall', 'in short'],
+            comparison: ['similarly', 'likewise', 'in the same way', 'equally', 'in comparison', 'compared to', 'just as', 'similar to', 'comparable', 'as'],
+            time: ['meanwhile', 'earlier', 'later', 'previously', 'before', 'after', 'currently', 'now', 'then', 'when', 'during', 'while', 'as soon as']
+        };
+
+        function categorizeTransition(word) {
+            const lower = word.toLowerCase();
+            for (let [category, words] of Object.entries(TRANSITIONS)) {
+                if (words.some(w => lower.includes(w) || w.includes(lower))) {
+                    return category;
+                }
+            }
+            return null;
+        }
+
+        function analyzeText() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text) return alert('Please paste some text');
+
+            const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+            if (sentences.length === 0) return alert('No sentences found');
+
+            let transitionData = [];
+            let transitionCount = 0;
+            let categoryCount = {
+                addition: 0, contrast: 0, cause: 0, sequence: 0, emphasis: 0,
+                example: 0, conclusion: 0, comparison: 0, time: 0
+            };
+
+            sentences.forEach((sent, idx) => {
+                const trimmed = sent.trim();
+                const firstWord = trimmed.split(/\s+/)[0].toLowerCase().replace(/[^a-z]/g, '');
+
+                let foundTransition = null;
+                for (let [category, words] of Object.entries(TRANSITIONS)) {
+                    if (words.some(w => firstWord.includes(w) || w.includes(firstWord))) {
+                        foundTransition = category;
+                        transitionCount++;
+                        categoryCount[category]++;
+                        break;
+                    }
+                }
+
+                transitionData.push({
+                    text: trimmed,
+                    transition: foundTransition,
+                    index: idx
+                });
+            });
+
+            const transitionPercent = Math.round((transitionCount / sentences.length) * 100);
+
+            // Determine gaps (2+ consecutive sentences without transitions)
+            let gaps = [];
+            let gapStart = -1;
+            for (let i = 0; i < transitionData.length; i++) {
+                if (!transitionData[i].transition) {
+                    if (gapStart === -1) gapStart = i;
+                } else {
+                    if (gapStart !== -1 && i - gapStart >= 2) {
+                        gaps.push({ start: gapStart, end: i - 1 });
+                    }
+                    gapStart = -1;
+                }
+            }
+
+            // Cohesion rating
+            let cohesionLabel = '';
+            let cohesionColor = '#ef4444';
+            if (transitionPercent < 15) {
+                cohesionLabel = 'Poor - Add transitions between sentences';
+                cohesionColor = '#ef4444';
+            } else if (transitionPercent < 25) {
+                cohesionLabel = 'Fair - Room for improvement';
+                cohesionColor = '#f97316';
+            } else if (transitionPercent < 35) {
+                cohesionLabel = 'Good - Well connected';
+                cohesionColor = '#eab308';
+            } else if (transitionPercent < 45) {
+                cohesionLabel = 'Excellent - Strong flow';
+                cohesionColor = '#22c55e';
+            } else {
+                cohesionLabel = 'Overused - Consider removing some transitions';
+                cohesionColor = '#b0b0b0';
+            }
+
+            // Update metrics
+            document.getElementById('totalSentences').textContent = sentences.length;
+            document.getElementById('transitionCount').textContent = transitionCount;
+            document.getElementById('transitionPercent').textContent = transitionPercent + '%';
+            document.getElementById('gapCount').textContent = gaps.length;
+
+            const gauge = document.getElementById('gaugeBar');
+            gauge.style.width = transitionPercent + '%';
+            gauge.style.background = `linear-gradient(90deg, #ef4444, #eab308, #22c55e)`;
+            document.getElementById('gaugeLabelPercent').textContent = transitionPercent + '%';
+            document.getElementById('cohesionLabel').textContent = cohesionLabel;
+            document.getElementById('cohesionLabel').style.color = cohesionColor;
+
+            // Category breakdown
+            const categoryBreakdown = document.getElementById('categoryBreakdown');
+            categoryBreakdown.innerHTML = '';
+            for (let [cat, count] of Object.entries(categoryCount)) {
+                if (count > 0) {
+                    const item = document.createElement('div');
+                    item.className = 'category-item';
+                    item.innerHTML = `
+                        <div class="category-count">${count}</div>
+                        <div class="category-name">${cat.charAt(0).toUpperCase() + cat.slice(1)}</div>
+                    `;
+                    categoryBreakdown.appendChild(item);
+                }
+            }
+
+            // Text display with highlighting
+            const textDisplay = document.getElementById('textDisplay');
+            textDisplay.innerHTML = '';
+
+            transitionData.forEach((data, idx) => {
+                const sentDiv = document.createElement('div');
+                sentDiv.className = data.transition ? 'sentence with-transition' : 'sentence gap';
+
+                const text = document.createElement('div');
+                text.textContent = data.text;
+                sentDiv.appendChild(text);
+
+                if (data.transition) {
+                    const badge = document.createElement('span');
+                    badge.className = `transition-badge ${data.transition}`;
+                    badge.textContent = data.transition;
+                    sentDiv.appendChild(badge);
+                } else {
+                    // Check if this is part of a gap
+                    if (gaps.some(g => idx >= g.start && idx <= g.end)) {
+                        const warning = document.createElement('div');
+                        warning.className = 'gap-warning';
+                        warning.textContent = '⚠ Consider adding a transition word here';
+                        sentDiv.appendChild(warning);
+                    }
+                }
+
+                textDisplay.appendChild(sentDiv);
+            });
+
+            // Suggestions
+            let suggestions = '';
+            if (transitionPercent < 25) {
+                suggestions += '<div class="suggestion"><div class="suggestion-label">Suggestion:</div> Try starting more sentences with transition words like: <span class="suggested-text">Additionally, However, Furthermore, In contrast, Therefore</span></div>';
+            }
+            if (gaps.length > 3) {
+                suggestions += '<div class="suggestion"><div class="suggestion-label">Suggestion:</div> You have multiple gaps of 2+ sentences without transitions. <span class="suggested-text">Connect consecutive sentences with linking words.</span></div>';
+            }
+            if (transitionPercent > 45) {
+                suggestions += '<div class="suggestion"><div class="suggestion-label">Suggestion:</div> Your transition usage is high. <span class="suggested-text">Consider removing some to avoid over-signposting.</span></div>';
+            }
+            if (suggestions === '') {
+                suggestions = '<div class="suggestion">✓ Your text has good cohesion! Consider maintaining this balance.</div>';
+            }
+
+            document.getElementById('suggestionsContainer').innerHTML = suggestions;
+            document.getElementById('results').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paragraph Density Checker</title>
+    <meta name="description" content="Analyze paragraph length distribution for readability. Detect wall-of-text and optimize spacing for better engagement.">
+    <meta name="canonical" href="https://enhio.com/tools/paragraph-density-checker">
+    <meta property="og:title" content="Paragraph Density Checker">
+    <meta property="og:description" content="Analyze paragraph length distribution for readability. Detect wall-of-text and optimize spacing for better engagement.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://enhio.com/tools/paragraph-density-checker">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Paragraph Density Checker",
+        "description": "Analyze paragraph length distribution and readability density",
+        "url": "https://enhio.com/tools/paragraph-density-checker",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #22c55e;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #b0b0b0;
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            font-size: 1.3em;
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        button {
+            background-color: #22c55e;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-box {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            color: #22c55e;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #b0b0b0;
+            font-size: 0.9em;
+        }
+
+        .grade-display {
+            text-align: center;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .grade-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 3em;
+            font-weight: 700;
+            border: 3px solid #22c55e;
+        }
+
+        .grade-circle.a { background-color: rgba(34, 197, 94, 0.2); }
+        .grade-circle.b { background-color: rgba(34, 197, 94, 0.15); }
+        .grade-circle.c { background-color: rgba(233, 212, 96, 0.2); }
+        .grade-circle.d { background-color: rgba(239, 68, 68, 0.2); }
+        .grade-circle.f { background-color: rgba(239, 68, 68, 0.3); }
+
+        .grade-circle.a { color: #22c55e; border-color: #22c55e; }
+        .grade-circle.b { color: #84cc16; border-color: #84cc16; }
+        .grade-circle.c { color: #eab308; border-color: #eab308; }
+        .grade-circle.d { color: #f97316; border-color: #f97316; }
+        .grade-circle.f { color: #ef4444; border-color: #ef4444; }
+
+        .grade-label {
+            color: #b0b0b0;
+            font-size: 1.2em;
+        }
+
+        .chart-container {
+            margin: 30px 0;
+            position: relative;
+            height: 250px;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .histogram {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            gap: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background-color: #22c55e;
+            border-radius: 4px 4px 0 0;
+            min-height: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            filter: brightness(1.2);
+        }
+
+        .bar.dense {
+            background-color: #ef4444;
+        }
+
+        .bar.ideal {
+            background-color: #22c55e;
+        }
+
+        .bar.sparse {
+            background-color: #eab308;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #b0b0b0;
+            white-space: nowrap;
+        }
+
+        .paragraph-map {
+            margin: 30px 0;
+        }
+
+        .para-indicator {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            margin: 4px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .para-indicator:hover {
+            transform: scale(1.2);
+            border-color: #22c55e;
+        }
+
+        .para-indicator.dense {
+            background-color: #ef4444;
+        }
+
+        .para-indicator.ideal {
+            background-color: #22c55e;
+        }
+
+        .para-indicator.sparse {
+            background-color: #eab308;
+        }
+
+        .text-display {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .paragraph-display {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid;
+            transition: all 0.3s ease;
+        }
+
+        .paragraph-display.dense {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+        }
+
+        .paragraph-display.ideal {
+            background-color: rgba(34, 197, 94, 0.1);
+            border-color: #22c55e;
+        }
+
+        .paragraph-display.sparse {
+            background-color: rgba(234, 179, 8, 0.1);
+            border-color: #eab308;
+        }
+
+        .para-stats {
+            font-size: 0.85em;
+            color: #b0b0b0;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .guidelines {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .guideline-box {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .guideline-box h3 {
+            color: #22c55e;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .guideline-box p {
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                height: 200px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+<link rel="canonical" href="https://enhio.com/tools/paragraph-density-checker">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Paragraph Density Checker</h1>
+            <p class="subtitle">Analyze and optimize paragraph length for readability</p>
+        </header>
+
+        <div class="card">
+            <h2>Paste Your Text</h2>
+            <textarea id="textInput" placeholder="Paste your text here for analysis..." rows="8"></textarea>
+            <button onclick="analyzeText()">Analyze</button>
+        </div>
+
+        <div id="results" style="display: none;">
+            <div class="card">
+                <h2>Readability Overview</h2>
+                <div class="grade-display">
+                    <div id="gradeCircle" class="grade-circle a">A</div>
+                    <div class="grade-label">Paragraph Density Grade</div>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <div class="metric-value" id="paraCount">0</div>
+                        <div class="metric-label">Total Paragraphs</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="avgSentences">0</div>
+                        <div class="metric-label">Avg Sentences</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="avgWords">0</div>
+                        <div class="metric-label">Avg Words/Para</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value" id="whiteSpaceRatio">0%</div>
+                        <div class="metric-label">White Space Ratio</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Paragraph Length Distribution</h2>
+                <div class="chart-container">
+                    <div class="histogram" id="histogram"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Density Map</h2>
+                <p style="color: #b0b0b0; margin-bottom: 15px;">Each square represents one paragraph</p>
+                <div class="paragraph-map" id="paraMap"></div>
+                <div style="margin-top: 20px; font-size: 0.9em; color: #b0b0b0;">
+                    <span style="display: inline-block; margin-right: 20px;"><span style="display: inline-block; width: 16px; height: 16px; background-color: #22c55e; margin-right: 8px; border-radius: 3px;"></span>Ideal (40-80 words)</span>
+                    <span style="display: inline-block; margin-right: 20px;"><span style="display: inline-block; width: 16px; height: 16px; background-color: #ef4444; margin-right: 8px; border-radius: 3px;"></span>Dense (>150 words)</span>
+                    <span style="display: inline-block;"><span style="display: inline-block; width: 16px; height: 16px; background-color: #eab308; margin-right: 8px; border-radius: 3px;"></span>Sparse (<20 words)</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Analyzed Text</h2>
+                <div class="text-display" id="textDisplay"></div>
+            </div>
+
+            <div class="card">
+                <h2>Guidelines by Format</h2>
+                <div class="guidelines">
+                    <div class="guideline-box">
+                        <h3>Web Content</h3>
+                        <p>Shorter paragraphs (40-60 words). 2-3 sentences. High white space for scannability.</p>
+                    </div>
+                    <div class="guideline-box">
+                        <h3>Blog Posts</h3>
+                        <p>Medium paragraphs (50-80 words). 3-4 sentences. Balance density with detail.</p>
+                    </div>
+                    <div class="guideline-box">
+                        <h3>Academic</h3>
+                        <p>Longer paragraphs (100-150 words). 4-6 sentences. Complex arguments require more depth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 enhio.com
+    </footer>
+
+    <script>
+        let paragraphData = [];
+
+        function analyzeText() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text) return alert('Please paste some text');
+
+            // Split by double line breaks (paragraphs)
+            const paras = text.split(/\n\n+/).filter(p => p.trim().length > 0);
+
+            paragraphData = paras.map(para => {
+                const sentences = para.match(/[.!?]+/g) || [];
+                const words = para.trim().split(/\s+/).filter(w => w.length > 0);
+                return {
+                    text: para,
+                    words: words.length,
+                    sentences: sentences.length,
+                    density: words.length < 20 ? 'sparse' : words.length > 150 ? 'dense' : 'ideal'
+                };
+            });
+
+            const totalWords = paragraphData.reduce((sum, p) => sum + p.words, 0);
+            const totalSentences = paragraphData.reduce((sum, p) => sum + p.sentences, 0);
+            const avgWords = Math.round(totalWords / paragraphData.length);
+            const avgSentences = Math.round(totalSentences / paragraphData.length);
+
+            // Grade calculation
+            let gradeScore = 0;
+            paragraphData.forEach(p => {
+                if (p.density === 'ideal') gradeScore += 1;
+                else if (p.density === 'sparse') gradeScore -= 0.5;
+                else gradeScore -= 1;
+            });
+            const gradePercent = Math.max(0, Math.min(100, 50 + (gradeScore / paragraphData.length) * 50));
+
+            let grade = 'A';
+            if (gradePercent < 90) grade = 'B';
+            if (gradePercent < 75) grade = 'C';
+            if (gradePercent < 60) grade = 'D';
+            if (gradePercent < 45) grade = 'F';
+
+            // White space calculation
+            const avgParaLength = text.length / paragraphData.length;
+            const whiteSpaceRatio = Math.round((1 - (totalWords * 5) / text.length) * 100);
+
+            // Update metrics
+            document.getElementById('paraCount').textContent = paragraphData.length;
+            document.getElementById('avgSentences').textContent = avgSentences;
+            document.getElementById('avgWords').textContent = avgWords;
+            document.getElementById('whiteSpaceRatio').textContent = whiteSpaceRatio;
+
+            const gradeCircle = document.getElementById('gradeCircle');
+            gradeCircle.textContent = grade;
+            gradeCircle.className = `grade-circle ${grade.toLowerCase()}`;
+
+            // Draw histogram
+            const maxWords = Math.max(...paragraphData.map(p => p.words));
+            const histogram = document.getElementById('histogram');
+            histogram.innerHTML = '';
+
+            paragraphData.forEach((p, idx) => {
+                const height = (p.words / maxWords) * 100;
+                const bar = document.createElement('div');
+                bar.className = `bar ${p.density}`;
+                bar.style.height = height + '%';
+                bar.onclick = () => scrollToText(idx);
+                bar.innerHTML = `<div class="bar-label">${p.words}</div>`;
+                histogram.appendChild(bar);
+            });
+
+            // Draw density map
+            const paraMap = document.getElementById('paraMap');
+            paraMap.innerHTML = '';
+            paragraphData.forEach((p, idx) => {
+                const indicator = document.createElement('div');
+                indicator.className = `para-indicator ${p.density}`;
+                indicator.title = `Para ${idx + 1}: ${p.words} words (${p.density})`;
+                indicator.onclick = () => scrollToText(idx);
+                paraMap.appendChild(indicator);
+            });
+
+            // Display text with highlighting
+            const textDisplay = document.getElementById('textDisplay');
+            textDisplay.innerHTML = '';
+
+            paragraphData.forEach((p, idx) => {
+                const paraDiv = document.createElement('div');
+                paraDiv.className = `paragraph-display ${p.density}`;
+                paraDiv.id = `para-${idx}`;
+
+                const content = document.createElement('div');
+                content.textContent = p.text;
+                paraDiv.appendChild(content);
+
+                const stats = document.createElement('div');
+                stats.className = 'para-stats';
+                stats.textContent = `${p.words} words • ${p.sentences} sentences • ${Math.round(p.words / Math.max(p.sentences, 1))} words/sentence`;
+                paraDiv.appendChild(stats);
+
+                textDisplay.appendChild(paraDiv);
+            });
+
+            document.getElementById('results').style.display = 'block';
+            document.querySelector('html').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToText(index) {
+            document.getElementById(`para-${index}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
