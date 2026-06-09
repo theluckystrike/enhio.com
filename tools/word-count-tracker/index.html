@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Count Tracker — Free Writing Tool</title>
+    <meta name="description" content="Word Count Tracker: Free real-time writing tool with word count, character count, sentence count, reading time, and speaking time estimates.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://enhio.com/tools/word-count-tracker">
+
+    <meta property="og:title" content="Word Count Tracker — Free Writing Tool">
+    <meta property="og:description" content="Word Count Tracker: Real-time word, character, sentence counts with reading time and speaking time estimates.">
+    <meta property="og:url" content="https://enhio.com/tools/word-count-tracker">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://enhio.com/og-wordcount.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Word Count Tracker",
+        "description": "Real-time word, character, and sentence counting tool with reading time estimates",
+        "url": "https://enhio.com/tools/word-count-tracker",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            color: #e0e6ed;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #00d4aa;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #a0aab8;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .editor-section {
+            background: #121626;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #1a2042;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-label {
+            font-weight: 600;
+            color: #00d4aa;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            flex: 1;
+            background: #0f1420;
+            border: 1px solid #1a2042;
+            border-radius: 6px;
+            color: #e0e6ed;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: none;
+            transition: border-color 0.3s;
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00d4aa;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            background: #00d4aa;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #00e6bc;
+        }
+
+        .btn-secondary {
+            background: #1a2042;
+            color: #00d4aa;
+        }
+
+        .btn-secondary:hover {
+            background: #232d47;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: #121626;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #1a2042;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #a0aab8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .progress-card {
+            background: #121626;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #1a2042;
+        }
+
+        .progress-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #00d4aa;
+            margin-bottom: 12px;
+        }
+
+        .progress-input {
+            width: 100%;
+            background: #0f1420;
+            border: 1px solid #1a2042;
+            border-radius: 6px;
+            color: #e0e6ed;
+            padding: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: #0f1420;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #00d4aa;
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: #7a8298;
+            text-align: center;
+        }
+
+        .time-estimates {
+            background: #121626;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #1a2042;
+        }
+
+        .time-estimate-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a2042;
+        }
+
+        .time-estimate-row:last-child {
+            border-bottom: none;
+        }
+
+        .time-estimate-label {
+            font-size: 0.85rem;
+            color: #a0aab8;
+        }
+
+        .time-estimate-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+
+        .detailed-stats {
+            background: #121626;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #1a2042;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: #0f1420;
+            border: 1px solid #1a2042;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-box-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+
+        .stat-box-label {
+            font-size: 0.8rem;
+            color: #7a8298;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-info {
+            background: #0f1420;
+            border-left: 3px solid #00d4aa;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #a0aab8;
+            line-height: 1.6;
+        }
+
+        .stats-info-title {
+            font-weight: 600;
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #1a2042;
+            color: #7a8298;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 900px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .stat-card {
+                flex: 1;
+                min-width: 140px;
+            }
+
+            .progress-card {
+                flex: 1;
+            }
+
+            .time-estimates {
+                flex: 1;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2241192243363112" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Word Count Tracker</h1>
+            <p class="tagline">Real-time writing statistics and reading time estimates</p>
+        </header>
+
+        <div class="main-layout">
+            <div class="editor-section">
+                <label class="editor-label" for="textEditor">Start typing or paste your text:</label>
+                <textarea id="textEditor" placeholder="Write your text here... Your statistics will update in real-time."></textarea>
+                <div class="button-group">
+                    <button onclick="copyAllText()">Copy Text</button>
+                    <button class="btn-secondary" onclick="clearEditor()">Clear</button>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="stat-card">
+                    <div class="stat-value" id="wordCount">0</div>
+                    <div class="stat-label">Words</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="charCount">0</div>
+                    <div class="stat-label">Characters</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="charCountNoSpace">0</div>
+                    <div class="stat-label">No Spaces</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="sentenceCount">0</div>
+                    <div class="stat-label">Sentences</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="paragraphCount">0</div>
+                    <div class="stat-label">Paragraphs</div>
+                </div>
+
+                <div class="progress-card">
+                    <div class="progress-title">Set Word Goal</div>
+                    <input type="number" class="progress-input" id="wordGoal" placeholder="Enter target words..." min="0">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0 / 0 words</div>
+                </div>
+
+                <div class="time-estimates">
+                    <div class="time-estimate-row">
+                        <div class="time-estimate-label">Reading Time</div>
+                        <div class="time-estimate-value" id="readingTime">0 min</div>
+                    </div>
+                    <div class="time-estimate-row">
+                        <div class="time-estimate-label">Speaking Time</div>
+                        <div class="time-estimate-value" id="speakingTime">0 min</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detailed-stats">
+            <h2 style="color: #00d4aa; margin-bottom: 20px; font-size: 1.3rem;">Detailed Statistics</h2>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-box-value" id="avgWordLength">0</div>
+                    <div class="stat-box-label">Avg Word Length</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value" id="wordsPerSentence">0</div>
+                    <div class="stat-box-label">Words Per Sentence</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value" id="uniqueWords">0</div>
+                    <div class="stat-box-label">Unique Words</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value" id="longestWord">—</div>
+                    <div class="stat-box-label">Longest Word</div>
+                </div>
+            </div>
+
+            <div class="stats-info">
+                <div class="stats-info-title">How these metrics work:</div>
+                <div>
+                    <strong>Reading Time:</strong> Assumes 200 words per minute (average adult reading speed)<br>
+                    <strong>Speaking Time:</strong> Assumes 130 words per minute (average speech delivery speed)<br>
+                    <strong>Avg Word Length:</strong> Average characters per word<br>
+                    <strong>Unique Words:</strong> Number of distinct words (case-insensitive)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Enhio.com. All rights reserved. Free writing statistics tool for all writers.</p>
+    </footer>
+
+    <script>
+        const editor = document.getElementById('textEditor');
+        const wordGoalInput = document.getElementById('wordGoal');
+
+        editor.addEventListener('input', updateStats);
+        editor.addEventListener('input', updateProgress);
+        wordGoalInput.addEventListener('change', updateProgress);
+        wordGoalInput.addEventListener('input', updateProgress);
+
+        function updateStats() {
+            const text = editor.value;
+
+            const wordCount = countWords(text);
+            const charCount = text.length;
+            const charCountNoSpace = text.replace(/\s/g, '').length;
+            const sentenceCount = countSentences(text);
+            const paragraphCount = countParagraphs(text);
+
+            document.getElementById('wordCount').textContent = wordCount;
+            document.getElementById('charCount').textContent = charCount;
+            document.getElementById('charCountNoSpace').textContent = charCountNoSpace;
+            document.getElementById('sentenceCount').textContent = sentenceCount;
+            document.getElementById('paragraphCount').textContent = paragraphCount;
+
+            const readingMinutes = Math.ceil(wordCount / 200);
+            const speakingMinutes = Math.ceil(wordCount / 130);
+
+            document.getElementById('readingTime').textContent = readingMinutes + ' min';
+            document.getElementById('speakingTime').textContent = speakingMinutes + ' min';
+
+            const words = text.match(/\b\w+\b/g) || [];
+            const avgWordLength = words.length > 0 ? (charCountNoSpace / words.length).toFixed(2) : 0;
+            const wordsPerSentence = sentenceCount > 0 ? (wordCount / sentenceCount).toFixed(1) : 0;
+            const uniqueWords = new Set(words.map(w => w.toLowerCase())).size;
+            const longestWord = words.length > 0 ? words.reduce((a, b) => a.length > b.length ? a : b) : '—';
+
+            document.getElementById('avgWordLength').textContent = avgWordLength;
+            document.getElementById('wordsPerSentence').textContent = wordsPerSentence;
+            document.getElementById('uniqueWords').textContent = uniqueWords;
+            document.getElementById('longestWord').textContent = longestWord.length > 20 ? longestWord.substring(0, 20) + '...' : longestWord;
+        }
+
+        function updateProgress() {
+            const wordCount = countWords(editor.value);
+            const goal = parseInt(wordGoalInput.value) || 0;
+
+            if (goal > 0) {
+                const percentage = Math.min(100, (wordCount / goal) * 100);
+                document.getElementById('progressBar').style.width = percentage + '%';
+                document.getElementById('progressText').textContent = wordCount + ' / ' + goal + ' words';
+            } else {
+                document.getElementById('progressBar').style.width = '0%';
+                document.getElementById('progressText').textContent = wordCount + ' / 0 words';
+            }
+        }
+
+        function countWords(text) {
+            const matches = text.match(/\b\w+\b/g);
+            return matches ? matches.length : 0;
+        }
+
+        function countSentences(text) {
+            const matches = text.match(/[.!?]+/g);
+            return matches ? matches.length : 0;
+        }
+
+        function countParagraphs(text) {
+            const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+            return paragraphs.length;
+        }
+
+        function copyAllText() {
+            const text = editor.value;
+            if (text.length === 0) {
+                alert('There is no text to copy.');
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function clearEditor() {
+            editor.value = '';
+            document.getElementById('wordGoal').value = '';
+            updateStats();
+            updateProgress();
+            editor.focus();
+        }
+
+        updateStats();
+    </script>
+<div style="margin:20px auto;max-width:728px;text-align:center">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2241192243363112" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div style="margin:30px auto;max-width:728px;text-align:center;padding:18px 24px;background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid #334155;border-radius:10px">
+<p style="margin:0 0 6px;color:#94a3b8;font-size:0.85rem">Recommended by our team</p>
+<a href="https://www.belikenative.com?ref=satellite" target="_blank" rel="noopener" style="color:#38bdf8;font-weight:600;font-size:1.05rem;text-decoration:none">BeLikeNative.com</a>
+<p style="margin:6px 0 0;color:#cbd5e1;font-size:0.9rem">The #1 AI writing tool for freelancers — perfect grammar in any language, instantly.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tone Analyzer — Free Writing Tool</title>
+    <meta name="description" content="Tone Analyzer: Free writing tool to analyze text tone. Get formal/informal scores, sentiment analysis, confidence levels with visual indicators.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://enhio.com/tools/tone-analyzer">
+
+    <meta property="og:title" content="Tone Analyzer — Free Writing Tool">
+    <meta property="og:description" content="Tone Analyzer: Analyze text tone with formal/informal scores, sentiment analysis, and confidence levels.">
+    <meta property="og:url" content="https://enhio.com/tools/tone-analyzer">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://enhio.com/og-tone.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Tone Analyzer",
+        "description": "Free tool to analyze writing tone, sentiment, and emotional indicators with visual scoring",
+        "url": "https://enhio.com/tools/tone-analyzer",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            color: #e0e6ed;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #00d4aa;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #a0aab8;
+        }
+
+        .input-section {
+            background: #121626;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #1a2042;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #00d4aa;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: #0f1420;
+            border: 1px solid #1a2042;
+            border-radius: 6px;
+            color: #e0e6ed;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: none;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00d4aa;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            background: #00d4aa;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #00e6bc;
+        }
+
+        .btn-secondary {
+            background: #1a2042;
+            color: #00d4aa;
+        }
+
+        .btn-secondary:hover {
+            background: #232d47;
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .tone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .tone-card {
+            background: #121626;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid #1a2042;
+        }
+
+        .tone-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00d4aa;
+            margin-bottom: 20px;
+        }
+
+        .tone-metric {
+            margin-bottom: 25px;
+        }
+
+        .tone-metric:last-child {
+            margin-bottom: 0;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #a0aab8;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #00d4aa;
+        }
+
+        .metric-bar {
+            width: 100%;
+            height: 10px;
+            background: #0f1420;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #00d4aa);
+            transition: width 0.3s;
+        }
+
+        .metric-description {
+            font-size: 0.8rem;
+            color: #7a8298;
+        }
+
+        .sentiment-card {
+            background: #121626;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid #1a2042;
+        }
+
+        .sentiment-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00d4aa;
+            margin-bottom: 20px;
+        }
+
+        .sentiment-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #1a2042;
+        }
+
+        .sentiment-row:last-child {
+            border-bottom: none;
+        }
+
+        .sentiment-label {
+            font-weight: 500;
+            color: #a0aab8;
+        }
+
+        .sentiment-score {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sentiment-bar-small {
+            width: 80px;
+            height: 8px;
+            background: #0f1420;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .sentiment-bar-small.positive {
+            border: 1px solid #10b981;
+        }
+
+        .sentiment-bar-small.negative {
+            border: 1px solid #ef4444;
+        }
+
+        .sentiment-bar-small.neutral {
+            border: 1px solid #6b7280;
+        }
+
+        .sentiment-fill {
+            height: 100%;
+        }
+
+        .sentiment-fill.positive {
+            background: #10b981;
+        }
+
+        .sentiment-fill.negative {
+            background: #ef4444;
+        }
+
+        .sentiment-fill.neutral {
+            background: #6b7280;
+        }
+
+        .sentiment-value {
+            font-weight: 600;
+            min-width: 40px;
+            text-align: right;
+            color: #e0e6ed;
+        }
+
+        .radar-section {
+            background: #121626;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid #1a2042;
+            margin-bottom: 30px;
+        }
+
+        .radar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00d4aa;
+            margin-bottom: 20px;
+        }
+
+        .radar-canvas {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .indicator-item {
+            background: #121626;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #1a2042;
+            border-left: 4px solid #00d4aa;
+        }
+
+        .indicator-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #00d4aa;
+            margin-bottom: 10px;
+        }
+
+        .indicator-content {
+            font-size: 0.9rem;
+            color: #a0aab8;
+            line-height: 1.5;
+        }
+
+        .error-message {
+            background: #ef4444;
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #1a2042;
+            color: #7a8298;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .tone-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .indicator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2241192243363112" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tone Analyzer</h1>
+            <p class="tagline">Analyze the tone and sentiment of your writing in real-time</p>
+        </header>
+
+        <div class="input-section">
+            <label for="textInput">Paste your text here:</label>
+            <div class="error-message" id="errorMessage"></div>
+            <textarea id="textInput" placeholder="Enter text to analyze its tone..."></textarea>
+            <div class="button-group">
+                <button onclick="analyzeTone()">Analyze Tone</button>
+                <button class="btn-secondary" onclick="clearAll()">Clear</button>
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="tone-grid">
+                <div class="tone-card">
+                    <div class="tone-card-title">Formality Level</div>
+                    <div class="tone-metric">
+                        <div class="metric-label">
+                            <span>Formal</span>
+                            <span class="metric-value" id="formalScore">0%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" id="formalBar"></div>
+                        </div>
+                        <div class="metric-description" id="formalDesc">Analyzing formality...</div>
+                    </div>
+                    <div class="tone-metric">
+                        <div class="metric-label">
+                            <span>Informal</span>
+                            <span class="metric-value" id="informalScore">0%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" id="informalBar"></div>
+                        </div>
+                        <div class="metric-description" id="informalDesc">Analyzing informality...</div>
+                    </div>
+                </div>
+
+                <div class="tone-card">
+                    <div class="tone-card-title">Emotional Tone</div>
+                    <div class="tone-metric">
+                        <div class="metric-label">
+                            <span>Confident</span>
+                            <span class="metric-value" id="confidentScore">0%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" id="confidentBar"></div>
+                        </div>
+                        <div class="metric-description">Uses assertive language and declarative statements</div>
+                    </div>
+                    <div class="tone-metric">
+                        <div class="metric-label">
+                            <span>Uncertain</span>
+                            <span class="metric-value" id="uncertainScore">0%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" id="uncertainBar"></div>
+                        </div>
+                        <div class="metric-description">Uses hedging words and conditional language</div>
+                    </div>
+                </div>
+
+                <div class="sentiment-card">
+                    <div class="sentiment-title">Sentiment Analysis</div>
+                    <div class="sentiment-row">
+                        <div class="sentiment-label">Positive</div>
+                        <div class="sentiment-score">
+                            <div class="sentiment-bar-small positive">
+                                <div class="sentiment-fill positive" id="positiveFill"></div>
+                            </div>
+                            <div class="sentiment-value" id="positiveValue">0%</div>
+                        </div>
+                    </div>
+                    <div class="sentiment-row">
+                        <div class="sentiment-label">Neutral</div>
+                        <div class="sentiment-score">
+                            <div class="sentiment-bar-small neutral">
+                                <div class="sentiment-fill neutral" id="neutralFill"></div>
+                            </div>
+                            <div class="sentiment-value" id="neutralValue">0%</div>
+                        </div>
+                    </div>
+                    <div class="sentiment-row">
+                        <div class="sentiment-label">Negative</div>
+                        <div class="sentiment-score">
+                            <div class="sentiment-bar-small negative">
+                                <div class="sentiment-fill negative" id="negativeFill"></div>
+                            </div>
+                            <div class="sentiment-value" id="negativeValue">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="indicator-grid">
+                <div class="indicator-item">
+                    <div class="indicator-label">Primary Tone</div>
+                    <div class="indicator-content" id="primaryTone">—</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">Overall Sentiment</div>
+                    <div class="indicator-content" id="overallSentiment">—</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">Confidence Assessment</div>
+                    <div class="indicator-content" id="confidenceAssessment">—</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">Language Intensity</div>
+                    <div class="indicator-content" id="languageIntensity">—</div>
+                </div>
+            </div>
+
+            <div class="radar-section">
+                <div class="radar-title">Tone Profile</div>
+                <canvas id="toneRadar" class="radar-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Enhio.com. All rights reserved. Free tone analysis tool for writers.</p>
+    </footer>
+
+    <script>
+        const formalWords = ['therefore', 'moreover', 'furthermore', 'consequently', 'subsequently', 'nevertheless', 'however', 'furthermore', 'regarding', 'concerning', 'regarding', 'aforementioned', 'utilize', 'facilitate', 'substantiate', 'endeavor', 'henceforth', 'pursuant', 'establishment', 'provision', 'category', 'requirement'];
+        const informalWords = ['gonna', 'wanna', 'gotta', 'kinda', 'sorta', 'ain\'t', 'dunno', 'yeah', 'yep', 'nope', 'cool', 'awesome', 'great', 'stuff', 'things', 'like', 'you know', 'actually'];
+        const positiveWords = ['good', 'great', 'excellent', 'amazing', 'wonderful', 'fantastic', 'perfect', 'love', 'awesome', 'brilliant', 'outstanding', 'superb', 'delightful', 'beautiful', 'happy', 'joy', 'success', 'benefit'];
+        const negativeWords = ['bad', 'terrible', 'awful', 'horrible', 'worst', 'hate', 'disgusting', 'fail', 'failure', 'wrong', 'problem', 'issue', 'difficult', 'challenging', 'sad', 'angry', 'frustrated', 'disappointed'];
+        const confidentWords = ['will', 'must', 'definitely', 'absolutely', 'certainly', 'obviously', 'clearly', 'undoubtedly', 'definitely', 'firmly', 'assuredly', 'undeniably'];
+        const uncertainWords = ['might', 'maybe', 'perhaps', 'possibly', 'seems', 'appears', 'somewhat', 'somewhat', 'could be', 'may be', 'probably', 'likely', 'arguably', 'apparently', 'allegedly'];
+
+        function analyzeTone() {
+            const text = document.getElementById('textInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (text.trim().length === 0) {
+                errorMessage.textContent = 'Please enter some text to analyze.';
+                errorMessage.classList.add('active');
+                return;
+            }
+
+            errorMessage.classList.remove('active');
+
+            const lowerText = text.toLowerCase();
+            const words = text.match(/\b\w+\b/g) || [];
+
+            let formalCount = 0, informalCount = 0, positiveCount = 0, negativeCount = 0, confidentCount = 0, uncertainCount = 0;
+
+            words.forEach(word => {
+                const lower = word.toLowerCase();
+                if (formalWords.includes(lower)) formalCount++;
+                if (informalWords.includes(lower)) informalCount++;
+                if (positiveWords.includes(lower)) positiveCount++;
+                if (negativeWords.includes(lower)) negativeCount++;
+                if (confidentWords.includes(lower)) confidentCount++;
+                if (uncertainWords.includes(lower)) uncertainCount++;
+            });
+
+            const totalWords = words.length;
+            const formalScore = totalWords > 0 ? Math.round((formalCount / totalWords) * 100) : 0;
+            const informalScore = totalWords > 0 ? Math.round((informalCount / totalWords) * 100) : 0;
+            const positiveScore = totalWords > 0 ? Math.round((positiveCount / totalWords) * 100) : 0;
+            const negativeScore = totalWords > 0 ? Math.round((negativeCount / totalWords) * 100) : 0;
+            const confidentScore = totalWords > 0 ? Math.round((confidentCount / totalWords) * 100) : 0;
+            const uncertainScore = totalWords > 0 ? Math.round((uncertainCount / totalWords) * 100) : 0;
+
+            const sentencesCount = (text.match(/[.!?]+/g) || []).length;
+            const avgSentenceLength = sentencesCount > 0 ? totalWords / sentencesCount : 0;
+            const neutralScore = Math.max(0, 100 - positiveScore - negativeScore);
+
+            document.getElementById('formalScore').textContent = formalScore + '%';
+            document.getElementById('formalBar').style.width = formalScore + '%';
+            document.getElementById('informalScore').textContent = informalScore + '%';
+            document.getElementById('informalBar').style.width = informalScore + '%';
+
+            document.getElementById('confidentScore').textContent = confidentScore + '%';
+            document.getElementById('confidentBar').style.width = confidentScore + '%';
+            document.getElementById('uncertainScore').textContent = uncertainScore + '%';
+            document.getElementById('uncertainBar').style.width = uncertainScore + '%';
+
+            document.getElementById('positiveValue').textContent = positiveScore + '%';
+            document.getElementById('positiveFill').style.width = positiveScore + '%';
+            document.getElementById('neutralValue').textContent = neutralScore + '%';
+            document.getElementById('neutralFill').style.width = neutralScore + '%';
+            document.getElementById('negativeValue').textContent = negativeScore + '%';
+            document.getElementById('negativeFill').style.width = negativeScore + '%';
+
+            let formalityDesc = '';
+            if (formalScore > 70) formalityDesc = 'Very formal and professional';
+            else if (formalScore > 40) formalityDesc = 'Moderately formal';
+            else formalityDesc = 'Casual tone';
+            document.getElementById('formalDesc').textContent = formalityDesc;
+
+            let informalityDesc = '';
+            if (informalScore > 70) informalityDesc = 'Very casual and conversational';
+            else if (informalScore > 40) informalityDesc = 'Moderately informal';
+            else informalityDesc = 'Formal tone';
+            document.getElementById('informalDesc').textContent = informalityDesc;
+
+            let primaryTone = '';
+            if (formalScore > 60) primaryTone = 'Professional & Formal';
+            else if (informalScore > 60) primaryTone = 'Casual & Conversational';
+            else primaryTone = 'Balanced & Neutral';
+            document.getElementById('primaryTone').textContent = primaryTone;
+
+            let overallSentiment = '';
+            if (positiveScore > 60) overallSentiment = 'Positive & Optimistic';
+            else if (negativeScore > 60) overallSentiment = 'Negative & Critical';
+            else overallSentiment = 'Neutral & Objective';
+            document.getElementById('overallSentiment').textContent = overallSentiment;
+
+            let confidenceLevel = '';
+            if (confidentScore > uncertainScore) {
+                if (confidentScore > 60) confidenceLevel = 'Very Confident & Assertive';
+                else confidenceLevel = 'Somewhat Confident';
+            } else {
+                if (uncertainScore > 60) confidenceLevel = 'Very Tentative & Cautious';
+                else confidenceLevel = 'Somewhat Uncertain';
+            }
+            document.getElementById('confidenceAssessment').textContent = confidenceLevel;
+
+            let intensity = '';
+            if (avgSentenceLength > 20) intensity = 'High - Complex sentences';
+            else if (avgSentenceLength > 12) intensity = 'Moderate - Balanced structure';
+            else intensity = 'Low - Simple, direct language';
+            document.getElementById('languageIntensity').textContent = intensity;
+
+            drawRadar(formalScore, positiveScore, confidentScore);
+
+            document.getElementById('resultsSection').classList.add('active');
+        }
+
+        function drawRadar(formal, positive, confident) {
+            const canvas = document.getElementById('toneRadar');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = 400;
+            canvas.height = 400;
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const maxRadius = 120;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = '#1a2042';
+            ctx.lineWidth = 1;
+            for (let i = 1; i <= 5; i++) {
+                const r = (maxRadius / 5) * i;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            const axes = ['Formal', 'Positive', 'Confident'];
+            const values = [formal, positive, confident];
+            const angles = [0, (Math.PI * 2) / 3, (Math.PI * 4) / 3];
+
+            axes.forEach((axis, i) => {
+                const angle = angles[i];
+                const x = centerX + Math.cos(angle - Math.PI / 2) * maxRadius;
+                const y = centerY + Math.sin(angle - Math.PI / 2) * maxRadius;
+                ctx.strokeStyle = '#1a2042';
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
+                ctx.fillStyle = '#a0aab8';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                const labelX = centerX + Math.cos(angle - Math.PI / 2) * (maxRadius + 25);
+                const labelY = centerY + Math.sin(angle - Math.PI / 2) * (maxRadius + 25);
+                ctx.fillText(axis, labelX, labelY);
+            });
+
+            ctx.strokeStyle = '#00d4aa';
+            ctx.fillStyle = 'rgba(0, 212, 170, 0.2)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            values.forEach((value, i) => {
+                const angle = angles[i];
+                const r = (value / 100) * maxRadius;
+                const x = centerX + Math.cos(angle - Math.PI / 2) * r;
+                const y = centerY + Math.sin(angle - Math.PI / 2) * r;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function clearAll() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('resultsSection').classList.remove('active');
+            document.getElementById('errorMessage').classList.remove('active');
+            document.getElementById('textInput').focus();
+        }
+
+        document.getElementById('textInput').addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                analyzeTone();
+            }
+        });
+    </script>
+<div style="margin:20px auto;max-width:728px;text-align:center">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2241192243363112" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div style="margin:30px auto;max-width:728px;text-align:center;padding:18px 24px;background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid #334155;border-radius:10px">
+<p style="margin:0 0 6px;color:#94a3b8;font-size:0.85rem">Recommended by our team</p>
+<a href="https://www.belikenative.com?ref=satellite" target="_blank" rel="noopener" style="color:#38bdf8;font-weight:600;font-size:1.05rem;text-decoration:none">BeLikeNative.com</a>
+<p style="margin:6px 0 0;color:#cbd5e1;font-size:0.9rem">The #1 AI writing tool for freelancers — perfect grammar in any language, instantly.</p>
+</div>
+</body>
+</html>
