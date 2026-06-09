@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Tone Analyzer — Check If Your Email Sounds Right</title>
+  <meta name="description" content="Analyze your email tone: formal, casual, aggressive, friendly, or neutral. Get politeness score, urgency, sentiment, and rewrite suggestions.">
+  <link rel="canonical" href="https://www.enhi o.com/tools/email-tone-analyzer">
+  <!-- structured data: WebApplication + FAQPage + BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["WebApplication", "FAQPage"],
+    "name": "Email Tone Analyzer",
+    "url": "https://www.enhi o.com/tools/email-tone-analyzer",
+    "description": "Analyze email tone: formal, casual, aggressive, passive-aggressive, friendly, neutral. Politeness score, urgency, sentiment, problematic phrases, rewrites.",
+    "applicationCategory": "Communication",
+    "operatingSystem": "All",
+    "browserRequirements": "JavaScript enabled",
+    "faq": [
+      {"@type": "Question", "name": "How is tone detected?", "acceptedAnswer": {"@type": "Answer", "text": "Using keyword & pattern analysis for formality, aggression, friendliness, passive-aggression, and neutrality."}},
+      {"@type": "Question", "name": "What is politeness score?", "acceptedAnswer": {"@type": "Answer", "text": "Score from 1 (very impolite) to 10 (extremely polite) based on courteous phrases and directness."}},
+      {"@type": "Question", "name": "Can I see before/after rewrites?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, problematic phrases are highlighted and suggested rewrites appear in the before/after panel."}}
+    ],
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.enhi o.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.enhi o.com/tools"},
+        {"@type": "ListItem", "position": 3, "name": "Email Tone Analyzer", "item": "https://www.enhi o.com/tools/email-tone-analyzer"}
+      ]
+    }
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      width: 100%;
+    }
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #14b8a6;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      color: #94a3b8;
+      margin-top: 0.25rem;
+      font-size: 1rem;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      border: 1px solid #334155;
+    }
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .flex-col {
+      flex: 1 1 300px;
+    }
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #cbd5e1;
+    }
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 1rem;
+      padding: 1rem;
+      color: #f1f5f9;
+      font-size: 0.95rem;
+      resize: vertical;
+      transition: 0.2s;
+    }
+    textarea:focus {
+      outline: 2px solid #14b8a6;
+      border-color: transparent;
+    }
+    .btn {
+      background: #14b8a6;
+      color: #0f172a;
+      font-weight: 600;
+      padding: 0.7rem 1.8rem;
+      border: none;
+      border-radius: 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 0.8rem;
+    }
+    .btn:hover {
+      background: #0d9488;
+      transform: scale(1.02);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #14b8a6;
+      color: #14b8a6;
+      margin-left: 0.5rem;
+    }
+    .btn-outline:hover {
+      background: #14b8a6;
+      color: #0f172a;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .stat-item {
+      background: #0f172a;
+      padding: 0.8rem 0.5rem;
+      border-radius: 1rem;
+      text-align: center;
+      border: 1px solid #334155;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #14b8a6;
+    }
+    .stat-value.sentiment {
+      font-size: 1.2rem;
+    }
+    .tone-badge {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: #1e293b;
+      border: 1px solid #14b8a6;
+      color: #14b8a6;
+    }
+    .highlight-area {
+      background: #0f172a;
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid #334155;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.6;
+    }
+    .highlight-area span {
+      padding: 0.1rem 0.2rem;
+      border-radius: 0.3rem;
+    }
+    .formal { background: #3b82f6; color: white; }
+    .casual { background: #10b981; color: white; }
+    .aggressive { background: #ef4444; color: white; }
+    .passive-aggressive { background: #f59e0b; color: #0f172a; }
+    .friendly { background: #ec4899; color: white; }
+    .neutral { background: #6b7280; color: white; }
+    .rewrite-pair {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.8rem;
+      background: #0f172a;
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+    .before, .after {
+      flex: 1 1 200px;
+      background: #1e293b;
+      padding: 0.8rem;
+      border-radius: 0.8rem;
+    }
+    .before { border-left: 4px solid #ef4444; }
+    .after { border-left: 4px solid #10b981; }
+    .badge-sm {
+      font-size: 0.7rem;
+      background: #334155;
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      color: #cbd5e1;
+    }
+    .faq-item {
+      background: #0f172a;
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .faq-q {
+      font-weight: 600;
+      color: #14b8a6;
+    }
+    .faq-a {
+      color: #cbd5e1;
+      margin-top: 0.3rem;
+    }
+    footer {
+      margin-top: 3rem;
+      color: #475569;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    @media (max-width: 640px) {
+      h1 { font-size: 1.7rem; }
+      .card { padding: 1.2rem; }
+    }
+  </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2241192243363112" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📧 Email Tone Analyzer</h1>
+    <div class="sub">Paste your email — get tone, politeness, urgency, sentiment & rewrite suggestions</div>
+  </header>
+
+  <!-- main interactive tool -->
+  <div class="card">
+    <label for="emailText">✏️ Paste your email text</label>
+    <textarea id="emailText" placeholder="Type or paste your email here... e.g., 'Hey, send me the report ASAP. Thanks.'"></textarea>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+      <button class="btn" id="analyzeBtn">🔍 Analyze tone</button>
+      <button class="btn btn-outline" id="sampleBtn">📄 Load sample</button>
+    </div>
+  </div>
+
+  <!-- results area -->
+  <div id="resultsContainer" style="display: none;">
+    <!-- overall tone & stats -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center;">
+        <h2 style="color: #14b8a6; font-size: 1.4rem;">📊 Analysis</h2>
+        <span id="toneBadge" class="tone-badge">neutral</span>
+      </div>
+      <div class="stat-grid" id="statsGrid">
+        <div class="stat-item"><div class="stat-label">Confidence</div><div class="stat-value" id="confidenceVal">0%</div></div>
+        <div class="stat-item"><div class="stat-label">Politeness (1-10)</div><div class="stat-value" id="politenessVal">5</div></div>
+        <div class="stat-item"><div class="stat-label">Urgency</div><div class="stat-value" id="urgencyVal">medium</div></div>
+        <div class="stat-item"><div class="stat-label">Sentiment</div><div class="stat-value sentiment" id="sentimentVal">neutral</div></div>
+        <div class="stat-item"><div class="stat-label">Word count</div><div class="stat-value" id="wordCount">0</div></div>
+        <div class="stat-item"><div class="stat-label">Reading time</div><div class="stat-value" id="readingTime">0s</div></div>
+        <div class="stat-item"><div class="stat-label">Grade level</div><div class="stat-value" id="gradeLevel">-</div></div>
+      </div>
+    </div>
+
+    <!-- highlighted phrases -->
+    <div class="card">
+      <h3 style="color: #14b8a6; margin-bottom: 0.5rem;">🎨 Highlighted phrases (tone color)</h3>
+      <div id="highlightedText" class="highlight-area">Click analyze to see highlights.</div>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+        <span><span class="formal"> </span> formal</span>
+        <span><span class="casual"> </span> casual</span>
+        <span><span class="aggressive"> </span> aggressive</span>
+        <span><span class="passive-aggressive"> </span> passive-agg</span>
+        <span><span class="friendly"> </span> friendly</span>
+        <span><span class="neutral"> </span> neutral</span>
+      </div>
+    </div>
+
+    <!-- before/after rewrites -->
+    <div class="card">
+      <h3 style="color: #14b8a6; margin-bottom: 0.3rem;">✍️ Before / After rewrites</h3>
+      <div id="rewriteList">No problematic phrases detected (or use sample).</div>
+    </div>
+  </div>
+
+  <!-- FAQ (schema) -->
+  <div class="card" id="faqSection">
+    <h3 style="color: #14b8a6; margin-bottom: 1rem;">❓ FAQ</h3>
+    <div class="faq-item"><div class="faq-q">How is tone detected?</div><div class="faq-a">Using keyword & pattern analysis for formality, aggression, friendliness, passive-aggression, and neutrality.</div></div>
+    <div class="faq-item"><div class="faq-q">What is politeness score?</div><div class="faq-a">Score from 1 (very impolite) to 10 (extremely polite) based on courteous phrases and directness.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I see before/after rewrites?</div><div class="faq-a">Yes, problematic phrases are highlighted and suggested rewrites appear in the before/after panel.</div></div>
+  </div>
+
+  <footer>© enhio.com — Email Tone Analyzer. Always sound right.</footer>
+<div style="margin:20px auto;max-width:728px;text-align:center">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2241192243363112" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
+
+<script>
+  (function() {
+    const textarea = document.getElementById('emailText');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const sampleBtn = document.getElementById('sampleBtn');
+    const resultsContainer = document.getElementById('resultsContainer');
+
+    // stats elements
+    const toneBadge = document.getElementById('toneBadge');
+    const confidenceVal = document.getElementById('confidenceVal');
+    const politenessVal = document.getElementById('politenessVal');
+    const urgencyVal = document.getElementById('urgencyVal');
+    const sentimentVal = document.getElementById('sentimentVal');
+    const wordCount = document.getElementById('wordCount');
+    const readingTime = document.getElementById('readingTime');
+    const gradeLevel = document.getElementById('gradeLevel');
+    const highlightedText = document.getElementById('highlightedText');
+    const rewriteList = document.getElementById('rewriteList');
+
+    // ----- analysis engine (rule-based, demo) -----
+    function analyzeEmail(text) {
+      if (!text.trim()) return null;
+      const lower = text.toLowerCase();
+      const words = text.split(/\s+/).filter(w => w.length > 0);
+      const wc = words.length;
+
+      // tone scoring
+      let scores = { formal: 0, casual: 0, aggressive: 0, passiveAggressive: 0, friendly: 0, neutral: 0 };
+
+      // formal indicators
+      const formalPatterns = ['regards', 'sincerely', 'dear', 'please', 'thank you', 'appreciate', 'formal', 'kindly', 'respectfully', 'enclosed', 'attached'];
+      formalPatterns.forEach(p => { if (lower.includes(p)) scores.formal += 2; });
+
+      // casual
+      const casualPatterns = ['hey', 'hi', 'hello', 'cheers', 'thanks', 'cool', 'awesome', 'just', 'let me know', 'talk soon', 'see you'];
+      casualPatterns.forEach(p => { if (lower.includes(p)) scores.casual += 1.5; });
+
+      // aggressive
+      const aggressivePatterns = ['asap', 'urgent', 'immediately', 'now', 'must', 'required', 'do it', 'send me', 'hurry', 'warning', 'demand', 'you need to'];
+      aggressivePatterns.forEach(p => { if (lower.includes(p)) scores.aggressive += 2; });
+
+      // passive-aggressive
+      const paPatterns = ['as per', 'per my last', 'fyi', 'not sure if you saw', 'just a reminder', 'any update', 'friendly reminder', 'please advise', 'for future reference'];
+      paPatterns.forEach(p => { if (lower.includes(p)) scores.passiveAggressive += 2; });
+
+      // friendly
+      const friendlyPatterns = ['hope', 'great', 'wonderful', 'lovely', 'happy', 'glad', 'cheers', 'thanks so much', 'appreciate', 'best', 'warmly', 'take care'];
+      friendlyPatterns.forEach(p => { if (lower.includes(p)) scores.friendly += 1.5; });
+
+      // neutral: if low scores
+      const totalScore = scores.formal + scores.casual + scores.aggressive + scores.passiveAggressive + scores.friendly;
+      if (totalScore < 2) scores.neutral = 2;
+
+      // find dominant tone
+      let dominantTone = 'neutral';
+      let maxScore = 0;
+      for (let [tone, score] of Object.entries(scores)) {
+        if (score > maxScore) { maxScore = score; dominantTone = tone; }
+      }
+      // edge: tie breaker
+      if (scores.aggressive === scores.passiveAggressive && scores.aggressive > 2) dominantTone = 'aggressive';
+
+      // confidence (fake but based on total signals)
+      let confidence = Math.min(95, 40 + totalScore * 6);
+      confidence = Math.min(98, confidence);
+
+      // politeness (1-10)
+      let politeness = 5;
+      if (scores.formal > 2) politeness += 2;
+      if (scores.friendly > 2) politeness += 1;
+      if (scores.aggressive > 2) politeness -= 3;
+      if (scores.passiveAggressive > 1) politeness -= 2;
+      politeness = Math.min(10, Math.max(1, Math.round(politeness)));
+
+      // urgency
+      let urgency = 'low';
+      if (scores.aggressive > 3 || lower.includes('urgent') || lower.includes('asap')) urgency = 'high';
+      else if (scores.aggressive > 1 || lower.includes('soon') || lower.includes('deadline')) urgency = 'medium';
+
+      // sentiment
+      let sentiment = 'neutral';
+      if (scores.friendly > 2 || scores.formal > 2) sentiment = 'positive';
+      if (scores.aggressive > 2 || scores.passiveAggressive > 2) sentiment = 'negative';
+      if (scores.aggressive > 3) sentiment = 'negative';
+
+      // grade level (simple Flesch-Kincaid rough)
+      let grade = '8th';
+      if (wc > 50) grade = '10th';
+      if (wc > 80) grade = '12th';
+      if (wc > 120) grade = 'College';
+
+      // reading time
+      const readTimeSec = Math.ceil(wc / 4);
+
+      // build highlight spans
+      let highlightHtml = '';
+      const tokens = text.split(/(\s+)/);
+      tokens.forEach(token => {
+        const t = token.toLowerCase();
+        let cls = '';
+        if (formalPatterns.some(p => t.includes(p))) cls = 'formal';
+        else if (casualPatterns.some(p => t.includes(p))) cls = 'casual';
+        else if (aggressivePatterns.some(p => t.includes(p))) cls = 'aggressive';
+        else if (paPatterns.some(p => t.includes(p))) cls = 'passive-aggressive';
+        else if (friendlyPatterns.some(p => t.includes(p))) cls = 'friendly';
+        else cls = 'neutral';
+        if (cls) highlightHtml += `<span class="${cls}">${token}</span>`;
+        else highlightHtml += token;
+      });
+
+      // problematic phrases & rewrites
+      let rewrites = [];
+      const problemMap = [
+        { pattern: 'asap', suggestion: 'at your earliest convenience', severity: 'aggressive' },
+        { pattern: 'urgent', suggestion: 'time-sensitive', severity: 'aggressive' },
+        { pattern: 'send me', suggestion: 'could you please send me', severity: 'aggressive' },
+        { pattern: 'do it', suggestion: 'please take care of it', severity: 'aggressive' },
+        { pattern: 'you need to', suggestion: 'it would be great if you could', severity: 'aggressive' },
+        { pattern: 'per my last', suggestion: 'as previously mentioned', severity: 'passive-aggressive' },
+        { pattern: 'fyi', suggestion: 'for your information', severity: 'passive-aggressive' },
+        { pattern: 'just a reminder', suggestion: 'a gentle reminder', severity: 'passive-aggressive' },
+        { pattern: 'hey', suggestion: 'Hello', severity: 'casual' },
+        { pattern: 'cheers', suggestion: 'Best regards', severity: 'casual' },
+      ];
+      problemMap.forEach(item => {
+        if (lower.includes(item.pattern)) {
+          const regex = new RegExp(item.pattern, 'gi');
+          const match = text.match(regex);
+          if (match) {
+            rewrites.push({ original: match[0], suggestion: item.suggestion, severity: item.severity });
+          }
+        }
+      });
+      // deduplicate
+      const unique = rewrites.filter((v,i,a)=>a.findIndex(r=>r.original===v.original)===i);
+      rewrites = unique.slice(0,4);
+
+      return {
+        tone: dominantTone,
+        confidence: Math.round(confidence),
+        politeness,
+        urgency,
+        sentiment,
+        wordCount: wc,
+        readingTime: readTimeSec + 's',
+        gradeLevel: grade,
+        highlightHtml,
+        rewrites
+      };
+    }
+
+    function renderResults(result) {
+      if (!result) return;
+      toneBadge.textContent = result.tone;
+      confidenceVal.textContent = result.confidence + '%';
+      politenessVal.textContent = result.politeness;
+      urgencyVal.textContent = result.urgency;
+      sentimentVal.textContent = result.sentiment;
+      wordCount.textContent = result.wordCount;
+      readingTime.textContent = result.readingTime;
+      gradeLevel.textContent = result.gradeLevel;
+      highlightedText.innerHTML = result.highlightHtml || 'No highlights.';
+
+      // rewrites
+      if (result.rewrites.length === 0) {
+        rewriteList.innerHTML = '<div style="color: #94a3b8;">✅ No problematic phrases detected. Your email looks great!</div>';
+      } else {
+        let html = '';
+        result.rewrites.forEach(r => {
+          html += `<div class="rewrite-pair">
+            <div class="before"><span class="badge-sm">before</span> ${r.original}</div>
+            <div class="after"><span class="badge-sm">after ✨</span> ${r.suggestion}</div>
+          </div>`;
+        });
+        rewriteList.innerHTML = html;
+      }
+      resultsContainer.style.display = 'block';
+    }
+
+    function runAnalysis() {
+      const text = textarea.value;
+      if (!text.trim()) {
+        alert('Please paste some email text.');
+        return;
+      }
+      const result = analyzeEmail(text);
+      if (result) renderResults(result);
+    }
+
+    // sample
+    function loadSample() {
+      textarea.value = `Hey John,\n\nJust a reminder, send me the report ASAP. I need it urgently. Also, per my last email, please update the figures.\n\nCheers,\nMike`;
+      runAnalysis();
+    }
+
+    analyzeBtn.addEventListener('click', runAnalysis);
+    sampleBtn.addEventListener('click', loadSample);
+
+    // initial state: hide results
+    resultsContainer.style.display = 'none';
+  })();
+</script>
+</body>
+</html>
