@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readability Level Checker — Free Online Tool</title>
+    <meta name="description" content="Readability Level Checker: Free online tool to analyze text readability. Get Flesch-Kincaid grade level, reading ease score, and recommendations.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://enhio.com/tools/readability-level-checker">
+
+    <meta property="og:title" content="Readability Level Checker — Free Online Tool">
+    <meta property="og:description" content="Readability Level Checker: Analyze text readability with Flesch-Kincaid grade level and reading ease scores.">
+    <meta property="og:url" content="https://enhio.com/tools/readability-level-checker">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://enhio.com/og-readability.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Readability Level Checker",
+        "description": "Free online tool to analyze text readability and get Flesch-Kincaid grade level scores",
+        "url": "https://enhio.com/tools/readability-level-checker",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            color: #e0e6ed;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #00d4aa;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #a0aab8;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .input-section, .results-section {
+            background: #121626;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #1a2042;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #00d4aa;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            background: #0f1420;
+            border: 1px solid #1a2042;
+            border-radius: 6px;
+            color: #e0e6ed;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: none;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00d4aa;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            background: #00d4aa;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #00e6bc;
+        }
+
+        .btn-secondary {
+            background: #1a2042;
+            color: #00d4aa;
+        }
+
+        .btn-secondary:hover {
+            background: #232d47;
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .metric {
+            margin-bottom: 25px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #a0aab8;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+
+        .metric-bar {
+            width: 100%;
+            height: 8px;
+            background: #1a2042;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: #00d4aa;
+            transition: width 0.3s;
+        }
+
+        .metric-description {
+            font-size: 0.85rem;
+            color: #7a8298;
+        }
+
+        .rating {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .rating.excellent {
+            background: #00d4aa;
+            color: #0a0e27;
+        }
+
+        .rating.good {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+        .rating.fair {
+            background: #f59e0b;
+            color: #0a0e27;
+        }
+
+        .rating.poor {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #1a2042;
+        }
+
+        .stat-item {
+            background: #0f1420;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #a0aab8;
+            margin-top: 5px;
+        }
+
+        .recommendation {
+            background: #0f1420;
+            border-left: 4px solid #00d4aa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            color: #00d4aa;
+            margin-bottom: 8px;
+        }
+
+        .recommendation-text {
+            font-size: 0.95rem;
+            color: #a0aab8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #1a2042;
+            color: #7a8298;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            background: #ef4444;
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Readability Level Checker</h1>
+            <p class="tagline">Analyze your text's readability grade level and reading ease score</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <label for="textInput">Paste your text here:</label>
+                <div class="error-message" id="errorMessage"></div>
+                <textarea id="textInput" placeholder="Enter text to analyze..."></textarea>
+                <div class="button-group">
+                    <button onclick="analyzeText()">Analyze Text</button>
+                    <button class="btn-secondary" onclick="clearText()">Clear</button>
+                </div>
+            </div>
+
+            <div class="results-section" id="resultsSection">
+                <h2 style="color: #00d4aa; margin-bottom: 25px; font-size: 1.4rem;">Readability Results</h2>
+
+                <div class="metric">
+                    <div class="metric-label">Flesch-Kincaid Grade Level</div>
+                    <div class="metric-value" id="gradeLevel">—</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="gradeLevelBar"></div>
+                    </div>
+                    <div class="metric-description" id="gradeLevelDesc"></div>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-label">Flesch Reading Ease Score</div>
+                    <div class="metric-value" id="readingEase">—</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="readingEaseBar"></div>
+                    </div>
+                    <div class="metric-description" id="readingEaseDesc"></div>
+                    <div id="readingEaseRating" class="rating"></div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="wordCount">0</div>
+                        <div class="stat-label">Words</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="sentenceCount">0</div>
+                        <div class="stat-label">Sentences</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="syllableCount">0</div>
+                        <div class="stat-label">Syllables</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="avgSyllables">0</div>
+                        <div class="stat-label">Avg Syllables/Word</div>
+                    </div>
+                </div>
+
+                <div class="recommendation" id="recommendation"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Enhio.com. All rights reserved. Free readability analysis for writers and educators.</p>
+    </footer>
+
+    <script>
+        function countSyllables(word) {
+            word = word.toLowerCase();
+            let count = 0;
+            let vowels = 'aeiouy';
+            let previousWasVowel = false;
+
+            for (let i = 0; i < word.length; i++) {
+                let isVowel = vowels.includes(word[i]);
+                if (isVowel && !previousWasVowel) count++;
+                previousWasVowel = isVowel;
+            }
+
+            if (word.endsWith('e')) count--;
+            if (word.endsWith('le') && word.length > 2 && !vowels.includes(word[word.length - 3])) count++;
+            if (count === 0) count = 1;
+
+            return count;
+        }
+
+        function analyzeText() {
+            const text = document.getElementById('textInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (text.trim().length === 0) {
+                errorMessage.textContent = 'Please enter some text to analyze.';
+                errorMessage.classList.add('active');
+                return;
+            }
+
+            errorMessage.classList.remove('active');
+
+            const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+
+            let syllableCount = 0;
+            words.forEach(word => {
+                syllableCount += countSyllables(word.replace(/[^a-z]/gi, ''));
+            });
+
+            const wordCount = words.length;
+            const sentenceCount = sentences.length;
+
+            if (wordCount < 1 || sentenceCount < 1) {
+                errorMessage.textContent = 'Please enter at least one word and one sentence.';
+                errorMessage.classList.add('active');
+                return;
+            }
+
+            const gradeLevel = (0.39 * (wordCount / sentenceCount)) + (11.8 * (syllableCount / wordCount)) - 15.59;
+            const readingEase = 206.835 - (1.015 * (wordCount / sentenceCount)) - (84.6 * (syllableCount / wordCount));
+
+            const finalGrade = Math.max(0, Math.round(gradeLevel * 10) / 10);
+            const finalEase = Math.max(0, Math.min(100, Math.round(readingEase * 10) / 10));
+
+            document.getElementById('gradeLevel').textContent = finalGrade.toFixed(1);
+            document.getElementById('gradeLevelBar').style.width = Math.min(100, (finalGrade / 18) * 100) + '%';
+
+            let gradeDesc = '';
+            if (finalGrade < 6) gradeDesc = 'Elementary school level';
+            else if (finalGrade < 9) gradeDesc = 'Middle school level';
+            else if (finalGrade < 13) gradeDesc = 'High school level';
+            else if (finalGrade < 16) gradeDesc = 'College level';
+            else gradeDesc = 'Graduate school level';
+            document.getElementById('gradeLevelDesc').textContent = gradeDesc;
+
+            document.getElementById('readingEase').textContent = finalEase.toFixed(1);
+            document.getElementById('readingEaseBar').style.width = finalEase + '%';
+
+            let easeDesc = '', easeRating = '';
+            if (finalEase >= 90) { easeDesc = 'Very easy to read'; easeRating = 'excellent'; }
+            else if (finalEase >= 80) { easeDesc = 'Easy to read'; easeRating = 'good'; }
+            else if (finalEase >= 70) { easeDesc = 'Fairly easy to read'; easeRating = 'good'; }
+            else if (finalEase >= 60) { easeDesc = 'Standard difficulty'; easeRating = 'fair'; }
+            else if (finalEase >= 50) { easeDesc = 'Fairly difficult to read'; easeRating = 'fair'; }
+            else if (finalEase >= 30) { easeDesc = 'Difficult to read'; easeRating = 'poor'; }
+            else { easeDesc = 'Very difficult to read'; easeRating = 'poor'; }
+
+            document.getElementById('readingEaseDesc').textContent = easeDesc;
+            const ratingEl = document.getElementById('readingEaseRating');
+            ratingEl.textContent = easeRating.charAt(0).toUpperCase() + easeRating.slice(1);
+            ratingEl.className = 'rating ' + easeRating;
+
+            document.getElementById('wordCount').textContent = wordCount;
+            document.getElementById('sentenceCount').textContent = sentenceCount;
+            document.getElementById('syllableCount').textContent = syllableCount;
+            document.getElementById('avgSyllables').textContent = (syllableCount / wordCount).toFixed(2);
+
+            let recommendation = '';
+            if (finalGrade <= 6) {
+                recommendation = 'Your text is very accessible and easy to understand for a broad audience. Great for general readership.';
+            } else if (finalGrade <= 9) {
+                recommendation = 'Your text is readable for most audiences. Consider simplifying complex terms for maximum accessibility.';
+            } else if (finalGrade <= 13) {
+                recommendation = 'Your text is moderately complex. Consider breaking long sentences into shorter ones for clarity.';
+            } else {
+                recommendation = 'Your text is quite complex and may be difficult for general readers. Use simpler vocabulary and shorter sentences.';
+            }
+
+            const recEl = document.getElementById('recommendation');
+            recEl.innerHTML = `<div class="recommendation-title">Recommendation</div><div class="recommendation-text">${recommendation}</div>`;
+
+            document.getElementById('resultsSection').classList.add('active');
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('resultsSection').classList.remove('active');
+            document.getElementById('errorMessage').classList.remove('active');
+            document.getElementById('textInput').focus();
+        }
+
+        document.getElementById('textInput').addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                analyzeText();
+            }
+        });
+    </script>
+</body>
+</html>

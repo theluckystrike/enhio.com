@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paragraph Rewriter — Free AI Writing Tool</title>
+    <meta name="description" content="Paragraph Rewriter: Free AI writing tool to rewrite paragraphs in simplified, formal, or concise styles. Perfect for content optimization.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://enhio.com/tools/paragraph-rewriter">
+
+    <meta property="og:title" content="Paragraph Rewriter — Free AI Writing Tool">
+    <meta property="og:description" content="Paragraph Rewriter: Free tool to rewrite paragraphs in simplified, formal, or concise styles with word count comparison.">
+    <meta property="og:url" content="https://enhio.com/tools/paragraph-rewriter">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://enhio.com/og-paragraph.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Paragraph Rewriter",
+        "description": "Free tool to rewrite paragraphs in multiple styles: simplified, formal, and concise",
+        "url": "https://enhio.com/tools/paragraph-rewriter",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            color: #e0e6ed;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #00d4aa;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #a0aab8;
+        }
+
+        .input-section {
+            background: #121626;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #1a2042;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #00d4aa;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: #0f1420;
+            border: 1px solid #1a2042;
+            border-radius: 6px;
+            color: #e0e6ed;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: none;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00d4aa;
+        }
+
+        .style-selector {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .style-btn {
+            flex: 1;
+            min-width: 140px;
+            background: #0f1420;
+            color: #a0aab8;
+            border: 2px solid #1a2042;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .style-btn:hover {
+            border-color: #00d4aa;
+            color: #00d4aa;
+        }
+
+        .style-btn.active {
+            background: #00d4aa;
+            color: #0a0e27;
+            border-color: #00d4aa;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            background: #00d4aa;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #00e6bc;
+        }
+
+        .btn-secondary {
+            background: #1a2042;
+            color: #00d4aa;
+        }
+
+        .btn-secondary:hover {
+            background: #232d47;
+        }
+
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .rewrite-card {
+            background: #121626;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid #1a2042;
+            display: none;
+        }
+
+        .rewrite-card.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00d4aa;
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            font-size: 0.85rem;
+            color: #a0aab8;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .rewrite-text {
+            background: #0f1420;
+            border: 1px solid #1a2042;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            min-height: 150px;
+            color: #e0e6ed;
+            flex: 1;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .word-count {
+            font-size: 0.85rem;
+            color: #7a8298;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .word-count span {
+            display: inline;
+        }
+
+        .word-count .original {
+            color: #a0aab8;
+        }
+
+        .word-count .rewritten {
+            color: #00d4aa;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: #0f1420;
+            color: #00d4aa;
+            border: 1px solid #1a2042;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #1a2042;
+            border-color: #00d4aa;
+        }
+
+        .copy-btn.copied {
+            background: #00d4aa;
+            color: #0a0e27;
+            border-color: #00d4aa;
+        }
+
+        .error-message {
+            background: #ef4444;
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            color: #00d4aa;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #00d4aa;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #1a2042;
+            color: #7a8298;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .style-selector {
+                flex-direction: column;
+            }
+
+            .style-btn {
+                min-width: auto;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .results-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Paragraph Rewriter</h1>
+            <p class="tagline">Rewrite paragraphs in different styles: simplified, formal, or concise</p>
+        </header>
+
+        <div class="input-section">
+            <label for="paragraphInput">Paste your paragraph here:</label>
+            <div class="error-message" id="errorMessage"></div>
+            <textarea id="paragraphInput" placeholder="Enter a paragraph you'd like to rewrite..."></textarea>
+
+            <label style="margin-top: 20px;">Choose rewrite style:</label>
+            <div class="style-selector">
+                <button class="style-btn active" onclick="selectStyle('simplified')">Simplified</button>
+                <button class="style-btn" onclick="selectStyle('formal')">Formal</button>
+                <button class="style-btn" onclick="selectStyle('concise')">Concise</button>
+            </div>
+
+            <div class="button-group">
+                <button onclick="rewriteParagraph()">Rewrite Paragraph</button>
+                <button class="btn-secondary" onclick="clearAll()">Clear</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <span class="spinner"></span>Generating rewrites...
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="rewrite-card" id="simplifiedCard">
+                <div class="card-title">Simplified Version</div>
+                <div class="card-description">Uses simple vocabulary and shorter sentences for broad accessibility</div>
+                <div class="rewrite-text" id="simplifiedText"></div>
+                <div class="word-count">
+                    <span class="original">Original: <span id="originalCount">0</span> words</span>
+                    <span class="rewritten">Rewritten: <span id="simplifiedCount">0</span> words</span>
+                </div>
+                <button class="copy-btn" onclick="copyText('simplifiedText', this)">Copy Simplified</button>
+            </div>
+
+            <div class="rewrite-card" id="formalCard">
+                <div class="card-title">Formal Version</div>
+                <div class="card-description">More professional tone suitable for academic or business contexts</div>
+                <div class="rewrite-text" id="formalText"></div>
+                <div class="word-count">
+                    <span class="original">Original: <span id="originalCount2">0</span> words</span>
+                    <span class="rewritten">Rewritten: <span id="formalCount">0</span> words</span>
+                </div>
+                <button class="copy-btn" onclick="copyText('formalText', this)">Copy Formal</button>
+            </div>
+
+            <div class="rewrite-card" id="conciseCard">
+                <div class="card-title">Concise Version</div>
+                <div class="card-description">Shorter and more direct, eliminating redundancy</div>
+                <div class="rewrite-text" id="conciseText"></div>
+                <div class="word-count">
+                    <span class="original">Original: <span id="originalCount3">0</span> words</span>
+                    <span class="rewritten">Rewritten: <span id="conciseCount">0</span> words</span>
+                </div>
+                <button class="copy-btn" onclick="copyText('conciseText', this)">Copy Concise</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Enhio.com. All rights reserved. Free paragraph rewriting tool for writers.</p>
+    </footer>
+
+    <script>
+        let selectedStyle = 'simplified';
+
+        function selectStyle(style) {
+            selectedStyle = style;
+            document.querySelectorAll('.style-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function countWords(text) {
+            return text.trim().split(/\s+/).filter(w => w.length > 0).length;
+        }
+
+        function simplifyParagraph(text) {
+            let result = text
+                .replace(/\b(therefore|thus|moreover|furthermore|consequently|nevertheless|notwithstanding)\b/gi, '')
+                .replace(/\b(approximately|approximately|theoretically|hypothetically)\b/gi, 'about')
+                .replace(/\b(utilize|utilise)\b/gi, 'use')
+                .replace(/\b(assistance)\b/gi, 'help')
+                .replace(/\b(residence)\b/gi, 'home')
+                .replace(/\b(substantiate|corroborate)\b/gi, 'prove')
+                .replace(/\b(endeavor|endeavour)\b/gi, 'try')
+                .replace(/\b(terminate)\b/gi, 'end')
+                .replace(/\b(facilitate)\b/gi, 'help')
+                .replace(/\b(ameliorate)\b/gi, 'improve');
+
+            let sentences = result.split(/(?<=[.!?])\s+/);
+            sentences = sentences.map(s => {
+                if (s.split(/\s+/).length > 20) {
+                    s = s.replace(/,\s+which\s+/gi, '. This ');
+                    s = s.replace(/,\s+that\s+/gi, '. That ');
+                }
+                return s;
+            });
+
+            return sentences.join(' ').trim();
+        }
+
+        function formalizeParagraph(text) {
+            let result = text
+                .replace(/\b(gonna|gotta|wanna)\b/gi, 'going to')
+                .replace(/\b(can't|cannot)\b/gi, 'cannot')
+                .replace(/\b(won't)\b/gi, 'will not')
+                .replace(/\b(don't|doesn't)\b/gi, 'do not')
+                .replace(/\b(didn't)\b/gi, 'did not')
+                .replace(/\b(isn't|aren't)\b/gi, 'is not')
+                .replace(/\b(I'm|we're|they're)\b/gi, (match) => {
+                    const map = { "I'm": "I am", "we're": "we are", "they're": "they are" };
+                    return map[match] || match;
+                })
+                .replace(/\b(also)\b/gi, 'furthermore')
+                .replace(/\b(a lot)\b/gi, 'many')
+                .replace(/\b(kind of|sort of|kind of)\b/gi, 'somewhat')
+                .replace(/\b(really|very)\b/gi, 'particularly');
+
+            result = result.replace(/([.!?])\s+([a-z])/g, (match, p1, p2) => {
+                return p1 + ' ' + p2.toUpperCase();
+            });
+
+            return result.trim();
+        }
+
+        function conciseParagraph(text) {
+            let result = text
+                .replace(/\b(in order to)\b/gi, 'to')
+                .replace(/\b(due to the fact that)\b/gi, 'because')
+                .replace(/\b(in the event that)\b/gi, 'if')
+                .replace(/\b(at the end of the day)\b/gi, 'ultimately')
+                .replace(/\b(for the purpose of)\b/gi, 'for')
+                .replace(/\b(at the present time|at present)\b/gi, 'now')
+                .replace(/\b(it is important to note that)\b/gi, '')
+                .replace(/\b(in my opinion|I think)\b/gi, '')
+                .replace(/\s+/g, ' ')
+                .replace(/,\s+and\s+/gi, ' and ')
+                .replace(/\.\s+And\s+/gi, '. ')
+                .replace(/\s+,/g, ',');
+
+            let sentences = result.split(/(?<=[.!?])\s+/);
+            sentences = sentences.filter(s => s.trim().length > 0);
+            return sentences.join(' ').trim();
+        }
+
+        function rewriteParagraph() {
+            const text = document.getElementById('paragraphInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (text.trim().length === 0) {
+                errorMessage.textContent = 'Please enter a paragraph to rewrite.';
+                errorMessage.classList.add('active');
+                return;
+            }
+
+            errorMessage.classList.remove('active');
+            document.getElementById('loading').classList.add('active');
+
+            setTimeout(() => {
+                const simplified = simplifyParagraph(text);
+                const formal = formalizeParagraph(text);
+                const concise = conciseParagraph(text);
+
+                const originalWords = countWords(text);
+                document.getElementById('originalCount').textContent = originalWords;
+                document.getElementById('originalCount2').textContent = originalWords;
+                document.getElementById('originalCount3').textContent = originalWords;
+
+                document.getElementById('simplifiedText').textContent = simplified;
+                document.getElementById('simplifiedCount').textContent = countWords(simplified);
+
+                document.getElementById('formalText').textContent = formal;
+                document.getElementById('formalCount').textContent = countWords(formal);
+
+                document.getElementById('conciseText').textContent = concise;
+                document.getElementById('conciseCount').textContent = countWords(concise);
+
+                document.getElementById('simplifiedCard').classList.add('active');
+                document.getElementById('formalCard').classList.add('active');
+                document.getElementById('conciseCard').classList.add('active');
+
+                document.getElementById('loading').classList.remove('active');
+            }, 600);
+        }
+
+        function copyText(elementId, button) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function clearAll() {
+            document.getElementById('paragraphInput').value = '';
+            document.getElementById('simplifiedCard').classList.remove('active');
+            document.getElementById('formalCard').classList.remove('active');
+            document.getElementById('conciseCard').classList.remove('active');
+            document.getElementById('errorMessage').classList.remove('active');
+            document.getElementById('paragraphInput').focus();
+        }
+    </script>
+</body>
+</html>
