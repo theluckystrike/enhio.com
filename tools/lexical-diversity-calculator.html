@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lexical Diversity Calculator — TTR, MTLD, HD-D</title>
+<meta name="description" content="Compute TTR, Root TTR, CTTR, Herdan C, Maas, MSTTR, MATTR, MTLD and HD-D from pasted text. Length-robust vocabulary diversity, entirely in your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://enhio.com/tools/lexical-diversity-calculator">
+<meta property="og:title" content="Lexical Diversity Calculator — TTR, MTLD, HD-D">
+<meta property="og:description" content="Compute TTR, Root TTR, CTTR, Herdan C, Maas, MSTTR, MATTR, MTLD and HD-D from pasted text. Length-robust vocabulary diversity, entirely in your browser.">
+<meta property="og:url" content="https://enhio.com/tools/lexical-diversity-calculator">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enhio">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lexical Diversity Calculator — TTR, MTLD, HD-D">
+<meta name="twitter:description" content="Eight published lexical diversity indices from any pasted text, computed client-side.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Lexical Diversity Calculator",
+      "url": "https://enhio.com/tools/lexical-diversity-calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Client-side lexical diversity calculator: type-token ratio, Root TTR, Corrected TTR, Herdan's C, Maas a-squared, MSTTR, MATTR, MTLD and HD-D, with length-dependence flags and a MATTR-over-position sparkline.",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+      "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+      "featureList": [
+        "Type-token ratio (TTR)",
+        "Root TTR (Guiraud) and Corrected TTR",
+        "Herdan's C and Maas a-squared",
+        "MSTTR and MATTR with adjustable window",
+        "MTLD (forward and backward passes averaged)",
+        "HD-D (vocd-D approximation, 42-token sample)",
+        "Stopword exclusion and suffix normalisation",
+        "MATTR-over-position sparkline"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://enhio.com/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "Lexical Diversity Calculator", "item": "https://enhio.com/tools/lexical-diversity-calculator" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is plain TTR a poor measure of lexical diversity?",
+          "acceptedAnswer": { "@type": "Answer", "text": "TTR is types divided by tokens, and it falls automatically as a text gets longer because function words repeat while new content words arrive more slowly. A 100-word sample and a 1000-word sample from the same writer will produce very different TTRs, so TTR can only compare texts of identical length. MTLD, MATTR and HD-D were designed to remove that length dependence." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is MTLD and how is it calculated?",
+          "acceptedAnswer": { "@type": "Answer", "text": "MTLD (Measure of Textual Lexical Diversity, McCarthy and Jarvis 2010) walks through the tokens accumulating a running TTR. Each time the running TTR falls to the factor threshold of 0.720 the factor count increases by one and the counters reset. At the end a partial factor of (1 minus the remaining TTR) divided by (1 minus 0.720) is added. MTLD is the token count divided by the factor count, computed forward and backward and averaged." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is HD-D and why does it use 42 tokens?",
+          "acceptedAnswer": { "@type": "Answer", "text": "HD-D is a hypergeometric reformulation of vocd-D. For every type it computes the probability that at least one of its tokens appears in a random sample of 42 tokens, then multiplies each probability by 1/42 and sums. The value 42 is the midpoint of the 35-to-50 token sample range that the original vocd-D curve-fitting procedure used, so HD-D reproduces vocd-D deterministically instead of by random sampling." }
+        },
+        {
+          "@type": "Question",
+          "name": "How much text do I need for a reliable score?",
+          "acceptedAnswer": { "@type": "Answer", "text": "HD-D needs at least 42 tokens by definition and MATTR or MSTTR need at least one full window (50 tokens by default). In practice 100 tokens is a floor and 200 or more gives stable MTLD and HD-D values. Below 50 tokens this tool marks the window-based and hypergeometric indices as unreliable." }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I remove stopwords before measuring diversity?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Usually not. The published norms for TTR, MTLD, MATTR and HD-D were all derived from full running text including function words, so removing stopwords makes your numbers incomparable to the literature. The option is useful for content-word-only comparisons within your own corpus, where every text is treated the same way." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --font-display:'Space Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --font-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --bg:#0a0a0a;--bg-card:#141414;--bg-hover:#1a1a1a;
+  --text:#e8e8e8;--text-muted:#888;--border:#222;--radius:6px;--accent:#818CF8;
+  --good:#4ade80;--warn:#fbbf24;--bad:#f87171;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+header.site{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:var(--bg);z-index:100}
+header.site .container{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.nav-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent)}
+.nav-links{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+.nav-links a{color:var(--text-muted);font-size:.9rem;font-weight:500}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:.75rem;margin-left:auto}
+.nav-pro{background:var(--accent);color:#000;padding:5px 13px;border-radius:var(--radius);font-size:.82rem;font-weight:600;white-space:nowrap}
+.nav-pro:hover{opacity:.85;text-decoration:none}
+.nav-zovo{color:var(--text-muted);font-size:.78rem;white-space:nowrap}
+.nav-zovo:hover{color:var(--text);text-decoration:none}
+.article-container{max-width:900px;margin:0 auto;padding:0 20px 40px}
+.breadcrumb{font-size:.8rem;color:var(--text-muted);padding:20px 0 4px}
+.article-header{padding:10px 0 6px}
+h1{font-family:var(--font-display);font-size:2rem;line-height:1.25;letter-spacing:-.01em;margin-bottom:10px}
+h1 span{color:var(--accent)}
+.article-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--text-muted)}
+.lede{color:var(--text-muted);font-size:1.03rem;margin:14px 0 0}
+h2{font-family:var(--font-display);font-size:1.2rem;margin:36px 0 12px;border-bottom:1px solid var(--border);padding-bottom:8px}
+h3{font-size:1rem;margin:20px 0 8px}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 12px 20px}
+li{margin-bottom:5px}
+.tool-section{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin:22px 0}
+.tool-section h2{margin-top:0}
+label{display:block;font-size:.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+textarea{width:100%;min-height:210px;background:#0f0f0f;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);padding:14px;font-family:var(--font-body);font-size:.95rem;line-height:1.7;resize:vertical}
+textarea:focus{outline:none;border-color:var(--accent)}
+textarea::placeholder{color:#5a5a5a}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:16px 0 4px}
+input[type=number]{width:100%;background:#0f0f0f;border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:9px 11px;font-size:.95rem;font-family:var(--font-display)}
+input[type=number]:focus{outline:none;border-color:var(--accent)}
+.check{display:flex;align-items:flex-start;gap:9px;font-size:.86rem;color:var(--text);text-transform:none;letter-spacing:0;font-weight:400;margin-top:22px}
+.check input{accent-color:var(--accent);width:16px;height:16px;margin-top:2px;flex:none}
+.hint{font-size:.72rem;color:var(--text-muted);margin-top:5px;text-transform:none;letter-spacing:0;font-weight:400}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{background:var(--accent);color:#000;border:none;border-radius:var(--radius);padding:9px 20px;font-size:.88rem;font-weight:600;font-family:var(--font-body);cursor:pointer}
+.btn:hover{opacity:.87}
+.btn.secondary{background:transparent;color:var(--text-muted);border:1px solid var(--border)}
+.btn.secondary:hover{color:var(--text);border-color:var(--accent);opacity:1}
+.banner{border-radius:var(--radius);padding:11px 14px;font-size:.85rem;margin:16px 0 0;border:1px solid}
+.banner.warn{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.35);color:#f8d789}
+.banner.info{background:rgba(129,140,248,.08);border-color:rgba(129,140,248,.32);color:#c3c8fb}
+.banner.hidden{display:none}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0 4px}
+.stat-card{background:#0f0f0f;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center}
+.stat-card .value{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--accent);word-break:break-word}
+.stat-card .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.table-scroll{overflow-x:auto;margin:8px 0 0}
+table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:640px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);font-weight:600}
+td.num{font-family:var(--font-display);font-weight:700;white-space:nowrap}
+.idx-name{font-weight:600}
+.idx-formula{display:block;font-family:var(--font-display);font-size:.72rem;color:var(--text-muted);margin-top:2px}
+.tag{display:inline-block;font-size:.66rem;padding:2px 7px;border-radius:20px;border:1px solid;white-space:nowrap}
+.tag.robust{color:var(--good);border-color:rgba(74,222,128,.4);background:rgba(74,222,128,.08)}
+.tag.dep{color:var(--warn);border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
+.tag.part{color:#9aa7b4;border-color:rgba(154,167,180,.4);background:rgba(154,167,180,.08)}
+.band{font-size:.82rem;color:var(--text-muted)}
+.band b{color:var(--text);font-weight:600}
+.na{color:var(--text-muted)}
+canvas{width:100%;height:190px;display:block;background:#0f0f0f;border:1px solid var(--border);border-radius:var(--radius)}
+.spark-caption{font-size:.8rem;color:var(--text-muted);margin-top:10px}
+.spark-caption b{color:var(--text)}
+.snippet{font-family:var(--font-display);font-size:.78rem;color:#b9bdd6;background:#0f0f0f;border:1px solid var(--border);border-radius:var(--radius);padding:9px 11px;margin-top:8px;word-break:break-word}
+.formula{font-family:var(--font-display);font-size:.82rem;background:#0f0f0f;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:10px 13px;margin:10px 0;overflow-x:auto;white-space:pre-wrap}
+.faq-section{margin:40px 0 0}
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0}
+.faq-item:first-of-type{border-top:1px solid var(--border)}
+.faq-q{font-weight:600;font-size:.98rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.faq-q::after{content:'+';color:var(--accent);font-size:1.2rem}
+.faq-item.open .faq-q::after{content:'\2212'}
+.faq-a{display:none;color:var(--text-muted);font-size:.93rem;padding-top:8px}
+.faq-item.open .faq-a{display:block}
+.article-footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--border);font-size:.85rem;color:var(--text-muted)}
+.site-footer{border-top:1px solid var(--border);margin-top:3rem}
+.footer-inner{max-width:600px;margin:0 auto;padding:3rem 2rem 2rem;text-align:center}
+.footer-brand{font-size:1.05rem;font-weight:700;color:var(--text)}
+.footer-tagline{font-size:.8rem;color:#666;margin:.3rem 0 1.5rem}
+.footer-cta{display:inline-block;padding:.6rem 1.75rem;border:1.5px solid var(--accent);border-radius:var(--radius);color:var(--accent);font-size:.85rem;font-weight:600}
+.footer-cta:hover{background:var(--accent);color:#000;text-decoration:none}
+.footer-copy{font-size:.7rem;color:#555;margin-top:1.25rem}
+.footer-copy a{color:inherit}
+.zovo-network{border-top:1px solid var(--border);padding:2rem 2rem 3rem;text-align:center}
+.zovo-network-inner{max-width:720px;margin:0 auto}
+.zovo-network-title{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:1rem}
+.zovo-network-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.25rem}
+.zovo-network-links a{font-size:.78rem;color:var(--text-muted);white-space:nowrap;line-height:1.9}
+.zovo-network-links a:hover{color:var(--accent)}
+@media(max-width:768px){h1{font-size:1.5rem}.nav-links{gap:14px}.check{margin-top:4px}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="container">
+    <a href="/" class="nav-logo">enhio</a>
+    <ul class="nav-links">
+      <li><a href="/">Tool</a></li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/answers/">Answers</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/guides/">Guides</a></li>
+      <li><a href="/blog/">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=enhio.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </div>
+</header>
+
+<article class="article-container">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Lexical Diversity Calculator
+  </nav>
+
+  <header class="article-header">
+    <h1>Lexical <span>Diversity</span> Calculator &mdash; TTR, MTLD, HD-D</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one">Michael Lip</a></span>
+      <time datetime="2026-07-29">July 29, 2026</time>
+      <span>Free tool &middot; No sign-up &middot; Runs offline</span>
+    </div>
+    <p class="lede">Paste an essay, transcript or language sample and get eight published lexical diversity indices at once &mdash; including the three that do <em>not</em> collapse as the text gets longer: MTLD, MATTR and HD-D. Every count runs in your browser; nothing is uploaded.</p>
+  </header>
+
+  <section class="tool-section" id="tool">
+    <h2>Analyse a text sample</h2>
+
+    <label for="textInput">Your text</label>
+    <textarea id="textInput" placeholder="Paste an essay, interview transcript, or language sample here (200 or more words works best)..."></textarea>
+
+    <div class="opts">
+      <div>
+        <label for="winSize">Window size (MATTR / MSTTR)</label>
+        <input type="number" id="winSize" value="50" min="10" max="500" step="1">
+        <div class="hint">Tokens per window. Standard is 50.</div>
+      </div>
+      <div>
+        <label for="thr">MTLD factor threshold</label>
+        <input type="number" id="thr" value="0.720" min="0.1" max="0.99" step="0.001">
+        <div class="hint">McCarthy &amp; Jarvis default is 0.720.</div>
+      </div>
+      <div>
+        <label class="check" for="noStop"><input type="checkbox" id="noStop"> Exclude English stopwords before counting</label>
+        <label class="check" for="lemma"><input type="checkbox" id="lemma"> Normalise inflections (walked, walking, walks &rarr; walk)</label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="analyzeBtn" type="button">Analyse text</button>
+      <button class="btn secondary" id="sampleBtn" type="button">Load sample</button>
+      <button class="btn secondary" id="clearBtn" type="button">Clear</button>
+    </div>
+
+    <div class="banner warn hidden" id="warnBanner"></div>
+    <div class="banner info hidden" id="infoBanner"></div>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="value" id="oTokens">&mdash;</div><div class="label">Tokens (N)</div></div>
+      <div class="stat-card"><div class="value" id="oTypes">&mdash;</div><div class="label">Types (V)</div></div>
+      <div class="stat-card"><div class="value" id="oHapax">&mdash;</div><div class="label">Hapax (used once)</div></div>
+      <div class="stat-card"><div class="value" id="oRepeat">&mdash;</div><div class="label">Most frequent type</div></div>
+    </div>
+
+    <h3>The eight indices</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Index</th><th>Value</th><th>Length behaviour</th><th>Reading</th></tr>
+        </thead>
+        <tbody id="idxBody">
+          <tr><td class="idx-name">Type-Token Ratio<span class="idx-formula">TTR = V / N</span></td><td class="num" id="vTTR">&mdash;</td><td><span class="tag dep">length-dependent</span></td><td class="band" id="bTTR">&mdash;</td></tr>
+          <tr><td class="idx-name">Root TTR (Guiraud)<span class="idx-formula">RTTR = V / sqrt(N)</span></td><td class="num" id="vRTTR">&mdash;</td><td><span class="tag dep">length-dependent</span></td><td class="band" id="bRTTR">&mdash;</td></tr>
+          <tr><td class="idx-name">Corrected TTR (Carroll)<span class="idx-formula">CTTR = V / sqrt(2N)</span></td><td class="num" id="vCTTR">&mdash;</td><td><span class="tag part">partly corrected</span></td><td class="band" id="bCTTR">&mdash;</td></tr>
+          <tr><td class="idx-name">Herdan's C<span class="idx-formula">C = log(V) / log(N)</span></td><td class="num" id="vC">&mdash;</td><td><span class="tag part">partly corrected</span></td><td class="band" id="bC">&mdash;</td></tr>
+          <tr><td class="idx-name">Maas a&sup2;<span class="idx-formula">a&sup2; = (log N - log V) / (log N)&sup2;</span></td><td class="num" id="vMaas">&mdash;</td><td><span class="tag part">partly corrected</span></td><td class="band" id="bMaas">&mdash;</td></tr>
+          <tr><td class="idx-name">MSTTR<span class="idx-formula">mean TTR of consecutive W-token segments</span></td><td class="num" id="vMSTTR">&mdash;</td><td><span class="tag robust">length-robust</span></td><td class="band" id="bMSTTR">&mdash;</td></tr>
+          <tr><td class="idx-name">MATTR<span class="idx-formula">mean TTR over all N-W+1 sliding windows</span></td><td class="num" id="vMATTR">&mdash;</td><td><span class="tag robust">length-robust</span></td><td class="band" id="bMATTR">&mdash;</td></tr>
+          <tr><td class="idx-name">MTLD<span class="idx-formula">N / factors, forward and backward averaged</span></td><td class="num" id="vMTLD">&mdash;</td><td><span class="tag robust">length-robust</span></td><td class="band" id="bMTLD">&mdash;</td></tr>
+          <tr><td class="idx-name">HD-D (vocd-D)<span class="idx-formula">sum of P(type in 42-token sample) / 42</span></td><td class="num" id="vHDD">&mdash;</td><td><span class="tag robust">length-robust</span></td><td class="band" id="bHDD">&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint" style="margin-top:12px">MTLD passes: <span id="oPasses">&mdash;</span>. Bands are rules of thumb for English prose at the default settings, not normative cut-offs &mdash; only the MTLD anchor near 72 comes from a published corpus mean (McCarthy &amp; Jarvis 2010). Compare texts with each other, using identical settings.</p>
+
+    <h3>MATTR across the text</h3>
+    <canvas id="spark" height="190" aria-label="MATTR value plotted against window start position"></canvas>
+    <div class="spark-caption" id="sparkCaption">Each point is the type-token ratio of one sliding window. Dips mark passages where the wording repeats itself.</div>
+    <div class="snippet" id="sparkSnippet" style="display:none"></div>
+  </section>
+
+  <h2>How each index is computed</h2>
+  <p>Tokens are the running word forms of the text; types are the distinct lowercased forms among them. Everything below is derived from those two counts, or from the token sequence itself.</p>
+
+  <h3>The ratio family (length-dependent)</h3>
+  <p>Plain <b>TTR</b> is types over tokens. It has one fatal property: it falls as the text grows, because function words recur while new content words arrive ever more slowly. Two texts are only comparable by TTR if they have the same token count. Root TTR (Guiraud, 1954) and Corrected TTR (Carroll, 1964) divide by the square root of N and of 2N to damp that decline; Herdan's C (1960) and Maas (1972) apply logarithmic transformations for the same reason. All of them reduce the length effect without removing it.</p>
+  <div class="formula">TTR   = V / N
+RTTR  = V / sqrt(N)
+CTTR  = V / sqrt(2N)
+C     = log(V) / log(N)
+a&sup2;    = (log N - log V) / (log N)&sup2;      lower a&sup2; = more diverse</div>
+
+  <h3>The window family (MSTTR and MATTR)</h3>
+  <p><b>MSTTR</b> chops the text into consecutive non-overlapping segments of W tokens (default 50), computes TTR in each and averages them; any leftover tokens shorter than one full segment are discarded, so MSTTR ignores up to W-1 tokens at the end. <b>MATTR</b> (Covington &amp; McFall, 2010) instead slides a window of W tokens one token at a time and averages the TTR of all N-W+1 windows, which uses every token and gives a smooth series you can plot &mdash; that is the sparkline above.</p>
+
+  <h3>MTLD</h3>
+  <p><b>MTLD</b> (McCarthy &amp; Jarvis, 2010) measures the mean number of tokens it takes for the running TTR to fall to the factor threshold of <b>0.720</b>. The algorithm walks through the tokens keeping running type and token counts; when the running TTR reaches the threshold, one factor is recorded and both counters reset. Whatever is left over at the end contributes a partial factor. The whole procedure is run forward and then over the reversed token list, and the two results are averaged.</p>
+  <div class="formula">for each token:
+    tokens += 1; if new form then types += 1
+    ttr = types / tokens
+    if ttr &lt;= 0.720:  factors += 1; reset types, tokens, ttr = 1
+
+partial = (1 - ttr_remaining) / (1 - 0.720)
+MTLD_pass = N / (factors + partial)
+MTLD      = (MTLD_forward + MTLD_backward) / 2</div>
+  <p>Because MTLD counts how far the text travels before diversity decays, it is expressed in tokens: a value of 80 means the running TTR survives roughly 80 tokens before dropping to 0.720. If a text never reaches the threshold (very short or entirely unique wording) no full factor exists and MTLD cannot be computed &mdash; the tool says so rather than inventing a number.</p>
+
+  <h3>HD-D</h3>
+  <p><b>HD-D</b> (McCarthy &amp; Jarvis, 2007) replaces the random sampling of vocd-D with the exact hypergeometric probability. For every type t with frequency f, it computes the chance that at least one of its tokens lands in a random draw of 42 tokens from the text, weights that probability by 1/42, and sums over all types. The 42-token sample is the midpoint of the 35-to-50 range used by the original vocd-D curve fit, which is why HD-D reproduces vocd-D deterministically.</p>
+  <div class="formula">HD-D = sum over types t of  [ 1 - C(N - f_t, 42) / C(N, 42) ] &times; (1/42)</div>
+  <p>The binomial coefficients would overflow double precision for texts of a few hundred words, so this page evaluates them in log space with a Lanczos log-gamma: log C(n,k) = lgamma(n+1) - lgamma(k+1) - lgamma(n-k+1), and the ratio is recovered with a single exponential. Any type frequent enough that N - f is below 42 is certain to appear, contributing exactly 1/42.</p>
+
+  <h3>Sample-size limits</h3>
+  <ul>
+    <li>HD-D is undefined below 42 tokens &mdash; a 42-token sample cannot be drawn.</li>
+    <li>MATTR and MSTTR need at least one full window; below that the tool falls back to plain TTR and flags it.</li>
+    <li>Below roughly 50 tokens all window-based and hypergeometric indices are unstable; below 100 tokens treat MTLD as indicative only.</li>
+    <li>Stopword removal and inflection normalisation both change N and V, so their results are not comparable to published norms. Use them only to compare texts processed the same way.</li>
+  </ul>
+
+  <section class="faq-section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">Why is plain TTR a poor measure of lexical diversity?</div><div class="faq-a">TTR is types divided by tokens, and it falls automatically as a text gets longer because function words repeat while new content words arrive more slowly. A 100-word sample and a 1000-word sample from the same writer produce very different TTRs, so TTR can only compare texts of identical length. MTLD, MATTR and HD-D were designed to remove that dependence.</div></div>
+    <div class="faq-item"><div class="faq-q">What counts as a token here?</div><div class="faq-a">A token is any run of letters, optionally containing an internal apostrophe, after the text is lowercased. Numbers and punctuation are ignored. A type is a distinct token form, so "Walk" and "walk" are one type, while "walk" and "walked" are two unless you enable inflection normalisation.</div></div>
+    <div class="faq-item"><div class="faq-q">What is a good MTLD value?</div><div class="faq-a">McCarthy and Jarvis reported corpus means around 72 for adult English writing, and most connected prose lands roughly between 50 and 100. Below 50 suggests noticeably repetitive vocabulary; above 100 suggests unusually varied wording, which is common in academic or technical text. Genre matters more than any absolute cut-off, so compare like with like.</div></div>
+    <div class="faq-item"><div class="faq-q">Why do MSTTR and MATTR differ slightly?</div><div class="faq-a">MSTTR averages non-overlapping segments and discards the tail that does not fill a whole segment, while MATTR averages every overlapping window and uses all tokens. MATTR is therefore smoother and less sensitive to where the segment boundaries happen to fall, which is why it is generally preferred.</div></div>
+    <div class="faq-item"><div class="faq-q">Does the inflection option do real lemmatisation?</div><div class="faq-a">No. It applies Porter-style suffix stripping to plurals and to the -ed and -ing endings, which merges walk, walks, walked and walking but will not handle irregular forms such as went or children. Treat it as a rough content-form normaliser, not a dictionary lemmatiser.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my text uploaded anywhere?</div><div class="faq-a">No. Tokenisation and every index are computed in JavaScript inside your browser. There are no network requests, no analytics and no storage; closing the tab discards everything.</div></div>
+  </section>
+
+  <footer class="article-footer">
+    <p>Published by <a href="https://zovo.one">Michael Lip</a> on <a href="/">Enhio</a> &mdash; part of <a href="https://zovo.one/tools">Zovo Tools</a>. Related: <a href="/tools/word-frequency-counter.html">Word Frequency Counter</a>, <a href="/tools/flesch-reading-calculator">Flesch Reading Score Calculator</a>.</p>
+    <p>All analysis runs in your browser. Your text is never sent to any server.</p>
+  </footer>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">Zovo Tools</div>
+    <div class="footer-tagline">Free writing and developer tools by a solo dev. No tracking.</div>
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link" class="footer-cta">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; <a href="/tools/">All Enhio tools</a></div>
+  </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+  <div class="zovo-network-inner">
+    <h3 class="zovo-network-title">Explore More Tools</h3>
+    <div class="zovo-network-links">
+      <a href="https://abwex.com">ABWex &mdash; A/B Testing</a>
+      <a href="https://claudflow.com">ClaudFlow &mdash; Workflows</a>
+      <a href="https://gen8x.com">Gen8X &mdash; Color Tools</a>
+      <a href="https://gpt0x.com">GPT0X &mdash; AI Models</a>
+      <a href="https://kappafy.com">Kappafy &mdash; JSON</a>
+      <a href="https://lochbot.com">LochBot &mdash; Security</a>
+      <a href="https://lockml.com">LockML &mdash; ML Security</a>
+      <a href="https://ml3x.com">ML3X &mdash; Linear Algebra</a>
+      <a href="https://zovo.one/tools">Zovo &mdash; All Tools</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+(function(){
+  "use strict";
+
+  var SAMPLE = "The river had changed since the survey of 1898, and the men who drew that map would not have recognised the channel we walked beside. Silt had shouldered the current eastward, abandoning the old bend to willow scrub and the slow accumulation of leaf litter. What the surveyors called a meander was now a shallow lens of standing water, opaque with algae, ringed by cracked mud that recorded every hoofprint of the previous winter. We measured the bank at intervals of forty metres, driving stakes into ground that gave too easily, and recorded the depth of the incision where the flood of two years earlier had scoured away the terrace. None of this was dramatic. The river simply kept doing what rivers do, which is to move sideways across their floodplains at a pace that outlasts the institutions built to monitor them. Our notebooks filled with numbers that would mean something only when someone repeated the exercise in another thirty years, and compared the two sets of stakes.";
+
+  var STOP = {};
+  (function(){
+    var w = "a about above after again against all am an and any are aren't as at be because been before being below between both but by can cannot could couldn't did didn't do does doesn't doing don't down during each few for from further had hadn't has hasn't have haven't having he her here hers herself him himself his how i if in into is isn't it its itself just me more most mustn't my myself no nor not of off on once only or other ought our ours ourselves out over own same shan't she should shouldn't so some such than that the their theirs them themselves then there these they this those through to too under until up very was wasn't we were weren't what when where which while who whom why will with won't would wouldn't you your yours yourself yourselves".split(" ");
+    for(var i=0;i<w.length;i++){ STOP[w[i]] = true; }
+  })();
+
+  // ---------- helpers ----------
+  function $(id){ return document.getElementById(id); }
+  function hasVowel(s){ return /[aeiouy]/.test(s); }
+
+  function fixStem(w){
+    if(/(at|bl|iz)$/.test(w)) return w + "e";
+    if(/([^aeiouy])\1$/.test(w) && !/(ll|ss|zz)$/.test(w)) return w.slice(0,-1);
+    return w;
+  }
+
+  // Porter-style step 1 suffix stripping (plurals, -ed, -ing). Not a real lemmatiser.
+  function normalise(w){
+    if(w.length < 4 || /['’]/.test(w)) return w;
+    if(/sses$/.test(w)) w = w.slice(0,-2);
+    else if(/ies$/.test(w)) w = (w.length > 4) ? w.slice(0,-3) + "y" : w.slice(0,-1);
+    else if(/(us|ss|is)$/.test(w)) { /* keep */ }
+    else if(/s$/.test(w)) w = w.slice(0,-1);
+
+    if(/eed$/.test(w)){ if(w.length > 4) w = w.slice(0,-1); }
+    else if(/ed$/.test(w) && hasVowel(w.slice(0,-2))){ w = fixStem(w.slice(0,-2)); }
+    else if(/ing$/.test(w) && hasVowel(w.slice(0,-3))){ w = fixStem(w.slice(0,-3)); }
+    return w.length ? w : "x";
+  }
+
+  function tokenize(text, dropStop, doLemma){
+    var raw = String(text || "").toLowerCase().match(/[a-zß-ɏ]+(?:['’][a-z]+)*/g);
+    if(!raw) return [];
+    var out = [];
+    for(var i=0;i<raw.length;i++){
+      var t = raw[i];
+      if(dropStop && STOP[t.replace(/’/g,"'")]) continue;
+      if(doLemma) t = normalise(t);
+      out.push(t);
+    }
+    return out;
+  }
+
+  // Lanczos log-gamma (g = 7, n = 9); accurate to ~15 significant digits for x > 0.
+  var LG = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+            771.32342877765313, -176.61502916214059, 12.507343278686905,
+            -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  function lgamma(z){
+    if(z < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * z)) - lgamma(1 - z);
+    z -= 1;
+    var x = LG[0];
+    for(var i=1;i<9;i++){ x += LG[i] / (z + i); }
+    var t = z + 7 + 0.5;
+    return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+  }
+  function lchoose(n, k){
+    if(k < 0 || k > n) return -Infinity;
+    return lgamma(n + 1) - lgamma(k + 1) - lgamma(n - k + 1);
+  }
+
+  function freqMap(tokens){
+    var f = Object.create(null);
+    for(var i=0;i<tokens.length;i++){ f[tokens[i]] = (f[tokens[i]] || 0) + 1; }
+    return f;
+  }
+
+  // ---------- indices ----------
+  function msttr(tokens, W){
+    var N = tokens.length, segs = Math.floor(N / W);
+    if(segs < 1) return null;
+    var total = 0;
+    for(var s=0;s<segs;s++){
+      var seen = Object.create(null), types = 0;
+      for(var i=s*W;i<(s+1)*W;i++){
+        if(!seen[tokens[i]]){ seen[tokens[i]] = true; types++; }
+      }
+      total += types / W;
+    }
+    return { value: total / segs, segments: segs, discarded: N - segs * W };
+  }
+
+  function mattrSeries(tokens, W){
+    var N = tokens.length;
+    if(N < W || W < 1) return null;
+    var counts = Object.create(null), types = 0, series = [], i;
+    for(i=0;i<W;i++){
+      var a = tokens[i];
+      if(counts[a] === undefined) counts[a] = 0;
+      if(counts[a] === 0) types++;
+      counts[a]++;
+    }
+    series.push(types / W);
+    for(var s=1;s+W-1<N;s++){
+      var out = tokens[s-1];
+      counts[out]--;
+      if(counts[out] === 0) types--;
+      var inn = tokens[s+W-1];
+      if(counts[inn] === undefined) counts[inn] = 0;
+      if(counts[inn] === 0) types++;
+      counts[inn]++;
+      series.push(types / W);
+    }
+    return series;
+  }
+
+  function mtldPass(tokens, thr){
+    var factors = 0, seen = Object.create(null), types = 0, count = 0, ttr = 1;
+    for(var i=0;i<tokens.length;i++){
+      count++;
+      if(!seen[tokens[i]]){ seen[tokens[i]] = true; types++; }
+      ttr = types / count;
+      if(ttr <= thr){
+        factors++;
+        seen = Object.create(null); types = 0; count = 0; ttr = 1;
+      }
+    }
+    if(count > 0){ factors += (1 - ttr) / (1 - thr); }
+    return factors;
+  }
+
+  function mtld(tokens, thr){
+    var N = tokens.length;
+    if(N < 2 || !(thr > 0 && thr < 1)) return null;
+    var rev = tokens.slice().reverse();
+    var fF = mtldPass(tokens, thr), fB = mtldPass(rev, thr);
+    if(fF < 1e-9 || fB < 1e-9) return null;
+    var f = N / fF, b = N / fB;
+    return { value: (f + b) / 2, fwd: f, bwd: b };
+  }
+
+  function hdd(tokens, sample){
+    var N = tokens.length;
+    if(N < sample) return null;
+    var f = freqMap(tokens), key, total = 0;
+    var lcN = lchoose(N, sample);
+    for(key in f){
+      var ft = f[key], p;
+      if(N - ft < sample) p = 1;
+      else p = 1 - Math.exp(lchoose(N - ft, sample) - lcN);
+      if(p < 0) p = 0; if(p > 1) p = 1;
+      total += p / sample;
+    }
+    return total;
+  }
+
+  // ---------- interpretation ----------
+  function band(v, cuts, labels){
+    for(var i=0;i<cuts.length;i++){ if(v < cuts[i]) return labels[i]; }
+    return labels[labels.length-1];
+  }
+  function say(head, tail){ return "<b>" + head + "</b> &mdash; " + tail; }
+
+  var B = {
+    ttr: function(v, N){
+      var h = band(v, [0.40, 0.55, 0.72], ["Low","Moderate","High","Very high"]);
+      return say(h, "only comparable against a text of the same length (" + N + " tokens).");
+    },
+    rttr: function(v){
+      return say(band(v, [4.5, 7, 9.5], ["Low","Moderate","High","Very high"]), "still rises with sample size; equal-length comparison only.");
+    },
+    cttr: function(v){
+      return say(band(v, [3.2, 5, 6.7], ["Low","Moderate","High","Very high"]), "Root TTR divided by sqrt(2); same ordering, smaller scale.");
+    },
+    c: function(v){
+      return say(band(v, [0.78, 0.85, 0.90], ["Low","Moderate","High","Very high"]), "log-log slope of vocabulary growth; 1.0 would mean every token is new.");
+    },
+    maas: function(v){
+      return say(band(v, [0.020, 0.035, 0.050], ["Very high","High","Moderate","Low"]), "lower is more diverse; among the log measures this one drifts least with length.");
+    },
+    win: function(v, W){
+      var h = band(v, [0.64, 0.72, 0.80], ["Low","Moderate","High","Very high"]);
+      return say(h, "average share of new forms inside a " + W + "-token window" + (W !== 50 ? " (bands are calibrated at W = 50)" : "") + ".");
+    },
+    mtld: function(v){
+      var h = band(v, [50, 72, 100], ["Low","Moderate","High","Very high"]);
+      return say(h, "the running TTR survives about " + v.toFixed(0) + " tokens before decaying to threshold; published corpus means sit near 72.");
+    },
+    hdd: function(v){
+      return say(band(v, [0.72, 0.80, 0.86], ["Low","Moderate","High","Very high"]), "expected share of the 42-token sample made up of distinct types.");
+    }
+  };
+
+  // ---------- sparkline ----------
+  var canvas = $("spark"), ctx = canvas.getContext ? canvas.getContext("2d") : null;
+  var lastSeries = null, lastW = 50;
+
+  function drawSpark(series, W){
+    if(!ctx) return;
+    var dpr = window.devicePixelRatio || 1;
+    var cssW = canvas.clientWidth || 600, cssH = 190;
+    canvas.width = Math.max(1, Math.round(cssW * dpr));
+    canvas.height = Math.round(cssH * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cssW, cssH);
+
+    var padL = 44, padR = 12, padT = 14, padB = 26;
+    var x0 = padL, x1 = cssW - padR, y0 = cssH - padB, y1 = padT;
+
+    ctx.font = "11px ui-monospace, Menlo, Consolas, monospace";
+    ctx.fillStyle = "#666";
+    ctx.strokeStyle = "#222";
+    ctx.lineWidth = 1;
+
+    if(!series || series.length < 2){
+      ctx.fillStyle = "#666";
+      ctx.textAlign = "center";
+      ctx.fillText("Not enough tokens for a full " + W + "-token window.", cssW/2, cssH/2);
+      ctx.textAlign = "left";
+      return;
+    }
+
+    var lo = 1, hi = 0, i;
+    for(i=0;i<series.length;i++){ if(series[i] < lo) lo = series[i]; if(series[i] > hi) hi = series[i]; }
+    var pad = Math.max(0.02, (hi - lo) * 0.15);
+    var vLo = Math.max(0, lo - pad), vHi = Math.min(1, hi + pad);
+    if(vHi - vLo < 0.02){ vHi = Math.min(1, vLo + 0.02); }
+
+    function px(i){ return x0 + (x1 - x0) * (series.length === 1 ? 0 : i / (series.length - 1)); }
+    function py(v){ return y0 - (y0 - y1) * ((v - vLo) / (vHi - vLo)); }
+
+    // grid + y labels
+    for(i=0;i<=3;i++){
+      var v = vLo + (vHi - vLo) * i / 3, y = py(v);
+      ctx.strokeStyle = "#1d1d1d";
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+      ctx.fillStyle = "#666";
+      ctx.fillText(v.toFixed(2), 6, y + 4);
+    }
+
+    // mean line
+    var mean = 0;
+    for(i=0;i<series.length;i++){ mean += series[i]; }
+    mean /= series.length;
+    ctx.strokeStyle = "rgba(129,140,248,0.45)";
+    ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(x0, py(mean)); ctx.lineTo(x1, py(mean)); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // series
+    ctx.strokeStyle = "#818CF8";
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    for(i=0;i<series.length;i++){
+      var X = px(i), Y = py(series[i]);
+      if(i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+    }
+    ctx.stroke();
+
+    // minimum marker
+    var mi = 0;
+    for(i=1;i<series.length;i++){ if(series[i] < series[mi]) mi = i; }
+    ctx.fillStyle = "#f87171";
+    ctx.beginPath(); ctx.arc(px(mi), py(series[mi]), 4, 0, Math.PI*2); ctx.fill();
+
+    ctx.fillStyle = "#666";
+    ctx.fillText("window start: token 1", x0, cssH - 8);
+    ctx.textAlign = "right";
+    ctx.fillText("token " + series.length, x1, cssH - 8);
+    ctx.textAlign = "left";
+  }
+
+  // ---------- render ----------
+  function setText(id, v){ $(id).innerHTML = v; }
+  function dash(ids){ for(var i=0;i<ids.length;i++){ setText(ids[i], "<span class=\"na\">&mdash;</span>"); } }
+
+  function resetAll(msg){
+    dash(["oTokens","oTypes","oHapax","oRepeat","vTTR","vRTTR","vCTTR","vC","vMaas","vMSTTR","vMATTR","vMTLD","vHDD",
+          "bTTR","bRTTR","bCTTR","bC","bMaas","bMSTTR","bMATTR","bMTLD","bHDD"]);
+    setText("oPasses", "<span class=\"na\">&mdash;</span>");
+    $("sparkSnippet").style.display = "none";
+    $("infoBanner").className = "banner info hidden";
+    lastSeries = null;
+    drawSpark(null, lastW);
+    var wb = $("warnBanner");
+    if(msg){ wb.className = "banner warn"; wb.textContent = msg; }
+    else { wb.className = "banner warn hidden"; }
+  }
+
+  function compute(){
+    var text = $("textInput").value;
+    var W = Math.round(Number($("winSize").value));
+    if(!isFinite(W) || W < 10) W = 10;
+    if(W > 500) W = 500;
+    var thr = Number($("thr").value);
+    if(!isFinite(thr) || thr <= 0.1) thr = 0.1;
+    if(thr >= 0.99) thr = 0.99;
+    lastW = W;
+
+    var dropStop = $("noStop").checked, doLemma = $("lemma").checked;
+    var tokens = tokenize(text, dropStop, doLemma);
+    var N = tokens.length;
+
+    if(N === 0){
+      resetAll("No words found. Paste some text to analyse.");
+      return;
+    }
+
+    var f = freqMap(tokens), key;
+    var V = 0, hapax = 0, topWord = "", topN = 0;
+    for(key in f){
+      V++;
+      if(f[key] === 1) hapax++;
+      if(f[key] > topN){ topN = f[key]; topWord = key; }
+    }
+
+    setText("oTokens", String(N));
+    setText("oTypes", String(V));
+    setText("oHapax", hapax + " <span style=\"font-size:.8rem;color:#888\">(" + (100*hapax/V).toFixed(0) + "% of types)</span>");
+    setText("oRepeat", topWord + " <span style=\"font-size:.8rem;color:#888\">&times;" + topN + "</span>");
+
+    // ratio family
+    var ttr = V / N;
+    setText("vTTR", ttr.toFixed(4)); setText("bTTR", B.ttr(ttr, N));
+
+    var rttr = V / Math.sqrt(N);
+    setText("vRTTR", rttr.toFixed(3)); setText("bRTTR", B.rttr(rttr));
+
+    var cttr = V / Math.sqrt(2 * N);
+    setText("vCTTR", cttr.toFixed(3)); setText("bCTTR", B.cttr(cttr));
+
+    if(N > 1 && V > 1){
+      var C = Math.log(V) / Math.log(N);
+      setText("vC", C.toFixed(4)); setText("bC", B.c(C));
+      var maas = (Math.log(N) - Math.log(V)) / (Math.log(N) * Math.log(N));
+      setText("vMaas", maas.toFixed(4)); setText("bMaas", B.maas(maas));
+    } else {
+      dash(["vC","vMaas"]);
+      setText("bC", "Needs at least 2 tokens and 2 types (log of 1 is 0).");
+      setText("bMaas", "Needs at least 2 tokens and 2 types (log of 1 is 0).");
+    }
+
+    // window family
+    var ms = msttr(tokens, W);
+    if(ms){
+      setText("vMSTTR", ms.value.toFixed(4));
+      setText("bMSTTR", B.win(ms.value, W) + " " + ms.segments + " segment" + (ms.segments === 1 ? "" : "s") +
+        (ms.discarded > 0 ? ", " + ms.discarded + " trailing token" + (ms.discarded === 1 ? "" : "s") + " discarded." : ", no tokens discarded."));
+    } else {
+      dash(["vMSTTR"]);
+      setText("bMSTTR", "Needs at least one full segment of " + W + " tokens (have " + N + ").");
+    }
+
+    var series = mattrSeries(tokens, W);
+    if(series){
+      var sum = 0;
+      for(var i=0;i<series.length;i++){ sum += series[i]; }
+      var mattr = sum / series.length;
+      setText("vMATTR", mattr.toFixed(4));
+      setText("bMATTR", B.win(mattr, W) + " Averaged over " + series.length + " window" + (series.length === 1 ? "" : "s") + ".");
+    } else {
+      dash(["vMATTR"]);
+      setText("bMATTR", "Needs at least " + W + " tokens (have " + N + "). Plain TTR above is the fallback.");
+    }
+    lastSeries = series;
+    drawSpark(series, W);
+
+    // sparkline caption
+    var cap = $("sparkCaption"), snip = $("sparkSnippet");
+    if(series && series.length > 1){
+      var mi = 0, xi;
+      for(xi=1;xi<series.length;xi++){ if(series[xi] < series[mi]) mi = xi; }
+      cap.innerHTML = "Each point is the type-token ratio of one " + W + "-token window (" + series.length +
+        " windows). Dashed line is the MATTR mean. The lowest window starts at token <b>" + (mi + 1) +
+        "</b> with a TTR of <b>" + series[mi].toFixed(3) + "</b> &mdash; the most repetitive stretch of the text.";
+      snip.style.display = "block";
+      snip.textContent = tokens.slice(mi, mi + Math.min(W, 40)).join(" ") + (W > 40 ? " ..." : "");
+    } else {
+      cap.innerHTML = "Each point is the type-token ratio of one sliding window. Dips mark passages where the wording repeats itself.";
+      snip.style.display = "none";
+    }
+
+    // MTLD
+    var m = mtld(tokens, thr);
+    if(m){
+      setText("vMTLD", m.value.toFixed(2));
+      setText("bMTLD", B.mtld(m.value));
+      setText("oPasses", "forward " + m.fwd.toFixed(2) + ", backward " + m.bwd.toFixed(2) +
+        ", threshold " + thr.toFixed(3));
+    } else {
+      dash(["vMTLD"]);
+      setText("bMTLD", "The running TTR never reached " + thr.toFixed(3) + ", so no factor completed. Use a longer sample.");
+      setText("oPasses", "no factor reached threshold " + thr.toFixed(3));
+    }
+
+    // HD-D
+    var h = hdd(tokens, 42);
+    if(h !== null){
+      setText("vHDD", h.toFixed(4));
+      setText("bHDD", B.hdd(h));
+    } else {
+      dash(["vHDD"]);
+      setText("bHDD", "Undefined below 42 tokens &mdash; a 42-token sample cannot be drawn from " + N + " tokens.");
+    }
+
+    // banners
+    var warns = [];
+    if(N < 42) warns.push("Only " + N + " tokens: HD-D is undefined and every index is unstable.");
+    else if(N < 50) warns.push("Only " + N + " tokens: MATTR, MSTTR and HD-D are unreliable below 50 tokens.");
+    else if(N < 100) warns.push(N + " tokens is a small sample. MTLD and HD-D are indicative only below about 100 tokens.");
+    var wb = $("warnBanner");
+    if(warns.length){ wb.className = "banner warn"; wb.textContent = warns.join(" "); }
+    else { wb.className = "banner warn hidden"; wb.textContent = ""; }
+
+    var infos = [];
+    if(dropStop) infos.push("Stopwords excluded");
+    if(doLemma) infos.push("Inflections normalised (Porter-style suffix stripping)");
+    if(W !== 50) infos.push("Window size " + W + " instead of the standard 50");
+    if(Math.abs(thr - 0.720) > 1e-9) infos.push("MTLD threshold " + thr.toFixed(3) + " instead of 0.720");
+    var ib = $("infoBanner");
+    if(infos.length){
+      ib.className = "banner info";
+      ib.textContent = "Non-standard settings: " + infos.join("; ") + ". Values are no longer comparable to published norms, only to other texts processed identically.";
+    } else {
+      ib.className = "banner info hidden";
+      ib.textContent = "";
+    }
+  }
+
+  // ---------- wiring ----------
+  var debounceId = null;
+  function schedule(){
+    if(debounceId) clearTimeout(debounceId);
+    debounceId = setTimeout(compute, 160);
+  }
+
+  $("textInput").addEventListener("input", schedule);
+  $("winSize").addEventListener("input", schedule);
+  $("thr").addEventListener("input", schedule);
+  $("noStop").addEventListener("change", compute);
+  $("lemma").addEventListener("change", compute);
+  $("analyzeBtn").addEventListener("click", compute);
+  $("sampleBtn").addEventListener("click", function(){
+    $("textInput").value = SAMPLE;
+    compute();
+  });
+  $("clearBtn").addEventListener("click", function(){
+    $("textInput").value = "";
+    resetAll("No words found. Paste some text to analyse.");
+  });
+  window.addEventListener("resize", function(){ drawSpark(lastSeries, lastW); });
+
+  var faqs = document.querySelectorAll(".faq-item");
+  for(var q=0;q<faqs.length;q++){
+    (function(el){
+      el.querySelector(".faq-q").addEventListener("click", function(){
+        el.className = (el.className.indexOf("open") > -1) ? "faq-item" : "faq-item open";
+      });
+    })(faqs[q]);
+  }
+
+  $("textInput").value = SAMPLE;
+  compute();
+})();
+</script>
+</body>
+</html>

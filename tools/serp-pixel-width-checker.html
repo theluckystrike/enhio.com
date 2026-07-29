@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SERP Pixel Width Checker for Titles &amp; Meta Tags</title>
+  <meta name="description" content="Measure title tags and meta descriptions in pixels at Google render specs. Live SERP preview, exact truncation index, keyword survival check.">
+  <meta name="keywords" content="serp pixel width checker, title tag pixel width, meta description pixel length, serp snippet preview, google title truncation, pixel width calculator">
+  <link rel="canonical" href="https://enhio.com/tools/serp-pixel-width-checker">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <meta property="og:title" content="SERP Pixel Width Checker for Titles &amp; Meta Tags">
+  <meta property="og:description" content="Google truncates snippets by pixels, not characters. Measure rendered width with Arial advance metrics and see the exact cut point live.">
+  <meta property="og:url" content="https://enhio.com/tools/serp-pixel-width-checker">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Enhio">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SERP Pixel Width Checker for Titles &amp; Meta Tags">
+  <meta name="twitter:description" content="Pixel-accurate title and meta description measurement with desktop and mobile SERP previews.">
+  <link rel="alternate" hreflang="en" href="https://enhio.com/tools/serp-pixel-width-checker">
+  <link rel="alternate" hreflang="x-default" href="https://enhio.com/tools/serp-pixel-width-checker">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SERP Pixel Width Checker",
+    "url": "https://enhio.com/tools/serp-pixel-width-checker",
+    "description": "Free client-side SERP pixel width checker that measures title tags and meta descriptions in rendered pixels using canvas measureText at Google render specs, with an embedded Arial advance-width table fallback, greedy word-wrap truncation simulation, exact cut index, keyword survival testing and pixel-accurate desktop and mobile snippet previews.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
+    "publisher": { "@type": "Organization", "name": "Enhio", "url": "https://enhio.com" },
+    "datePublished": "2026-07-29",
+    "dateModified": "2026-07-29",
+    "featureList": ["Pixel width measurement for title tags", "Pixel width measurement for meta descriptions", "Canvas measureText with Arial metric fallback table", "Greedy word-wrap truncation simulation", "Exact truncation index in the source string", "Desktop and mobile SERP previews", "Target keyword survival test", "Position-weighted keyword prominence", "Brand suffix pixel cost", "Client-side processing"],
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://enhio.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://enhio.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "SERP Pixel Width Checker", "item": "https://enhio.com/tools/serp-pixel-width-checker" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why measure pixels instead of counting characters?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Google renders snippets in a proportional font, so every character has a different advance width. In Arial an uppercase W is 944 units per 1000 em while a lowercase l is 222 units, a ratio of more than four to one. A 60 character title made of narrow letters can fit comfortably while a 52 character title full of capitals is cut off. Character counts are a rough proxy; pixel width is the quantity Google actually clips against." }
+      },
+      {
+        "@type": "Question",
+        "name": "What pixel limits does this tool use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Title tags: 580 pixels on desktop across one line at 20px Arial, and 920 pixels on mobile across two lines at 20px. Meta descriptions: 920 pixels on desktop across two lines at 14px Arial, and 680 pixels on mobile across three lines at 14px. The per line box is the total budget divided by the allowed line count, so a desktop description line box is 460 pixels wide." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is the truncation point calculated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool runs a greedy word-wrap simulation. Words are added to the current line while the measured width of the candidate line stays at or below the line box width; otherwise a new line starts. Once the allowed number of lines is reached, the final line is filled character by character until the measured width of that fragment plus the ellipsis glyph would exceed the line box. That character position, mapped back through whitespace normalisation, is the exact truncation index reported for the source string." }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is the measurement without the real Google font?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool first tries the browser canvas 2D context with measureText at the exact font size, which uses the real installed Arial. It then calibrates that result against an embedded Arial advance-width table. If the browser has no Arial or a substitute that deviates by more than two percent, the tool falls back to the table so results stay deterministic across machines. The active engine is displayed next to the results." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a brand suffix hurt my title?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It costs pixels that could carry keywords. The tool measures the separator plus brand tail on its own, for example the string with a pipe and a nine character brand costs roughly 100 pixels at 20px Arial, which is about 17 percent of the 580 pixel desktop title budget. If the tail pushes the title past the budget, Google may rewrite the title or drop the brand itself." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text uploaded anywhere?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Every measurement runs in your browser with plain JavaScript and a canvas element. Nothing is transmitted, logged or stored. You can confirm this by opening the Network tab in your browser developer tools while typing." }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Courier New', monospace;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #818CF8;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --warning: #d29922;
+      --danger: #f85149;
+      --success: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-pro { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .nav-zovo { color: var(--accent-3); text-decoration: none; font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--accent-3); border-radius: 6px; transition: all 0.2s; }
+    .nav-zovo:hover { background: rgba(210,168,255,0.1); }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .article-header { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: 2.2rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .article-header h1 span { color: var(--accent); }
+    .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
+    .article-meta a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.65rem; margin: 2.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; margin: 1.8rem 0 0.75rem; color: var(--accent); }
+    p { margin-bottom: 1.1rem; }
+    a { color: var(--accent); }
+    strong { color: #fff; font-weight: 600; }
+    ul, ol { margin: 0 0 1.25rem 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+    code { font-family: var(--font-mono); background: var(--surface-2); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; color: var(--accent-3); }
+    table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.9rem; }
+    th, td { border: 1px solid var(--border); padding: 0.5rem 0.7rem; text-align: left; }
+    th { background: var(--surface-2); color: var(--text); font-weight: 600; }
+    td { color: var(--text-muted); }
+    .table-wrap { overflow-x: auto; }
+    .tool-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .tool-section h2 { border-top: none; padding-top: 0; margin-top: 0; }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem; font-weight: 600; letter-spacing: 0.02em; }
+    .tool-input, .tool-textarea, .tool-select {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.75rem 1rem; color: var(--text); font-family: var(--font-sans);
+      font-size: 0.95rem; line-height: 1.6;
+    }
+    .tool-textarea { min-height: 96px; resize: vertical; }
+    .tool-input:focus, .tool-textarea:focus, .tool-select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,0.15); }
+    .tool-input::placeholder, .tool-textarea::placeholder { color: #6a7480; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field-row-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+    .tool-btn {
+      background: var(--accent); color: #000; border: none; padding: 0.7rem 1.75rem;
+      font-size: 0.95rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans);
+    }
+    .tool-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .tool-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .tool-btn.secondary:hover { border-color: var(--accent); }
+    .tool-actions { display: flex; align-items: center; gap: 0.5rem; margin: 1.25rem 0 0.5rem; flex-wrap: wrap; }
+    .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .seg button { background: var(--surface-2); color: var(--text-muted); border: none; padding: 0.55rem 1.1rem; font-size: 0.88rem; font-weight: 600; cursor: pointer; font-family: var(--font-sans); }
+    .seg button.on { background: var(--accent); color: #000; }
+    .engine-tag { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); border: 1px solid var(--border); border-radius: 20px; padding: 0.15rem 0.7rem; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+    .section-card h3 { margin-top: 0; }
+    .meter-block { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.25rem; margin-bottom: 1rem; }
+    .meter-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .meter-name { font-weight: 700; font-size: 0.95rem; }
+    .meter-num { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; }
+    .track { width: 100%; height: 14px; background: var(--surface-2); border-radius: 7px; overflow: hidden; position: relative; }
+    .fill { height: 100%; width: 0%; border-radius: 7px; transition: width 0.25s ease; background: var(--accent-2); }
+    .fill.warn { background: var(--warning); }
+    .fill.bad { background: var(--danger); }
+    .meter-foot { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.82rem; color: var(--text-muted); margin-top: 0.45rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 700; display: block; margin-bottom: 0.15rem; }
+    .stat-card .stat-label { font-size: 0.76rem; color: var(--text-muted); line-height: 1.3; }
+    .sc-good { color: var(--success); }
+    .sc-warn { color: var(--warning); }
+    .sc-bad { color: var(--danger); }
+    .sc-neutral { color: var(--accent); }
+    .note { font-size: 0.85rem; color: var(--text-muted); }
+    /* SERP preview */
+    .preview-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+    .serp-card { background: #ffffff; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; overflow-x: auto; }
+    .serp-card-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: #70757a; font-weight: 700; margin-bottom: 0.75rem; font-family: var(--font-sans); }
+    .serp-line { font-family: Arial, Helvetica, sans-serif; white-space: pre; overflow: hidden; border-right: 1px dashed #dadce0; }
+    .serp-u .serp-line { font-size: 12px; line-height: 18px; color: #202124; }
+    .serp-t .serp-line { font-size: 20px; line-height: 26px; color: #1a0dab; }
+    .serp-d .serp-line { font-size: 14px; line-height: 20px; color: #4d5156; }
+    .serp-t { margin: 2px 0 3px; }
+    .serp-fav { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+    .serp-dot { width: 26px; height: 26px; border-radius: 50%; background: #f1f3f4; border: 1px solid #dadce0; flex: 0 0 auto; }
+    .serp-site { font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 18px; color: #202124; }
+    .cut-marker { color: var(--danger); font-weight: 700; }
+    .cta-box { background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(210,168,255,0.08)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-box h3 { color: var(--text); margin-bottom: 0.5rem; }
+    .cta-box p { color: var(--text-muted); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .related-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { color: var(--text); margin-bottom: 0.4rem; font-size: 1rem; }
+    .related-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+    .article-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+    .article-footer a { color: var(--accent); text-decoration: none; }
+    @media (max-width: 768px) {
+      .article-header h1 { font-size: 1.7rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .preview-wrap { grid-template-columns: 1fr; }
+      .field-row, .field-row-3 { grid-template-columns: 1fr; }
+      .nav { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .article-container { padding: 1.5rem 1rem 2rem; }
+      .tool-section { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">enhio</a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="/answers/">Answers</a></li>
+    <li><a href="/research/">Research</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://zovo.one/pricing?utm_source=enhio.com&utm_medium=satellite&utm_campaign=nav-link" class="nav-pro">Go Pro</a>
+    <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+  </div>
+</nav>
+
+<article class="article-container" itemscope itemtype="https://schema.org/Article">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; SERP Pixel Width Checker
+  </nav>
+
+  <header class="article-header">
+    <h1 itemprop="headline">SERP <span>Pixel Width</span> Checker for Titles &amp; Meta Tags</h1>
+    <div class="article-meta">
+      <span>By <a href="https://zovo.one" itemprop="author">Michael Lip</a></span>
+      <time datetime="2026-07-29" itemprop="datePublished">July 29, 2026</time>
+      <span>Free tool &middot; No sign-up</span>
+    </div>
+  </header>
+
+  <p>Google does not cut snippets at a character count. It cuts them at a pixel boundary, because the SERP is rendered in a proportional font where <code>W</code> is more than four times wider than <code>l</code>. This checker measures the rendered width of your title tag and meta description with the browser canvas at Google's actual render sizes, simulates the line wrapping, and reports the exact character index where the text gets clipped.</p>
+
+  <!-- Interactive Tool -->
+  <section class="tool-section" id="tool">
+    <h2>Measure Your Snippet</h2>
+    <p class="note" style="margin-bottom:1.25rem;">Everything updates as you type. All measurement happens in your browser &mdash; nothing is uploaded.</p>
+
+    <div class="field">
+      <label for="inTitle">Title tag</label>
+      <input type="text" class="tool-input" id="inTitle" placeholder="How to Fix Core Web Vitals on WordPress in 2026">
+    </div>
+
+    <div class="field field-row-3">
+      <div>
+        <label for="inBrand">Brand suffix (optional)</label>
+        <input type="text" class="tool-input" id="inBrand" placeholder="Enhio">
+      </div>
+      <div>
+        <label for="inSep">Separator</label>
+        <select class="tool-select" id="inSep">
+          <option value="|">| pipe</option>
+          <option value="-">- hyphen</option>
+          <option value="&#8211;">&#8211; en dash</option>
+          <option value="&#8212;">&#8212; em dash</option>
+          <option value="&#183;">&#183; middle dot</option>
+          <option value="&#8226;">&#8226; bullet</option>
+          <option value=":">: colon</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="inDesc">Meta description</label>
+      <textarea class="tool-textarea" id="inDesc" placeholder="Write the meta description here. It will be wrapped and truncated exactly as Google would render it."></textarea>
+    </div>
+
+    <div class="field field-row">
+      <div>
+        <label for="inUrl">URL or breadcrumb (preview only)</label>
+        <input type="text" class="tool-input" id="inUrl" placeholder="https://enhio.com &rsaquo; guides &rsaquo; core-web-vitals">
+      </div>
+      <div>
+        <label for="inKw">Target keyword (optional)</label>
+        <input type="text" class="tool-input" id="inKw" placeholder="core web vitals">
+      </div>
+    </div>
+
+    <div class="tool-actions">
+      <div class="seg" role="group" aria-label="Device">
+        <button type="button" id="btnDesktop" class="on">Desktop</button>
+        <button type="button" id="btnMobile">Mobile</button>
+      </div>
+      <button class="tool-btn secondary" type="button" id="btnSample">Load Sample</button>
+      <button class="tool-btn secondary" type="button" id="btnClear">Clear</button>
+      <span class="engine-tag" id="engineTag">engine: &mdash;</span>
+    </div>
+
+    <div class="section-card">
+      <h3>Pixel budget <span id="devLabel" class="note" style="font-weight:400;">(desktop)</span></h3>
+
+      <div class="meter-block">
+        <div class="meter-head">
+          <span class="meter-name">Title tag</span>
+          <span class="meter-num" id="tNum">0 / 580 px</span>
+        </div>
+        <div class="track"><div class="fill" id="tFill"></div></div>
+        <div class="meter-foot">
+          <span id="tHead">0% of budget</span>
+          <span id="tTail">&mdash;</span>
+        </div>
+      </div>
+
+      <div class="meter-block">
+        <div class="meter-head">
+          <span class="meter-name">Meta description</span>
+          <span class="meter-num" id="dNum">0 / 920 px</span>
+        </div>
+        <div class="track"><div class="fill" id="dFill"></div></div>
+        <div class="meter-foot">
+          <span id="dHead">0% of budget</span>
+          <span id="dTail">&mdash;</span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stTitleCut">&mdash;</span>
+          <span class="stat-label">Title cut index</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stDescCut">&mdash;</span>
+          <span class="stat-label">Description cut index</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stTitleLines">0</span>
+          <span class="stat-label">Title lines used</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stDescLines">0</span>
+          <span class="stat-label">Description lines used</span>
+        </div>
+      </div>
+      <p class="note" style="margin-bottom:0;">Cut index is the character offset in your original string where the visible text stops. A dash means nothing is truncated.</p>
+    </div>
+
+    <div class="section-card">
+      <h3>Keyword survival &amp; brand cost</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stKwTitle">&mdash;</span>
+          <span class="stat-label">Keyword in title</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stKwDesc">&mdash;</span>
+          <span class="stat-label">Keyword in description</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stProm">&mdash;</span>
+          <span class="stat-label">Title prominence</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value sc-neutral" id="stBrand">0 px</span>
+          <span class="stat-label">Brand tail cost</span>
+        </div>
+      </div>
+      <p class="note" id="kwNote" style="margin-bottom:0;">Enter a target keyword to test whether it survives truncation.</p>
+    </div>
+
+    <div class="section-card">
+      <h3>Pixel-accurate SERP preview</h3>
+      <div class="preview-wrap">
+        <div class="serp-card">
+          <div class="serp-card-label">Desktop &middot; 20px title / 14px description</div>
+          <div class="serp-fav"><div class="serp-dot"></div><div class="serp-site" id="pdSite">enhio.com</div></div>
+          <div class="serp-u" id="pdUrl"></div>
+          <div class="serp-t" id="pdTitle"></div>
+          <div class="serp-d" id="pdDesc"></div>
+        </div>
+        <div class="serp-card">
+          <div class="serp-card-label">Mobile &middot; 20px title / 14px description</div>
+          <div class="serp-fav"><div class="serp-dot"></div><div class="serp-site" id="pmSite">enhio.com</div></div>
+          <div class="serp-u" id="pmUrl"></div>
+          <div class="serp-t" id="pmTitle"></div>
+          <div class="serp-d" id="pmDesc"></div>
+        </div>
+      </div>
+      <p class="note" style="margin-bottom:0;">The dashed edge on each block marks the line box the text is measured against. Both previews render in real Arial at the real font sizes, so the wrap you see is the wrap that is computed.</p>
+    </div>
+  </section>
+
+  <h2>How the measurement works</h2>
+
+  <h3>1. Advance widths, not characters</h3>
+  <p>Every glyph in a proportional font carries an <strong>advance width</strong> expressed in font units, normally 1000 units per em. Arial (and its metric clone Liberation Sans) uses these values, which is why identical character counts produce wildly different pixel widths:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Glyph</th><th>Advance (units / 1000 em)</th><th>Width at 20px</th></tr></thead>
+    <tbody>
+      <tr><td><code>W</code></td><td>944</td><td>18.88 px</td></tr>
+      <tr><td><code>M</code></td><td>833</td><td>16.66 px</td></tr>
+      <tr><td><code>e</code></td><td>556</td><td>11.12 px</td></tr>
+      <tr><td><code>space</code></td><td>278</td><td>5.56 px</td></tr>
+      <tr><td><code>i</code></td><td>222</td><td>4.44 px</td></tr>
+      <tr><td><code>l</code></td><td>222</td><td>4.44 px</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Width for a string is simply the sum of its glyph advances scaled by the font size:</p>
+  <p><code>width_px = ( sum of advance_units ) &times; font_size_px / 1000</code></p>
+  <p>Ten <code>W</code> characters at 20px come to 188.8 px. Ten <code>l</code> characters come to 44.4 px. Same character count, more than four times the pixels. That is the whole reason a character-count check misfires.</p>
+
+  <h3>2. Two measurement engines</h3>
+  <p>The tool first asks the browser: it creates an offscreen <code>canvas</code>, sets <code>ctx.font = "20px Arial"</code> and calls <code>measureText()</code>. That path uses the real installed font and is exact. It then calibrates the canvas against the embedded advance table with a reference string. If the browser has no Arial and substitutes a font whose metrics deviate by more than 2%, the tool switches to the table so that two people on two machines get the same number. The badge next to the buttons shows which engine is live.</p>
+
+  <h3>3. Line boxes and budgets</h3>
+  <p>Google gives a snippet a fixed number of lines and a fixed pixel budget. The per-line box is the budget divided by the allowed lines:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Element</th><th>Font size</th><th>Lines</th><th>Total budget</th><th>Line box</th><th>Approx. characters</th></tr></thead>
+    <tbody>
+      <tr><td>Title, desktop</td><td>20px Arial</td><td>1</td><td>580 px</td><td>580 px</td><td>~62</td></tr>
+      <tr><td>Title, mobile</td><td>20px Arial</td><td>2</td><td>920 px</td><td>460 px</td><td>~99</td></tr>
+      <tr><td>Description, desktop</td><td>14px Arial</td><td>2</td><td>920 px</td><td>460 px</td><td>~147</td></tr>
+      <tr><td>Description, mobile</td><td>14px Arial</td><td>3</td><td>680 px</td><td>227 px</td><td>~109</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The character estimates in the last column are derived, not assumed. Measuring ordinary English title case in this table gives an average advance of <strong>9.34 px per character at 20px</strong>, and ordinary English prose gives <strong>6.24 px per character at 14px</strong>; dividing each budget by that average produces the counts above. This is exactly why the familiar rules of thumb are "keep titles near 60 characters" and "keep descriptions near 150 characters" &mdash; those numbers are a by-product of the pixel budgets, not the rule itself. Your copy will land above or below them depending on how wide your glyphs are, which is the number this tool actually reports.</p>
+
+  <h3>4. The wrap and truncation simulation</h3>
+  <p>Whitespace is first collapsed to single spaces, with a character map kept so every position can be traced back to your original string. Then a greedy line breaker runs:</p>
+  <ol>
+    <li>Take the next word. Build the candidate line <code>current + " " + word</code>.</li>
+    <li>If the measured width of the candidate is at or below the line box, accept it and continue.</li>
+    <li>Otherwise close the current line and start a new one with that word.</li>
+    <li>Stop after the allowed number of lines.</li>
+  </ol>
+  <p>If any text is left over, the final visible line is filled character by character while <code>width(fragment) + width(ellipsis)</code> stays inside the line box, trailing spaces are trimmed, and the ellipsis is appended. Because the ellipsis is re-measured against the fragment rather than assumed, the rendered line never overshoots. The character index at which the fill stopped, mapped back through the whitespace normalisation, is the <strong>cut index</strong> reported above.</p>
+
+  <h3>5. Keyword survival and prominence</h3>
+  <p>Two different questions get two different answers. <strong>Survival</strong> uses the <em>last</em> occurrence of the keyword: the keyword survives when the end of that occurrence lands at or before the cut index, so a keyword repeated late in a long description is correctly judged as lost. <strong>Prominence</strong> uses the <em>first</em> visible occurrence and weights it by position:</p>
+  <p><code>prominence = 1 &minus; ( start_index / visible_length )</code></p>
+  <p>A keyword at the very start scores 1.00, a keyword halfway through the visible text scores 0.50, and a keyword that never appears in the visible text scores 0.00. Front-loading matters because the first words are what a scanning user reads and what stays legible when Google rewrites the tail.</p>
+
+  <h3>6. Brand suffix cost</h3>
+  <p>The tail <code> | Brand</code> is measured on its own so you can see what the branding is charging you. A pipe, two spaces and a five character brand runs roughly 70 px at 20px Arial &mdash; about 12% of the entire desktop title budget, or six to seven characters of keyword copy you no longer get to use.</p>
+
+  <h2>Practical thresholds</h2>
+  <ul>
+    <li><strong>Under 90% of budget</strong> &mdash; safe. Google has room even if it appends a site name.</li>
+    <li><strong>90&ndash;100%</strong> &mdash; tight. A different rendering context or an appended brand will clip you.</li>
+    <li><strong>Over 100%</strong> &mdash; truncated. Check the cut index and move anything important before it.</li>
+    <li><strong>Wide-glyph copy</strong> &mdash; ALL CAPS, "W", "M" and "&mdash;" burn budget fast. Sentence case buys pixels for free.</li>
+    <li><strong>Pixels are a ceiling, not a promise</strong> &mdash; Google rewrites a large share of titles and descriptions regardless of length. Staying inside the budget only guarantees that <em>your</em> version is displayable.</li>
+  </ul>
+
+  <div class="cta-box">
+    <h3>Writing the copy, not just measuring it</h3>
+    <p>The main Enhio analyzer scores readability, sentence rhythm and keyword density on the page body that the snippet has to earn clicks for.</p>
+    <a href="/" class="tool-btn" style="display:inline-block;text-decoration:none;">Open Full Analyzer</a>
+  </div>
+
+  <section>
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/tools/headline-analyzer.html" class="related-card">
+        <h4>Headline Analyzer</h4>
+        <p>Score headline structure, power words, length and emotional balance before you commit it to a title tag.</p>
+      </a>
+      <a href="/tools/word-count-tracker.html" class="related-card">
+        <h4>Word Count Tracker</h4>
+        <p>Live word, character and sentence counts with reading and speaking time estimates.</p>
+      </a>
+      <a href="/tools/text-summarizer.html" class="related-card">
+        <h4>Text Summarizer</h4>
+        <p>Pull the key sentences out of a long page with TF-IDF scoring to seed a meta description.</p>
+      </a>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Why measure pixels instead of counting characters?</h3>
+    <p>Because Google clips on pixels. In Arial an uppercase <code>W</code> is 944 units per 1000 em and a lowercase <code>l</code> is 222 units. A 60 character title in narrow lowercase can fit where a 52 character title in capitals is cut. Character counts are a proxy that fails exactly on the titles you care most about.</p>
+
+    <h3>What pixel limits does this tool use?</h3>
+    <p>Titles: 580 px on desktop across one line, 920 px on mobile across two lines, both at 20px Arial. Descriptions: 920 px on desktop across two lines, 680 px on mobile across three lines, both at 14px Arial. The line box is the budget divided by the line count.</p>
+
+    <h3>How is the truncation point calculated?</h3>
+    <p>A greedy word-wrap simulation fills lines while the measured candidate width stays inside the line box. Once the allowed line count is reached, the last line is filled character by character until the fragment plus the ellipsis would overflow. That position, mapped back to your original string, is the cut index.</p>
+
+    <h3>How accurate is it without the real Google font?</h3>
+    <p>The canvas path uses your installed Arial and is exact. The fallback table carries Arial's published advance widths, which Liberation Sans and Helvetica match, so the deviation on ordinary Latin text is well under one percent. The active engine is always shown.</p>
+
+    <h3>Does a brand suffix hurt my title?</h3>
+    <p>It spends pixels. A pipe plus a nine character brand costs roughly 100 px at 20px Arial, about 17% of the desktop title budget. If the tail pushes you past the limit, Google may rewrite the title or drop the brand.</p>
+
+    <h3>Is my text sent to a server?</h3>
+    <p>No. Every calculation runs client-side in your browser. Nothing is transmitted, stored or shared, which you can verify in the Network tab of your developer tools.</p>
+  </section>
+
+  <div class="article-footer">
+    <p>&copy; 2026 <a href="/">Enhio</a> &middot; A <a href="https://zovo.one">Zovo</a> project &middot; <a href="/about.html">About</a></p>
+  </div>
+</article>
+
+<footer style="background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;">
+  <div style="color:var(--text-muted);font-size:0.88rem;">
+    Free text analysis tools &middot; <a href="/tools/" style="color:var(--accent);">All Tools</a> &middot; <a href="https://zovo.one" style="color:var(--accent);">Zovo</a> &middot; <a href="/about.html" style="color:var(--accent);">About</a> &middot; No tracking
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------------------------------------------------------
+     Arial advance widths, units per 1000 em (Arial is metric-
+     compatible with Helvetica; Liberation Sans matches both).
+  --------------------------------------------------------------- */
+  var AW = {
+    ' ': 278, '!': 278, '"': 355, '#': 556, '$': 556, '%': 889, '&': 667, "'": 191,
+    '(': 333, ')': 333, '*': 389, '+': 584, ',': 278, '-': 333, '.': 278, '/': 278,
+    '0': 556, '1': 556, '2': 556, '3': 556, '4': 556, '5': 556, '6': 556, '7': 556,
+    '8': 556, '9': 556, ':': 278, ';': 278, '<': 584, '=': 584, '>': 584, '?': 556,
+    '@': 1015,
+    'A': 667, 'B': 667, 'C': 722, 'D': 722, 'E': 667, 'F': 611, 'G': 778, 'H': 722,
+    'I': 278, 'J': 500, 'K': 667, 'L': 556, 'M': 833, 'N': 722, 'O': 778, 'P': 667,
+    'Q': 778, 'R': 722, 'S': 667, 'T': 611, 'U': 722, 'V': 667, 'W': 944, 'X': 667,
+    'Y': 667, 'Z': 611,
+    '[': 278, '\\': 278, ']': 278, '^': 469, '_': 556, '`': 333,
+    'a': 556, 'b': 556, 'c': 500, 'd': 556, 'e': 556, 'f': 278, 'g': 556, 'h': 556,
+    'i': 222, 'j': 222, 'k': 500, 'l': 222, 'm': 833, 'n': 556, 'o': 556, 'p': 556,
+    'q': 556, 'r': 333, 's': 500, 't': 278, 'u': 556, 'v': 500, 'w': 722, 'x': 500,
+    'y': 500, 'z': 500,
+    '{': 334, '|': 260, '}': 334, '~': 584,
+    ' ': 278, '¡': 333, '¢': 556, '£': 556, '¤': 556,
+    '¥': 556, '¦': 260, '§': 556, '©': 737, '«': 556,
+    '¬': 584, '®': 737, '°': 400, '±': 584, 'µ': 556,
+    '¶': 537, '·': 278, '»': 556, '¼': 834, '½': 834,
+    '¾': 834, '¿': 611, 'Æ': 1000, '×': 584, 'Ø': 778,
+    'ß': 611, 'æ': 889, 'ð': 556, '÷': 584, 'ø': 611,
+    'Œ': 1000, 'œ': 944, '–': 556, '—': 1000, '‘': 222,
+    '’': 222, '‚': 222, '“': 333, '”': 333, '„': 333,
+    '†': 556, '‡': 556, '•': 350, '…': 1000, '‰': 1000,
+    '‹': 333, '›': 333, '⁄': 167, '™': 1000, '−': 584,
+    '€': 556
+  };
+  var DEFAULT_UNITS = 556;
+
+  function isWide(cp) {
+    /* CJK, Hangul, Kana and fullwidth forms occupy a full em. */
+    return (cp >= 0x1100 && cp <= 0x115F) || (cp >= 0x2E80 && cp <= 0x303E) ||
+           (cp >= 0x3041 && cp <= 0x33FF) || (cp >= 0x3400 && cp <= 0x4DBF) ||
+           (cp >= 0x4E00 && cp <= 0x9FFF) || (cp >= 0xA000 && cp <= 0xA4CF) ||
+           (cp >= 0xAC00 && cp <= 0xD7A3) || (cp >= 0xF900 && cp <= 0xFAFF) ||
+           (cp >= 0xFF00 && cp <= 0xFF60) || (cp >= 0xFFE0 && cp <= 0xFFE6);
+  }
+
+  function stripMarks(s) {
+    try {
+      if (typeof s.normalize === 'function') {
+        return s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+      }
+    } catch (e) { /* fall through */ }
+    return s;
+  }
+
+  function tableWidth(str, size) {
+    if (!str) { return 0; }
+    var s = stripMarks(String(str));
+    var units = 0;
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      var cp = s.charCodeAt(i);
+      if (cp < 32) { continue; }
+      if (Object.prototype.hasOwnProperty.call(AW, ch)) { units += AW[ch]; }
+      else if (isWide(cp)) { units += 1000; }
+      else { units += DEFAULT_UNITS; }
+    }
+    return units * size / 1000;
+  }
+
+  /* --------------------------- engine ---------------------------- */
+  var ctx = null;
+  var engineName = 'metric table';
+  (function initEngine() {
+    try {
+      var cv = document.createElement('canvas');
+      if (!cv.getContext) { return; }
+      var g = cv.getContext('2d');
+      if (!g) { return; }
+      g.font = '20px Arial, Helvetica, sans-serif';
+      var ref = 'Hamburgefonstiv WMil 0123 .,-';
+      var cw = g.measureText(ref).width;
+      var tw = tableWidth(ref, 20);
+      if (cw > 0 && tw > 0 && Math.abs(cw - tw) / tw <= 0.02) {
+        ctx = g;
+        engineName = 'canvas measureText (Arial)';
+      }
+    } catch (e) { ctx = null; }
+  })();
+
+  function measure(str, size) {
+    if (!str) { return 0; }
+    if (ctx) {
+      ctx.font = size + 'px Arial, Helvetica, sans-serif';
+      var w = ctx.measureText(str).width;
+      if (isFinite(w) && w >= 0) { return w; }
+    }
+    return tableWidth(str, size);
+  }
+
+  /* ------------------------ normalisation ------------------------ */
+  function normalize(raw) {
+    var text = '';
+    var map = [];
+    var prevSpace = true;
+    var s = String(raw == null ? '' : raw);
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      if (ch === ' ' || ch === '\t' || ch === '\n' || ch === '\r' || ch === '\f' || ch === ' ') {
+        if (prevSpace) { continue; }
+        text += ' '; map.push(i); prevSpace = true;
+      } else {
+        text += ch; map.push(i); prevSpace = false;
+      }
+    }
+    while (text.length > 0 && text.charAt(text.length - 1) === ' ') {
+      text = text.slice(0, -1);
+      map.pop();
+    }
+    return { text: text, map: map, raw: s };
+  }
+
+  /* --------------------- wrap + truncation ----------------------- */
+  var ELL = '…';
+
+  function layout(raw, size, lineBox, maxLines) {
+    var n = normalize(raw);
+    var text = n.text;
+    var out = {
+      lines: [], truncated: false, totalWidth: 0, linesUsed: 0,
+      cutNorm: text.length, cutOrig: n.raw.length,
+      visible: text, norm: text
+    };
+    out.totalWidth = measure(text, size);
+    if (!text.length || !(lineBox > 0) || !(maxLines > 0)) {
+      out.lines = [];
+      out.cutNorm = text.length;
+      out.cutOrig = n.raw.length;
+      out.linesUsed = 0;
+      return out;
+    }
+
+    var words = [];
+    var re = /[^ ]+/g;
+    var m;
+    while ((m = re.exec(text)) !== null) { words.push({ t: m[0], s: m.index }); }
+
+    var lines = [], starts = [];
+    var cur = '', curStart = 0;
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (cur === '') { cur = w.t; curStart = w.s; continue; }
+      var cand = cur + ' ' + w.t;
+      if (measure(cand, size) <= lineBox) {
+        cur = cand;
+      } else {
+        lines.push(cur); starts.push(curStart);
+        cur = w.t; curStart = w.s;
+      }
+    }
+    if (cur !== '') { lines.push(cur); starts.push(curStart); }
+    if (lines.length === 0) { lines.push(''); starts.push(0); }
+
+    var overflow = lines.length > maxLines;
+    var visCount = Math.min(maxLines, lines.length);
+    if (!overflow) {
+      for (var k = 0; k < visCount; k++) {
+        if (measure(lines[k], size) > lineBox + 0.5) { overflow = true; break; }
+      }
+    }
+
+    if (!overflow) {
+      out.lines = lines.slice(0, visCount);
+      out.linesUsed = visCount;
+      out.truncated = false;
+      out.visible = text;
+      out.cutNorm = text.length;
+      out.cutOrig = n.raw.length;
+      return out;
+    }
+
+    var lastIdx = visCount - 1;
+    var start = starts[lastIdx];
+    var ellW = measure(ELL, size);
+    var best = start;
+    for (var c = start; c <= text.length; c++) {
+      if (measure(text.slice(start, c), size) + ellW <= lineBox) { best = c; }
+      else { break; }
+    }
+    var cut = best;
+    while (cut > start && text.charAt(cut - 1) === ' ') { cut--; }
+
+    out.lines = lines.slice(0, lastIdx);
+    out.lines.push(text.slice(start, cut) + ELL);
+    out.linesUsed = out.lines.length;
+    out.truncated = true;
+    out.visible = text.slice(0, cut);
+    out.cutNorm = cut;
+    out.cutOrig = (cut < n.map.length) ? n.map[cut] : n.raw.length;
+    return out;
+  }
+
+  /* ------------------------- keyword ----------------------------- */
+  function keywordReport(res, keyword) {
+    var out = { present: false, survives: false, prominence: 0, hasKw: false };
+    var kw = String(keyword || '').trim().replace(/\s+/g, ' ').toLowerCase();
+    if (!kw) { return out; }
+    out.hasKw = true;
+    var hay = res.norm.toLowerCase();
+    var last = hay.lastIndexOf(kw);
+    if (last < 0) { return out; }
+    out.present = true;
+    out.survives = (last + kw.length) <= res.cutNorm;
+    var vis = res.visible.toLowerCase();
+    var first = vis.indexOf(kw);
+    if (first >= 0 && vis.length > 0) {
+      var p = 1 - (first / vis.length);
+      out.prominence = Math.max(0, Math.min(1, p));
+    }
+    return out;
+  }
+
+  /* ------------------------- constants --------------------------- */
+  var SPEC = {
+    desktop: {
+      title: { size: 20, lines: 1, budget: 580 },
+      desc:  { size: 14, lines: 2, budget: 920 }
+    },
+    mobile: {
+      title: { size: 20, lines: 2, budget: 920 },
+      desc:  { size: 14, lines: 3, budget: 680 }
+    }
+  };
+  function lineBox(spec) { return spec.budget / spec.lines; }
+
+  /* --------------------------- DOM ------------------------------- */
+  var $ = function (id) { return document.getElementById(id); };
+  var inTitle = $('inTitle'), inDesc = $('inDesc'), inUrl = $('inUrl'),
+      inKw = $('inKw'), inBrand = $('inBrand'), inSep = $('inSep');
+  var device = 'desktop';
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&quot;';
+    });
+  }
+
+  function effectiveTitle() {
+    var t = String(inTitle.value || '').replace(/\s+$/, '');
+    var brand = String(inBrand.value || '').trim();
+    if (!brand) { return t; }
+    var sep = String(inSep.value || '|');
+    if (!t) { return brand; }
+    return t + ' ' + sep + ' ' + brand;
+  }
+
+  function brandTail() {
+    var brand = String(inBrand.value || '').trim();
+    if (!brand) { return ''; }
+    var sep = String(inSep.value || '|');
+    return ' ' + sep + ' ' + brand;
+  }
+
+  function fillClass(pct) { return pct > 100 ? 'fill bad' : (pct >= 90 ? 'fill warn' : 'fill'); }
+  function valClass(pct) { return pct > 100 ? 'stat-value sc-bad' : (pct >= 90 ? 'stat-value sc-warn' : 'stat-value sc-good'); }
+
+  function renderLines(host, lines, boxPx) {
+    if (!lines || lines.length === 0) {
+      host.innerHTML = '<div class="serp-line" style="width:' + boxPx + 'px;color:#9aa0a6;">&nbsp;</div>';
+      return;
+    }
+    var html = '';
+    for (var i = 0; i < lines.length; i++) {
+      html += '<div class="serp-line" style="width:' + boxPx + 'px;">' + (esc(lines[i]) || '&nbsp;') + '</div>';
+    }
+    host.innerHTML = html;
+  }
+
+  function urlLine(dev) {
+    var u = String(inUrl.value || '').trim();
+    return u || 'https://enhio.com';
+  }
+
+  function siteName() {
+    var u = String(inUrl.value || '').trim();
+    if (!u) { return 'enhio.com'; }
+    var s = u.replace(/^https?:\/\//i, '');
+    var cut = s.search(/[\/\s›>]/);
+    if (cut > 0) { s = s.slice(0, cut); }
+    return s || 'enhio.com';
+  }
+
+  function update() {
+    var titleStr = effectiveTitle();
+    var descStr = String(inDesc.value || '');
+    var kw = String(inKw.value || '');
+
+    var specT = SPEC[device].title;
+    var specD = SPEC[device].desc;
+
+    var resT = layout(titleStr, specT.size, lineBox(specT), specT.lines);
+    var resD = layout(descStr, specD.size, lineBox(specD), specD.lines);
+
+    /* --- title meter --- */
+    var tPct = specT.budget > 0 ? (resT.totalWidth / specT.budget) * 100 : 0;
+    $('tNum').textContent = Math.round(resT.totalWidth) + ' / ' + specT.budget + ' px';
+    $('tFill').className = fillClass(tPct);
+    $('tFill').style.width = Math.max(0, Math.min(100, tPct)) + '%';
+    $('tHead').textContent = (Math.round(tPct * 10) / 10) + '% of budget';
+    var tLeft = specT.budget - resT.totalWidth;
+    $('tTail').textContent = titleStr.trim().length === 0 ? 'no title yet'
+      : (tLeft >= 0 ? Math.round(tLeft) + ' px remaining' : Math.round(-tLeft) + ' px over');
+
+    /* --- description meter --- */
+    var dPct = specD.budget > 0 ? (resD.totalWidth / specD.budget) * 100 : 0;
+    $('dNum').textContent = Math.round(resD.totalWidth) + ' / ' + specD.budget + ' px';
+    $('dFill').className = fillClass(dPct);
+    $('dFill').style.width = Math.max(0, Math.min(100, dPct)) + '%';
+    $('dHead').textContent = (Math.round(dPct * 10) / 10) + '% of budget';
+    var dLeft = specD.budget - resD.totalWidth;
+    $('dTail').textContent = descStr.trim().length === 0 ? 'no description yet'
+      : (dLeft >= 0 ? Math.round(dLeft) + ' px remaining' : Math.round(-dLeft) + ' px over');
+
+    /* --- cut indices --- */
+    var elTC = $('stTitleCut'), elDC = $('stDescCut');
+    elTC.textContent = resT.truncated ? String(resT.cutOrig) : '—';
+    elTC.className = resT.truncated ? 'stat-value sc-bad' : 'stat-value sc-good';
+    elDC.textContent = resD.truncated ? String(resD.cutOrig) : '—';
+    elDC.className = resD.truncated ? 'stat-value sc-bad' : 'stat-value sc-good';
+    $('stTitleLines').textContent = resT.linesUsed + ' / ' + specT.lines;
+    $('stDescLines').textContent = resD.linesUsed + ' / ' + specD.lines;
+
+    /* --- keyword --- */
+    var kT = keywordReport(resT, kw);
+    var kD = keywordReport(resD, kw);
+    var elKT = $('stKwTitle'), elKD = $('stKwDesc'), elP = $('stProm');
+    if (!kT.hasKw) {
+      elKT.textContent = '—'; elKT.className = 'stat-value sc-neutral';
+      elKD.textContent = '—'; elKD.className = 'stat-value sc-neutral';
+      elP.textContent = '—'; elP.className = 'stat-value sc-neutral';
+      $('kwNote').textContent = 'Enter a target keyword to test whether it survives truncation.';
+    } else {
+      elKT.textContent = !kT.present ? 'absent' : (kT.survives ? 'survives' : 'cut off');
+      elKT.className = 'stat-value ' + (!kT.present ? 'sc-warn' : (kT.survives ? 'sc-good' : 'sc-bad'));
+      elKD.textContent = !kD.present ? 'absent' : (kD.survives ? 'survives' : 'cut off');
+      elKD.className = 'stat-value ' + (!kD.present ? 'sc-warn' : (kD.survives ? 'sc-good' : 'sc-bad'));
+      elP.textContent = kT.prominence.toFixed(2);
+      elP.className = 'stat-value ' + (kT.prominence >= 0.7 ? 'sc-good' : (kT.prominence >= 0.35 ? 'sc-warn' : 'sc-bad'));
+      $('kwNote').textContent = 'Survival compares the last occurrence against the cut index. Prominence = 1 minus (first visible position / visible length), so 1.00 means the keyword opens the title.';
+    }
+
+    /* --- brand tail --- */
+    var tail = brandTail();
+    var tailPx = measure(tail, SPEC.desktop.title.size);
+    var elB = $('stBrand');
+    elB.textContent = Math.round(tailPx) + ' px';
+    elB.className = 'stat-value ' + (tailPx === 0 ? 'sc-neutral' : (tailPx > SPEC.desktop.title.budget * 0.25 ? 'sc-bad' : (tailPx > SPEC.desktop.title.budget * 0.15 ? 'sc-warn' : 'sc-good')));
+
+    /* --- previews (both devices, always) --- */
+    var dT = layout(titleStr, SPEC.desktop.title.size, lineBox(SPEC.desktop.title), SPEC.desktop.title.lines);
+    var dD = layout(descStr, SPEC.desktop.desc.size, lineBox(SPEC.desktop.desc), SPEC.desktop.desc.lines);
+    var mT = layout(titleStr, SPEC.mobile.title.size, lineBox(SPEC.mobile.title), SPEC.mobile.title.lines);
+    var mD = layout(descStr, SPEC.mobile.desc.size, lineBox(SPEC.mobile.desc), SPEC.mobile.desc.lines);
+
+    var uDesk = layout(urlLine('desktop'), 12, lineBox(SPEC.desktop.title), 1);
+    var uMob = layout(urlLine('mobile'), 12, lineBox(SPEC.mobile.title), 1);
+
+    $('pdSite').textContent = siteName();
+    $('pmSite').textContent = siteName();
+    renderLines($('pdUrl'), uDesk.lines, Math.round(lineBox(SPEC.desktop.title)));
+    renderLines($('pdTitle'), dT.lines, Math.round(lineBox(SPEC.desktop.title)));
+    renderLines($('pdDesc'), dD.lines, Math.round(lineBox(SPEC.desktop.desc)));
+    renderLines($('pmUrl'), uMob.lines, Math.round(lineBox(SPEC.mobile.title)));
+    renderLines($('pmTitle'), mT.lines, Math.round(lineBox(SPEC.mobile.title)));
+    renderLines($('pmDesc'), mD.lines, Math.round(lineBox(SPEC.mobile.desc)));
+  }
+
+  function safeUpdate() {
+    try { update(); } catch (e) { /* never break typing */ }
+  }
+
+  /* ------------------------- listeners --------------------------- */
+  var inputs = [inTitle, inDesc, inUrl, inKw, inBrand];
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener('input', safeUpdate);
+  }
+  inSep.addEventListener('change', safeUpdate);
+
+  $('btnDesktop').addEventListener('click', function () {
+    device = 'desktop';
+    $('btnDesktop').className = 'on';
+    $('btnMobile').className = '';
+    $('devLabel').textContent = '(desktop)';
+    safeUpdate();
+  });
+  $('btnMobile').addEventListener('click', function () {
+    device = 'mobile';
+    $('btnMobile').className = 'on';
+    $('btnDesktop').className = '';
+    $('devLabel').textContent = '(mobile)';
+    safeUpdate();
+  });
+
+  $('btnSample').addEventListener('click', function () {
+    inTitle.value = 'Core Web Vitals for WordPress: Fix LCP, INP and CLS';
+    inBrand.value = 'Enhio';
+    inSep.value = '|';
+    inDesc.value = 'A practical walkthrough for fixing Core Web Vitals on WordPress. Diagnose LCP, INP and CLS with field data, then apply the seven changes that move the numbers the most.';
+    inUrl.value = 'https://enhio.com › guides › core-web-vitals';
+    inKw.value = 'core web vitals';
+    safeUpdate();
+  });
+
+  $('btnClear').addEventListener('click', function () {
+    inTitle.value = ''; inDesc.value = ''; inUrl.value = '';
+    inKw.value = ''; inBrand.value = ''; inSep.value = '|';
+    safeUpdate();
+    inTitle.focus();
+  });
+
+  $('engineTag').textContent = 'engine: ' + engineName;
+  safeUpdate();
+})();
+</script>
+
+</body>
+</html>
