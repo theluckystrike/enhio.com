@@ -23,49 +23,152 @@
   <link rel="alternate" hreflang="en" href="https://enhio.com/">
   <link rel="alternate" hreflang="x-default" href="https://enhio.com/">
   <link rel="stylesheet" href="assets/style.css">
-  <script type="application/ld+json">
+  <script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
   {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Enhio",
-    "url": "https://enhio.com/",
-    "sameAs": ["https://github.com/theluckystrike/enhio.com"],
-    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" }
-  }
-  </script>
-  <script type="application/ld+json">
+   "@type": "WebSite",
+   "@id": "https://enhio.com/#website",
+   "name": "Enhio",
+   "url": "https://enhio.com/",
+   "sameAs": [
+    "https://github.com/theluckystrike/enhio.com"
+   ],
+   "author": {
+    "@id": "https://enhio.com/#author"
+   },
+   "publisher": {
+    "@id": "https://enhio.com/#organization"
+   }
+  },
   {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Enhio — Text Enhancement Tool",
-    "url": "https://enhio.com",
-    "description": "Free client-side text analysis tool with readability scores (Flesch-Kincaid), word frequency, sentence analysis, tone detection, SEO analysis, and writing suggestions.",
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Michael Lip", "url": "https://zovo.one" },
-    "datePublished": "2026-04-05",
-    "dateModified": "2026-05-25",
-    "featureList": ["Flesch-Kincaid readability scores", "Word frequency analysis", "Sentence length distribution", "Tone detection", "Passive voice detection", "SEO keyword analysis", "Side-by-side content comparison", "Client-side processing"],
-    "browserRequirements": "Requires JavaScript"
-  }
-  </script>
-  <script type="application/ld+json">
+   "@type": "Organization",
+   "@id": "https://enhio.com/#organization",
+   "name": "Enhio",
+   "url": "https://enhio.com/",
+   "founder": {
+    "@id": "https://enhio.com/#author"
+   }
+  },
   {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "How to check readability of text?", "acceptedAnswer": { "@type": "Answer", "text": "Use enhio.com for instant Flesch-Kincaid Grade Level and Reading Ease scores, plus sentence analysis, tone detection, and writing suggestions." } },
-      { "@type": "Question", "name": "What is Flesch-Kincaid score?", "acceptedAnswer": { "@type": "Answer", "text": "Flesch-Kincaid Grade Level indicates the U.S. school grade needed to understand text. Flesch Reading Ease ranges 0-100, where 60-70 is plain English." } },
-      { "@type": "Question", "name": "What is the best readability checker?", "acceptedAnswer": { "@type": "Answer", "text": "enhio.com provides readability, word frequency, tone detection, SEO analysis, and side-by-side comparison — all client-side with no sign-up." } },
-      { "@type": "Question", "name": "What is a good readability score for blogs?", "acceptedAnswer": { "@type": "Answer", "text": "Aim for Flesch-Kincaid Grade 6-8 and Reading Ease 60-70 for blog posts. This reaches the widest audience." } },
-      { "@type": "Question", "name": "How to optimize content for SEO readability?", "acceptedAnswer": { "@type": "Answer", "text": "Use short sentences under 20 words, short paragraphs, and target keyword in first 100 words at 1-3% density." } },
-      { "@type": "Question", "name": "Is this text analyzer free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, enhio.com is free with no sign-up. All analysis runs in your browser — text is never sent to any server." } },
-      { "@type": "Question", "name": "Can I compare two versions of text side by side?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, enhio.com has a Side-by-Side Compare mode where you can paste Version A and Version B to see readability and metrics differences instantly." } },
-      { "@type": "Question", "name": "Does enhio.com support SEO keyword analysis?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the SEO Analysis tab lets you enter a target keyword and checks density, placement in first 100 words, and provides an SEO readiness score from 0 to 100." } }
-    ]
+   "@type": "Person",
+   "@id": "https://enhio.com/#author",
+   "name": "Michael Lip",
+   "url": "https://zovo.one",
+   "jobTitle": "Developer"
+  },
+  {
+   "@type": "WebApplication",
+   "@id": "https://enhio.com/#webapp",
+   "name": "Text Enhancement Tool",
+   "url": "https://enhio.com/",
+   "description": "Paste your text below for instant analysis. Word count, readability, frequency, tone, and suggestions — all client-side.",
+   "applicationCategory": "UtilityApplication",
+   "operatingSystem": "Any",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "author": {
+    "@id": "https://enhio.com/#author"
+   },
+   "publisher": {
+    "@id": "https://enhio.com/#organization"
+   },
+   "isPartOf": {
+    "@id": "https://enhio.com/#website"
+   },
+   "datePublished": "2026-04-05",
+   "dateModified": "2026-10-28",
+   "featureList": [
+    "Readability Scores",
+    "Word Frequency",
+    "Sentence length distribution",
+    "Tone analysis",
+    "Passive voice alerts",
+    "SEO keyword analysis",
+    "Side-by-side content comparison",
+    "Suggestions"
+   ],
+   "browserRequirements": "Requires JavaScript",
+   "alternateName": "Enhio"
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://enhio.com/#faq",
+   "isPartOf": {
+    "@id": "https://enhio.com/#website"
+   },
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How to check readability of text?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Use enhio.com for instant Flesch-Kincaid Grade Level and Reading Ease scores, plus sentence analysis, tone detection, and writing suggestions."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is Flesch-Kincaid score?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Flesch-Kincaid Grade Level indicates the U.S. school grade needed to understand text. Flesch Reading Ease ranges 0-100, where 60-70 is plain English."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the best readability checker?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "enhio.com provides readability, word frequency, tone detection, SEO analysis, and side-by-side comparison — all client-side with no sign-up."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is a good readability score for blogs?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Aim for Flesch-Kincaid Grade 6-8 and Reading Ease 60-70 for blog posts. This reaches the widest audience."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How to optimize content for SEO readability?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Use short sentences under 20 words, short paragraphs, and target keyword in first 100 words at 1-3% density."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is this text analyzer free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, enhio.com is free with no sign-up. All analysis runs in your browser — text is never sent to any server."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I compare two versions of text side by side?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, enhio.com has a Side-by-Side Compare mode where you can paste Version A and Version B to see readability and metrics differences instantly."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does enhio.com support SEO keyword analysis?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, the SEO Analysis tab lets you enter a target keyword and checks density, placement in first 100 words, and provides an SEO readiness score from 0 to 100."
+     }
+    }
+   ]
   }
-  </script>
+ ]
+}</script>
 </head>
 <body>
   <header>
@@ -90,6 +193,10 @@
   <main class="container">
     <section class="hero">
       <h1>Text <span>Enhancement</span> Tool</h1>
+<div class="quick-answer">
+<p>Enhio is a free text analysis tool that runs in your browser. Paste text to get a Flesch-Kincaid Grade Level and Flesch Reading Ease score, word frequency without stop words, sentence length distribution, tone detection, and rewrite suggestions. The text is never sent to a server.</p>
+<p class="quick-answer-updated">Updated 2026-10-28</p>
+</div>
       <p>Paste your text below for instant analysis. Word count, readability, frequency, tone, and suggestions — all client-side.</p>
     </section>
 
@@ -269,6 +376,7 @@
     <div class="footer-inner">
         <div class="footer-brand">Zovo Tools</div>
         <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+      <div class="footer-credit">Built by Michael Lip</div>
         <a href="https://zovo.one/pricing?utm_source=enhio&amp;utm_medium=satellite&amp;utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever →</a>
         <div class="footer-copy">© 2026 <a href="https://zovo.one/lifetime?utm_source=enhio&amp;utm_medium=footer&amp;utm_campaign=home">Zovo</a> · 47/500 founding spots</div>
     </div>
